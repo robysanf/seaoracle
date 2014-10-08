@@ -91,24 +91,24 @@
                             {{!{{#each item in items}}
                             {{!{{#ifEqual item.id controller.itemId}}
                             {{!{{#each freightEquipment in item.freightEquipments}}
-                                            <h5 class="page-header"></h5>
-                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'E'}}>
-                                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                                            </button>
+                                <h5 class="page-header"></h5>
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'E'}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
                             {{!{{/each}}
-                                    {{!{{/ifEqual}}
+                            {{!{{/ifEqual}}
                             {{!{{/each}}
                             {{/if}}
                             {{#if isLocked}}
                             {{!{{#each item in items}}
                             {{! {{#ifEqual item.id controller.itemId}}
-                                    {{!{{#each freightEquipment in item.freightEquipments}}
-                                            <h5 class="page-header"></h5>
-                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'L'}}>
-                                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                                            </button>
-                                        {{!{{/each}}
-                                    {{!{{/ifEqual}}
+                            {{!{{#each freightEquipment in item.freightEquipments}}
+                                <h5 class="page-header"></h5>
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'L'}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
+                            {{!{{/each}}
+                            {{!{{/ifEqual}}
                             {{!{{/each}}
                             {{/if}}
                         {{/if}}

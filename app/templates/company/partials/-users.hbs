@@ -15,9 +15,9 @@
                     <h2 class="page-header">Users list</h2>
                 </div>
                 <div class="col-lg-2" style="margin-top: 40px">
-                    {{!{{#inArray App.grantsValue "access/user/new"}}
+                    {{#if app_controller.user_record.user_new}}
                         <button type="button" class="btn btn-default btn-130 pull-right" {{action 'goTo' true}}>Add user</button>
-                    {{!{{/inArray}}
+                    {{/if}}
                 </div>
             </div>
         {{/if}}

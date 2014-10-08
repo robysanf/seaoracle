@@ -24,13 +24,13 @@
             <!--azioni diverse per stati diversi-->
             {{#if controller.is_client}}
                 {{#if isRequest}}
-                    {{!{{#inArray App.grantsValue "access/booking/new"}}
+                    {{#if app_controller.user_record.booking_new}}
                         <div class="col-lg-12">
                             <button type="button" class="btn btn-primary btn-130 pull-right" {{action "createRecord_item" "item" "container" null this true}}>
                                 <span class="glyphicon glyphbutton glyphicon-plus-sign"></span> Add item
                             </button>
                         </div>
-                    {{!{{/inArray}}
+                    {{/if}}
                 {{/if}}
             {{else}}
                 {{#if isReqOrEdit}}
@@ -40,11 +40,11 @@
                         </button>
                     </div>
                     <div class="col-lg-6 ">
-                        {{!{{#inArray App.grantsValue "access/booking/new"}}
-                            <button type="button" class="btn btn-primary btn-130 pull-right" {{action "createRecord_item" "item" "container" null this true}}>
-                                <span class="glyphicon glyphbutton glyphicon-plus-sign"></span> Add item
-                            </button>
-                        {{!{{/inArray}}
+                    {{#if app_controller.user_record.booking_new}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right" {{action "createRecord_item" "item" "container" null this true}}>
+                            <span class="glyphicon glyphbutton glyphicon-plus-sign"></span> Add item
+                        </button>
+                    {{/if}}
                     </div>
                 {{/if}}
                 {{#if isLocked}}

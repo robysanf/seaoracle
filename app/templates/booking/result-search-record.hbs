@@ -15,12 +15,16 @@
                     <th>Consignee</th>
                     <th>Status</th>
                     <th>Acknowledge</th>
-                    {{!{{#inArray App.grantsValue "access/booking/view"}}
+                    {{#if app_controller.user_record.booking_edit}}
                         <th>Go to</th>
-                    {{!{{/inArray}}
-                    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+                    {{else}}
+                        <th></th>
+                    {{/if}}
+                    {{#if app_controller.user_record.booking_remove}}
                         <th>Remove</th>
-                    {{!{{/inArray}}
+                    {{else}}
+                        <th></th>
+                    {{/if}}
                 </tr>
                 </thead>
                 <tbody>
@@ -46,35 +50,28 @@
                         <td>{{booking.consignee.name}}</td>
                         <td>{{booking.state}}</td>
                         <td>{{booking.acknowledge}}</td>
-                        {{!{{#inArray App.grantsValue "access/booking/view"}}
-                        <td>
-                            <a href="#">
-                                {{!{{#link-to 'booking/main' booking}}
-                                <span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span>
-                                {{!{{/link-to}}
-                            </a>
-                        </td>
-                        {{!{{/inArray}}
-                        {{!{{#inArray App.grantsValue "access/booking/remove"}}
-
-                        {{#if controller.is_shipowner}}
-                            <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
-                        {{else}}
-                            {{#if controller.is_client}}
-                                {{#if booking.isRequest}}
-                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
-                                {{else}}
-                                    <td></td>
-                                {{/if}}
+                        {{#if booking.canEdit}}
+                        <td><a href="#"><span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span></a></td>
+                        {{/if}}
+                        {{#if booking.canRemove}}
+                            {{#if controller.is_shipowner}}
+                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
                             {{else}}
-                                {{#unless booking.isLockedOrRegistered}}
-                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                {{#if controller.is_client}}
+                                    {{#if booking.isRequest}}
+                                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                    {{else}}
+                                        <td></td>
+                                    {{/if}}
                                 {{else}}
-                                    <td></td>
-                                {{/unless}}
+                                    {{#unless booking.isLockedOrRegistered}}
+                                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                    {{else}}
+                                        <td></td>
+                                    {{/unless}}
+                                {{/if}}
                             {{/if}}
                         {{/if}}
-                        {{!{{/inArray}}
                     </tr>
                 {{/each}}
                 </tbody>

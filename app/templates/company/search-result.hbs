@@ -9,10 +9,11 @@
                     <th>VAT registration number</th>
                     <th>Preview</th>
                     <th>Go to</th>
-                    {{!{{#inArray App.grantsValue "access/company/remove"}}
+                    {{#if app_controller.user_record.company_remove}}
                         <th>Remove</th>
-                    {{!{{/inArray}}
-
+                    {{else}}
+                        <th></th>
+                    {{/if}}
                 </tr>
                 </thead>
                 <tbody>
@@ -23,9 +24,12 @@
                         <td>{{company.vat}}</td>
                         <td><a href="#" {{action "open_modal" 'company.modals.company-view' company}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         <td><a href="#" {{action "getId" 'company/main' company}}><span class="glyphicon glyphicon-list-alt" ></span></a></td>
-                        {{!{{#inArray App.grantsValue "access/company/remove"}}
+                    {{#if company.canRemove}}
                         <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'company.modals.company-remove' company}}></span></a></td>
-                        {{!{{/inArray}}
+                    {{else}}
+                        <td></td>
+                    {{/if}}
+
                     </tr>
                 {{/each}}
                 </tbody>

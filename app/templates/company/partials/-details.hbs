@@ -207,29 +207,28 @@
             </div>
             <div class="col-lg-2"></div>
         </div>
-{{!{{#inArray App.grantsValue "access/company/edit"}}
-    <div class="row">
-    <div class="col-lg-10">
-        <h5 class="page-header"></h5>
-        {{#if controller.isView}}
-            <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action 'change_state' false}}>Edit</button>
-        {{else}}
+        {{#if canEdit}}
             <div class="row">
-                <div class="col-lg-9">
-                    {{!{{#ifEqual App.companyType 'admin'}}
-                    <button class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.company-grant' this 'company'}}>Edit grants</button>
-                    {{!{{/ifEqual}}
+                <div class="col-lg-10">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action 'change_state' false}}>Edit</button>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-lg-9">
+                                {{#if controller.is_admin}}
+                                    <button class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.company-grant' this 'company'}}>Edit grants</button>
+                                {{/if}}
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="btn btn-primary btn-130 pull-right" {{action 'change_state' true this}}>Save</button>
+                            </div>
+                        </div>
+                    {{/if}}
                 </div>
-                <div class="col-lg-3">
-                    <!--<button type="submit" class="btn btn-primary btn-small custom100 pull-right" {{!{{action "saveEditCompany" id}}>Save</button>-->
-                    <button class="btn btn-primary btn-130 pull-right" {{action 'change_state' true this}}>Save</button>
-                </div>
+                <div class="col-lg-2"></div>
             </div>
         {{/if}}
-    </div>
-        <div class="col-lg-2"></div>
-    </div>
-        {{!{{/inArray}}
     </div>
 </div>
 

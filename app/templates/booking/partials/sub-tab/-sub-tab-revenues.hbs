@@ -39,16 +39,20 @@
             <li {{bind-attr class="controller.revenuesTable.revenues:active"}}>
                 <a href="#"{{action setRevenuesTable "revenues" this}}>Revenues</a>
             </li>
-            <li {{bind-attr class="controller.revenuesTable.costs:active"}}>
-                <a href="#" {{action setRevenuesTable "costs" this}}>Costs</a>
-            </li>
+            {{#if controller.is_shipowner}}
+                <li {{bind-attr class="controller.revenuesTable.costs:active"}}>
+                    <a href="#" {{action setRevenuesTable "costs" this}}>Costs</a>
+                </li>
+            {{/if}}
         </ul>
         <div class= "well well-lg" style="background-color: #FAFDFD; margin-top: 15px">
             {{#if controller.revenuesTable.revenues}}
                 {{partial "booking/partials/sub-tab/revenues/-table-revenues"}}
             {{/if}}
-            {{#if controller.revenuesTable.costs}}
-                {{partial "booking/partials/sub-tab/revenues/-table-costs"}}
+            {{#if controller.is_shipowner}}
+                {{#if controller.revenuesTable.costs}}
+                    {{partial "booking/partials/sub-tab/revenues/-table-costs"}}
+                {{/if}}
             {{/if}}
         </div>
     </div>

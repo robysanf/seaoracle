@@ -7,12 +7,16 @@
                     <th>Name</th>
                     <th>Surname</th>
                     <th>View</th>
-                    {{!{{#inArray App.grantsValue "access/user/edit"}}
+                    {{#if app_controller.user_record.user_edit}}
                         <th>Edit</th>
-                    {{!{{/inArray}}
-                    {{!{{#inArray App.grantsValue "access/user/remove"}}
+                    {{else}}
+                        <th></th>
+                    {{/if}}
+                    {{#if app_controller.user_record.user_remove}}
                         <th>Remove</th>
-                    {{!{{/inArray}}
+                    {{else}}
+                        <th></th>
+                    {{/if}}
 
                 </tr>
                 </thead>
@@ -23,12 +27,16 @@
                         <td>{{{user.lastName}}}</td>
                         <!-- path: app > views > selectItemView -->
                         <td><a href="#" {{action "open_modal" 'company.modals.user-view' user 'user'}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        {{!{{#inArray App.grantsValue "access/user/edit"}}
+                        {{#if user.canEdit}}
                             <td><a href='#' {{action 'edit_record' user true}}><span class="glyphicon glyphicon-pencil"></span></a></td>
-                            {{!{{/inArray}}
-                        {{!{{#inArray App.grantsValue "access/user/remove"}}
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        {{#if user.canRemove}}
                             <td><a href="#" {{action "open_modal" 'company.modals.user-remove' user 'user'}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                            {{!{{/inArray}}
+                        {{else}}
+                            <td></td>
+                        {{/if}}
                     </tr>
                 {{/each}}
                 </tbody>

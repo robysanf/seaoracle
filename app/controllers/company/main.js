@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.ObjectController.extend({
     needs: ['application'],
+    app_company: Ember.computed.alias('controllers.application.company'),
     app_controller: Ember.computed.alias('controllers.application'),
     companyType: Ember.computed.alias('controllers.application.companyType'),
     app_controller_token: Ember.computed.alias('controllers.application.token'),
@@ -13,6 +14,9 @@ export default Ember.ObjectController.extend({
     is_admin: function(){
         return ( this.get('app_controller_companyType') === 'admin' );
     }.property('app_controller_companyType'),
+    is_myCompany: function(){
+         return ( this.get('companyRecord') === this.get('app_company') )
+    }.property('companyRecord'),
 
     userId: null,
     companyRecord: null,

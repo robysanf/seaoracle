@@ -23,19 +23,21 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('equipment-classification.new-record');
 
             this.unique = controller.newSizeCode !== null && controller.newSizeCode.length >= 1 &&
+                controller.newEquipmentType !== null && controller.newEquipmentType.length >= 1 &&
                 controller.newTypeCode !== null && controller.newTypeCode.length >= 1 &&
                 controller.newIsoCode !== null && controller.newIsoCode.length >= 1;
 
 
             //verifico che i campi obbligatori siano stati compilati
             (controller.newSizeCode != null && controller.newSizeCode.length >= 1 ? $('span#2.input-group-addon').removeClass('alert-danger') : $('span#2.input-group-addon').addClass('alert-danger'));
-            (controller.newTypeCode != null && controller.newTypeCode.length >= 1 ? $('span#3.input-group-addon').removeClass('alert-danger') : $('span#3.input-group-addon').addClass('alert-danger'));
-            (controller.newIsoCode != null && controller.newIsoCode.length >= 1 ? $('span#4.input-group-addon').removeClass('alert-danger') : $('span#4.input-group-addon').addClass('alert-danger'));
+            (controller.newEquipmentType != null && controller.newEquipmentType.length >= 1 ? $('span#3.input-group-addon').removeClass('alert-danger') : $('span#3.input-group-addon').addClass('alert-danger'));
+            (controller.newTypeCode != null && controller.newTypeCode.length >= 1 ? $('span#4.input-group-addon').removeClass('alert-danger') : $('span#4.input-group-addon').addClass('alert-danger'));
+            (controller.newIsoCode != null && controller.newIsoCode.length >= 1 ? $('span#5.input-group-addon').removeClass('alert-danger') : $('span#5.input-group-addon').addClass('alert-danger'));
 
             if ( this.unique ) {
                 var newEquipmentClassification = this.store.createRecord('equipmentClassification', {
-                    equipmentType: 'container',
-                    name: 'container/'+controller.newIsoCode+'/'+controller.newSizeCode+controller.newTypeCode,
+                    equipmentType: controller.newEquipmentType,
+                    name: controller.newEquipmentType+'/'+controller.newIsoCode+'/'+controller.newSizeCode+controller.newTypeCode,
                     sizeCode: controller.newSizeCode,
                     typeCode: controller.newTypeCode,
                     isoCode: controller.newIsoCode,
@@ -71,6 +73,7 @@ export default Ember.Route.extend({
                         app_controller.autocompleteEqClassificationContainer.pushObject(eqId);
 
                         controller.set('newName', null);
+                        controller.set('newEquipmentType', null);
                         controller.set('newSizeCode', null);
                         controller.set('newTypeCode', null);
                         controller.set('newIsoCode', null);

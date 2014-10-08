@@ -27,27 +27,59 @@
                                                 {{#if isRegister}}
                                                     {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
-                                                    <a id="autocomplete-charge">
-                                                        {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
-                                                    </a>
+                                                    {{#if controller.is_shipowner}}
+                                                        {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                                                    {{else}}
+                                                        <a id="autocomplete-charge">
+                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
+                                                        </a>
+                                                    {{/if}}
                                                 {{/if}}
                                             </td>
                                             <td>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
-                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
-                                                </div>
+                                                {{#if controller.is_shipowner}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                                                    </div>
+                                                {{else}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                    </div>
+                                                {{/if}}
                                             </td>
-                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
-                                            {{#if chargeItem.isMultiplierNum}}
-                                                <td>
-                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
-                                                </td>
+                                            <td>
+                                                {{#if controller.is_shipowner}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                                                {{else}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                {{/if}}
+                                            </td>
+                                            {{#if controller.is_shipowner}}
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{else}}
-                                                <td> </td>
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{/if}}
+
                                             {{#unless isRegister}}
-                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                                {{#unless controller.is_shipowner}}
+                                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                                {{else}}
+                                                        <td> </td>
+                                                {{/unless}}
                                             {{/unless}}
                                         </tr>
                                     {{/if}}
@@ -60,28 +92,59 @@
                                                 {{#if isRegister}}
                                                     {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
-                                                    <a id="autocomplete-charge">
-                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
-                                                    </a>
+                                                    {{#if controller.is_shipowner}}
+                                                        {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
+                                                    {{else}}
+                                                        <a id="autocomplete-charge">
+                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                        </a>
+                                                    {{/if}}
                                                 {{/if}}
-
                                             </td>
                                             <td>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
-                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
-                                                </div>
+                                                {{#if controller.is_shipowner}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                                                    </div>
+                                                {{else}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                    </div>
+                                                {{/if}}
                                             </td>
-                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
-                                            {{#if chargeItem.isMultiplierNum}}
-                                                <td>
-                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
-                                                </td>
+                                            <td>
+                                                {{#if controller.is_shipowner}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                                                {{else}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                {{/if}}
+                                            </td>
+                                            {{#if controller.is_shipowner}}
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{else}}
-                                                <td> </td>
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{/if}}
+
                                             {{#unless isRegister}}
-                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                                {{#unless is_shipowner}}
+                                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/unless}}
                                             {{/unless}}
                                         </tr>
                                     {{/if}}
@@ -94,29 +157,61 @@
                                                 {{#if isRegister}}
                                                     {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
-                                                    <a id="autocomplete-charge">
-                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
-                                                    </a>
+                                                    {{#if controller.is_shipowner}}
+                                                        {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                                                    {{else}}
+                                                        <a id="autocomplete-charge">
+                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                        </a>
+                                                    {{/if}}
                                                 {{/if}}
                                             </td>
                                             <td>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
-                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
-                                                </div>
+                                                {{#if controller.is_shipowner}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                                                    </div>
+                                                {{else}}
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                    </div>
+                                                {{/if}}
+
                                             </td>
-                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
-                                            {{#if chargeItem.isMultiplierNum}}
-                                                <td>
-                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
-                                                </td>
+                                            <td>
+                                                {{#if controller.is_shipowner}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                                                {{else}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                {{/if}}
+                                            </td>
+                                            {{#if controller.is_shipowner}}
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{else}}
-                                                <td> </td>
+                                                {{#if chargeItem.isMultiplierNum}}
+                                                    <td>
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                    </td>
+                                                {{else}}
+                                                    <td> </td>
+                                                {{/if}}
                                             {{/if}}
 
-                                            {{#unless isRegister}}
+                                        {{#unless isRegister}}
+                                            {{#unless is_shipowner}}
                                                 <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                            {{else}}
+                                                <td> </td>
                                             {{/unless}}
+                                        {{/unless}}
                                         </tr>
                                     {{/if}}
                                 {{/if}}

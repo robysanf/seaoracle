@@ -31,13 +31,21 @@
             <li {{bind-attr class="controller.tabList.details:active"}}>
                 <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
             </li>
-            {{!{{#checkAdmin App.companyType 'admin' App.company id}}
-            <li {{bind-attr class="controller.tabList.users:active"}}>
-                <a href="#" {{action setTabs "users"}}><h4>Users</h4></a>
-            </li>
-            {{!{{else}}
-            <!--<li></li>-->
-            {{!{{/checkAdmin}}
+            <!--user può essere visto se l'utente è admin o se la company è la sua-->
+            {{#if controller.is_admin}}
+                <li {{bind-attr class="controller.tabList.users:active"}}>
+                    <a href="#" {{action setTabs "users"}}><h4>Users</h4></a>
+                </li>
+            {{else}}
+                {{#if controller.is_myCompany}}
+                    <li {{bind-attr class="controller.tabList.users:active"}}>
+                        <a href="#" {{action setTabs "users"}}><h4>Users</h4></a>
+                    </li>
+                {{else}}
+                    <li></li>
+                {{/if}}
+            {{/if}}
+
             <li {{bind-attr class="controller.tabList.files:active"}}>
                 <a href="#" {{action setTabs "files"}}><h4>Files</h4></a>
             </li>

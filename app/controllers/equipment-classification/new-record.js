@@ -10,10 +10,15 @@ export default Ember.Controller.extend({
         'flat_rack',
         'open_top'
     ],
+    equipmentTypeList: [
+        'container',
+        'roro'
+    ],
 
     newVisibility: null,
     newSizeCode: null,
     newTypeCode: null,
+    newEquipmentType: null,
     newIsoCode: null,
     newLengthMin: null,
     newLengthMax: null,

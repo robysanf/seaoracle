@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-2"></div>
         </div>
-        {{!{{#view App.CheckUniqueFieldView value='user' value1='username' value2=newUsername}}
+        {{#view 'check-unique-field' model_val='user' filter_val='username' val=newUsername path='company.main'}}
             <div class="row" style="margin-bottom: 15px">
                 <div class="col-lg-3"><h4>Username</h4></div>
                 <div class="col-lg-7">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-2"></div>
             </div>
-        {{!{{/view}}
+        {{/view}}
         <div class="row" style="margin-bottom: 15px">
             <div class="col-lg-3"><h4>Password</h4></div>
             <div class="col-lg-7">

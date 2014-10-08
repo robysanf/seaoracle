@@ -480,41 +480,41 @@
     </div>
 </div>
 
-{{#unless isReqOrPen}}
-    <div class="row">
-        <div class="col-lg-12">
-            <h5 class=page-header>Equipment</h5>
-        </div>
-    </div>
+{{!{{#unless isReqOrPen}}
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<h5 class=page-header>Equipment</h5>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    {{#each freightEquipment in controller.item_record.freightEquipments}}
-        {{#each bookingItem in freightEquipment.bookingItems}}{{/each}} <!--FIXME: bag di ember data: inserisco questa linea di codice per far si che il riferimento (hasMany) al bookingItem sul record freightEquipment resti consistente -->
-        <div class="row">
-            {{#if isReqOrPen}}
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>Identifier </label>
-                        {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=isRegister}}
-                    </div>
-                </div>
-            {{else}}
-                {{#if isRegister}}
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Identifier </label>
-                            {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=true}}
-                        </div>
-                    </div>
-                {{else}}
-                    <div class="col-lg-6">
-                        <label for="exampleInputEmail">Identifier </label>
-                        <a id="autocomplete-equipmentCode">
-                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
-                        </a>
-                    </div>
-                {{/if}}
-            {{/if}}
-        </div>
-    {{/each}}
-{{/unless}}
+{{!{{#each freightEquipment in controller.item_record.freightEquipments}}
+    {{! {{#each bookingItem in freightEquipment.bookingItems}}{{!{{/each}}
+        <!--<div class="row">-->
+            <!--{{!{{#if isReqOrPen}}-->
+                <!--<div class="col-lg-6">-->
+                    <!--<div class="form-group">-->
+                        <!--<label>Identifier </label>-->
+                        <!--{{!{{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=isRegister}}-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--{{!{{else}}-->
+                <!--{{!{{#if isRegister}}-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div class="form-group">-->
+                            <!--<label>Identifier </label>-->
+                            <!--{{!{{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=true}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--{{!{{else}}-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<label for="exampleInputEmail">Identifier </label>-->
+                        <!--<a id="autocomplete-equipmentCode">-->
+                            <!--{{!{{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--{{!{{/if}}-->
+            <!--{{!{{/if}}-->
+        <!--</div>-->
+{{!{{/each}}
+{{!{{/unless}}
 {{/if}}

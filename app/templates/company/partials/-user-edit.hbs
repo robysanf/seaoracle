@@ -83,22 +83,24 @@
                     </div>
                     <div class="col-lg-2"></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        {{!{{#ifEqual App.companyType 'admin'}}
-                            <!--<a class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.user-special-permission' controller.userRecord 'user'}}> Edit special per. </a>-->
-                        {{!{{/ifEqual}}
+                {{#if canEdit}}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{!{{#ifEqual App.companyType 'admin'}}
+                            <!--<a class="btn btn-default btn-130 pull-right" {{!{{action "open_modal" 'company.modals.user-special-permission' controller.userRecord 'user'}}> Edit special per. </a>-->
+                            {{!{{/ifEqual}}
+                        </div>
+                        <div class="col-lg-2">
+                            {{#if controller.is_admin}}
+                                <a class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.user-grant' controller.userRecord 'user'}}> Edit grants </a>
+                            {{/if}}
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary btn-130 pull-right" {{action 'editUser' controller.userRecord false}}>Save</button>
+                        </div>
+                        <div class="col-lg-2"></div>
                     </div>
-                    <div class="col-lg-2">
-                        {{#if controller.is_admin}}
-                            <a class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.user-grant' controller.userRecord 'user'}}> Edit grants </a>
-                        {{/if}}
-                    </div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-primary btn-130 pull-right" {{action 'editUser' controller.userRecord false}}>Save</button>
-                    </div>
-                    <div class="col-lg-2"></div>
-                </div>
+                {{/if}}
             </div>
         </div>
     </div>

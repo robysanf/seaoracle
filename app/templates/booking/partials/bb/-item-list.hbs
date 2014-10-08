@@ -44,8 +44,8 @@
                 {{/if}}
             {{/if}}
             {{#if isRegister}}
-                    <th>Loaded on</th>
-                    <th>View</th>
+                <th>Loaded on</th>
+                <th>View</th>
             {{/if}}
             </tr>
             </thead>
@@ -57,10 +57,8 @@
                         <tr>
                             <td>{{item.code}}</td>
                             <td>{{item.packNum}}</td>
-
                             <td>{{item.eWeight}}</td>
                             <td>{{item.weight}}</td>
-
                             <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
                             <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
                         </tr>

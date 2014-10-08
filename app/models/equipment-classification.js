@@ -6,7 +6,7 @@ export default DS.Model.extend({
     name: DS.attr('string'),
     key: DS.attr('string'),
     company : DS.belongsTo('company'),
-    equipmentType: DS.attr('string'),
+    equipmentType: DS.attr('string'),    //container/roro
     teu: DS.attr('number'),
     declaredTare: DS.attr('number'),
     declaredVolume: DS.attr('number'),

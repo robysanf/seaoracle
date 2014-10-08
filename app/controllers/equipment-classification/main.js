@@ -7,6 +7,10 @@ export default Ember.ObjectController.extend({
     isView: true,
     eqClassification_record: null,
 
+    equipmentTypeList: [
+        'container',
+        'roro'
+    ],
     isoCodeClassification: [
         '',
         'dry_freight_box',

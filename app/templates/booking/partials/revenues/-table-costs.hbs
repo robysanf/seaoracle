@@ -16,7 +16,6 @@
             <tbody>
             {{#each chargeItem in chargeItems }}
                 {{#if chargeItem.is_chargeType_cost}}   <!--se sono charge-item di tipo COST-->
-
                     {{#if controller.revenuesTabList.bookingCharges}}  <!--se sono nei booking charge-->
                         {{#if chargeItem.isTypeNone}}
                             {{partial "booking/partials/revenues/-body-table-costs"}}
@@ -40,7 +39,6 @@
                             {{/if}}
                         {{/unless}}
                     {{/if}}
-
                 {{/if}}
             {{/each}}
             </tbody>

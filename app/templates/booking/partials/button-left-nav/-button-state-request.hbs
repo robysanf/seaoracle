@@ -16,7 +16,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
             </button>
         </div>
     </div>
-    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+    {{#if app_controller.user_record.booking_remove}}
         <br>
         <div class="row">
             <div class="col-lg-12">
@@ -25,7 +25,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
                 </button>
             </div>
         </div>
-{{!{{/inArray}}
+    {{/if}}
 {{/if}}
 {{#if controller.is_client}}
     <h5 class="page-header"></h5>
@@ -36,7 +36,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
             </button>
         </div>
     </div>
-    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+    {{#if app_controller.user_record.booking_remove}}
         <br>
         <div class="row">
             <div class="col-lg-12">
@@ -45,5 +45,5 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
                 </button>
             </div>
         </div>
-{{!{{/inArray}}
+    {{/if}}
 {{/if}}

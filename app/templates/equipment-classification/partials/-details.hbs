@@ -10,6 +10,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-3"><h4>Equipment type</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{view Ember.Select content=controller.equipmentTypeList value= equipmentType class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-3"><h4>Size code</h4></div>
         <div class="col-lg-9">
             <div class="form-group">

@@ -61,7 +61,7 @@
                                                     {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
                                                     <a id="autocomplete-charge">
-                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                        {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
                                                     </a>
                                                 {{/if}}
 
@@ -93,7 +93,7 @@
                                                     {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
                                                     <a id="autocomplete-charge">
-                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                        {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
                                                     </a>
                                                 {{/if}}
                                             </td>

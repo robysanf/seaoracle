@@ -1632,10 +1632,17 @@ export default Ember.Route.extend({
          @return 'autocompleteEquipment' con valori filtrati in base al tipo di equipment classification selezionato
          */
         filterIdentifier: function(eqUnit) {
-            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application');
+            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
+                queryExpression = {}, searchPath = "";
+
             app_controller.set("autocompleteEquipment", []);
 
-            this.store.findQuery("equipment", {equipmentClassification: eqUnit.get('id')}).then(function(val){
+            searchPath = 'equipmentClassification';
+            queryExpression[searchPath] = eqUnit.get('id');
+            searchPath = 'equipmentType';
+            queryExpression[searchPath] = eqUnit.get('equipmentType');
+
+            this.store.findQuery("equipment", queryExpression).then(function(val){
                 app_controller.set("autocompleteEquipment", val);
             });
         },
@@ -2498,64 +2505,79 @@ export default Ember.Route.extend({
                                     controller.item_record.set('volume', controller.item_record.get('is_volume'));
                                 }
                             }
-                            controller.item_record.save().then(function(val){
 
-                                app_controller.autocompleteRoRo.forEach(function(item, index){
-                                    var item_id = item.get('id');
-
-                                    if( item_id === controller.itemId ) {
-                                        app_controller.autocompleteRoRo.removeAt(index);
-                                        app_controller.autocompleteRoRo.pushObject(val);
+                            controller.item_record.get("freightEquipments").filter(function (frEquipment) {
+                                if (fun_status === 'E' || fun_status === 'L') {
+                                    if ( frEquipment.get('equipment') ) {
+                                        eqClass = frEquipment.get('equipment');
+                                        frEquipment.set("equipmentCode", eqClass.get('code'));
+                                    } else {
+                                        frEquipment.set("equipmentCode", null);
                                     }
-                                });
-
-                                if(controller.item_record.get("referringMemo") && fun_status === 'E') { //controllo se il booking item è stato creato a partire da un memo; nel tal caso faccio il reload del memo in modo da aggiornare il count dei metri lineari
-                                    controller.item_record.get("referringMemo").reload().then(function(){
-                                        // SUCCESS
-                                        new PNotify({
-                                            title: 'Saved',
-                                            text: 'You successfully saved new booking item.',
-                                            type: 'success',
-                                            delay: 1000
-                                        });
-
-                                        controller.set('subTabLists.details', true);
-                                        controller.set('subTabLists.haulage', false);
-                                        controller.set('subTabLists.customs', false);
-                                        controller.set('subTabLists.status', false);
-                                        controller.set('subTabLists.revenues', false);
-                                        controller.set('subTabLists.files', false);
-                                        controller.set('subTabLists.goods', false);
-
-                                    });
-                                } else {
-                                    // SUCCESS
-                                    new PNotify({
-                                        title: 'Saved',
-                                        text: 'You successfully saved new booking item.',
-                                        type: 'success',
-                                        delay: 1000
-                                    });
-
-                                    controller.set('subTabLists.details', true);
-                                    controller.set('subTabLists.haulage', false);
-                                    controller.set('subTabLists.customs', false);
-                                    controller.set('subTabLists.status', false);
-                                    controller.set('subTabLists.revenues', false);
-                                    controller.set('subTabLists.files', false);
-                                    controller.set('subTabLists.goods', false);
-
                                 }
 
-                            }, function(error){
-                                // NOT SAVED
-                                new PNotify({
-                                    title: 'Not saved',
-                                    text: 'A problem has occurred.',
-                                    type: 'error',
-                                    delay: 2000
+                                frEquipment.save().then(function () {
+                                    controller.item_record.save().then(function(val){
+
+                                        app_controller.autocompleteRoRo.forEach(function(item, index){
+                                            var item_id = item.get('id');
+
+                                            if( item_id === controller.itemId ) {
+                                                app_controller.autocompleteRoRo.removeAt(index);
+                                                app_controller.autocompleteRoRo.pushObject(val);
+                                            }
+                                        });
+
+                                        if(controller.item_record.get("referringMemo") && fun_status === 'E') { //controllo se il booking item è stato creato a partire da un memo; nel tal caso faccio il reload del memo in modo da aggiornare il count dei metri lineari
+                                            controller.item_record.get("referringMemo").reload().then(function(){
+                                                // SUCCESS
+                                                new PNotify({
+                                                    title: 'Saved',
+                                                    text: 'You successfully saved new booking item.',
+                                                    type: 'success',
+                                                    delay: 1000
+                                                });
+
+                                                controller.set('subTabLists.details', true);
+                                                controller.set('subTabLists.haulage', false);
+                                                controller.set('subTabLists.customs', false);
+                                                controller.set('subTabLists.status', false);
+                                                controller.set('subTabLists.revenues', false);
+                                                controller.set('subTabLists.files', false);
+                                                controller.set('subTabLists.goods', false);
+
+                                            });
+                                        } else {
+                                            // SUCCESS
+                                            new PNotify({
+                                                title: 'Saved',
+                                                text: 'You successfully saved new booking item.',
+                                                type: 'success',
+                                                delay: 1000
+                                            });
+
+                                            controller.set('subTabLists.details', true);
+                                            controller.set('subTabLists.haulage', false);
+                                            controller.set('subTabLists.customs', false);
+                                            controller.set('subTabLists.status', false);
+                                            controller.set('subTabLists.revenues', false);
+                                            controller.set('subTabLists.files', false);
+                                            controller.set('subTabLists.goods', false);
+
+                                        }
+
+                                    }, function(error){
+                                        // NOT SAVED
+                                        new PNotify({
+                                            title: 'Not saved',
+                                            text: 'A problem has occurred.',
+                                            type: 'error',
+                                            delay: 2000
+                                        });
+                                    });
                                 });
                             });
+
                         } else {
                             $('div.alert.alert-danger').css('display', 'inline-block');
                         }

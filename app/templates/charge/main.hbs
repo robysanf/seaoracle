@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>Charge</h3>
+            <p><h5>Name: <b>{{name}}</b></h5>
+
+            <h3 class="page-header"></h3>
+            {{#if controller.itemNewActive}}
+                <button type="button" class="btn btn-primary btn-group-justified" {{action "change_partial" 'itemNewActive' false}}>
+                    Back to list
+                </button>
+            {{else}}
+                {{#if controller.itemEditActive}}
+                        <button type="button" class="btn btn-primary btn-group-justified" {{action "change_partial" 'itemEditActive' false}}>
+                            Back to list
+                        </button>
+                {{else}}
+                    {{#link-to 'charge/search-record'}}
+                        <button type="button" class="btn btn btn-primary btn-group-justified">
+                            Go to search
+                        </button>
+                    {{/link-to}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
+            <li {{bind-attr class="controller.tabList.details:active"}}>
+                <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.chargeItems_book:active"}}>
+                <a href="#" {{action setTabs "chargeItems_book"}}><h4>Booking items</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.chargeItems_cont:active"}}>
+                <a href="#" {{action setTabs "chargeItems_cont"}}><h4>Container items</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.chargeItems_roro:active"}}>
+                <a href="#" {{action setTabs "chargeItems_roro"}}><h4>Ro/Ro items</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.chargeItems_bb:active"}}>
+                <a href="#" {{action setTabs "chargeItems_bb"}}><h4>B/B items</h4></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                {{#if controller.tabList.details}}
+                    {{partial "charge/partials/-details"}}
+                {{/if}}
+                {{#if controller.tabList.chargeItems_book}}
+                    {{partial "charge/partials/-charge-items"}}
+                {{/if}}
+                {{#if controller.tabList.chargeItems_cont}}
+                    {{partial "charge/partials/-charge-items"}}
+                {{/if}}
+                {{#if controller.tabList.chargeItems_roro}}
+                    {{partial "charge/partials/-charge-items"}}
+                {{/if}}
+                {{#if controller.tabList.chargeItems_bb}}
+                    {{partial "charge/partials/-charge-items"}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

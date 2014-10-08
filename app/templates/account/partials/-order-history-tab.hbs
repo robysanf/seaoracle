@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 20%">date</th>
+                        <th style="width: 20%">amount</th>
+                        <th style="width: 20%">credits</th>
+                        <th style="width: 20%">download</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each refill in company.refills}}
+                        <tr>
+                            <td>{{refill.date}}</td>
+                            <td>{{refill.amount}}</td>
+                            <td>{{refill.credit}}</td>
+                            <td>
+                                {{#each file in refill.files}}
+                                    <a href="#" {{action "download_file" file.id}}><span class="glyphicon glyphicon-download"></span></a>
+                                {{/each}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>

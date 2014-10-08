@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Company details</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-3"><h4>Name</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.companyId.name class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Vat number</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.companyId.vat class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Street</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.companyId.street class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>City</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.companyId.city class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Phone</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.companyId.phone class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

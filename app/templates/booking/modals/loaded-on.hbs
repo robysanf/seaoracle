@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action  close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Mtl not count</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>Insert the booking item code of the roro where you want to move the items into.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Roro code</label>
+            <a id="autocomplete-bookingLoadedOn">
+                {{auto-complete source=app_controller.autocompleteRoRo destination= controller.searchRoRoCode searchPath="code" minChars=1}}
+            </a>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn btn-130" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-130 btn-primary" {{action send_loadedOn target="view"}}>Save</a>
+</div>

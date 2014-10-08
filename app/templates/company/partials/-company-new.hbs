@@ -1,0 +1,142 @@
+<div class="row" style="margin-top: 25px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+
+        <!--<div class="row">-->
+        <!--<div class="alert alert-danger col-lg-10" style="display: none; ">-->
+        <!--<p style="text-align: center"><strong>Attention:</strong> please check if required fields have been entered.</p>-->
+        <!--</div>-->
+        <!--<div class="col-lg-2"></div>-->
+        <!--</div>-->
+        {{#view "check-unique-field" model_val='company' filter_val='name' val=newName path='company.new-company'}}
+        <div class="row" style="margin-top: 30px; margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input id='name' value= newName placeholder='Enter name' class='form-control'}}
+                    <span class="input-group-addon " id="1">
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                            </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{/view}}
+        <div class="row">
+            <div class="col-lg-3"><h4>VAT number</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input id='vatNumber' value= newVatNumber  placeholder='Enter VAT number' class='form-control'}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='street' value= newStreet  placeholder='Enter street' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='city' value= newCity  placeholder='Enter city' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='postCode' value= newPostCode placeholder='Enter post code' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='province' value= newProvince  placeholder='Enter province' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value=newCountry class='form-control'}}
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-lg-3"><h4>Country</h4></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="form-group">{{!{{input id='country' value= newCountry placeholder='Enter country' class='form-control'}}</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-2"></div>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail: 1</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email1' value=newEmail1 placeholder='Enter email num.1' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail: 2</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email2' value= newEmail2 placeholder='Enter email num.2' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail: 3</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email3' value= newEmail3 placeholder='Enter email num.3' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail: 4</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email4' value= newEmail4 placeholder='Enter email num.4' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='phone' value= newPhone placeholder='Enter phone' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Fax</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='fax' value= newFax placeholder='Enter Fax' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Referring port</h4></div>
+            <div class="col-lg-7">
+                <a id="autocomplete-referringPort">
+                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchReferringPort searchPath="name" minChars=2}}
+                </a>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+            <div class="col-lg-3"><h4>Stamp</h4></div>
+            <div class="col-lg-7">
+                <a id="autocomplete-segment">
+                    {{auto-complete source=app_controller.autocompleteStamp destination=controller.searchStamp searchPath="name" minChars=1}}
+                </a>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

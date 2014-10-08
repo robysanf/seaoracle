@@ -1,0 +1,153 @@
+<div class="well well-lg" style="background-color: #FAFDFD">
+    <h3 class="page-header">Shipments</h3>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>View</th>
+                    <th>Booking Ref.</th>
+                    <th>State</th>
+
+                    <th>Identifier</th>
+                    <th>Description</th>
+
+                    <th>POL</th>
+                    <th>POD</th>
+                    <th>Voyage</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="active">
+                    <td><strong>CONTAINER</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {{#each item in controller.searchResults}}
+                    {{#if item.tu_container}}
+                        <tr>
+                            <td></td>
+                            <td>{{item.booking.code}}</td>
+                            <td>{{item.booking.state}}</td>
+                            {{#if item.freightEquipments}}
+                                {{#each freightEquipment in item.freightEquipments}}
+                                    <td>{{freightEquipment.equipmentCode}}</td>
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                            <td >{{item.description}}</td>
+                            <td>{{item.booking.origin.name}}</td>
+                            <td>{{item.booking.destination.name}}</td>
+                            {{#if item.booking.freightPlans}}
+                                {{#each freightPlan in item.booking.freightPlans}}
+                                    {{#each voyage in freightPlan.voyages}}
+                                        <td>{{voyage.name}}</td>
+                                    {{/each}}
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                            {{#if item.freightEquipments}}
+                                {{#each freightEquipment in item.freightEquipments}}
+                                    <td >{{freightEquipment.currentStatus}}</td>
+                                {{/each}}
+                            {{else}}
+                            {{/if}}
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                <tr class="active">
+                    <td><strong>RO/RO</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {{#each item in controller.searchResults}}
+                    {{#if item.tu_roro}}
+                        <tr>
+                            <td></td>
+                            <td>{{item.booking.code}}</td>
+                            <td>{{item.booking.state}}</td>
+                            <td >{{item.chassisNum}}</td>
+                            <td >{{item.classification}}</td>
+                            <td>{{item.booking.origin.name}}</td>
+                            <td>{{item.booking.destination.name}}</td>
+                            {{#if item.booking.freightPlans}}
+                                {{#each freightPlan in item.booking.freightPlans}}
+                                    {{#each voyage in freightPlan.voyages}}
+                                        <td>{{voyage.name}}</td>
+                                    {{/each}}
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                            {{#if item.freightEquipments}}
+                                {{#each freightEquipment in item.freightEquipments}}
+                                    <td >{{freightEquipment.currentStatus}}</td>
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                <tr class="active">
+                    <td><strong>BREAK BULKS</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {{#each item in controller.searchResults}}
+                    {{#if item.tu_bb}}
+                        <tr>
+                            <td></td>
+                            <td>{{item.booking.code}}</td>
+                            <td>{{item.booking.state}}</td>
+                            <td ></td>
+                            <td >{{item.classification}}</td>
+                            <td>{{item.booking.origin.name}}</td>
+                            <td>{{item.booking.destination.name}}</td>
+                            {{#if item.booking.freightPlans}}
+                                {{#each freightPlan in item.booking.freightPlans}}
+                                    {{#each voyage in freightPlan.voyages}}
+                                        <td>{{voyage.name}}</td>
+                                    {{/each}}
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                            {{#if item.freightEquipments}}
+                                {{#each freightEquipment in item.freightEquipments}}
+                                    <td >{{freightEquipment.currentStatus}}</td>
+                                {{/each}}
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

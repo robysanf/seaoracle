@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Voyage details</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-3"><h4>Name</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.voyage_record.name class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Vessel</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.voyage_record.vesselName class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Path</h4></div>
+        {{#each leg in controller.voyage_record.schedules}}
+            <div class="col-lg-3"><h4></h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input value= leg.poi.name class='form-control' disabled="disabled"}}
+                </div>
+            </div>
+        {{/each}}
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

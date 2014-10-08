@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-pills nav-justified">
+            <li {{bind-attr class="controller.revenuesTabList.general:active"}}>
+                <a href="#"{{action setRevenuesTabs "general" this}}>General</a>
+            </li>
+            <li {{bind-attr class="controller.revenuesTabList.bookingCharges:active"}}>
+                <a href="#" {{action setRevenuesTabs "bookingCharges" this}}>Booking Charges</a>
+            </li>
+            <li {{bind-attr class="controller.revenuesTabList.containerCharges:active"}}>
+                <a href="#" {{action setRevenuesTabs "containerCharges" this}}>Container Charges</a>
+            </li>
+            <li {{bind-attr class="controller.revenuesTabList.roroCharges:active"}}>
+                <a href="#" {{action setRevenuesTabs "roroCharges" this}}> Ro/Ro Charges</a>
+            </li>
+            <li {{bind-attr class="controller.revenuesTabList.bbCharges:active"}}>
+                <a href="#" {{action setRevenuesTabs "bbCharges" this}}> B.B. Charges</a>
+            </li>
+            <li {{bind-attr class="controller.revenuesTabList.itemCharges:active"}}>
+                <a href="#" {{action setRevenuesTabs "itemCharges" this}}> Item Charges</a>
+            </li>
+        </ul>
+        <div class= "well well-lg" style="background-color: #FAFDFD; margin-top: 15px">
+            {{#if controller.revenuesTabList.general}}
+                {{partial "booking/partials/revenues/-tab-general"}}
+            {{else}}
+                {{#if controller.revenuesTabList.itemCharges}}
+                    {{partial "booking/partials/revenues/-tab-sub-item-charges"}}
+                {{else}}
+                    {{partial "booking/partials/revenues/-tab-item-charges"}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</div>

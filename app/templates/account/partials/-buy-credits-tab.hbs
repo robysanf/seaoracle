@@ -1,0 +1,40 @@
+<div class="row">
+    {{#each payment in app_controller.autocompletePaymentPlan}}
+        <div class="col-lg-4">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading" style="text-align: center">
+                    {{#if controller.is_admin}}
+                        <button type="button" class="close" {{action 'delete_plan' 'paymentPlan' payment}}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    {{/if}}
+                    <h4> {{payment.name}}</h4>
+                </div>
+                <div class="panel-body">
+
+                    <h2 style="color: #808080; text-align: center">{{payment.credit}} Credits</h2>
+                    <h4 style="color: #808080; text-align: center">Per {{payment.amount}} {{payment.currency}}</h4>
+                    <h6 style="color: darkgray; text-align: center">( vat 22% excluded )</h6>
+                    <br>
+                    <br>
+                    <!--<div class="row">-->
+                    <!--<div class="col-lg-12" style="text-align: center">-->
+                    <!--<button type="button" class="btn btn-lg btn-default btn-160" {{!{{action 'new_refill' payment company this}} disabled="true"><h4><strong style='color: #808080'>Buy now!</strong></h4></button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="row">
+                        <div class="col-lg-12" style="text-align: center">
+                            {{#view 'button-disabled-on-click' class="btn btn-lg btn-default btn-130" disabled=false plan = payment company = company user = this}}Buy now!{{/view}}
+                        </div>
+                    </div>
+                    <!--<div class="row" style="margin-top: 15px">-->
+                    <!--<div class="col-lg-12" style="text-align: center; color: darkgray">-->
+                    <!--<h6>vat 22% excluded</h6>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>
+    {{/each}}
+</div>

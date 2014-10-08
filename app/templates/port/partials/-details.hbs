@@ -1,0 +1,46 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input id='name' value=name placeholder='Enter name' class='form-control' disabled=controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>UnLocode</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input id='unLocode' value= unLocode  placeholder='Enter street' class='form-control' disabled=controller.isView}}
+                    <span class="input-group-addon " id="2">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                {{view Ember.Select valueBinding='country' prompt="Please select a country" content=app_controller.nations_name value=country class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-10">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" false }}>Edit</button>
+                    {{else}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" true this}}>Save</button>
+                    {{/if}}
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {{/if}}
+
+    </div>
+</div>

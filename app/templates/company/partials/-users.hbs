@@ -1,0 +1,33 @@
+{{#if controller.itemListActive}}
+    <div class="row">
+        {{partial "company/partials/-user-new"}}
+    </div>
+    <!--altrimenti mostro l'ITEMS LIST-->
+{{else}}
+
+    {{#if controller.itemEditActive}}
+        {{partial "company/partials/-user-edit"}}
+    {{else}}
+        {{#if users}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-9">
+                    <h2 class="page-header">Users list</h2>
+                </div>
+                <div class="col-lg-2" style="margin-top: 40px">
+                    {{!{{#inArray App.grantsValue "access/user/new"}}
+                        <button type="button" class="btn btn-default btn-130 pull-right" {{action 'goTo' true}}>Add user</button>
+                    {{!{{/inArray}}
+                </div>
+            </div>
+        {{/if}}
+        <!--table con lista degli utenti-->
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-11">
+                {{partial "company/partials/-users-list"}}
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    {{/if}}
+{{/if}}

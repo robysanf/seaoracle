@@ -1,0 +1,613 @@
+{{#if controller.is_client}}
+    {{#if isRequest}}
+        {{#each freightEquipment in controller.item_record.freightEquipments}}
+            {{#view 'filter-identifier' value=freightEquipment.equipmentClassification}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label style="color: red">Type {{#if isEditing}}(*){{/if}}</label>
+                        <a id="autocomplete-equipmentType">
+                            {{auto-complete source= app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=controller.item_record.isRegister}}
+                        </a>
+                    </div>
+                </div>
+            {{/view}}
+            <br>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Name</label>
+                        {{input value= freightEquipment.equipmentClassificationName type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Iso Code</label>
+                        {{input value= freightEquipment.equipmentClassificationIsoCode type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Size</label>
+                        {{input value= freightEquipment.equipmentClassificationSizeCode type='number' class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Type</label>
+                        {{input value= freightEquipment.equipmentClassificationTypeCode type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+    {{else}}
+        {{#each freightEquipment in controller.item_record.freightEquipments}}
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Name</label>
+                        {{input value= freightEquipment.equipmentClassificationName type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Iso Code</label>
+                        {{input value= freightEquipment.equipmentClassificationIsoCode type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Size</label>
+                        {{input value= freightEquipment.equipmentClassificationSizeCode type='number' class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Type</label>
+                        {{input value= freightEquipment.equipmentClassificationTypeCode type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+    {{/if}}
+{{else}}
+    {{#unless isPending}}
+        {{#each freightEquipment in controller.item_record.freightEquipments}}
+            {{#if isLockedOrRegistered}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label style="color: red">Type {{#if isEditing}}(*){{/if}}</label>
+                            {{input value= freightEquipment.equipmentClassification.name type="text" class='form-control' disabled=isLockedOrRegistered}}
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                {{#view 'filter-identifier' value=freightEquipment.equipmentClassification}}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label style="color: red">Type {{#if isEditing}}(*){{/if}}</label>
+                            <a id="autocomplete-equipmentType">
+                                {{auto-complete source=app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=isRegister}}
+                            </a>
+                        </div>
+                    </div>
+                {{/view}}
+            {{/if}}
+            <br>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Name</label>
+                        {{input value= freightEquipment.equipmentClassificationName type="text" class='form-control' disabled="disabled"}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Iso Code</label>
+                        {{input value= freightEquipment.equipmentClassificationIsoCode type="text" class='form-control' disabled="disabled"}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Size</label>
+                        {{input value= freightEquipment.equipmentClassificationSizeCode type='number' class='form-control' disabled="disabled"}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Type</label>
+                        {{input value= freightEquipment.equipmentClassificationTypeCode type="text" class='form-control' disabled="disabled"}}
+                    </div>
+                </div>
+            </div>
+            <br>
+        {{/each}}
+        {{#if isLockedOrRegistered}}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Empty withdrawal terminal</label>
+                        {{input value= controller.item_record.emptyWithdrawalTerminal.key type="text" class='form-control' disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Laden return terminal</label>
+                        {{input value= controller.item_record.ladenReturnTerminal.key type="text" class='form-control' disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Empty withdrawal terminal</label>
+                    <a id="autocomplete-equipmentEmptyTerminal">
+                        {{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.emptyWithdrawalTerminal searchPath="key" minChars=1 disabled=isRegister}}
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <label>Laden return terminal</label>
+                    <a id="autocomplete-equipmentLadenTerminal">
+                        {{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.ladenReturnTerminal searchPath="key" minChars=1 disabled=isRegister}}
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+        <br>
+    {{/unless}}
+{{/if}}
+
+{{#if controller.is_client}}
+    <!--CLIENT REQUEST: edit mode-->
+    {{#if isRequest}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Goods</label>
+                    {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{textarea value=controller.item_record.description cols="80" rows="3" class="form-control" placeholder="Goods description"}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg"}}
+            </div>
+            <div class="col-lg-6">
+                <label>Boarding temperatures</label>
+                {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°"}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Estimated equivalent length </label>
+                {{input value= controller.item_record.eEquivLength type='number' class='form-control' }}
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+        <h5 class=page-header>IMO</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Class</label>
+                    {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9"}}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ref. page</label>
+                    {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder=""}}
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <!--CLIENT OTHER STATES: view mode-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Goods</label>
+                    {{input value= controller.item_record.classification type="text" class='form-control' disabled=true}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{textarea value=controller.item_record.description cols="80" rows="3" class="form-control" disabled=true}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg" disabled=true}}
+            </div>
+            <div class="col-lg-3">
+                <label style="color: red">Goods actual weight {{#if isLocked}}(*){{/if}}</label>
+                {{input value= controller.item_record.weight type='number' class='form-control' placeholder="Kg" disabled=true}}
+            </div>
+
+            <div class="col-lg-6">
+                <label>Boarding temperatures</label>
+                {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°" disabled=true}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Estimated equivalent length </label>
+                {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=true}}
+            </div>
+            <div class="col-lg-6">
+                <label>Equivalent length </label>
+                {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=true}}
+            </div>
+        </div>
+        <h5 class=page-header>IMO</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Class</label>
+                    {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=true}}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ref. page</label>
+                    {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=true}}
+                </div>
+            </div>
+        </div>
+    {{/if}}
+{{else}}
+    {{#if controller.is_admin}}
+        <!--ADMIN PENDING: view mode-->
+        {{#if isPending}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Goods</label>
+                        {{input value= controller.item_record.classification type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        {{textarea value=controller.item_record.description cols="80" rows="3" class="form-control" disabled=true}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                    {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg" disabled=true}}
+                </div>
+                <div class="col-lg-6">
+                    <label>Boarding temperatures</label>
+                    {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°" disabled=true}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Estimated equivalent length </label>
+                    {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=true}}
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+            <h5 class=page-header>IMO</h5>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Class</label>
+                        {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Ref. page</label>
+                        {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=true}}
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <!--ADMIN OTHER STATES: edit/view modes-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Goods</label>
+                        {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        {{textarea value=controller.item_record.description cols="80" rows="3" class="form-control" placeholder="Goods description" disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+            </div>
+            {{#if isLockedOrRegistered}}
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                        {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg" disabled=isLockedOrRegistered}}
+                    </div>
+                    <div class="col-lg-3">
+                        <label style="color: red">Goods actual weight {{#if isLocked}}(*){{/if}}</label>
+                        {{input value= controller.item_record.weight type='number' class='form-control' placeholder="Kg" disabled=isRegister}}
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label>Boarding temperatures</label>
+                        {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°" disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Estimated equivalent length </label>
+                        {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=isLockedOrRegistered}}
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Equivalent length </label>
+                        {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=isRegister}}
+                    </div>
+                </div>
+            {{else}}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                        {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg"}}
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Boarding temperatures</label>
+                        {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°"}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Estimated equivalent length </label>
+                        {{input value= controller.item_record.eEquivLength type='number' class='form-control'}}
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+            {{/if}}
+            <h5 class=page-header>IMO</h5>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Class</label>
+                        {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Ref. page</label>
+                        {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=isLockedOrRegistered}}
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    {{else}}
+        <!--AGENCY - SHIPOWNER edit/view modes-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Goods</label>
+                    {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=isPendLockRegister}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{textarea value=controller.item_record.description cols="80" rows="3" class="form-control" placeholder="Goods description" disabled=isPendLockRegister}}
+                </div>
+            </div>
+        </div>
+        {{#if isPendLockRegister}}
+            <div class="row">
+                <div class="col-lg-3">
+                    <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                    {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg" disabled=isPendLockRegister}}
+                </div>
+                <div class="col-lg-3">
+                    <label style="color: red">Goods actual weight {{#if isLocked}}(*){{/if}}</label>
+                    {{input value= controller.item_record.weight type='number' class='form-control' placeholder="Kg" disabled=isRegistOrPend}}
+                </div>
+
+                <div class="col-lg-6">
+                    <label>Boarding temperatures</label>
+                    {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°" disabled=isPendLockRegister}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Estimated equivalent length </label>
+                    {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=isPendLockRegister}}
+                </div>
+                <div class="col-lg-6">
+                    <label>Equivalent length </label>
+                    {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=isRegistOrPend}}
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-6">
+                    <label style="color: red">Goods estimated weight {{#if isEditing}}(*){{/if}}</label>
+                    {{input value= controller.item_record.eWeight type='number' class='form-control' placeholder="Kg"}}
+                </div>
+                <div class="col-lg-6">
+                    <label>Boarding temperatures</label>
+                    {{input value= controller.item_record.temperature type='number' class='form-control' placeholder="C°"}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Estimated equivalent length </label>
+                    {{input value= controller.item_record.eEquivLength type='number' class='form-control' }}
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        {{/if}}
+        <h5 class=page-header>IMO</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Class</label>
+                    {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=isPendLockRegister}}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ref. page</label>
+                    {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=isPendLockRegister}}
+                </div>
+            </div>
+        </div>
+    {{/if}}
+{{/if}}
+
+{{#each freightEquipment in controller.item_record.freightEquipments}}
+    {{#each bookingItem in freightEquipment.bookingItems}}{{/each}} <!--FIXME: bag di ember data: inserisco questa linea di codice per far si che il riferimento (hasMany) al bookingItem sul record freightEquipment resti consistente -->
+    {{#unless controller.is_client}}
+        {{#unless isPending}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class=page-header>Equipment</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style="color: red">Seal {{#if isLocked}}(*){{/if}}</label>
+                        {{input id= "sealCodeEdit" value= freightEquipment.sealCode type="text" class='form-control' placeholder="" disabled=isRegister}}
+                    </div>
+                </div>
+                {{#if isRegister}}
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Identifier</label>
+                            {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=isRegister}}
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="col-lg-6">
+                        <label for="exampleInputEmail">Identifier</label>
+                        <a id="autocomplete-equipmentCode">
+                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
+                        </a>
+                    </div>
+                {{/if}}
+            </div>
+        {{/unless}}
+    {{/unless}}
+
+    {{#if controller.is_client}}
+        <!--CLIENT REQUEST: edit mode-->
+        {{#if isRequest}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class=page-header>Client equipment</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>SOC Identifier</label>
+                        {{input id="editClientCode" value= freightEquipment.equipmentClientCode type="text" class='form-control'}}
+                    </div>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        {{else}}
+            <!--CLIENT OTHER STATES: view mode-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class=page-header>Client equipment</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>SOC Identifier</label>
+                        {{input id="editClientCode" value= freightEquipment.equipmentClientCode type="text" class='form-control' disabled=true}}
+                    </div>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        {{/if}}
+    {{else}}
+        {{#if controller.is_admin}}
+            <!--ADMIN PENDING: view mode-->
+            {{#if isPending}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5 class=page-header>Client equipment</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>SOC Identifier</label>
+                            {{input id="editClientCode" value= freightEquipment.equipmentClientCode type="text" class='form-control' disabled=true}}
+                        </div>
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+            {{else}}
+                <!--ADMIN OTHER STATES: edit/view modes-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5 class=page-header>Client equipment</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>SOC Identifier</label>
+                            {{input id="editClientCode" value= freightEquipment.equipmentClientCode type="text" class='form-control' disabled=isRegister}}
+                        </div>
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+            {{/if}}
+        {{else}}
+            <!--AGENCY - SHIPOWNER edit/view modes-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class=page-header>Client equipment</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>SOC Identifier</label>
+                        {{input id="editClientCode" value= freightEquipment.equipmentClientCode type="text" class='form-control' disabled=isRegistOrPend}}
+                    </div>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        {{/if}}
+    {{/if}}
+{{/each}}

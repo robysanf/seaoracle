@@ -1,0 +1,60 @@
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class= "well well-lg" style="background-color: #FAFDFD">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header">New Freight Manifest
+                        </h3>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="alert alert-danger col-lg-12" style="display: none; ">
+                        <p style="text-align: center"><strong>Attention:</strong> please check if required fields have been entered.</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Voyage</label>
+                        <a id="autocomplete-voy">
+                            {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoyage searchPath="name" minChars=1}}
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Number of Original</label>
+                        <div class="form-group">
+                            {{input value= controller.nOriginal class='form-control'}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Code</label>
+                        {{!{{#view App.CheckDocumentCodeView type='docFP' val=controller.name val1=false}}
+                        <div class="form-group">
+                            {{input type=text value= controller.name class='form-control'}}
+                        </div>
+                        {{!{{/view}}
+                    </div>
+                    <div class="col-lg-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5 class="page-header"></h5>
+                        {{#view 'loading-button' record = 'docFP' action_name = 'saveFP'}}
+                            <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
+                                Save
+                            </button>
+                        {{/view}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

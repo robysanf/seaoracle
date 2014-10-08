@@ -1,0 +1,82 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input id='name' value= name placeholder='Enter name' class='form-control' disabled=controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='street' value= street  placeholder='Enter street' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='city' value= city  placeholder='Enter city' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='zipCode' value= zipCode placeholder='Enter zip code' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='province' value= province  placeholder='Enter province' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='country' value= country placeholder='Enter country' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email1' value=email placeholder='Enter email' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='phone' value= phone placeholder='Enter phone' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Notify Party</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='notify' value= notifyParty placeholder='Enter Notify party' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-10">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action "change_state" false}}>Edit</button>
+                    {{else}}
+                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right"{{action "change_state" true this}}>Save</button>
+                    {{/if}}
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="row" style="margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+    <!--se sono nella schermata di NEW ITEM...-->
+    {{#if controller.itemNewActive}}
+        <div class="col-lg-12">
+            {{partial "charge/partials/-new-item"}}
+        </div>
+        <!--altrimenti mostro l'ITEMS LIST-->
+    {{else}}
+        {{#if controller.itemEditActive}}
+            <div class="col-lg-12">
+                {{partial "charge/partials/-edit-item"}}
+            </div>
+        {{else}}
+            <div class="col-lg-9">
+                <h3 class="page-header">List-view</h3>
+            </div>
+            <div class="col-lg-3" style="margin-top: 40px">
+            {{#if is_chargeItems_book}}
+                <button type="button" class="btn btn-default btn-130 pull-right" {{action 'change_partial' 'itemNewActive' true this 'none'}}>Add item</button>
+            {{/if}}
+            {{#if is_chargeItems_cont}}
+                <button type="button" class="btn btn-default btn-130 pull-right" {{action 'change_partial' 'itemNewActive' true this 'container'}}>Add item</button>
+            {{/if}}
+            {{#if is_chargeItems_roro}}
+                <button type="button" class="btn btn-default btn-130 pull-right" {{action 'change_partial' 'itemNewActive' true this 'roro'}}>Add item</button>
+            {{/if}}
+            {{#if is_chargeItems_bb}}
+                <button type="button" class="btn btn-default btn-130 pull-right" {{action 'change_partial' 'itemNewActive' true this 'bb'}}>Add item</button>
+            {{/if}}
+            </div>
+            <!--table con lista degli utenti-->
+            <div class="col-lg-12">
+                {{partial "charge/partials/-list-item"}}
+            </div>
+        {{/if}}
+    {{/if}}
+</div>

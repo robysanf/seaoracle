@@ -1,0 +1,167 @@
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+    beforeModel: function(){
+        var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('document.search-record');
+
+        if( !app_controller.autocompleteVoyage.get('length') ) {
+            this.store.findQuery('voyage').then(function(val){
+                app_controller.set('autocompleteVoyage', val);
+            });
+        }
+
+        if( !app_controller.autocompletePoiPort.get('length') ) {
+            this.store.findQuery('poi', {tags: 'Port'}).then(function(val){
+                app_controller.set('autocompletePoiPort', val);
+            });
+        }
+
+        controller.set('searchVoy', []);
+        controller.set('searchOrigin', []);
+        controller.set('searchDestination', []);
+    },
+
+    actions: {
+        searchRecords: function(){
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('document.search-record'),
+                queryExpression = {}, searchPath = "sortBy";
+
+            queryExpression[searchPath] = 'code';
+            searchPath = "sortOrder"; queryExpression[searchPath] = 'descendent';
+
+            /*     ***infinite scroll***     */
+            app_controller.set('searchResultList', []);
+            app_controller.set('isAll', false);
+            app_controller.set('perPage', 25);
+            app_controller.set('firstIndex', 0);
+            app_controller.set('items', []);
+
+            var myDocType = self.get("controller").get('docAll').filterBy('value', controller.docType);
+
+            if(myDocType){
+                myDocType.every(function(doc) {
+                    searchPath = "type";
+                    queryExpression[searchPath] = doc.code;
+                });
+            }
+            if(controller.docCode !== null && controller.docCode !== ''){
+                searchPath = "code";
+                queryExpression[searchPath] = controller.docCode;
+            }
+            if(controller.docShipper !== null && controller.docShipper !== ''){
+                searchPath = "shipper";
+                queryExpression[searchPath] = controller.docShipper;
+            }
+            if(controller.docConsignee !== null && controller.docConsignee !== ''){
+                searchPath = "consignee";
+                queryExpression[searchPath] = controller.docConsignee;
+            }
+            if(controller.docNotify !== null && controller.docNotify !== ''){
+                searchPath = "notify";
+                queryExpression[searchPath] = controller.docNotify;
+            }
+            if(controller.searchVoy !== "" && controller.searchVoy !== null){
+                searchPath = "voyage";
+                queryExpression[searchPath] = controller.searchVoy.get('id');
+            }
+            if(controller.searchOrigin !== "" && controller.searchOrigin !== null){
+                searchPath = "origin";
+                queryExpression[searchPath] = controller.searchOrigin.get("id");
+            }
+            if(controller.searchDestination !== "" && controller.searchDestination !== null){
+                searchPath = "destination";
+                queryExpression[searchPath] = controller.searchDestination.get("id");
+            }
+            if(controller.searchBookRef !== "" && controller.searchBookRef !== null){
+                searchPath = "bookings"; queryExpression[searchPath] = '{"booking/code":"' + controller.searchBookRef +'"}';
+            }
+
+
+            this.store.findQuery('document', queryExpression).then(function(queryExpressResults){
+
+                /*     ***infinite scroll***     */
+                app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
+                app_controller.set("queryExpressResults", queryExpressResults);
+
+                queryExpressResults.forEach(function(equ, index){
+                    if(index+1 <= app_controller.perPage) {
+                        app_controller.items.pushObject(equ);
+
+                        if(index+1 === queryExpressResults.get('length')){
+                            renderResults();
+                            return false;
+                        }
+                    } else {
+                        renderResults();
+                        return false;
+                    }
+                });
+
+                function renderResults() {
+                    app_controller.set('firstIndex', app_controller.perPage);
+                    app_controller.set("searchResultList", app_controller.items);
+
+                    self.render('document.result-search-record', {
+                        into: 'application',
+                        outlet: 'search-result'
+                    });
+                }
+            });
+        },
+
+        //********************************************
+        //MODAL
+        open_modal: function( path, item ) {
+            var self = this, controller = self.controllerFor('document.search-record');
+
+            controller.set("doc_toRemove", item);
+            this.render(path, {
+                into: 'application',
+                outlet: 'overview',
+                view: 'modal-manager'
+            });
+        },
+
+        remove_item: function(){
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('document.search-record');
+
+            controller.doc_toRemove.deleteRecord();
+            controller.doc_toRemove.save().then(function(){
+
+                controller.set('searchVoy', []);
+                controller.set('searchOrigin', []);
+                controller.set('searchDestination', []);
+                controller.set('searchResultList', []);
+
+                app_controller.autocompleteDocument.forEach(function(item, index){
+
+                    if( item ) {
+                        if( item.get('id') === controller.doc_toRemove.get('id') ) {
+                            app_controller.autocompleteDocument.removeAt(index);
+                        }
+                    }
+                });
+            });
+        },
+
+        close_item: function(){
+            var self = this, app_controller = self.controllerFor('application');
+
+            app_controller.send('close_modal', 'overview', 'application');
+            this.send('closeSearch');
+        },
+
+        link_to: function( path, value ){
+            var self = this, controller = self.controllerFor('document.search-record');
+
+            controller.set('document_record', value);
+
+            controller.set('tabList_doc', false);
+            controller.set('tabList_items', false);
+            controller.set('tabList_details', false);
+            controller.set('tabList_files', false);
+
+            this.transitionTo( path, value );
+        }
+    }
+});

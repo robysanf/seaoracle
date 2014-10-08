@@ -1,0 +1,14 @@
+{{#if documents}}
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Documents</h3>
+        </div>
+        <div class="panel-body">
+            {{#each document in documents}}
+                <a href="#"><span {{action "goTo_doc" document.type document.id}}>{{document.type_codeVersion}}</span></a>
+                <br>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}

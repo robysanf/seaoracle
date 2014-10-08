@@ -1,0 +1,60 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+    {{#view "check-unique-field" model_val='stamp' filter_val='name' val=controller.newName path='stamp.new-stamp'}}
+        <div class="row" style="margin-bottom: 15px;">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= newName placeholder='Enter name' class='form-control' disabled= controller.isView}}
+                    <span class="input-group-addon " id="1">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    {{/view}}
+
+        <div class="row">
+            <div class="col-lg-3"><h4>Type</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input value= newType placeholder='Enter type' class='form-control' disabled= controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Value</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input value= newValue placeholder='Enter value' class='form-control' disabled= controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Content</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{textarea cols="80" rows="10" value=newDescription placeholder='Enter content' class='form-control' disabled= controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Cargo Manifest</h4></div>
+            <div class="col-lg-7">
+                <label class="form-control" style="text-align: left">{{input type="checkbox" checked=controller.isDocCM}}</label>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

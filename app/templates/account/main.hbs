@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="lead"><h3>{{username}} account</h3></p>
+                    {{#if controller.tabList.buyCredits}}
+                        {{#if controller.is_admin}}
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-small btn-group-justified pull-right" {{action "open_modal" 'account.modals.new-plan' this}}>New plan</button>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul id="myTab" class="nav nav-tabs">
+            <li {{bind-attr class="controller.tabList.account:active"}}>
+                <a href="#" {{action setTabs "account"}}><h4>Account</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.buyCredits:active"}}>
+                <a href="#"{{action setTabs "buyCredits"}}><h4>Buy credits</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.orderHistory:active"}}>
+                <a href="#" {{action setTabs "orderHistory"}}><h4>Order history</h4></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        {{#if controller.tabList.account}}
+                            {{partial "account/partials/-account-tab"}}
+                        {{/if}}
+                        {{#if controller.tabList.buyCredits}}
+                            {{partial "account/partials/-buy-credits-tab"}}
+                        {{/if}}
+                        {{#if controller.tabList.orderHistory}}
+                            {{partial "account/partials/-order-history-tab"}}
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

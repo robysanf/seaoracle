@@ -1,0 +1,127 @@
+{{#if isRegister}}
+    {{partial 'booking/partials/freight-plan/-list-freight-plan'}}
+{{else}}
+    {{#if freightPlans}}
+        {{partial 'booking/partials/freight-plan/-list-freight-plan'}}
+    {{else}}
+        <div class="row" style="margin-top: 25px; margin-bottom: 30px">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                {{#if controller.freightPlan_mode.search}}
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default active" >
+                        {{input type="radio" name="options"}} Search
+                    </label>
+                    <label class="btn btn-default" {{action "freightPlan_changeMode" 'manual' this}}>
+                        {{input type="radio" name="options"}} Manual
+                    </label>
+                    <label class="btn btn-default" {{action "freightPlan_changeMode" 'no_freight_plan' this}}>
+                        {{input type="radio" name="options"}} No freight plan
+                    </label>
+                </div>
+                {{/if}}
+                {{#if controller.freightPlan_mode.manual}}
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-default" {{action "freightPlan_changeMode" 'search' this}}>
+                            {{input type="radio" name="options"}} Search
+                        </label>
+                        <label class="btn btn-default active">
+                            {{input type="radio" name="options"}} Manual
+                        </label>
+                        <label class="btn btn-default" {{action "freightPlan_changeMode" 'no_freight_plan' this}}>
+                            {{input type="radio" name="options"}} No freight plan
+                        </label>
+                    </div>
+                {{/if}}
+                {{#if controller.freightPlan_mode.no_freight_plan}}
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-default" {{action "freightPlan_changeMode" 'search' this}}>
+                            {{input type="radio" name="options"}} Search
+                        </label>
+                        <label class="btn btn-default" {{action "freightPlan_changeMode" 'manual' this}}>
+                            {{input type="radio" name="options"}} Manual
+                        </label>
+                        <label class="btn btn-default active">
+                            {{input type="radio" name="options"}} No freight plan
+                        </label>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+
+        {{#unless controller.freightPlan_mode.no_freight_plan}}
+            <div class="row" style="margin-bottom: 25px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+
+                        {{#if controller.freightPlan_mode.search}}
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label>Origin</label>
+                                    {{input value= origin.name type="text" class='form-control' disabled='disabled'}}
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Destination</label>
+                                    {{input value= destination.name type="text" class='form-control' disabled='disabled'}}
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px">
+                                <div class="col-lg-3">
+                                    <label>DTD</label>
+                                    {{input value= dtd type="date" class='form-control' disabled='disabled'}}
+                                </div>
+                                {{#if dta}}
+                                    <div class="col-lg-3">
+                                        <label>DTA</label>
+                                        {{input value= dta type="date" class='form-control' disabled='disabled'}}
+                                    </div>
+                                {{else}}
+                                    <div class="col-lg-3">
+                                        <label>Weeks out</label>
+                                        {{view Ember.Select content=controller.listWeeksOut value=weeksOut class='form-control'}}
+                                    </div>
+                                {{/if}}
+                                <div class="col-lg-6">
+                                    <label>Number of transhipments</label>
+                                    {{view Ember.Select content=controller.listTranshipmentNumber value=transhipmentNum class='form-control'}}
+                                    {{!{{input value= transhipmentNum type="number" class='form-control'}}
+                                </div>
+                            </div>
+                        {{/if}}
+                        {{#if controller.freightPlan_mode.manual}}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label>Voyage</label>
+                                    <a id="autocomplete-voy">
+                                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
+                                    </a>
+                                </div>
+                            </div>
+                        {{/if}}
+
+                        <div class="row">
+                            <h5 class="page-header"></h5>
+                            <div class="col-lg-12">
+                                <button type="button" class="btn btn-primary btn-130 pull-right" {{action 'search_freigth_plan' this}}> Search </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        {{/unless}}
+
+        {{#if controller.freightPlan_mode.search}}
+
+            {{#if controller.searchResults}}
+                {{partial 'booking/partials/freight-plan/-default-result'}}
+            {{/if}}
+
+        {{/if}}
+        {{#if controller.freightPlan_mode.manual}}
+            {{partial 'booking/partials/freight-plan/-manual-result'}}
+        {{/if}}
+    {{/if}}
+{{/if}}

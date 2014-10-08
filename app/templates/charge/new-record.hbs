@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>New Charge</h3>
+            <p><h5>Name: <b>{{newName}}</b></h5>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#companyDetails" data-toggle="tab"><h3>Details</h3></a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="companyDetails">
+                <div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+                    <div class="col-lg-12">
+                        {{#view "check-unique-field" model_val='charge' filter_val='name' val=newName path='charge.new-record'}}
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-lg-3"><h4>Name</h4></div>
+                                <div class="col-lg-9">
+                                    <div class="input-group input-group">
+                                        {{input id='name' value= newName placeholder='Enter name' class='form-control'}}
+                                        <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/view}}
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Currency</h4></div>
+                            <div class="col-lg-9">
+                                {{view Ember.Select content=currencyList value=newCurrency prompt='please select a currency' class='form-control'}}
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Route</h4></div>
+                            <div class="col-lg-9">
+                                <a id="autocomplete-mysegment">
+                                    {{auto-complete source=app_controller.autocompleteSegment destination=searchSegment searchPath="name" minChars=1}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"><h4>Available</h4></div>
+                            <div class="col-lg-9">
+                                <label class="form-control" style="text-align: left">{{input type="checkbox" checked=newAvailable}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5 class="page-header"></h5>
+                                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

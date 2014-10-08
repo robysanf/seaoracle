@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-3"><h4>First name</h4></div>
+    <div class="col-lg-7">
+        <div class="form-group">{{input value= firstName class='form-control' disabled="disabled"}}</div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"><h4>Last name</h4></div>
+    <div class="col-lg-7">
+        <div class="form-group">{{input value= lastName class='form-control' disabled="disabled"}}</div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"><h4>Card number</h4></div>
+    <div class="col-lg-7">
+        <div class="form-group">{{input value= hiddenCardNumber class='form-control' disabled="disabled"}}</div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"><h4>Credits</h4></div>
+    <div class="col-lg-7">
+        <div class="form-group">{{input value= company.credit class='form-control' disabled="disabled"}}</div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row">
+    <div class="col-lg-10">
+        <h5 class="page-header"></h5>
+        <button type="submit" class="btn btn-primary btn-small custom130 pull-right" {{action "open_modal" 'account.modals.send-to-stripe' this}}>Payment details</button>
+    </div>
+    <div class="col-lg-2"></div>
+</div>

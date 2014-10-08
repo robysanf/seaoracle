@@ -1,0 +1,54 @@
+<div class="row" style="margin-top: 25px">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-11">
+        <div class="row">
+            <!-- itemController="docDetail"-->
+            {{#each docDetails}}
+                <div class="col-lg-4"><h4>{{name}}</h4></div>
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        {{#if code_description_of_goods}}
+                            {{textarea value= value cols="80" rows="8" class="form-control" disabled=controller.isView}}
+                        {{else}}
+                            {{#if code_signed_for_the_master_by}}
+                                {{textarea value= value cols="80" rows="8" class="form-control" disabled=controller.isView}}
+                            {{else}}
+                                {{input value= value class='form-control' disabled=controller.isView}}
+                            {{/if}}
+                        {{/if}}
+                    </div>
+                </div>
+
+                <br>
+            {{/each}}
+        </div>
+
+        {{#if canEdit}}
+            <div class="row">
+                <h5 class="page-header"></h5>
+                <div class="col-lg-12">
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
+                    {{else}}
+                    {{!{{#if isBL}}
+                        {{#view 'loading-button' record=id action_name='update_doc_bl'}}
+                            <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
+                                Save
+                            </button>
+                        {{/view}}
+                        {{!{{else}}
+                        {{!{{#view App.LoadingButtonView val1=id val2='updateDoc_other'}}
+                        <!--<button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-small custom100 pull-right" >-->
+                        <!--Save-->
+                        <!--</button>-->
+                    {{!{{/view}}
+                    {{!{{/if}}
+                    {{/if}}
+                </div>
+
+            </div>
+        {{/if}}
+
+        <br>
+    </div>
+</div>

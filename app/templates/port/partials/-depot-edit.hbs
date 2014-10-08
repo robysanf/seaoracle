@@ -1,0 +1,78 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input id='name' value= controller.depotRecord.name placeholder='Enter name' class='form-control'}}
+                    <span class="input-group-addon " id="1">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.street  placeholder='Enter street' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.province placeholder='Enter province' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.zipCode placeholder='Enter zip code ' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.city placeholder='Enter city' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                {{view Ember.Select valueBinding='country' prompt="Please select a country" content=app_controller.nations_name value=controller.depotRecord.country class='form-control'}}
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-lg-3"><h4>Country</h4></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="form-group">{{!{{input value= controller.depotRecord.country placeholder='Enter country' class='form-control'}}</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-2"></div>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.phone placeholder='Enter phone' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Notify Party</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= controller.depotRecord.notifyParty placeholder='Enter Notify party' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_record" false}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

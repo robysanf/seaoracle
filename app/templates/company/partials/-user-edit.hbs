@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-11">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade" id="companyDetails"></div>
+            <div class="tab-pane fade active in" id="usersList">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h2 class="page-header">User Profile</h2>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-lg-3"><h4>First name</h4></div>
+                    <div class="col-lg-7">
+                        <div class="input-group input-group">
+                            {{input value= controller.userRecord.firstName class='form-control'}}
+                            <span class="input-group-addon" id="1">
+                       <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-lg-3"><h4>Last name</h4></div>
+                    <div class="col-lg-7">
+                        <div class="input-group input-group">
+                            {{input value= controller.userRecord.lastName class='form-control'}}
+                            <span class="input-group-addon" id="2">
+                       <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3"><h4>Date of Birth</h4></div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            {{date-picker-custom controls="datepicker_birthDateUser" value=controller.userRecord.birthDate placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                            {{date-picker-controls id="datepicker_birthDateUser" maxYear="+50" minYear="-10"}}
+                            {{!{{input type="date" value= user.birthDate class='form-control'}}
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h5 class="page-header"></h5>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-lg-3"><h4>E-mail</h4></div>
+                    <div class="col-lg-7">
+                        <div class="input-group input-group">
+                            {{input value= controller.userRecord.email class='form-control'}}
+                            <span class="input-group-addon" id="3">
+                       <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3"><h4>Phone</h4></div>
+                    <div class="col-lg-7">
+                        <div class="form-group">{{input value= controller.userRecord.phone class='form-control'}}</div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <!--<div class="row">-->
+                <!--<div class="col-lg-3"><h4>Visibility</h4></div>-->
+                <!--<div class="col-lg-7">-->
+                <!--<div class="form-group">{{!{{view Ember.Select content=App.visibility value= visibility class='form-control'}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-2"></div>-->
+                <!--</div>-->
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h5 class="page-header"></h5>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{!{{#ifEqual App.companyType 'admin'}}
+                            <!--<a class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.user-special-permission' controller.userRecord 'user'}}> Edit special per. </a>-->
+                        {{!{{/ifEqual}}
+                    </div>
+                    <div class="col-lg-2">
+                        {{#if controller.is_admin}}
+                            <a class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.user-grant' controller.userRecord 'user'}}> Edit grants </a>
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-primary btn-130 pull-right" {{action 'editUser' controller.userRecord false}}>Save</button>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

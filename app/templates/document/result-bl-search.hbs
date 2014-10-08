@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-lg-12">
+        {{#if app_controller.searchResults}}
+            <!--itemView="SelectedBook" itemController="SelectedBook" -->
+            {{#each freightPlan in app_controller.searchResults itemViewClass="Ember.View" itemController="document/selected-book"}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#{{unbound view.contentIndex}}">
+                                <strong>code: {{freightPlan.booking.code}}</strong>
+                            </a>
+                            <span class="pull-right"> {{input type="checkbox" checked=allChecked}} Select booking</span>
+                        </h3>
+                    </div>
+                    <div class="panel-collapse collapse" id="{{unbound view.contentIndex}}">
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead></thead>
+                                <tbody>
+                                <tr class="active">
+                                    <td><strong>CONTAINER</strong></td>
+                                    <td><strong>Identifier</strong></td>
+                                    <td><strong>Shipper</strong></td>
+                                    <td><strong>Consignee</strong></td>
+                                    <td><strong>Notify</strong></td>
+                                    <td><strong>Description</strong></td>
+                                </tr>
+                                {{#each item in freightPlan.booking.items itemController="document/selected-book-item"}}
+                                    {{#if item.tu_container}}
+                                        <tr style="border-bottom: 1px solid lightgray">
+                                            <td >{{input type="checkbox" checked=isChecked}}</td>
+                                            {{#if item.freightEquipments}}
+                                                {{#each freightEquipment in item.freightEquipments}}
+                                                    <td>{{freightEquipment.equipment.code}}</td>
+                                                {{/each}}
+                                            {{else}}
+                                                <td></td>
+                                            {{/if}}
+                                            <td>{{item.shipper.name}}</td>
+                                            <td>{{item.consignee.name}}</td>
+                                            <td>{{item.notify.name}}</td>
+                                            <td >{{item.classification}}</td>
+                                        </tr>
+                                    {{/if}}
+                                {{/each}}
+                                <tr class="active">
+                                    <td><strong>RO/RO</strong></td>
+                                    <td><strong>Identifier</strong></td>
+                                    <td><strong>Shipper</strong></td>
+                                    <td><strong>Consignee</strong></td>
+                                    <td><strong>Notify</strong></td>
+                                    <td><strong>Description</strong></td>
+                                </tr>
+                                {{#each item in freightPlan.booking.items itemController="document/selected-book-item"}}
+                                    {{#if item.tu_roro}}
+                                        {{#if item.is_typeItem}}
+                                            <tr style="border-bottom: 1px solid lightgray">
+                                                <td>{{input type="checkbox" checked= isChecked}}</td>
+                                                <td>{{item.chassisNum}}</td>
+                                                <td>{{item.shipper.name}}</td>
+                                                <td>{{item.consignee.name}}</td>
+                                                <td>{{item.notify.name}}</td>
+                                                <td>{{item.classification}}</td>
+                                            </tr>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/each}}
+                                <tr class="active">
+                                    <td><strong>BB</strong></td>
+                                    <td><strong>Identifier</strong></td>
+                                    <td><strong>Shipper</strong></td>
+                                    <td><strong>Consignee</strong></td>
+                                    <td><strong>Notify</strong></td>
+                                    <td><strong>Description</strong></td>
+                                </tr>
+                                {{#each item in freightPlan.booking.items itemController="document/selected-book-item"}}
+                                    {{#if item.tu_bb}}
+                                        <tr style="border-bottom: 1px solid lightgray">
+                                            <td >{{input type="checkbox" checked= isChecked}}</td>
+                                            <td >{{item.id}}</td>
+                                            <td>{{item.shipper.name}}</td>
+                                            <td>{{item.consignee.name}}</td>
+                                            <td>{{item.notify.name}}</td>
+                                            <td >{{item.classification}}</td>
+                                        </tr>
+                                    {{/if}}
+                                {{/each}}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+
+        {{else}}
+            <h3 class="page-header">No Results.</h3>
+        {{/if}}
+
+    </div>
+</div>
+
+{{#if app_controller.searchResults}}
+    <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+        <div class="alert alert-danger col-lg-12" style="display: none; ">
+            <p style="text-align: center"><strong>Attention:</strong> please check if required fields have been entered.</p>
+        </div>
+    </div>
+    <div class="row">
+        <h5 class="page-header"></h5>
+        <div class="col-lg-12">
+            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action 'save' 'docBL'}}>
+                <span class="glyphicon glyphicon-ok"></span> Save
+            </button>
+        </div>
+    </div>
+{{/if}}
+

@@ -1,0 +1,60 @@
+{{#each freightEquipment in controller.item_record.freightEquipments}}{{/each}}
+
+<div class="row">
+    <div class="col-lg-12">
+    {{#unless isRegistOrPend}}
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Shipper</label>
+                <a id="autocomplete-itemShipperName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.shipper searchPath="name" minChars=0}}
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <label>Consignee</label>
+                <a id="autocomplete-itemConsigneeName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.consignee searchPath="name" minChars=0}}
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Notify</label>
+                <a id="autocomplete-itemNotifyName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.notify searchPath="name" minChars=1}}
+                </a>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+        <div class='page-header'></div>
+    {{/unless}}
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Shipper details</label>
+                {{input type="text" value=controller.item_record.shipperDetail class='form-control' disabled=true}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Consignee details</label>
+                {{input type="text" value=controller.item_record.consigneeDetail class='form-control' disabled=true}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Notify details</label>
+                {{input type="text" value=controller.item_record.notifyDetail class='form-control' disabled=true}}
+            </div>
+        </div>
+        <div class='page-header'></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Note for the loading list</label>
+                {{textarea cols="80" rows="8" value=controller.item_record.note placeholder='Enter note' class='form-control' disabled=isRegistOrPend}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+{{#if users}}
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>View</th>
+                    {{!{{#inArray App.grantsValue "access/user/edit"}}
+                        <th>Edit</th>
+                    {{!{{/inArray}}
+                    {{!{{#inArray App.grantsValue "access/user/remove"}}
+                        <th>Remove</th>
+                    {{!{{/inArray}}
+
+                </tr>
+                </thead>
+                <tbody>
+                {{#each user in users}}
+                    <tr>
+                        <td>{{{user.firstName}}}</td>
+                        <td>{{{user.lastName}}}</td>
+                        <!-- path: app > views > selectItemView -->
+                        <td><a href="#" {{action "open_modal" 'company.modals.user-view' user 'user'}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                        {{!{{#inArray App.grantsValue "access/user/edit"}}
+                            <td><a href='#' {{action 'edit_record' user true}}><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            {{!{{/inArray}}
+                        {{!{{#inArray App.grantsValue "access/user/remove"}}
+                            <td><a href="#" {{action "open_modal" 'company.modals.user-remove' user 'user'}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                            {{!{{/inArray}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{{else}}
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <div class="row">
+                    <a href="#" {{action 'goTo' true}}>
+                        <h1 style="text-align: center" >Add user</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}

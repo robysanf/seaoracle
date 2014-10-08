@@ -1,0 +1,44 @@
+{{#if app_controller.searchResults}}
+    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Payload</th>
+                    <th>Preview</th>
+                    <th>Go to</th>
+                    {{#if controller.user_record.vessel_remove}}
+                        <th>Remove</th>
+                    {{else}}
+                        <th></th>
+                    {{/if}}
+                </tr>
+                </thead>
+                <tbody>
+                {{#each vessel in app_controller.searchResults}}
+                    <tr>
+                        <td>{{vessel.nickname}}</td>
+                        <td>{{vessel.payload}}</td>
+                        <td><a href="#" {{action "open_modal" 'vessel.modals.overview-record' vessel}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        <td>{{#link-to 'vessel/main' vessel.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
+                        {{#if vessel.canRemove}}
+                            <td><a href="#" {{action "open_modal" 'vessel.modals.remove-record' vessel}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{else}}
+
+{{/if}}
+
+<!--   infinite scroll  -->
+{{#if app_controller.loadingMore}}
+    <div class="alert alert-info"><p style="text-align: center"><strong>Loading more...</strong></p></div>
+{{/if}}

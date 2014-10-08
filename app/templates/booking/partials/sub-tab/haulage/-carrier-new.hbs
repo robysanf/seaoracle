@@ -1,0 +1,86 @@
+
+    <br>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Carrier</label>
+                    <a id="autocomplete-carrierName">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.carrier searchPath="name" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <label>pick up company</label>
+                    <a id="autocomplete-pickUpCompany">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.pickUpCompany searchPath="name" minChars=1}}
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Date</label>
+                    {{date-picker-custom controls='datepicker-haulageDate' value=controller.haulage_record.date placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                    {{date-picker-controls id='datepicker-haulageDate' maxYear="+50" minYear="-10"}}
+                    {{!{{input value= haulage.date type="date" class='form-control'}}
+                </div>
+                <div class="col-lg-3">
+                    <label>Time</label>
+                    {{input value= controller.haulage_record.time type="time" class='form-control'}}
+                </div>
+                <div class="col-lg-3">
+                    <label>&nbsp</label>
+                    <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-default">
+                            {{input type="checkbox" name="options" checked= controller.haulage_record.taxedTime}} Taxed time
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>City</label>
+                    {{input value= controller.haulage_record.city type="text" class='form-control'}}
+                </div>
+                <div class="col-lg-6">
+                    <label>Province</label>
+                    {{input value= controller.haulage_record.province type="text" class='form-control'}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Street</label>
+                    {{input value= controller.haulage_record.street type="text" class='form-control'}}
+                </div>
+                <div class="col-lg-6">
+                    <label>Country</label>
+                    {{input value= controller.haulage_record.country type="text" class='form-control'}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <label>Note</label>
+                    {{textarea value= controller.haulage_record.note cols="80" rows="3" class="form-control" placeholder="note"}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <h5 class="page-header"></h5>
+                <div class="col-lg-10">
+                    <button type="submit" class="btn btn-default btn-130 pull-left" {{action "carrierManager" "close" "addCarrier" false null null}}>
+                        Cancel
+                    </button>
+                </div>
+                <div class="col-lg-2">
+                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "carrierManager" "save" "addCarrier" false null null}}>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>

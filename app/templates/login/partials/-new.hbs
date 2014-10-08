@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
+            <form class="form-inline" style="min-height: 480px">
+                <h2 style="color: white" ><strong>Company</strong></h2>
+                <br>
+                <div class="row">
+                    <div class="col-lg-10">
+                        {{#view 'verify-sing-up-fields' model_val='company' val=name}}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{input id='name' value=controller.name type="text"  placeholder='Name' class='form-control'}}
+                                </div>
+                            </div>
+                        {{/view}}
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='vatNumber' valueBinding='vatNumber' type="text"  placeholder='Vat number' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='street' valueBinding='street' type="text"  placeholder='Street' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='city' valueBinding='city' type="text"  placeholder='City' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='zipCode' valueBinding='zipCode' type="text"  placeholder='Zip code' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!--optionValuePath = "content.id"-->
+                                {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value=country class='form-control'}}
+                                {{!{{input id='country' valueBinding='country' type="text"  placeholder='Country' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='email' valueBinding='companyEmail' type="text"  placeholder='E-mail' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{view Ember.Select id='companyType' valueBinding='companyType' prompt="Please select a company type"  content=companyTypeList value=companyType class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
+            <form class="form-inline " style="min-height: 480px">
+                <h2 style="color: #ffffff"><strong>User</strong></h2>
+                <br>
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='firstName' valueBinding='firstName' type="text"  placeholder='First name' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='lastName' valueBinding='lastName' type="text"  placeholder='Last name' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        {{#view 'verify-sing-up-fields' model_val='user' val=username}}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{input id='username' value=controller.username type="text"  placeholder='Username' class='form-control'}}
+                                </div>
+                            </div>
+                        {{/view}}
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='pwd' valueBinding='pwd' type="password"  placeholder='Password' class='form-control'}}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='userEmail' valueBinding='userEmail' type="text"  placeholder='E-mail' class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <button class="btn btn-default btn-130 pull-left" {{action "change_newLog" 0}}>Back to login</button>
+                </div>
+                <div class="col-lg-5">
+                    <button class="btn btn-primary btn-130 pull-right" {{action 'new_signUp'}}>Sign up</button>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+        <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <strong>By clicking 'Sign up', you agree to our terms of service and privacy policy. </strong>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button class="btn btn-default btn-small custom130 pull-right" {{action "open_modal" 'login.modals.term-of-service'}}>Term of service</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button class="btn btn-default btn-small custom130 pull-left" {{action "open_modal" 'login.modals.privacy-policy'}}>Privacy policy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+</div>

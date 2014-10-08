@@ -1,0 +1,363 @@
+<style>
+    table { table-layout: fixed; }
+    table th, table td { overflow: hidden; }
+</style>
+
+{{#if itemsIn_BillOfLading}}
+    <table class="table">
+        <thead></thead>
+        <tbody>
+        <tr class="active">
+            <td style="width: 20%"><strong>Container</strong></td>
+            <td style="width: 15%"><strong>Seal</strong></td>
+            <td style="width: 30%"><strong>Description</strong></td>
+            <td style="width: 15%"><strong>Weight</strong></td>
+            <td style="width: 20%"><strong>Measurement</strong></td>
+        </tr>
+        {{#each docItem in docItems}}
+            <tr style="border-bottom: 1px solid lightgray">
+                {{#each docElement in docItem.docElements}}
+                    {{#if docElement.code_identifier}}
+                        <td >
+                            <div class="form-group">
+                                {{input value= docElement.value class='form-control' disabled=controller.isView}}
+                            </div>
+                        </td>
+                    {{/if}}
+                    {{#if docElement.code_seal}}
+                        <td >
+                            <div class="form-group">
+                                {{input value= docElement.value class='form-control' disabled=controller.isView}}
+                            </div>
+                        </td>
+                    {{/if}}
+                    {{#if docElement.code_description}}
+                        <td >
+                            <div class="form-group">
+                                {{textarea value= docElement.value rows="4" class='form-control' disabled=controller.isView}}
+                            </div>
+                        </td>
+                    {{/if}}
+                    {{#if docElement.code_weight}}
+                        <td >
+                            <div class="form-group">
+                                {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                            </div>
+                        </td>
+                    {{/if}}
+                    {{#if docElement.code_measurement }}
+                        <td >
+                            <div class="form-group">
+                                {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                            </div>
+                        </td>
+                    {{/if}}
+                {{/each}}
+            </tr>
+        {{/each}}
+    </table>
+{{else}}
+    <table class="table">
+        <thead></thead>
+        <tbody>
+        <tr class="active">
+            <td style="width: 25%"><strong>Container</strong></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+        </tr>
+        {{#each docItem in docItems}}
+            {{#if docItem.tu_container}}
+                <tr style="border-bottom: 1px solid lightgray">
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_identifier}}
+                            <td >
+                                <label>Identifier: </label>
+                                <div class="input-group">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" {{action 'change_docItemVisibility' docItem docItem.visible}} type="button" {{bind-attr disabled=controller.isView}}>
+                                            {{#if docItem.visible}}
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            {{else}}
+                                                <span class="glyphicon glyphicon-eye-close"></span>
+                                            {{/if}}
+                                        </button>
+                                      </span>
+                                    {{input value= docElement.value class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_tare}}
+                            <td >
+                                <label>Tare: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_measurement}}
+                            <td >
+                                <label>Cbm: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_seal}}
+                            <td >
+                                <label>Seal: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.value class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+                <tr style="border-bottom: 1px solid lightgray">
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_qty}}
+                            <td >
+                                <label>Qty: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_weight}}
+                            <td >
+                                <label>Net.Wt.: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_20_40}}
+                            <td >
+                                <label>20/40: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.value class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_gr_wt}}
+                            <td >
+                                <label>Gr.Wt.: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+                <tr style="border-bottom: 1px solid lightgray">
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_description}}
+                            <td colspan="4"><label>Description: </label>
+                                <div class="form-group">
+                                    {{textarea value= docElement.value rows="4" class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+            {{/if}}
+        {{/each}}
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead></thead>
+        <tbody>
+        <tr class="active">
+            <td style="width: 25%"><strong>Ro/Ro</strong></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+        </tr>
+        {{#each docItem in docItems}}
+            {{#if docItem.tu_roro}}
+                <tr style="border-bottom: 1px solid lightgray">
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_identifier}}
+                            <td>
+                                <label>Identifier:</label>
+                                <div class="input-group">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" {{action 'change_docItemVisibility' docItem docItem.visible}} type="button" {{bind-attr disabled=controller.isView}}>
+                                            {{#if docItem.visible}}
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            {{else}}
+                                                <span class="glyphicon glyphicon-eye-close"></span>
+                                            {{/if}}
+                                        </button>
+                                      </span>
+                                    {{ input value= docElement.value class='form-control' disabled=controller.isView}}
+                                </div>
+
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_mtl}}
+                            <td >
+                                <label>Mtl: </label>
+                                <div class="form-group">
+                                    {{ input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_gr_wt_ea}}
+                            <td >
+                                <label>Gr.Wt. ea: </label>
+                                <div class="form-group">
+                                    {{ input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_measurement}}
+                            <td >
+                                <label>Cbm: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+                <tr style="border-bottom: 2px solid lightgray">
+
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_description}}
+
+                            <td colspan='2'>
+                                <label>Description: </label>
+                                <div class="form-group">
+                                    {{textarea value= docElement.value rows="4" class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+
+                        {{#if docElement.code_qty}}
+                            <td >
+                                <label>Qty: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_gr_wt_ttl}}
+                            <td >
+                                <label>Gr.Wt. ttl: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+            {{/if}}
+        {{/each}}
+    </table>
+    <table class="table">
+        <thead></thead>
+        <tbody>
+        <tr class="active">
+            <td style="width: 25%"><strong>B/B</strong></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
+        </tr>
+        {{#each docItem in docItems}}
+            {{#if docItem.tu_bb}}
+                <tr style="border-bottom: 1px solid lightgray">
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_qty}}
+                            <td >
+                                <label>QTY: </label>
+                                <div class="input-group">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" {{action 'change_docItemVisibility' docItem docItem.visible}} type="button" {{bind-attr disabled=controller.isView}}>
+                                            {{#if docItem.visible}}
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            {{else}}
+                                                <span class="glyphicon glyphicon-eye-close"></span>
+                                            {{/if}}
+                                        </button>
+                                      </span>
+                                    {{ input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_weight}}
+                            <td >
+                                <label>Net.Wt.: </label>
+                                <div class="form-group">
+                                    {{ input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_lenght}}
+                            <td >
+                                <label>L: </label>
+                                <div class="form-group">
+                                    {{ input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_width}}
+                            <td >
+                                <label>W: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+                <tr style="border-bottom: 2px solid lightgray">
+
+                    {{#each docElement in docItem.docElements}}
+                        {{#if docElement.code_description}}
+
+                            <td colspan='2'>
+                                <label>Description: </label>
+                                <div class="form-group">
+                                    {{textarea value= docElement.value rows="4" class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+
+                        {{#if docElement.code_height}}
+                            <td >
+                                <label>H: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                        {{#if docElement.code_measurement}}
+                            <td >
+                                <label>Cbm: </label>
+                                <div class="form-group">
+                                    {{input value= docElement.numericValue type='number' class='form-control' disabled=controller.isView}}
+                                </div>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+            {{/if}}
+        {{/each}}
+    </table>
+{{/if}}
+
+
+{{#if canEdit}}
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 class="page-header"></h5>
+            {{#if controller.isView}}
+                <button class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
+            {{else}}
+                <button class="btn btn-primary btn-130 pull-right" {{action "save_docItems" true docItems this}}>Save</button>
+            {{/if}}
+        </div>
+    </div>
+{{/if}}

@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-11">
+    {{#unless isRegister}}
+    <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+        <div class="col-lg-10">
+            <div class= "well well-lg" style="background-color: #FAFDFD">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                    {{#view 'upload-file' value1='booking'}}
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-primary btn-file">
+                                    Browse file&hellip; <input type="file" multiple>
+                                </span>
+                            </span>
+                            {{input id="selected_file" type="text" placeholder="max. 10 MB" class='form-control'}}
+                            <span class="input-group-btn">
+                            <button id='button_upload' {{bind-attr value=id}} type="button" data-loading-text="Loading..." class="btn btn-primary btn-130 pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Upload</button>
+                            </span>
+                        </div>
+                    {{/view}}
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    {{/unless}}
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="page-header">All Files</h3>
+            </div>
+            <div class="col-lg-4">
+                <br>
+                <br>
+                <!--  ******* HEAD ********  -->
+                <div class="col-lg-6">
+                    <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default custom120 pull-right" {{action "generate_bookFolder" this}}>
+                        <span class="glyphicon glyphbutton glyphicon-folder-open"></span> Generate
+                    </button>
+                </div>
+
+                <div class="col-lg-6">
+                    {{#unless isRegister}}
+                        {{#if isAccept}}
+                            <button type="button" class="btn btn-default custom120 pull-right" {{action "generate_confirmation" this}}>
+                                Confirmation
+                            </button>
+                        {{/if}}
+                    {{/unless}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        <div class=row>
+            <div class="col-lg-10">
+                {{!{{#view App.DownloadView}}
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Email</th>
+                        <th>Download</th>
+                        {{#unless isRegister}}
+                            <th>Remove</th>
+                        {{/unless}}
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{#each file in files}}
+                        <tr>
+                            <td>{{file.name}}</td>
+                            <td>{{file.type}}</td>
+                            {{#if file.isConfirmation}}
+                                {{#unless isRegister}}
+                                    <td><a href="#"><span class="glyphicon glyphicon-send"{{action "send_bookingConfirmationEmail" this 'confirmation'}}></span></a></td>
+                                {{/unless}}
+                            {{else}}
+                                {{#if file.isNote}}
+                                    {{#unless isRegister}}
+                                        <td><a href="#"><span class="glyphicon glyphicon-send"{{action "send_bookingConfirmationEmail" this 'note'}}></span></a></td>
+                                    {{/unless}}
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            {{/if}}
+                            <!--class="fileDownloadSimpleRichExperience" -->
+                            <td><a href="#" {{action "download_file" file.id}}><span class="glyphicon glyphicon-download"></span></a></td>
+                            <!--<td><a href= 'api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true'><span class="glyphicon glyphicon-download" ></span></a></td>-->
+                            {{#if isRegister}}
+                            {{else}}
+                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                            {{/if}}
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                {{!{{/view}}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

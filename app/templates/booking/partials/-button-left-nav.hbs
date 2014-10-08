@@ -1,0 +1,46 @@
+{{#if controller.itemListActive}}
+    <div class="row">
+        <h5 class="page-header"></h5>
+        <div class="col-lg-12">
+    {{!{{#each item in items}}
+            {{!{{#ifEqual item.id controller.itemId}}
+                    <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "setContainerTab" false}}>
+                        <span class="glyphicon glyphlink glyphicon-chevron-left"  style="color: aliceblue"></span> Back</button>
+                    {{!{{/ifEqual}}
+            {{!{{/each}}
+        </div>
+    </div>
+{{else}}
+    <!--REQUEST OF BOOKING - CLIENT-->
+    {{#if controller.is_client}}
+        <!--STATE: REQUEST-->
+        {{#if isRequest}}
+            {{partial 'booking/partials/button-left-nav/-button-state-request'}}
+        {{else}}
+            <!--STATE: PENDING-->
+            {{partial 'booking/partials/button-left-nav/-button-state-pending'}}
+        {{/if}}
+    {{else}}
+        {{#if isRequest}}
+            {{partial 'booking/partials/button-left-nav/-button-state-request'}}
+        {{/if}}
+        {{#if isPending}}
+            <!--STATE: PENDING-->
+            {{partial 'booking/partials/button-left-nav/-button-state-pending'}}
+        {{/if}}
+        <!--BOOKING - STATE: EDITING-->
+        {{#if isEditing}}
+            {{partial 'booking/partials/button-left-nav/-button-state-edit'}}
+        {{/if}}
+
+        <!--BOOKING - STATE: LOCK-->
+        {{#if isLocked}}
+            {{partial 'booking/partials/button-left-nav/-button-state-lock'}}
+        {{/if}}
+
+        <!--BOOKING - STATE: REGISTER-->
+        {{#if isRegister}}
+            {{partial 'booking/partials/button-left-nav/-button-state-register'}}
+        {{/if}}
+    {{/if}}
+{{/if}}

@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-pills nav-justified">
+            <li {{bind-attr class="controller.subTabLists.goods:active"}}>
+                <a href="#" {{action selectSubTab "goods"}}>Goods</a>
+            </li>
+            <li {{bind-attr class="controller.subTabLists.details:active"}}>
+                <a href="#" {{action selectSubTab "details"}}>Item details</a>
+            </li>
+            {{!{{#if controller.is_shipowner}}
+            {{!{{else}}
+                {{#if controller.tabList.container}}
+                    <li {{bind-attr class="controller.subTabLists.haulage:active"}}>
+                        <a href="#" {{action selectSubTab "haulage"}}>Haulage</a>
+                    </li>
+                {{/if}}
+                {{#if controller.tabList.bb}}
+                    <li {{bind-attr class="controller.subTabLists.haulage:active"}}>
+                        <a href="#" {{action selectSubTab "haulage"}}>Haulage</a>
+                    </li>
+                {{/if}}
+            {{!{{/if}}
+            {{#if controller.is_client}}
+            {{else}}
+                {{#unless isPending}}
+                    <li {{bind-attr class="controller.subTabLists.customs:active"}}>
+                        <a href="#" data-tab="customs" {{action selectSubTab "customs"}}>Customs</a>
+                    </li>
+                    <li {{bind-attr class="controller.subTabLists.status:active"}}>
+                        <a href="#" data-tab="status" {{action selectSubTab "status"}}>Status</a>
+                    </li>
+                    {{!{{#if controller.is_shipowner}}
+                    {{!{{else}}
+                        <li {{bind-attr class="controller.subTabLists.revenues:active"}}>
+                            <a href="#" data-tab="revenues" {{action selectSubTab "revenues"}}>Item revenues</a>
+                        </li>
+                    {{!{{/if}}
+
+                    <li {{bind-attr class="controller.subTabLists.files:active"}}>
+                        <a href="#" data-tab="files" {{action selectSubTab "files"}}>Files</a>
+                    </li>
+                {{/unless}}
+            {{/if}}
+        </ul>
+
+        <div class= "well well-lg" style="background-color: #FAFDFD; margin-top: 15px">
+            {{#if controller.subTabLists.goods}}
+                {{partial "booking/partials/sub-tab/goods/-container-body"}}
+            {{/if}}
+            {{#if controller.subTabLists.details}}
+                {{#if controller.is_client}}
+                    {{partial 'booking/partials/sub-tab/details/-client-body'}}
+                {{else}}
+                    {{partial 'booking/partials/sub-tab/details/-body'}}
+                {{/if}}
+            {{/if}}
+            {{#if controller.subTabLists.haulage}}
+                {{partial "booking/partials/sub-tab/-sub-tab-haulage"}}
+            {{/if}}
+            {{#if controller.subTabLists.customs}}
+                {{partial "booking/partials/sub-tab/-sub-tab-customs"}}
+            {{/if}}
+            {{#if controller.subTabLists.status}}
+                {{partial "booking/partials/sub-tab/-sub-tab-status"}}
+            {{/if}}
+            {{#if controller.subTabLists.revenues}}
+                {{partial "booking/partials/sub-tab/-sub-tab-revenues"}}
+            {{/if}}
+            {{#if controller.subTabLists.files}}
+                {{partial "booking/partials/sub-tab/-sub-tab-files"}}
+            {{/if}}
+
+            {{#unless controller.subTabLists.files}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{#if is_client}}
+                            {{#if isRequest}}
+                                {{!{{#each item in items}}
+                                    {{!{{#ifEqual item.id controller.itemId}}
+                                        {{!{{#each freightEquipment in item.freightEquipments}}
+                                            <h5 class="page-header"></h5>
+                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'Req'}}>
+                                                <span class="glyphicon glyphicon-ok"></span> Confirm
+                                            </button>
+                                        {{!{{/each}}
+                                    {{!{{/ifEqual}}
+                                {{!{{/each}}
+                            {{/if}}
+                        {{else}}
+                            {{#if isReqOrEdit}}
+                            {{!{{#each item in items}}
+                            {{!{{#ifEqual item.id controller.itemId}}
+                            {{!{{#each freightEquipment in item.freightEquipments}}
+                                            <h5 class="page-header"></h5>
+                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'E'}}>
+                                                <span class="glyphicon glyphicon-ok"></span> Confirm
+                                            </button>
+                            {{!{{/each}}
+                                    {{!{{/ifEqual}}
+                            {{!{{/each}}
+                            {{/if}}
+                            {{#if isLocked}}
+                            {{!{{#each item in items}}
+                            {{! {{#ifEqual item.id controller.itemId}}
+                                    {{!{{#each freightEquipment in item.freightEquipments}}
+                                            <h5 class="page-header"></h5>
+                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'L'}}>
+                                                <span class="glyphicon glyphicon-ok"></span> Confirm
+                                            </button>
+                                        {{!{{/each}}
+                                    {{!{{/ifEqual}}
+                            {{!{{/each}}
+                            {{/if}}
+                        {{/if}}
+                    </div>
+                </div>
+            {{/unless}}
+        </div>
+    </div>
+</div>
+
+

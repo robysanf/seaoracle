@@ -1,0 +1,91 @@
+{{#if app_controller.searchResults}}
+    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Booking Ref.</th>
+                    <th>POO</th>
+                    <th>POD</th>
+                    <th>Voyage</th>
+                    <th>Client</th>
+                    <th>Agency</th>
+                    <th>Shipper</th>
+                    <th>Consignee</th>
+                    <th>Status</th>
+                    <th>Acknowledge</th>
+                    {{!{{#inArray App.grantsValue "access/booking/view"}}
+                        <th>Go to</th>
+                    {{!{{/inArray}}
+                    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+                        <th>Remove</th>
+                    {{!{{/inArray}}
+                </tr>
+                </thead>
+                <tbody>
+                {{#each booking in app_controller.searchResults}}
+                    <tr>
+                        <td>{{booking.code}}</td>
+                        <td>{{booking.origin.name}}</td>
+                        <td>{{booking.destination.name}}</td>
+                        {{#if booking.freightPlans}}
+                            {{#each freightPlan in booking.freightPlans}}
+                                <td>
+                                    {{#each voyage in freightPlan.orderedVoyages}}
+                                        {{voyage.name}}
+                                    {{/each}}
+                                </td>
+                            {{/each}}
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+                        <td>{{booking.client.name}}</td>
+                        <td>{{booking.agency.name}}</td>
+                        <td>{{booking.shipper.name}}</td>
+                        <td>{{booking.consignee.name}}</td>
+                        <td>{{booking.state}}</td>
+                        <td>{{booking.acknowledge}}</td>
+                        {{!{{#inArray App.grantsValue "access/booking/view"}}
+                        <td>
+                            <a href="#">
+                                {{!{{#link-to 'booking/main' booking}}
+                                <span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span>
+                                {{!{{/link-to}}
+                            </a>
+                        </td>
+                        {{!{{/inArray}}
+                        {{!{{#inArray App.grantsValue "access/booking/remove"}}
+
+                        {{#if controller.is_shipowner}}
+                            <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                        {{else}}
+                            {{#if controller.is_client}}
+                                {{#if booking.isRequest}}
+                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            {{else}}
+                                {{#unless booking.isLockedOrRegistered}}
+                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                {{else}}
+                                    <td></td>
+                                {{/unless}}
+                            {{/if}}
+                        {{/if}}
+                        {{!{{/inArray}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{else}}
+
+{{/if}}
+
+<!--   infinite scroll  -->
+{{#if app_controller.loadingMore}}
+    <div class="alert alert-info"><p style="text-align: center"><strong>Loading more...</strong></p></div>
+{{/if}}

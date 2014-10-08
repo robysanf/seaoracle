@@ -1,0 +1,35 @@
+{{#if controller.itemListActive}}
+    <div class="row">
+        {{partial "port/partials/-depot-new"}}
+    </div>
+    <!--altrimenti mostro l'ITEMS LIST-->
+{{else}}
+
+    {{#if controller.itemEditActive}}
+        {{partial "port/partials/-depot-edit"}}
+    {{else}}
+        {{#if childPois}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-9">
+                    <h2 class="page-header">Depots list</h2>
+                </div>
+                <div class="col-lg-2">
+                    <br>
+                    <br>
+                    {{#if controller.user_record.poi_new}}
+                        <button type="button" class="btn btn-primary btn-small pull-right"  {{action 'goTo' true}}><span class="glyphicon glyphicon-plus"></span> Add depot</button>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+        <!--table con lista degli utenti-->
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-11">
+                {{partial "port/partials/-depots-list"}}
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    {{/if}}
+{{/if}}

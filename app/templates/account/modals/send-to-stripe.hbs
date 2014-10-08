@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action  close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Payment details</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Card Number</label>
+            <div class="form-group">
+                <div class="input-group">
+                    {{input type='string' maxlength=4 value= controller.cardNumber1 class='form-control'}}
+                    <span class="input-group-addon">-</span>
+                    {{input type='string' maxlength=4 value= controller.cardNumber2 class='form-control'}}
+                    <span class="input-group-addon">-</span>
+                    {{input type='string' maxlength=4 value= controller.cardNumber3 class='form-control'}}
+                    <span class="input-group-addon">-</span>
+                    {{input type='string' maxlength=4 value= controller.cardNumber4 class='form-control'}}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <label>CVC</label>
+            <div class="form-group">
+                {{input type='string' maxlength=4 value= controller.cvc class='form-control' placeholder='CVC'}}
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <label>Expiration</label>
+            <div class="input-group">
+                {{input type='string' maxlength=2 value= controller.mm class='form-control' placeholder='MM'}}
+                <span class="input-group-addon">/</span>
+                {{input type='string' maxlength=4 value= controller.yyyy class='form-control' placeholder='YYYY'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action  close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-default" {{action send_toStripe target="view"}}>Save</a>
+</div>

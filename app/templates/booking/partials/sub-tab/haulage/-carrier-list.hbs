@@ -1,0 +1,103 @@
+<div class="row">
+    <br>
+    <br>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <table class="table table-condensed">
+            <thead>
+            <tr style="border-bottom: 2px solid #000000;">
+                <th>Carrier</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Taxed</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>Province</th>
+                <th>Country</th>
+                <th colspan="2">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {{#each haulage in controller.item_record.haulages}}
+                <tr>
+                    <td>{{haulage.carrier.name}}</td>
+                    <td>{{haulage.date}}</td>
+                    <td>{{haulage.time}}</td>
+                    <!--se è un cliente può editare solo in stato request-->
+                    {{#if controller.is_client}}
+                        {{#if isRequest}}
+                            <td>{{input type="checkbox" name="options" checked= haulage.taxedTime}}</td>
+                        {{else}}
+                            <td>{{input type="checkbox" name="options" checked= haulage.taxedTime disabled=true}}</td>
+                        {{/if}}
+                    {{else}}
+                        <!--altrimenti può editare solo in stato edit-->
+                        <td>{{input type="checkbox" name="options" checked= haulage.taxedTime disabled=isLockOrRegistOrPend}}</td>
+                    {{/if}}
+
+                    <td>{{haulage.street}}</td>
+                    <td>{{haulage.city}}</td>
+                    <td>{{haulage.province}}</td>
+                    <td>{{haulage.country}}</td>
+                    <!--rowspan: per coprire più righe-->
+                    <td rowspan="4" style="border-left: 1px solid lightgray; border-bottom: 2px solid lightgray;">
+                        {{#if controller.is_client}}
+                            {{#if isRequest}}
+                                <a href=# {{action "carrierManager" "edit" "addCarrier" true haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-pencil"></span></a>
+                            {{/if}}
+                        {{else}}
+                            {{#if isEditing}}
+                                <a href=# {{action "carrierManager" "edit" "addCarrier" true haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-pencil"></span></a>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                    <td rowspan="4" style="border-bottom: 2px solid lightgray;">
+                        {{#if controller.is_client}}
+                            {{#if isRequest}}
+                                <a href=# {{action "carrierManager" "remove" null null haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-remove"></span></a>
+                            {{/if}}
+                        {{else}}
+                            {{#if isEditing}}
+                                <a href=# {{action "carrierManager" "remove" null null haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-remove"></span></a>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8"><label>Carrier details:</label> {{haulage.carrierDetail}} </td>
+                </tr>
+                <tr>
+                    <td colspan="8"><label>Pick up company details:</label> {{haulage.pickUpCompanyDetail}} </td>
+                </tr>
+                <tr >
+                    <td colspan="8"><label>Note:</label> {{haulage.note}} </td>
+                </tr>
+                <tr style="border-bottom: 2px solid lightgray;">
+                    <td colspan="8"><label>Files:</label>
+                        {{#each file in haulage.files}}
+                            <a href="#" {{action "download_file" file.id}}>{{file.name}}</a>
+                        {{/each}}
+                    </td>
+                    <td style="border-left: 1px solid lightgray; border-bottom: 2px solid lightgray;">
+                        {{#if controller.is_client}}
+                        {{else}}
+                            {{#unless isRegister}}
+                                <a href=# {{action "haulagePickUpRequest" item.id haulage}}><span class="glyphicon glyphlink glyphicon-list"></span></a>
+                            {{/unless}}
+                        {{/if}}
+                    </td>
+                    <td style="border-bottom: 2px solid lightgray;">
+                        {{#if controller.is_client}}
+                        {{else}}
+                            {{#unless isRegister}}
+                                <a href=# {{action "send_haulagePickUpRequestEmail" haulage}}><span class="glyphicon glyphlink glyphicon-send"></span></a>
+                            {{/unless}}
+                        {{/if}}
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

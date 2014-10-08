@@ -1,0 +1,113 @@
+{{#if controller.tabList.container}}
+    {{#if controller.itemListActive}}
+        {{#if newContainerItemActive}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body"></div>
+            </div>
+        {{else}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body">
+                     <label>Code: {{controller.item_record.customCode}}</label>
+                </div>
+            </div>
+        {{/if}}
+    {{else}}
+        <br>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">List-view</h3>
+            </div>
+            <div class="panel-body">
+                <p><strong>Container</strong></p>
+                <p>Ro/Ro</p>
+                <p>BB</p>
+            </div>
+        </div>
+    {{/if}}
+{{/if}}
+{{#if controller.tabList.roro}}
+    {{#if controller.itemListActive}}
+        {{#if newContainerItemActive}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        {{else}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body">
+
+                            <label>Code: {{controller.item_record.customCode}}</label>
+
+                </div>
+            </div>
+        {{/if}}
+    {{else}}
+        <br>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">List-view</h3>
+            </div>
+            <div class="panel-body">
+                <p>Container</p>
+                <p><strong>Ro/Ro</strong></p>
+                <p>BB</p>
+            </div>
+        </div>
+    {{/if}}
+{{/if}}
+{{#if controller.tabList.bb}}
+    {{#if controller.itemListActive}}
+        {{#if newContainerItemActive}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        {{else}}
+            <br>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item-view</h3>
+                </div>
+                <div class="panel-body">
+
+                    <label>Code: {{controller.item_record.customCode}}</label>
+
+                </div>
+            </div>
+        {{/if}}
+    {{else}}
+        <br>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">List-view</h3>
+            </div>
+            <div class="panel-body">
+                <p>Container</p>
+                <p>Ro/Ro</p>
+                <p><strong>BB</strong></p>
+            </div>
+        </div>
+    {{/if}}
+{{/if}}

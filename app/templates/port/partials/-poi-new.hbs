@@ -1,0 +1,41 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        {{#view "check-unique-field" model_val='poi' filter_val='name' val=controller.newName path='port.new-poi'}}
+            <div class="row">
+                <div class="col-lg-3"><h4>Name</h4></div>
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        {{input id='name' value=controller.newName placeholder='Enter name' class='form-control'}}
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {{/view}}
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>UnLocode</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input id='unLocode' value= controller.newUnLocode  placeholder='Enter street' class='form-control'}}
+                    <span class="input-group-addon " id="2">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value=controller.newCountry class='form-control'}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "createNewPort"}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+    </div>
+</div>

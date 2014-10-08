@@ -1,0 +1,121 @@
+<div class="row" style="margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-10">
+                <h2 class="page-header">New user</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Type</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{view Ember.Select content=userTypeClassification value= newType class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>First name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= newName class='form-control'}}
+                    <span class="input-group-addon" id="1">
+                       <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Last name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= newSurname class='form-control'}}
+                    <span class="input-group-addon " id="2">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Date of Birth</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{date-picker-custom controls="datepicker_birthDateUser" value=newDate placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                    {{date-picker-controls id="datepicker_birthDateUser" maxYear="+50" minYear="-10"}}
+                    {{!{{input value= newDate type="date" class='form-control'}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{!{{#view App.CheckUniqueFieldView value='user' value1='username' value2=newUsername}}
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Username</h4></div>
+                <div class="col-lg-7">
+                    <div class="input-group input-group">
+                        {{input value= newUsername class='form-control' }}
+                        <span class="input-group-addon " id="3">
+                            <span class="glyphicon glyphicon-asterisk"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {{!{{/view}}
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Password</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= newPassword type="password" class='form-control'}}
+                    <span class="input-group-addon" id="4">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-7">
+                <h5 class="page-header"></h5>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>E-mail</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= newEmail class='form-control'}}
+                    <span class="input-group-addon" id="5">
+                       <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newPhone class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="col-lg-3"><h4>Visibility</h4></div>-->
+        <!--<div class="col-lg-7">-->
+        <!--<div class="form-group">{{!{{view Ember.Select content=App.visibility value= newVisibility class='form-control'}}</div>-->
+        <!--</div>-->
+        <!--<div class="col-lg-2"></div>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action "createUser" id}}>Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

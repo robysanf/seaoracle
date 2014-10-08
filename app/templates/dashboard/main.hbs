@@ -1,0 +1,140 @@
+
+<div class="row" style="margin-bottom: 25px">
+    <div class="col-lg-12">
+        <div class="container1">
+            <div class="row" style="margin-top: 20px">
+                <div class="row">
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{#if controller.is_shipowner}}
+                            {{#link-to 'voyage/new-record'}}<button type="button" class="btn btn-custom-color-green btn-custom-medium-measures">
+                                <h1 style="color: whitesmoke; text-align: center; font-size: 28.0pt; font-family: arial, sans-serif, serif;"><span class="glyphicon glyphbutton glyphicon-pencil" style="font-size: 50px;"></span> New Voyage</h1>
+                            </button>{{/link-to}}
+                        {{else}}
+                            {{#link-to 'booking/new-record'}}<button type="button" class="btn btn-orange btn-custom-medium-measures">
+                                <h1 style="color: whitesmoke; text-align: center; font-size: 28.0pt; font-family: arial, sans-serif, serif;"><span class="glyphicon glyphbutton glyphicon-pencil" style="font-size: 50px;"></span> New Booking</h1>
+                            </button>{{/link-to}}
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{#link-to 'booking/search-record'}}
+                                    <button type="button" class="btn btn-blue-lighten btn-custom-small-measures">
+                                        <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Booking</h1>
+                                    </button>
+                                {{/link-to}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{#link-to 'document/search-record'}}
+                                    <button type="button" class="btn btn-blue-very-lighten btn-custom-small-measures">
+                                        <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Document</h1>
+                                    </button>
+                                {{/link-to}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{#if controller.is_shipowner}}
+                            {{#link-to 'vessel/new-record'}}<button type="button" class="btn btn-blue-medium btn-custom-medium-measures">
+                                <h1 style="color: whitesmoke; text-align: center; font-size: 28.0pt; font-family: arial, sans-serif, serif;"><span class="glyphicon glyphbutton glyphicon-pencil" style="font-size: 50px;"></span> New Vessel</h1>
+                            </button>{{/link-to}}
+                        {{else}}
+                            {{#link-to 'company/new-company'}}<button type="button" class="btn btn-green-dark  btn-custom-medium-measures">
+                                <h1 style="color: whitesmoke; text-align: center; font-size: 28.0pt; font-family: arial, sans-serif, serif;"><span class="glyphicon glyphbutton glyphicon-pencil" style="font-size: 50px;"></span> New Company</h1>
+                            </button>{{/link-to}}
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{#link-to 'voyage/search-record'}}
+                                    <button type="button" class="btn btn-green-lighten btn-custom-small-measures">
+                                        <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Voyage</h1>
+                                    </button>
+                                {{/link-to}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{#if controller.is_shipowner}}
+                                    {{#link-to 'vessel/search-vessel'}}
+                                        <button type="button" class="btn btn-green-medium btn-custom-small-measures">
+                                            <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Vessel</h1>
+                                        </button>
+                                    {{/link-to}}
+                                {{/if}}
+                                {{#if controller.is_agency}}
+                                    {{#link-to 'company/search-company'}}
+                                        <button type="button" class="btn btn-orange-lite btn-custom-small-measures">
+                                            <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Company</h1>
+                                        </button>
+                                    {{/link-to}}
+                                {{/if}}
+                                {{#if controller.is_client}}
+                                    {{#link-to 'booking/search-shipments'}}
+                                        <button type="button" class="btn btn-orange-lite btn-custom-small-measures">
+                                            <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-eye-open" style="font-size: 40px;"></span> View shipments</h1>
+                                        </button>
+                                    {{/link-to}}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#if controller.is_shipowner}}
+                    <div class="row">
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{#link-to 'equipment/new-record'}}
+                                <button type="button" class="btn btn-violet-medium btn-custom-medium-measures">
+                                    <h1 style="color: whitesmoke; text-align: center; font-size: 28.0pt; font-family: arial, sans-serif, serif;"><span class="glyphicon glyphbutton glyphicon-pencil" style="font-size: 50px;"></span> New Equipment</h1>
+                                </button>
+                            {{/link-to}}
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{#link-to 'port/search-poi'}}
+                                        <button type="button" class="btn btn-orange-lite btn-custom-small-measures">
+                                            <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Search Port</h1>
+                                        </button>
+                                    {{/link-to}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{#link-to 'equipment/search-record'}}
+                                        <button type="button" class="btn btn-orange btn-custom-small-measures">
+                                            <h1 style="color: whitesmoke; text-align: center"><span class="glyphicon glyphbutton glyphicon-search" style="font-size: 40px;"></span> Container Availability</h1>
+                                        </button>
+                                    {{/link-to}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

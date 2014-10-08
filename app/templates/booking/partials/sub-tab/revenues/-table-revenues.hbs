@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th style="width: 10%">Service</th>
+                        <th style="width: 20%">Bill to</th>
+                        <th style="width: 20%">Revenue</th>
+                        <th style="width: 20%">PER</th>
+                        <th style="width: 15%"></th>
+                        {{#unless isRegister}}
+                            <th style="width: 5%">Remove</th>
+                        {{/unless}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each chargeItem in controller.item_record.chargeItems}}
+                        {{#unless chargeItem.is_chargeType_cost}}
+                            {{#if chargeItem.is_entityType_item}}
+                                {{#if controller.tabList.container}}
+                                    {{#if chargeItem.isTypeContainer}}
+                                        <tr>
+                                            <td>{{chargeItem.code}}</td>
+                                            <td>
+                                                {{#if isRegister}}
+                                                    {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                                                {{else}}
+                                                    <a id="autocomplete-charge">
+                                                        {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
+                                                    </a>
+                                                {{/if}}
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                </div>
+                                            </td>
+                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
+                                            {{#if chargeItem.isMultiplierNum}}
+                                                <td>
+                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                </td>
+                                            {{else}}
+                                                <td> </td>
+                                            {{/if}}
+                                            {{#unless isRegister}}
+                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                            {{/unless}}
+                                        </tr>
+                                    {{/if}}
+                                {{/if}}
+                                {{#if controller.tabList.roro}}
+                                    {{#if chargeItem.isTypeRoRo}}
+                                        <tr>
+                                            <td>{{chargeItem.code}}</td>
+                                            <td>
+                                                {{#if isRegister}}
+                                                    {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
+                                                {{else}}
+                                                    <a id="autocomplete-charge">
+                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                    </a>
+                                                {{/if}}
+
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                </div>
+                                            </td>
+                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
+                                            {{#if chargeItem.isMultiplierNum}}
+                                                <td>
+                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                </td>
+                                            {{else}}
+                                                <td> </td>
+                                            {{/if}}
+                                            {{#unless isRegister}}
+                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                            {{/unless}}
+                                        </tr>
+                                    {{/if}}
+                                {{/if}}
+                                {{#if controller.tabList.bb}}
+                                    {{#if chargeItem.isTypeBB}}
+                                        <tr>
+                                            <td>{{chargeItem.code}}</td>
+                                            <td>
+                                                {{#if isRegister}}
+                                                    {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                                                {{else}}
+                                                    <a id="autocomplete-charge">
+                                                        {{auto-complete source=App.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                    </a>
+                                                {{/if}}
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
+                                                    {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                </div>
+                                            </td>
+                                            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
+                                            {{#if chargeItem.isMultiplierNum}}
+                                                <td>
+                                                    {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                </td>
+                                            {{else}}
+                                                <td> </td>
+                                            {{/if}}
+
+                                            {{#unless isRegister}}
+                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
+                                            {{/unless}}
+                                        </tr>
+                                    {{/if}}
+                                {{/if}}
+                            {{/if}}
+                        {{/unless}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

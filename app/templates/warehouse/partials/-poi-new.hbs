@@ -1,0 +1,81 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        {{#view "check-unique-field" model_val='poi' filter_val='name' val=newName path='warehouse.new-warehouse'}}
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Name</h4></div>
+                <div class="col-lg-7">
+                    <div class="input-group input-group">
+                        {{input id='name' value= newName placeholder='Enter name' class='form-control'}}
+                        <span class="input-group-addon " id="1">
+                            <span class="glyphicon glyphicon-asterisk"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {{/view}}
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='street' value= newStreet  placeholder='Enter street' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='city' value= newCity  placeholder='Enter city' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='zipCode' value= newZipCode placeholder='Enter zip code' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='province' value= newProvince  placeholder='Enter province' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='country' value= newCountry placeholder='Enter country' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>E-mail</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='email1' value=newEmail placeholder='Enter email' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='phone' value= newPhone placeholder='Enter phone' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Notify Party</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='notify' value= newNotifyParty placeholder='Enter Notify party' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button class="btn btn-primary btn-130 pull-right" {{action "createWarehouse"}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

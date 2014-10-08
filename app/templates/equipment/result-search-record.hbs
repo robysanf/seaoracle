@@ -1,0 +1,47 @@
+{{#if app_controller.searchResults}}
+    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Classification</th>
+                    <th>Supplier</th>
+                    <th>Owner</th>
+                    <th>Preview</th>
+                    <th>Go to</th>
+                    {{#if controller.user_record.equipment_remove}}
+                        <th>Remove</th>
+                    {{else}}
+                        <th></th>
+                    {{/if}}
+
+                </tr>
+                </thead>
+                <tbody>
+                {{#each equipment in app_controller.searchResults}}
+                    <tr>
+                        <td>{{equipment.code}}</td>
+                        <td>{{equipment.equipmentClassification.name}}</td>
+                        <td>{{equipment.supplier.name}}</td>
+                        <td>{{equipment.company.name}}</td>
+                        <td><a href="#" {{action "open_modal" 'equipment.modals.overview-record' equipment}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        <td><a href="#" {{action 'transition_to_record' 'equipment/main' equipment}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                        {{#if equipment.canRemove}}
+                            <td><a href="#" {{action "open_modal" 'equipment.modals.remove-record' equipment}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        {{else}}
+                         <td></td>
+                        {{/if}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{/if}}
+
+<!--   infinite scroll  -->
+{{#if app_controller.loadingMore}}
+    <div class="alert alert-info"><p style="text-align: center"><strong>Loading more...</strong></p></div>
+{{/if}}

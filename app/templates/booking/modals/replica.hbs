@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Replica Item</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>Insert the number of copy that you want.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    {{#view "check-replica-number"}}
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <label>Replica number</label>
+                {{input value= controller.replicaNumber type="number" class='form-control'}}
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    {{/view}}
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn btn-130" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-130 btn-primary" {{action send_replica target="view"}}>Save</a>
+</div>

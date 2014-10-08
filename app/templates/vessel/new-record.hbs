@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>New Vessel</h3>
+            <p><h5>Name: <b>{{newName}}</b></h5>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#warehouseDetails" data-toggle="tab"><h3>Details</h3></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="warehouseDetails">
+                <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+
+                    <div class="col-lg-12">
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Name</h4></div>
+                            <div class="col-lg-7">
+                                <div class="input-group input-group">
+                                    {{input id='name' value= controller.newName placeholder='Enter name' class='form-control'}}
+                                    <span class="input-group-addon " id="1">
+                                        <span class="glyphicon glyphicon-asterisk"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        {{#view "check-unique-field" model_val='vessel' filter_val='nickname' val=controller.newName path='vessel.new-record'}}
+                            <div class="row" style="margin-bottom: 15px;">
+                                <div class="col-lg-3"><h4>Nickname</h4></div>
+                                <div class="col-lg-7">
+                                    <div class="input-group input-group">
+                                        {{input id='nickname' value= controller.newNickname placeholder='Enter nickname' class='form-control'}}
+                                        <span class="input-group-addon " id="1">
+                                            <span class="glyphicon glyphicon-asterisk"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2"></div>
+                            </div>
+                        {{/view}}
+                        <div class="row">
+                            <div class="col-lg-3"><h4>Payload</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input id='payload' value= controller.newPayload  type='number' placeholder='Enter payload' class='form-control'}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"><h4>Length</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input id='length' value= controller.newLength  type='number' placeholder='Enter length' class='form-control'}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"><h4>Width</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input id='width' value= controller.newWidth type='number' placeholder='Enter width' class='form-control'}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <h5 class="page-header"></h5>
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

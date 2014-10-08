@@ -1,0 +1,78 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input id='name' value= newName placeholder='Enter name' class='form-control'}}
+                    <span class="input-group-addon " id="1">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newStreet  placeholder='Enter street' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newProvince placeholder='Enter province' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newZipCode placeholder='Enter zip code ' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newCity placeholder='Enter city' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value= newCountry class='form-control'}}
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<div class="col-lg-3"><h4>Country</h4></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="form-group">{{!{{input value= newCountry placeholder='Enter country' class='form-control'}}</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-2"></div>-->
+        <!--</div>-->
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newPhone placeholder='Enter phone' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Notify Party</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input value= newNotifyParty placeholder='Enter Notify party' class='form-control'}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record" this}}>Save</button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

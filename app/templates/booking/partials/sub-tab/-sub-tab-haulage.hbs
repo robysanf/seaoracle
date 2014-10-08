@@ -1,0 +1,105 @@
+{{#each freightEquipment in controller.item_record.freightEquipments}}{{/each}}  <!--utile solo per non perdere riferimento al freight equipment durante il salvataggio-->
+
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-9">
+
+        <!-- **********************************************************************************
+                HEAD - SCELTA FRA MERCHANT OR CARRIER
+        -->
+
+    {{#if controller.is_client}}
+        {{#if isRequest}}
+            {{#if controller.item_record.isHaulageC}}
+                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
+                        {{input type="radio" name="options"}} Merchant
+                    </label>
+                    <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
+                        {{input type="radio" name="options"}} Carrier
+                    </label>
+                </div>
+            {{else}}
+                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
+                        {{input type="radio" name="options"}} Merchant
+                    </label>
+                    <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
+                        {{input type="radio" name="options"}} Carrier
+                    </label>
+                </div>
+            {{/if}}
+        {{else}}
+            {{#if controller.item_record.isHaulageC}}
+                <label class="form-control"  style="text-align: center">Carrier</label>
+            {{else}}
+                <label class="form-control" style="text-align: center">Merchant</label>
+            {{/if}}
+        {{/if}}
+    {{else}}
+        {{#if isEditing}}
+            {{#if controller.item_record.isHaulageC}}
+                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
+                        {{input type="radio" name="options"}} Merchant
+                    </label>
+                    <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
+                        {{input type="radio" name="options"}} Carrier
+                    </label>
+                </div>
+            {{else}}
+                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
+                        {{input type="radio" name="options"}} Merchant
+                    </label>
+                    <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
+                        {{input type="radio" name="options"}} Carrier
+                    </label>
+                </div>
+            {{/if}}
+        {{else}}
+            {{#if controller.item_record.isHaulageC}}
+                <label class="form-control"  style="text-align: center">Carrier</label>
+            {{else}}
+                <label class="form-control" style="text-align: center">Merchant</label>
+            {{/if}}
+        {{/if}}
+    {{/if}}
+    </div>
+
+    <div class="col-lg-1">
+        {{#if controller.is_client}}
+            {{#if isRequest}}
+                <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            {{/if}}
+        {{else}}
+            {{#if isEditing}}
+                <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            {{/if}}
+        {{/if}}
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+<div class="row">
+    {{#if controller.item_record.isHaulageC}}
+        <!-- **********************************************************************************
+               BODY
+       -->
+        {{#if controller.addCarrier}}
+
+            <!-- ***** NEW CARRIER ***** -->
+            {{partial 'booking/partials/sub-tab/haulage/-carrier-new'}}
+        {{else}}
+
+            <!-- ***** CARRIER LIST ***** -->
+            {{partial 'booking/partials/sub-tab/haulage/-carrier-list'}}
+        {{/if}}
+    {{/if}}
+
+
+</div>

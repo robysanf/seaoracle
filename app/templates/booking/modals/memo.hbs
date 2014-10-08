@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>New Memo</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-6">
+            <label>Total Mtl</label>
+            {{input value= totMtl type="text" class='form-control' placeholder='m'}}
+        </div>
+        <div class="col-lg-6">
+            <label>Total Weight</label>
+            {{input value= totWeight type="text" class='form-control' placeholder='kg'}}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-default" {{action "create_record" "memo" "roro" null false target="view"}}>Save</a>
+</div>

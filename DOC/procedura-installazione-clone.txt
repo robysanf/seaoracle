@@ -1,0 +1,14 @@
+INSTALLAZIONE PROGETTO EMBER-CLI BASIC - CLONE
+
+1) Git Shell:
+		terminal > cd path (in cui si vuole inserire il nuovo progetto) 
+		terminal > git clone git@github.com:francescabarbazeni87/nome-progetto-da-clonare.git 				nome-nuovo-progetto
+	
+2) Node.js:
+		terminal > cd path/nome-nuovo-progetto && npm install && bower install
+	
+3) a questo punto è necessario inserire in vendor tutte le librerie custom/modificate ad esempio:  
+			- bootstrap/dist/css/bootstrap.min.css
+			- pnotify/pnotify.custom.css && pnotify/pnotify.custom.js
+			- ember-date-picker/dist/ember-date-picker-custom.css && ember-date-picker/dist/ember-date-picker-custom.js
+			

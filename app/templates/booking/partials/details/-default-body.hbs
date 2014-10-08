@@ -1,0 +1,228 @@
+{{#if isLockOrRegistOrPend}}
+    <div class="row">
+        <div class="col-lg-6">
+            <label style="color: red">Port of Origin {{#if isEditing}}(*){{/if}}</label>
+            {{input value= origin.name type="text" class='form-control' disabled=true}}
+        </div>
+        <div class="col-lg-6">
+            <label style="color: red">Port of Destination {{#if isEditing}}(*){{/if}}</label>
+            {{input value= destination.name type="text" class='form-control' disabled=true}}
+        </div>
+    </div>
+    <br>
+{{else}}
+    {{#if freightPlans}}
+        <div class="row">
+            <div class="col-lg-6">
+                <label style="color: red">Port of Origin {{#if isEditing}}(*){{/if}}</label>
+                {{input value= origin.name type="text" class='form-control' disabled=true}}
+            </div>
+            <div class="col-lg-6">
+                <label style="color: red">Port of Destination {{#if isEditing}}(*){{/if}}</label>
+                {{input value= destination.name type="text" class='form-control' disabled=true}}
+            </div>
+        </div>
+        <br>
+    {{else}}
+        <div class="row">
+            <div class="col-lg-6">
+                <label style="color: red">Port of Origin {{#if isEditing}}(*){{/if}}</label>
+                <a id="autocomplete-portOriginName">
+                    {{auto-complete source=app_controller.autocompletePoiPort destination=origin searchPath="name" minChars=2}}
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <label style="color: red">Port of Destination {{#if isEditing}}(*){{/if}}</label>
+                <a id="autocomplete-portDestinationName">
+                    {{auto-complete source=app_controller.autocompletePoiPort destination=destination searchPath="name" minChars=2}}
+                </a>
+            </div>
+        </div>
+        <br>
+    {{/if}}
+
+{{/if}}
+<div class="row">
+    <div class="col-lg-6">
+        <label style="color: red">DTD {{#if isEditing}}(*){{/if}}</label>
+        {{date-picker-custom controls='datepicker-dtd1' value=dtd placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD" disabled=isLockOrRegistOrPend}}
+        {{date-picker-controls id='datepicker-dtd1' maxYear="+50" minYear="-10"}}
+        {{!{{input value= dtd type="date" class='form-control' disabled=isLockOrRegistOrPend}}
+    </div>
+    <div class="col-lg-6">
+        <label>DTA </label>
+        {{date-picker-custom controls='datepicker-dta1' value=dta placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD" disabled=isLockOrRegistOrPend}}
+        {{date-picker-controls id='datepicker-dta1' maxYear="+50" minYear="-10"}}
+        {{!{{input value= dta type="date" class='form-control' disabled=isLockOrRegistOrPend}}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <label>Final Destination</label>
+        {{input value= finalDestination type="text" class='form-control' disabled=isRegistOrPend}}
+    </div>
+    {{#if isLockOrRegistOrPend}}
+        <div class="col-lg-6">
+            <label>Customs Agent</label>
+            {{input value= customManifestHandler.name type="text" class='form-control' disabled=true}}
+        </div>
+    {{else}}
+        <div class="col-lg-6">
+            <label>Customs Agent</label>
+            <a id="autocomplete-customManifestHandlerName">
+                {{auto-complete source=app_controller.autocompleteCompany destination= customManifestHandler searchPath="name" minChars=1}}
+            </a>
+        </div>
+    {{/if}}
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <label style="color: red">Currency {{#if isEditOrLock}}(*){{/if}}</label>
+        {{view Ember.Select content=currencyClassification value= currency class='form-control' disabled=isRegistOrPend}}
+    </div>
+    <div class="col-lg-6">
+        <label>Service Contract</label>
+        {{input value= serviceContract type="text" class='form-control' disabled=isRegistOrPend}}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <label>Ref. no</label>
+        {{input value= refNo type="text" class='form-control' disabled=isRegistOrPend}}
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<div class="page-header"></div>
+
+{{#unless isRegistOrPend}}
+    <div class="row">
+        {{#if isRequest}}
+            <div class="col-lg-6">
+                <label>Agency</label>
+                <a id="autocomplete-agencyName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=agency searchPath="name" minChars=0}}
+                </a>
+            </div>
+        {{else}}
+            {{#if isLockedOrRegistered}}
+                <div class="col-lg-6">
+                    <label style="color: red">Client {{#if isEditing}}(*){{/if}}</label>
+                    {{input value= client.name type="text" class='form-control' disabled=true}}
+                </div>
+            {{else}}
+                <div class="col-lg-6">
+                    <label style="color: red">Client {{#if isEditing}}(*){{/if}}</label>
+                    <a id="autocomplete-clientName">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=client searchPath="name" minChars=0}}
+                    </a>
+                </div>
+            {{/if}}
+        {{/if}}
+
+        {{#if isLockedOrRegistered}}
+            <div class="col-lg-6">
+                <label>Shipper</label>
+                {{input value= shipper.name type="text" class='form-control' disabled=true}}
+            </div>
+        {{else}}
+            <div class="col-lg-6">
+                <label>Shipper</label>
+                <a id="autocomplete-shipperName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=shipper searchPath="name" minChars=0}}
+                </a>
+            </div>
+        {{/if}}
+    </div>
+    <br>
+    <div class="row">
+        {{#if isLockedOrRegistered}}
+            <div class="col-lg-6">
+                <label>Consignee</label>
+                {{input value=consignee.name type="text" class='form-control' disabled=true}}
+            </div>
+            <div class="col-lg-6">
+                <label>Notify</label>
+                {{input value=notify.name type="text" class='form-control' disabled=true}}
+            </div>
+        {{else}}
+            <div class="col-lg-6">
+                <label>Consignee</label>
+                <a id="autocomplete-consigneeName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=consignee searchPath="name" minChars=0}}
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <label>Notify</label>
+                <a id="autocomplete-notifyName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=notify searchPath="name" minChars=1}}
+                </a>
+            </div>
+        {{/if}}
+
+    </div>
+    <div class='page-header'></div>
+{{/unless}}
+{{#if controller.is_admin}}
+    <div class="row">
+        <div class="col-lg-12">
+            <label>Agency details</label>
+            {{input type="text" value=agencyDetail class='form-control' disabled=true}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <label>Client details</label>
+            {{input type="text" value=clientDetail class='form-control' disabled=true}}
+        </div>
+    </div>
+    <br>
+{{else}}
+    {{#if controller.is_client}}
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Agency details</label>
+                {{input type="text" value=agencyDetail class='form-control' disabled=true}}
+            </div>
+        </div>
+        <br>
+    {{else}}
+        <div class="row">
+            <div class="col-lg-12">
+                <label>Client details</label>
+                {{input type="text" value=clientDetail class='form-control' disabled=true}}
+            </div>
+        </div>
+        <br>
+    {{/if}}
+{{/if}}
+<div class="row">
+    <div class="col-lg-12">
+        <label>Shipper details</label>
+        {{input type="text" value=shipperDetail class='form-control' disabled=true}}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <label>Consignee details</label>
+        {{input type="text" value=consigneeDetail class='form-control' disabled=true}}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <label>Notify details</label>
+        {{input type="text" value=notifyDetail class='form-control' disabled=true}}
+    </div>
+</div>
+<div class='page-header'></div>
+<div class="row">
+    <div class="col-lg-12">
+        <label>Note</label>
+        {{textarea cols="80" rows="8" value=bookNote class='form-control' disabled=isRegistOrPend}}
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="row" style="margin-top: 25px">
+    <div class="col-lg-12">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-9">
+                    <label><h4>Name</h4></label>
+                    {{#if controller.revenuesTabList.bookingCharges}}
+                        {{view Ember.Select content= bookingCharges_list value= newCharge prompt = 'please select a booking charge' class='form-control'}}
+                    {{else}}
+                        {{view Ember.Select content= allCharges_list value= newCharge prompt = 'please select an item charge' class='form-control'}}
+                    {{/if}}
+                </div>
+                <div class="col-lg-3">
+                    <br style="line-height:42px">
+                    {{!{{#unless controller.is_shipowner}}
+                        {{#if controller.revenuesTabList.bookingCharges}}
+                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'none' 'booking' controller.is_shipowner}}>Add charge</button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.containerCharges}}
+                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'container' 'booking' controller.is_shipowner}}>Add charge</button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.roroCharges}}
+                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'roro' 'booking' controller.is_shipowner}}>Add charge</button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.bbCharges}}
+                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'bb' 'booking' controller.is_shipowner}}>Add charge</button>
+                        {{/if}}
+                    {{!{{/unless}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

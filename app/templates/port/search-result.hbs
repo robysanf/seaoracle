@@ -1,0 +1,49 @@
+{{#if app_controller.searchResults}}
+    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>UnLocode</th>
+                    <th>Country</th>
+                    <th>Go to</th>
+                    {{#if controller.user_record.port_remove}}
+                        <th>Remove</th>
+                    {{else}}
+                        <th></th>
+                    {{/if}}
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {{#each poi in app_controller.searchResults}}
+                    <tr>
+                        <td>{{poi.name}}</td>
+                        <td>{{poi.unLocode}}</td>
+                        <td>{{poi.country}}</td>
+
+                        <td>{{#link-to 'port/main' poi.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
+                        {{#if poi.canRemove}}
+                            <td><a href="#" {{action "open_modal" 'port.modals.poi-remove' poi}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        {{else}}
+                            <td></td>
+                        {{/if}}
+
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{else}}
+
+{{/if}}
+
+<!--   infinite scroll  -->
+{{#if app_controller.loadingMore}}
+    <div class="alert alert-info"><p style="text-align: center"><strong>Loading more...</strong></p></div>
+{{/if}}

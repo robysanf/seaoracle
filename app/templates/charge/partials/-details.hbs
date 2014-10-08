@@ -1,0 +1,63 @@
+<div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+    <div class="col-lg-12">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-9">
+                <div class="input-group input-group">
+                    {{input id='name' value= name placeholder='Enter name' class='form-control' disabled= controller.isView}}
+                    <span class="input-group-addon " id="1">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Currency</h4></div>
+            <div class="col-lg-9">
+                {{#if controller.isView}}
+                    {{input id='curr' value= currency placeholder='Enter currency' class='form-control' disabled= controller.isView}}
+                {{else}}
+                    {{view Ember.Select content=currencyList value=currency prompt='please select a currency' class='form-control'}}
+                {{/if}}
+            </div>
+
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Route</h4></div>
+            <div class="col-lg-9">
+                {{#if controller.isView}}
+                    {{input value= segment.name class='form-control' disabled= controller.isView}}
+                {{else}}
+                    <a id="autocomplete-mysegment">
+                        {{auto-complete source=app_controller.autocompleteSegment destination=segment searchPath="name" minChars=1}}
+                    </a>
+                {{/if}}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Available</h4></div>
+            <div class="col-lg-9">
+                {{#if controller.isView}}
+                    <label class="form-control" style="text-align: left">{{input type="checkbox" checked=available disabled=true}}</label>
+                {{else}}
+                    <label class="form-control" style="text-align: left">{{input type="checkbox" checked=available}}</label>
+                {{/if}}
+            </div>
+
+        </div>
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" false}}>Edit</button>
+                    {{else}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" true this}}>Save</button>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>

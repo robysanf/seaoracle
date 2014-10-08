@@ -1,0 +1,30 @@
+<div class="input-group autocomplete-input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" {{action buttonManager destination}}>
+            {{#if destination}}
+                <span class="glyphicon glyphbutton glyphicon-remove" class="as-close" ></span>
+                {{display-result controller.searchPath destination size}}
+            {{else}}
+                <span class="glyphicon glyphbutton glyphicon-search"></span>
+            {{/if}}
+        </button>
+    </span>
+    {{view view.autocomplete value=query class='autocomplete form-control'}}
+</div>
+<div {{bind-attr class=':results hasQuery::hdn'}} >
+    <ul class='suggestions-autocomplete'>
+        <div class='content' data-spy='scroll'>
+            {{#each displayResults}}
+                {{#view view.displayResultView value=this}}
+                    <li {{action addSelection this}} {{bind-attr class=':result active'}}>
+                       <span class='result-name'>
+                           {{display-helper controller.searchPath}}
+                       </span>
+                    </li>
+                {{/view}}
+            {{else}}
+                <li class='no-results'>No Results.</li>
+            {{/each}}
+        </div>
+    </ul>
+</div>

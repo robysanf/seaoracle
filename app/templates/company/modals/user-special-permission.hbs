@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Special grants manager</h3>
+</div>
+<div class="modal-body">
+
+    {{!{{#inArray App.grantsValue "userType/powerUser"}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{#each grant in controller.userRecord.grants}}
+                        {{#if grant.isUserType}}
+                            {{#if grant.isPowerUser}}
+                                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-primary" {{action "typeUser" controller.userRecord 'U'}}>
+                                        {{input type="radio" name="options"}} User
+                                    </label>
+                                    <label class="btn btn-primary active" {{action "typeUser" controller.userRecord 'PU'}}>
+                                        {{input type="radio" name="options"}} Power User
+                                    </label>
+                                </div>
+                            {{else}}
+                                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-primary active" {{action "typeUser" controller.userRecord 'U'}}>
+                                        {{input type="radio" name="options"}} User
+                                    </label>
+                                    <label class="btn btn-primary " {{action "typeUser" controller.userRecord 'PU'}}>
+                                        {{input type="radio" name="options"}} Power User
+                                    </label>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+    {{!{{/inArray}}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="page-header"></h5>
+            </div>
+        </div>
+
+        {{#each grant in controller.userRecord.grants}}
+            {{#if grant.isPermission}}
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                              <span class="input-group-addon">
+                                  {{input type = "checkbox" name = "ck_permissionCheckbox" checked = grant.ckPermission}}
+                              </span>
+                            <label class="form-control" >{{grant.name}}</label>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <br>
+            {{/if}}
+        {{/each}}
+    </div>
+
+
+<div class="modal-footer">
+    <a href="#" class="btn" {{action update_grants controller.userRecord target="view"}}>Save</a>
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

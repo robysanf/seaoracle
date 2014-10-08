@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Company details</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-3"><h4>Name</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.name class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Size</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.sizeCode class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Type</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.typeCode class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>IsoCODE</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.isoCode class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Length Max</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.lengthMax class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Width max</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.widthMax class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Height max</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.heightMax class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Maxpayload max</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.eqClassification_record.maxPayLoadMax class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

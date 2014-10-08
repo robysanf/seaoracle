@@ -1,0 +1,67 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input value= name placeholder='Enter name' class='form-control' disabled= controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Nickname</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{input value= nickname placeholder='Enter nickname' class='form-control' disabled= controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Payload</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= payload  type='number' class='form-control' disabled= controller.isView}}
+                    <span class="input-group-addon">T</span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="col-lg-3"><h4>Length</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value= length class='form-control' type='number' disabled= controller.isView}}
+                    <span class="input-group-addon" >M</span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="col-lg-3"><h4>Width</h4></div>
+            <div class="col-lg-7">
+                <div class="input-group input-group">
+                    {{input value=width type='number' class='form-control' disabled=controller.isView}}
+                    <span class="input-group-addon" >M</span>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{#if canEdit}}
+        <div class="row">
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                {{#if controller.isView}}
+                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" false }}>Edit</button>
+                {{else}}
+                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" true this}}>Save</button>
+                {{/if}}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{/if}}
+    </div>
+</div>

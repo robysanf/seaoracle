@@ -1,3 +1,180 @@
-<h2 id='title'>Welcome to Ember.js</h2>
+{{#unless controller.isLogin}}
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                {{#link-to 'dashboard/main'}}
+                    <div class="navbar-brand"> Dashboard </div>
+                {{/link-to}}
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Your Profile<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            <!--<li>{{!{{#link-to 'colorindex'}}item 1{{!{{/link-to}}</li>-->
+                            <li>{{#link-to 'profile/main' controller.userId}}your profile{{/link-to}}</li>
+                            <li>{{#link-to 'company/main' controller.company}}your company{{/link-to}}</li>
+                            <li>{{#link-to 'account/main' controller.userId}}your account{{/link-to}}</li>
+                            <li class="divider"></li>
+                            <li>{{#link-to 'change-password/main' controller.userId}}change password{{/link-to}}</li>
+                        </ul>
+                    </li>
+                </ul>
+                {{#if controller.user_record.company}}
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Companies<span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                {{#if controller.user_record.company_new}}<li>{{#link-to 'company/new-company'}}new company{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.company_view}}<li>{{#link-to 'company/search-company'}}search company{{/link-to}}</li>{{/if}}
+                            </ul>
+                        </li>
+                    </ul>
+                {{/if}}
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Points of interest<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            {{#if controller.user_record.poi}}
+                                <li class="dropdown-header">Warehouses</li>
+                                {{#if controller.user_record.poi_new}}<li>{{#link-to 'warehouse/new-warehouse'}}new warehouse{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.poi_view}}<li>{{#link-to 'warehouse/search-poi'}}search warehouse{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.port}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Ports</li>
+                                {{#if controller.user_record.poi_new}}<li>{{#link-to 'port/new-poi'}}new port{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.poi_view}}<li>{{#link-to 'port/search-poi'}}search port{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.route}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Routes</li>
+                                {{#if controller.user_record.segment_new}}<li>{{#link-to 'segment/segment-new'}}new route{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.segment_new}}<li>{{#link-to 'segment/segment-search'}}search route{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                        </ul>
+                    </li>
+                </ul>
+                {{#if controller.user_record.charge}}
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Charges<span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                {{#if controller.user_record.charge_new}}<li>{{#link-to 'charge/new-record'}}new charge{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.charge_view}}<li>{{#link-to 'charge/search-record'}}search charge{{/link-to}}</li>{{/if}}
+                            </ul>
+                        </li>
+                    </ul>
+                {{/if}}
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Voyages<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            {{#if controller.user_record.template}}
+                                <li class="dropdown-header">Templates</li>
+                                {{#if controller.user_record.template_new}}<li>{{#link-to 'template/new-record'}}new template{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.template_view}}<li>{{#link-to 'template/search-record'}}search template{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.voyage}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Voyages</li>
+                                {{#if controller.user_record.voyage_new}}<li>{{#link-to 'voyage/new-record'}}new voyage{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.voyage_view}}<li>{{#link-to 'voyage/search-record'}}search voyage{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.vessel}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Vessels</li>
+                                {{#if controller.user_record.vessel_new}}<li>{{#link-to 'vessel/new-record'}}new vessel{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.vessel_view}}<li>{{#link-to 'vessel/search-vessel'}}search vessel{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                        </ul>
+                    </li>
+                </ul>
 
-{{outlet}}
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Equipment<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            {{#if controller.user_record.equipmentClassification}}
+                                <li class="dropdown-header"> Equipments Classification</li>
+                                {{#if controller.user_record.equipmentClassification_new}}<li>{{#link-to 'equipment-classification/new-record'}}new equipment classification{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.equipmentClassification_view}}<li>{{#link-to 'equipment-classification/search-record'}}search equipment classification{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.equipment}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Equipments</li>
+                                {{#if controller.user_record.equipment_new}}<li>{{#link-to 'equipment/new-record'}}new equipment{{/link-to}}</li> {{/if}}
+                                {{#if controller.user_record.equipment_view}}<li>{{#link-to 'equipment/search-record'}}search equipment{{/link-to}}</li> {{/if}}
+                            {{/if}}
+                        </ul>
+                    </li>
+                </ul>
+                {{#if controller.user_record.booking}}
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Booking<span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                <li class="dropdown-header">Bookings</li>
+                                {{#if controller.user_record.booking_new}}<li>{{#link-to 'booking/new-record'}}new booking{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.booking_view}}<li>{{#link-to 'booking/search-record'}}search booking{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.shipment}}
+                                    <li class="divider"></li>
+                                    <li>{{#link-to 'booking/search-shipments'}}shipments{{/link-to}}</li>
+                                {{/if}}
+                            </ul>
+                        </li>
+                    </ul>
+                {{/if}}
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Document<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            {{#if controller.user_record.document}}
+                                <li class="dropdown-header">Documents</li>
+                                {{#if controller.user_record.document_new}}<li>{{#link-to 'document/new-record'}}new document{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.document_view}}<li>{{#link-to 'document/search-record'}}search document{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                            {{#if controller.user_record.stamp}}
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Stamps</li>
+                                {{#if controller.user_record.stamp_new}}<li>{{#link-to 'stamp/new-stamp'}}new stamp{{/link-to}}</li>{{/if}}
+                                {{#if controller.user_record.stamp_view}}<li>{{#link-to 'stamp/search-stamp'}}search stamp{{/link-to}}</li>{{/if}}
+                            {{/if}}
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right"><div class="navbar-brand pull-right"{{action "logout"}}><a href="#"><span class="glyphicon glyphicon-log-out" style="color: #ffffff"></span></a></div></ul>
+
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li>-->
+                <!---->
+                <!--<button type="button" class="btn btn-default btn-130"{{!{{action 'logout'}}><span class="glyphicon glyphicon-log-out"></span></button></li>-->
+                <!--</ul>-->
+
+            </div>
+
+
+        </div>
+    </div>
+{{/unless}}
+
+<div class="container">
+    <div class="row" style="margin-top: 40px">
+        <div class="col-lg-12">
+            {{outlet}}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 40px">
+        <!--<div class="col-lg-1"></div>-->
+        <div class="col-lg-12">
+            {{outlet 'search-result'}}
+        </div>
+        <!--<div class="col-lg-1"></div>-->
+    </div>
+</div>
+
+{{outlet 'overview'}}
+
+
+

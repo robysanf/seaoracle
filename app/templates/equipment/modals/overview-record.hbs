@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Equipment details</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-3"><h4>Code</h4></div>
+                <div class="col-lg-9">
+                    <div class="form-group">{{input value= controller.equipment_record.code class='form-control' disabled="disabled"}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3"><h4>Forced code</h4></div>
+                <div class="col-lg-9">
+                    <div class="form-group">{{input value= controller.equipment_record.originalCode class='form-control' disabled="disabled"}}</div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Classification</h4></div>
+                <div class="col-lg-9">
+                    {{input id='classification' value= controller.equipment_record.equipmentClassification.name class='form-control' disabled="disabled"}}
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Daily cost</h4></div>
+                <div class="col-lg-9">
+                    <div class="input-group input-group">
+                        {{input id='daily' value= controller.equipment_record.dailyCost placeholder='Enter daily cost' class='form-control' disabled="disabled"}}
+                        <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-euro"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Position</h4></div>
+                <div class="col-lg-9">
+                    {{input id='position' value= controller.equipment_record.position.name placeholder='Enter name' class='form-control' disabled="disabled"}}
+                </div>
+            </div>
+            <div class="row">
+                <h4 class="page-header">RINA</h4>
+            </div>
+            {{#each rina in controller.equipment_record.rinas}}
+                <div class="row">
+                    <div class="col-lg-3"><h4>Commencement Date</h4></div>
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            {{input id='capacityMax' value= rina.date type='date' placeholder='Enter measure' class='form-control' disabled="disabled"}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3"><h4>Validity period</h4></div>
+                    <div class="col-lg-9">
+                        <div class="input-group input-group">
+                            {{input id='validityPeriod' value= rina.month type='number' placeholder='Enter number of month of validity' class='form-control' disabled="disabled"}}
+                            <span class="input-group-addon " id="1">Month</span>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

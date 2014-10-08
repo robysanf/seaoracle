@@ -1,0 +1,27 @@
+<tr>
+    <td>{{chargeItem.code}}</td>
+    <td>
+        {{#if isRegister}}
+            {{input value=chargeItem.billTo.name class='form-control' disabled=isRegister}}
+        {{else}}
+            <a id="autocomplete-charge">
+                {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
+            </a>
+        {{/if}}
+    </td>
+    <td>{{view Ember.Select content=currencyClassification value= chargeItem.costCurrency class='form-control' disabled=isRegister}}</td>
+    <td>{{input value= chargeItem.cost  type='number' class='form-control' disabled=isRegister}}</td>
+
+    {{#if controller.revenuesTabList.bookingCharges}}
+        <td> NUM </td>
+        <td>{{input type='number' value=chargeItem.num class='form-control' disabled=isRegister}}</td>
+    {{else}}
+        <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
+        {{#if chargeItem.isMultiplierNum}}
+            <td>{{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}</td>
+        {{else}}
+            <td></td>
+        {{/if}}
+    {{/if}}
+    <td>{{#unless isRegister}}<a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>{{/unless}}</td>
+</tr>

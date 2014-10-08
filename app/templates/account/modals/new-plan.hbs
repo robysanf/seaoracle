@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action  close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>New plan</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Name</label>
+            <div class="form-group">
+                {{input type='string' value= controller.planName class='form-control'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Description</label>
+            <div class="form-group">
+                {{input type='string' value= controller.planDescription class='form-control'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Amount</label>
+            <div class="form-group">
+                {{input type='number' value= controller.planAmount class='form-control'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Currency</label>
+            <div class="form-group">
+                {{view Ember.Select content=controller.listCurrency value=controller.planCurrency class='form-control'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Credits</label>
+            <div class="form-group">
+                {{input type='number' maxlength=4 value= controller.planCredit class='form-control'}}
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action  close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-default" {{action new_plan target="view"}}>Save</a>
+</div>

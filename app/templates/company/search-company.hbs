@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="lead">Company Search</p>
+                </div>
+                <div class="col-lg-6">
+                    {{#view "search"}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right">
+                            <span class="glyphicon glyphbutton glyphicon-search"></span> Search
+                        </button>
+                    {{/view}}
+                </div>
+            </div>
+            <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Name</label>
+                    {{input value= controller.searchCompany class='form-control'}}
+                    <!--<a id="autocomplete-companyName1">-->
+                        <!--{{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" size=15 minChars=0}}-->
+                    <!--</a>-->
+                </div>
+                <div class="col-lg-5">
+                    <label>VAT registration number</label>
+                    {{input value=vat class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+
+

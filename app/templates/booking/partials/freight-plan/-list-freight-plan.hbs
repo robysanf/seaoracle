@@ -1,0 +1,94 @@
+<div class="row" style="margin-top: 25px">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        {{#each freightPlan in freightPlans}}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>{{freightPlan.voyList}}</strong>
+                        <span class="pull-right">
+                            <strong>To: </strong> {{destination.name}}
+                        </span>
+                        <span class="pull-right">
+                            <strong>From: </strong> {{origin.name}}     &nbsp;
+                        </span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{#each voyage in freightPlan.orderedVoyages}}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" style="color: darkgray">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#{{unbound _view.contentIndex}}">
+                                        <strong>{{voyage.name}}</strong>
+                                    </a>
+                                    <!--{{!{{#with voyage.schedules.lastObject}}-->
+                                        <!--<span class="pull-right">-->
+                                    <!--<strong>To: </strong> {{!{{poi.name}}-->
+                                <!--</span>-->
+                                    <!--{{!{{/with}}-->
+                                    <!--{{!{{#with voyage.schedules.firstObject}}-->
+                                        <!--<span class="pull-right">-->
+                                    <!--<strong>From: </strong> {{!{{poi.name}}  &nbsp;-->
+                                <!--</span>-->
+                                    <!--{{!{{/with}}-->
+                                </h3>
+                            </div>
+                            <div class="panel-collapse collapse" id="{{unbound _view.contentIndex}}">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr style="border-bottom: 2px solid #000000;">
+                                            <th>Leg</th>
+                                            <th>Arrival</th>
+                                            <th>Departure</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{#each voyage.schedules}}
+                                            <tr style="border-bottom: 1px solid lightgray">
+                                                <td>{{poi.name}}</td>
+                                                {{#if atd}}
+                                                    <td>{{atd}}</td>
+                                                {{else}}
+                                                    <td>{{etd}}</td>
+                                                {{/if}}
+                                                {{#if ata}}
+                                                    <td>{{ata}}</td>
+                                                {{else}}
+                                                    <td>{{eta}}</td>
+                                                {{/if}}
+                                            </tr>
+                                        {{/each}}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>Transhipments</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{#each freightPlan.transhipments}}
+                        {{name}}
+                    {{/each}}
+                </div>
+            </div>
+
+            {{#unless isLockedOrRegistered}}
+                <h5 class="page-header"></h5>
+                <button type="submit" class="btn btn-primary btn-small pull-right" {{action "change_freightPlans" freightPlan this}}>
+                    Change Freight Plan
+                </button>
+            {{/unless}}
+        {{/each}}
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+

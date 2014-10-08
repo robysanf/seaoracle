@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>Port</h3>
+            <p><h5>Name: <b>{{name}}</b></h5>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"></h3>
+                    {{#if controller.itemListActive}}
+                        <button type="button" class="btn btn-primary btn-group-justified" {{action 'goTo' false}}>
+                            Back to List
+                        </button>
+                    {{else}}
+                        {{#if controller.itemEditActive}}
+                            <button type="button" class="btn btn-primary btn-group-justified" {{action 'goTo' false}}>
+                                Back to List
+                            </button>
+                        {{else}}
+                            {{#link-to 'port/search-poi'}}
+                                <button type="button" class="btn btn-primary btn-group-justified">
+                                    Go to search
+                                </button>
+                            {{/link-to}}
+                        {{/if}}
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
+            <li {{bind-attr class="controller.tabList.details:active"}}>
+                <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.depots:active"}}>
+                <a href="#" {{action setTabs "depots"}}><h4>Depots</h4></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                {{#if controller.tabList.details}}
+                    {{partial "port/partials/-details"}}
+                {{/if}}
+                {{#if controller.tabList.depots}}
+                    {{partial "port/partials/-depots"}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

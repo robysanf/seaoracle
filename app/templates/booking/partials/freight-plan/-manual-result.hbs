@@ -1,0 +1,105 @@
+<div class="row" style="margin-top: 25px">
+    <div class="col-lg-1"></div>
+    {{#view "sortable" type='freight-plan-selection'}}
+        <div class="col-lg-10">
+            <div class="sortable" style="cursor: pointer">
+                {{#each voyage in controller.searchResults}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span class="glyphicon glyphicon-sort pull-left" style="color: #d3d3d3; width: 10%"></span>
+                                <a class="sort-item" data-toggle="collapse" data-parent="#accordion" href="#{{unbound _view.contentIndex}}" data-id="{{unbound _view.contentIndex}}" data-value="{{unbound voyage.id}}">
+                                    <strong>{{voyage.name}} : {{voyage.id}}</strong>
+                                </a>
+
+                                <button type="button" class="btn close pull-right" {{action "remove_freight_item" _view.contentIndex}}>&times;</button>
+
+                                {{#if voyage.disembarkationLeg}}<span class="pull-right">To:&nbsp;<strong>{{voyage.disembarkationLeg}}&nbsp;&nbsp;&nbsp;</strong></span>{{/if}}
+                                {{#if voyage.embarkingLeg}}<span class="pull-right">From:&nbsp;<strong>{{voyage.embarkingLeg}}&nbsp;&nbsp;&nbsp;</strong></span>{{/if}}
+                            </h3>
+                        </div>
+                        <div class="panel-collapse collapse" id="{{unbound _view.contentIndex}}">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr style="border-bottom: 2px solid #000000;">
+                                        <th style="width: 40%"></th>
+                                        <th style="width: 10%"></th>
+                                        <th style="width: 20%">Leg</th>
+                                        <th style="width: 15%">Departure</th>
+                                        <th style="width: 15%">Arrival</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each leg in voyage.schedules}}
+                                        <tr style="border-bottom: 1px solid lightgray">
+                                            <td>
+                                                {{#if leg.embarking}}
+                                                    <div class="btn-group btn-group-justified">
+                                                        <label class="btn btn-primary active" {{action "isEmark_changeMode" false leg}}>
+                                                            <strong style="color: #f5f5f5">Embarking</strong>
+                                                        </label>
+                                                        <label class="btn btn-default" {{action "isEmark_changeMode" 'disembarkation' leg voyage}}>
+                                                            Disembarkation
+                                                        </label>
+                                                    </div>
+                                                {{else}}
+                                                    {{#if leg.disembarkation}}
+                                                        <div class="btn-group  btn-group-justified">
+                                                            <label class="btn btn-default" {{action "isEmark_changeMode" 'embarking' leg voyage}}>
+                                                                Embarking
+                                                            </label>
+                                                            <label class="btn btn-info active" {{action "isEmark_changeMode" false leg}}>
+                                                                <strong style="color: #f5f5f5">Disembarkation</strong>
+                                                            </label>
+                                                        </div>
+                                                    {{else}}
+                                                        <div class="btn-group  btn-group-justified">
+                                                            <label class="btn btn-default" {{action "isEmark_changeMode" 'embarking' leg voyage}}>
+                                                                Embarking
+                                                            </label>
+                                                            <label class="btn btn-default" {{action "isEmark_changeMode" 'disembarkation' leg voyage}}>
+                                                                Disembarkation
+                                                            </label>
+                                                        </div>
+                                                    {{/if}}
+                                                {{/if}}
+                                            </td>
+                                            <td></td>
+                                            <td> {{#if leg.isTranshipment}}<strong>{{leg.poi.name}} poi:{{leg.poi.id}} leg:{{leg.id}}</strong>{{else}}{{leg.poi.name}} poi:{{leg.poi.id}} leg:{{leg.id}}{{/if}}</td>
+                                            {{#if leg.atd}}
+                                                <td>{{#if leg.isTranshipment}}<strong>{{leg.atd}}</strong>{{else}}{{leg.atd}}{{/if}}</td>
+                                            {{else}}
+                                                <td>{{#if leg.isTranshipment}}<strong>{{leg.etd}}</strong>{{else}}{{leg.etd}}{{/if}}</td>
+                                            {{/if}}
+                                            {{#if leg.ata}}
+                                                <td>{{#if leg.isTranshipment}}<strong>{{leg.ata}}</strong>{{else}}{{leg.ata}}{{/if}}</td>
+                                            {{else}}
+                                                <td>{{#if leg.isTranshipment}}<strong>{{leg.eta}}</strong>{{else}}{{leg.eta}}{{/if}}</td>
+                                            {{/if}}
+                                        </tr>
+                                    {{/each}}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    {{/view}}
+    <div class="col-lg-1"></div>
+</div>
+
+{{#if controller.searchResults}}
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <h5 class="page-header"></h5>
+            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_freightPlan" this this.origin.name this.destination.name}}>
+                <span class="glyphicon glyphicon-ok"></span> Confirm
+            </button>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+{{/if}}
+

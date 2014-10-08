@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="lead">Booking Search</p>
+                </div>
+                <div class="col-lg-6">
+                    {{#view "search"}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right">
+                            <span class="glyphicon glyphbutton glyphicon-search"></span> Search
+                        </button>
+                    {{/view}}
+                </div>
+            </div>
+            <div class="row" style="margin-top: 25px;">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Port of Origin</label>
+                    <a id="autocomplete-portOriginName">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <label>Port of Destination</label>
+                    <a id="autocomplete-portDestinationName">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Booking ref.</label>
+                    {{input value = controller.searchBookRef class='form-control'}}
+                </div>
+                <div class="col-lg-5">
+                    <label>Client details</label>
+                    {{input value = controller.searchCompany class='form-control'}}
+                    <!--<a id="autocomplete-clientName">-->
+                        <!--{{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=2}}-->
+                    <!--</a>-->
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Shipper</label>
+                    <a id="autocomplete-shipperName">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <label>Consignee</label>
+                    <a id="autocomplete-consigneeName">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Voyage</label>
+                    <a id="autocomplete-voyName">
+                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <label>Chassis number</label>
+                    {{input value = controller.searchChassis class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Equipment code</label>
+                    {{input value = controller.searchContainerNumber class='form-control'}}
+                </div>
+                <div class="col-lg-5">
+                    <label>Acknowledge</label>
+                    {{view Ember.Select content=acknowledgeList value=acknowledge_selectedValue class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+

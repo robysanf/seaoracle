@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="lead">Equipment classification Search</p>
+                </div>
+                <div class="col-lg-6">
+                    {{#view "search"}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right">
+                            <span class="glyphicon glyphbutton glyphicon-search"></span> Search
+                        </button>
+                    {{/view}}
+                </div>
+            </div>
+            <div class="row" style="margin-top: 25px; margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Name</label>
+                    {{input value= controller.searchName class='form-control'}}
+                </div>
+                <div class="col-lg-5">
+                    <label>Size</label>
+                    <a id="autocomplete-searchSizeCode">
+                        {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchSizeCode searchPath="sizeCode" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Type</label>
+                    <a id="autocomplete-searchTypeCode">
+                        {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchTypeCode searchPath="typeCode" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <label>ISO code</label>
+                    <a id="autocomplete-searchIsoCode">
+                        {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchIsoCode searchPath="isoCode" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>

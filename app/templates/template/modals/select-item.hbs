@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Add leg</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <label>Port</label>
+            <a id="autocomplete-port">
+                {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
+            </a>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn btn-default btn-130" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-primary btn-130" {{action add_item target="view"}}>Save</a>
+</div>

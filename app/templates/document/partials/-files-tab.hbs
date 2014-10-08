@@ -1,0 +1,38 @@
+<div class="row" style="margin-bottom: 25px">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-11">
+        <div class=row>
+            <div class="col-lg-10">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th >Download</th>
+                        <th >Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each file in files}}
+                        <tr>
+                            <td>{{file.name}}</td>
+                            <td>{{file.type}}</td>
+                            <!--view: downloadViewView-->
+                            <!-- class="fileDownloadSimpleRichExperience" -->
+                            <!--api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true-->
+                            <td>
+                                <a href="#" {{action "download_file" file.id}}><span class="glyphicon glyphicon-download"></span></a>
+                                <!--{{!{{#view App.DownloadView value=file.id}}-->
+                                <!--<a href="api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true" class="fileToDownload"><span class="glyphicon glyphicon-download" ></span></a>-->
+                                <!--{{!{{/view}}-->
+                            </td>
+                            <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</div>

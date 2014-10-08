@@ -3,6 +3,15 @@ import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
 
+//CUSTOM HELPER
+import displayHelper from './helpers/display-helper';
+import displayResult from './helpers/display-result';
+import indexesEach from './helpers/indexes-each-helper';
+
+Ember.Handlebars.registerBoundHelper('display-helper', displayHelper);
+Ember.Handlebars.registerBoundHelper('display-result', displayResult);
+Ember.Handlebars.registerBoundHelper('indexes-each-helper', indexesEach);
+
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
 var App = Ember.Application.extend({

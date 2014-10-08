@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">Edit item</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3"><h4>Name</h4></div>
+    <div class="col-lg-9">
+        {{#if controller.is_chargeItems_book}}
+            {{view Ember.Select content=bookingCharges_list value=controller.item_record.name prompt='please select a charge item name' class='form-control'}}
+        {{else}}
+            {{view Ember.Select content=allCharges_list value=controller.item_record.name prompt='please select a charge name' class='form-control'}}
+        {{/if}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header"></h3>
+    </div>
+</div>
+<!--<div class="row" style="margin-bottom: 15px">-->
+    <!--<div class="col-lg-3"><h4>Default cost</h4></div>-->
+    <!--<div class="col-lg-9">-->
+        <!--<div class="input-group input-group">-->
+            <!--{{!{{input value= controller.item_record.originalCost type='number' placeholder='Enter default value' class='form-control'}}-->
+            <!--<span class="input-group-addon " id="1">-->
+                <!--{{!{{controller.item_record.originalCostCurrency}}-->
+            <!--</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-lg-3"><h4>Default revenue</h4></div>
+    <div class="col-lg-9">
+        <div class="input-group input-group">
+            {{input value= controller.item_record.originalRevenue type='number' placeholder='Enter default value' class='form-control'}}
+            <span class="input-group-addon " id="1">
+                {{controller.item_record.originalCostCurrency}}
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h5 class="page-header"></h5>
+        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_record" controller.item_record 'itemEditActive' false}}>Save</button>
+    </div>
+</div>

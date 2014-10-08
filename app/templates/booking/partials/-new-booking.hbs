@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="alert alert-danger col-lg-12" id="1" style="display: none; ">
+        <p style="text-align: center"><strong>Attention:</strong> please check all required fields have been entered. <br> They are: Port of Origin, Port of Destination, DTD and Currency.</p>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="row">
+    <div class="alert alert-danger col-lg-12" id="2" style="display: none; ">
+        <p style="text-align: center"><strong>Attention:</strong> DTD must be less than DTA and must be greater than today.</p>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+
+<div class="row" style="margin-top: 25px; margin-bottom: 15px">
+    <div class="col-lg-6">
+        <label style="color: red">Port of Origin (*)</label>
+        <a id="autocomplete-portOriginName">
+            {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=2}}
+        </a>
+    </div>
+    <div class="col-lg-6">
+        <label style="color: red">Port of Destination (*)</label>
+        <a id="autocomplete-portDestinationName">
+            {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=2}}
+        </a>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-lg-6">
+        <label style="color: red">DTD (*)</label>
+        {{date-picker-custom controls='datepicker-dtd' value=dtd placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+        {{date-picker-controls id='datepicker-dtd' maxYear="+50" minYear="-10"}}
+        {{!{{input value=dtd type="date" class='form-control'}}
+    </div>
+    <div class="col-lg-6">
+        <label>DTA</label>
+        {{date-picker-custom controls='datepicker-dta' value=dta placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+        {{date-picker-controls id='datepicker-dta' maxYear="+50" minYear="-10"}}
+        {{!{{input value=dta type="date" class='form-control'}}
+    </div>
+</div>
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-lg-6">
+        <label>Final Destination</label>
+        {{input value=finalDestination class='form-control'}}
+    </div>
+    <div class="col-lg-6">
+        <label>Customs Agent</label>
+        <a id="autocomplete-customManifestHandlerName">
+            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCustomManifestHandler searchPath="name" minChars=1}}
+        </a>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 15px">
+    <div class="col-lg-6">
+        <label style="color: red">Currency (*)</label>
+        {{view Ember.Select content=currencyClassification value=currency class='form-control'}}
+    </div>
+    <div class="col-lg-6">
+        <label>Service Contract</label>
+        {{input value= serviceContract type="text" class='form-control' disabled=isRegistOrPend}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <label>Ref. no</label>
+        {{input value= refNo type="text" class='form-control' disabled=isRegistOrPend}}
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<div class="page-header"></div>
+<div class="row">
+    {{#if controller.is_admin}}
+        <div class="col-lg-3">
+            <label>Client</label>
+            <a id="autocomplete-clientName">
+                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany size=10 searchPath="name" minChars=1}}
+            </a>
+        </div>
+        <div class="col-lg-3">
+            <label>Agency</label>
+            <a id="autocomplete-agencyName">
+                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency size=10 searchPath="name" minChars=1}}
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <label>Shipper</label>
+            <a id="autocomplete-shipperName">
+                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+            </a>
+        </div>
+    {{else}}
+        <div class="col-lg-6">
+            {{#if controller.is_client}}
+                <label>Agency</label>
+                <a id="autocomplete-agencyName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency searchPath="name" minChars=1}}
+                </a>
+            {{else}}
+                <label>Client</label>
+                <a id="autocomplete-clientName">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=1}}
+                </a>
+            {{/if}}
+        </div>
+        <div class="col-lg-6">
+            <label>Shipper</label>
+            <a id="autocomplete-shipperName">
+                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+            </a>
+        </div>
+    {{/if}}
+</div>
+<div class="row" style="margin-top: 15px; margin-bottom: 25px">
+    <div class="col-lg-6">
+        <label>Consignee</label>
+        <a id="autocomplete-consigneeName">
+            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=1}}
+        </a>
+    </div>
+    <div class="col-lg-6">
+        <label>Notify</label>
+        <a id="autocomplete-notifyName">
+            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchNotify searchPath="name" minChars=1}}
+        </a>
+    </div>
+</div>
+
+
+

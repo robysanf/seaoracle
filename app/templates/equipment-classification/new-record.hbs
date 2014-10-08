@@ -1,0 +1,250 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>New Equipment Classification</h3>
+            <p><h5>Size: <b>{{newSizeCode}}</b></h5>
+            <p><h5>Type: <b>{{newTypeCode}}</b></h5>
+            <p><h5>ISO: <b>{{newIsoCode}}</b></h5>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#details" data-toggle="tab"><h3>Details</h3></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="details">
+                <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+                    <div class="col-lg-12">
+                    <div class="row" style="margin-bottom: 12px">
+                        <div class="col-lg-3"><h4>Size code</h4></div>
+                        <div class="col-lg-9">
+                            <div class="input-group input-group">
+                                {{input type='number' value= newSizeCode placeholder='Enter size' class='form-control'}}
+                                <span class="input-group-addon " id="2">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" style="margin-bottom: 12px">
+                        <div class="col-lg-3"><h4>Type code</h4></div>
+                        <div class="col-lg-9">
+                            <div class="input-group input-group">
+                                {{input value= newTypeCode placeholder='Enter type' class='form-control'}}
+                                <span class="input-group-addon " id="3">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row"  style="margin-bottom: 6px">
+                        <div class="col-lg-3"><h4>ISO code</h4></div>
+                        <div class="col-lg-9">
+                            <div class="input-group input-group">
+                                {{view Ember.Select content=isoCodeClassification value= newIsoCode class='form-control'}}
+                                <span class="input-group-addon " id="4">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Declared Tare</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDeclaredTare placeholder='Enter declared tare' class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Declared Volume</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDeclaredVolume placeholder='Enter declared volume' class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Length min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newLengthMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Length max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newLengthMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Width min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newWidthMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Width max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newWidthMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Height min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newHeightMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Height max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newHeightMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Door width min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDoorWidthMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Door width max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDoorWidthMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Door height min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDoorHeightMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Door height max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newDoorHeightMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Capacity min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newCapacityMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Capacity max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newCapacityMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Maxpayload min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newMaxPayLoadMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Maxpayload max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newMaxPayLoadMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Tare weight min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newTareWeightMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Tare weight max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newTareWeightMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Max-grossWeight min</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newMaxGrossWeightMin placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>Max-grossweight Max</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input type='number' value= newMaxGrossWeightMax placeholder='Enter measure' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><h4>TEU</h4></div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                {{input value= newTeu type='number' placeholder='Enter teu' class='form-control'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="page-header"></h5>
+                            <button class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

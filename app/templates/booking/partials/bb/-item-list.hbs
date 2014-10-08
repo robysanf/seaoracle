@@ -1,0 +1,183 @@
+{{#if items}}
+    <table class="table table-hover table-condensed">
+    <thead>
+    <tr>
+        {{#if is_client}}
+            <th>Code</th>
+            <th>Unit</th>
+            <th>Estimated weight</th>
+            <th>Actual weight</th>
+            {{#if isRequest}}
+                <th>Edit</th>
+                <th>Remove</th>
+            {{else}}
+                <th>View</th>
+            {{/if}}
+        {{else}}
+            {{#if isEditing}}<th></th>{{/if}}
+            <th>Code</th>
+            <th>Unit</th>
+            <th>Estimated weight</th>
+            <th>Actual weight</th>
+            {{#if isPending}}
+                <th>View</th>
+            {{/if}}
+            {{#if isRequest}}
+                <th>Edit</th>
+                <th>Remove</th>
+            {{/if}}
+            {{#if isEditing}}
+                <th>Split</th>
+                <th>Replica</th>
+                <th colspan="2">Loaded on</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            {{/if}}
+            {{#if isLocked}}
+                <th>Loaded on</th>
+                <th>Edit</th>
+                {{#if is_shipowner}}
+                    <th>Delay</th>
+                {{/if}}
+                {{#if is_client}}
+                    <th>Delay</th>
+                {{/if}}
+            {{/if}}
+            {{#if isRegister}}
+                    <th>Loaded on</th>
+                    <th>View</th>
+            {{/if}}
+            </tr>
+            </thead>
+            <tbody>
+            {{#if is_client}}
+                {{#if isRequest}}
+                    {{#each item in items}}
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{else}}
+                    {{#each item in items}}
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            {{else}}
+                {{#if isRequest}}
+                    {{#each item in items}}
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+                {{#if isPending}}
+                    {{#each item in items}}
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+                {{#if isEditing}}
+                    {{#each item in items itemController='booking/mtl-list'}}
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{input type="checkbox" checked=isChecked}}</td>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            <td><a href="#" {{action "split" item.booking item item.packNum}}><span class="glyphicon glyphicon-fullscreen"></span></a></td>
+                            <td><a href="#" {{action "open_modal" 'booking.modals.replica' this item}}><span class="glyphicon glyphicon-registration-mark"></span></a></td>
+                            {{#if item.loadedOn}}
+                                <td><button type="button" class="close" aria-hidden="true" {{action "remove_loadedOn" this item}}>&times;</button> </td>
+                                <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                            {{else}}
+                                <td> </td>
+                                <td> </td>
+                            {{/if}}
+
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        </tr>
+
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+                {{#if isLocked}}
+                    {{#each item in items itemController="booking/delay-list"}}            <!--facciamo riferimento ad un altro controller per tenere il conto dei delay check-->
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            {{#if item.loadedOn}}
+                                <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                            {{else}}
+                                <td> </td>
+                            {{/if}}
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            {{#if is_shipowner}}
+                                <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
+                            {{/if}}
+                            {{#if is_client}}
+                                <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
+                            {{/if}}
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+                {{#if isRegister}}
+                    {{#each item in items}}       <!--facciamo riferimento ad un altro controller per tenere il conto dei delay check-->
+                        {{#if item.tu_bb}}
+                        <tr>
+                            <td>{{item.code}}</td>
+                            <td>{{item.packNum}}</td>
+                            <td>{{item.eWeight}}</td>
+                            <td>{{item.weight}}</td>
+                            {{#if item.loadedOn}}
+                                <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                            {{else}}
+                                <td> </td>
+                            {{/if}}
+                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    </tbody>
+    </table>
+{{/if}}
+

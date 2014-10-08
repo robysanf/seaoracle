@@ -1,0 +1,230 @@
+
+<div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+    <div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-3"><h4>Name</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= name placeholder='Enter name' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Size code</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input type='number' value= sizeCode placeholder='Enter size' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Type code</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= typeCode placeholder='Enter type' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    {{#if  controller.isView}}
+        <div class="row">
+            <div class="col-lg-3"><h4>ISO code</h4></div>
+            <div class="col-lg-9">
+                <div class="form-group">
+                    {{input value= isoCode class='form-control' disabled=controller.isView}}
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>ISO code</h4></div>
+            <div class="col-lg-9">
+                <div class="input-group input-group">
+                    {{view Ember.Select content=isoCodeClassification value= isoCode class='form-control'}}
+                    <span class="input-group-addon " id="4"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-lg-3"><h4>Declared Tare</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= declaredTare type='number' placeholder='Enter declared tare' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Declared Volume</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= declaredVolume type='number' placeholder='Enter declared volume' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Length min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= lengthMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Length max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= lengthMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Width min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= widthMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Width max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= widthMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Height min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= heightMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Height max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= heightMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Door width min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= doorWidthMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Door width max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= doorWidthMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Door height min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= doorHeightMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Door height max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= doorHeightMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Capacity min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= capacityMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Capacity max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= capacityMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Maxpayload min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= maxPayLoadMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Maxpayload max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= maxPayLoadMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Tare weight min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= tareWeightMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Tare weight max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= tareWeightMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Max-grossweight min</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= maxGrossWeightMin type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Max-grossweight Max</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= maxGrossWeightMax type='number' placeholder='Enter measure' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>TEU</h4></div>
+        <div class="col-lg-9">
+            <div class="form-group">
+                {{input value= teu type='number'  placeholder='Enter teu' class='form-control' disabled=controller.isView}}
+            </div>
+        </div>
+    </div>
+    {{#if canEdit}}
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="page-header"></h5>
+                {{#if controller.isView}}
+                    <button class="btn btn-primary btn-130 pull-right" {{action "change_state" false}}>Edit</button>
+                {{else}}
+                    <button class="btn btn-primary btn-130 pull-right" {{action "change_state" true this}}>Save</button>
+                {{/if}}
+            </div>
+        </div>
+    {{/if}}
+
+    </div>
+</div>

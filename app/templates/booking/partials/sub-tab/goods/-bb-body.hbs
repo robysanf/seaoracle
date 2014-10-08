@@ -1,0 +1,520 @@
+{{#if controller.is_client}}
+    <!--  CLIENT COMPANY - request  ----------------------------------------------------------------------------------------------->
+    {{#if isRequest}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Goods</label>
+                    {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="form-group">
+                    <label>Description</label>
+                    {{textarea value=controller.item_record.description cols="80" rows="5" class="form-control" placeholder="Goods description" }}
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Type</label>
+                            {{view Ember.Select content=packClassification value= controller.item_record.packType class='form-control' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Number</label>
+                            {{input value= controller.item_record.packNum type="number" class='form-control' placeholder="-" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label style="color: red">Estimated weight per unit {{#if isEditing}}(*){{/if}}</label>
+                    {{input value= controller.item_record.eWeight type="number" class='form-control' placeholder="-" }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label style="color: red">Estimated measures per unit {{#if isEditing}}(*){{/if}}</label>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>L:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.eLength type="number" class='form-control' placeholder="-" }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>W:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.eWidth type="number" class='form-control' placeholder="-" }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>H:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.eHeight type="number" class='form-control' placeholder="-" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Estimated equivalent length per unit</label>
+                {{input value= controller.item_record.eEquivLength type='number' class='form-control' }}
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>m³</label>
+                            {{input value= controller.item_record.eVolume type="number" class='form-control' placeholder="-" }}
+                        </div>
+                        <div class="col-lg-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#if isLockedOrRegistered}}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Actual weight per unit</label>
+                        {{input value= controller.item_record.weight type="number" class='form-control' placeholder="-"}}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Actual measures per unit</label>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-3"><h5>L:</h5></div>
+                                    <div class="col-lg-9">{{input value= controller.item_record.length type="number" class='form-control' placeholder="-" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-3"><h5>W:</h5></div>
+                                    <div class="col-lg-9">{{input value= controller.item_record.width type="number" class='form-control' placeholder="-" }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-3"><h5>H:</h5></div>
+                                    <div class="col-lg-9">{{input value= controller.item_record.height type="number" class='form-control' placeholder="-" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>m³</label>
+                                    {{input value= controller.item_record.volume type="number" class='form-control' placeholder="-" }}
+                                </div>
+                                <div class="col-lg-8"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Equivalent length </label>
+                    {{input value= controller.item_record.equivLength type='number' class='form-control'}}
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+        {{/if}}
+        <h5 class=page-header>IMO</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Class</label>
+                    {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ref. page</label>
+                    {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" }}
+                </div>
+            </div>
+        </div>
+    {{else}}  <!--  CLIENT COMPANY  - other states --------------------------->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Goods</label>
+                {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=true}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="form-group">
+                <label>Description</label>
+                {{textarea value=controller.item_record.description cols="80" rows="5" class="form-control" placeholder="Goods description" disabled=true}}
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Type</label>
+                        {{view Ember.Select content=packClassification value= controller.item_record.packType class='form-control' disabled=true}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Number</label>
+                        {{input value= controller.item_record.packNum type="number" class='form-control' placeholder="-" disabled=true}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label style="color: red">Estimated weight per unit {{#if isEditing}}(*){{/if}}</label>
+                {{input value= controller.item_record.eWeight type="number" class='form-control' placeholder="-" disabled=true}}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label style="color: red">Estimated measures per unit {{#if isEditing}}(*){{/if}}</label>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>L:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.eLength type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>W:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.eWidth type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>H:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.eHeight type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <label>Estimated equivalent length per unit</label>
+            {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=true}}
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>m³</label>
+                        {{input value= controller.item_record.eVolume type="number" class='form-control' placeholder="-" disabled=true}}
+                    </div>
+                    <div class="col-lg-8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#if isLockedOrRegistered}}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Actual weight per unit</label>
+                    {{input value= controller.item_record.weight type="number" class='form-control' placeholder="-" disabled=true}}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Actual measures per unit</label>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>L:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.length type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>W:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.width type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-3"><h5>H:</h5></div>
+                                <div class="col-lg-9">{{input value= controller.item_record.height type="number" class='form-control' placeholder="-" disabled=true}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>m³</label>
+                                {{input value= controller.item_record.volume type="number" class='form-control' placeholder="-" disabled=true}}
+                            </div>
+                            <div class="col-lg-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Equivalent length per unit</label>
+                {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=true}}
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+    {{/if}}
+    <h5 class=page-header>IMO</h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Class</label>
+                {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=true}}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Ref. page</label>
+                {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=true}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+{{else}}   <!--  OTHER COMPANY  ----------------------->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label>Goods</label>
+            {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=isLockOrRegistOrPend}}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-10">
+        <div class="form-group">
+            <label>Description</label>
+            {{textarea value=controller.item_record.description cols="80" rows="5" class="form-control" placeholder="Goods description" disabled=isLockOrRegistOrPend}}
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Type</label>
+                    {{view Ember.Select content=packClassification value= controller.item_record.packType class='form-control' disabled=isLockOrRegistOrPend}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Number</label>
+                    {{input value= controller.item_record.packNum type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label style="color: red">Estimated weight per unit {{#if isEditing}}(*){{/if}}</label>
+            {{input value= controller.item_record.eWeight type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label style="color: red">Estimated measures per unit {{#if isEditing}}(*){{/if}}</label>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3"><h5>L:</h5></div>
+                        <div class="col-lg-9">{{input value= controller.item_record.eLength type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}</div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3"><h5>W:</h5></div>
+                        <div class="col-lg-9">{{input value= controller.item_record.eWidth type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}</div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-3"><h5>H:</h5></div>
+                        <div class="col-lg-9">{{input value= controller.item_record.eHeight type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <label>Estimated equivalent length per unit</label>
+        {{input value= controller.item_record.eEquivLength type='number' class='form-control' disabled=isLockOrRegistOrPend}}
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>m³</label>
+                    {{input value= controller.item_record.eVolume type="number" class='form-control' placeholder="-" disabled=isLockOrRegistOrPend}}
+                </div>
+                <div class="col-lg-8"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if isLockedOrRegistered}}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label style="color: red">Actual weight per unit {{#if isLocked}}(*){{/if}}</label>
+                {{input value= controller.item_record.weight type="number" class='form-control' placeholder="-" disabled=isRegistOrPend}}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label style="color: red">Actual measures per unit {{#if isLocked}}(*){{/if}}</label>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>L:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.length type="number" class='form-control' placeholder="-" disabled=isRegistOrPend}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>W:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.width type="number" class='form-control' placeholder="-" disabled=isRegistOrPend}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-3"><h5>H:</h5></div>
+                            <div class="col-lg-9">{{input value= controller.item_record.height type="number" class='form-control' placeholder="-" disabled=isRegistOrPend}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>m³</label>
+                            {{input value= controller.item_record.volume type="number" class='form-control' placeholder="-" disabled=isRegistOrPend}}
+                        </div>
+                        <div class="col-lg-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <label>Equivalent length per unit </label>
+            {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=isRegistOrPend}}
+        </div>
+        <div class="col-lg-6"></div>
+    </div>
+{{/if}}
+<h5 class=page-header>IMO</h5>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Class</label>
+            {{input value= controller.item_record.imoClassification type="text" class='form-control' placeholder="1 - 9" disabled=isLockOrRegistOrPend}}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Ref. page</label>
+            {{input value= controller.item_record.imoRefPage type="text" class='form-control' placeholder="" disabled=isLockOrRegistOrPend}}
+        </div>
+    </div>
+</div>
+
+{{#unless isReqOrPen}}
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 class=page-header>Equipment</h5>
+        </div>
+    </div>
+
+    {{#each freightEquipment in controller.item_record.freightEquipments}}
+        {{#each bookingItem in freightEquipment.bookingItems}}{{/each}} <!--FIXME: bag di ember data: inserisco questa linea di codice per far si che il riferimento (hasMany) al bookingItem sul record freightEquipment resti consistente -->
+        <div class="row">
+            {{#if isReqOrPen}}
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Identifier </label>
+                        {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=isRegister}}
+                    </div>
+                </div>
+            {{else}}
+                {{#if isRegister}}
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Identifier </label>
+                            {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=true}}
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="col-lg-6">
+                        <label for="exampleInputEmail">Identifier </label>
+                        <a id="autocomplete-equipmentCode">
+                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
+                        </a>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+    {{/each}}
+{{/unless}}
+{{/if}}

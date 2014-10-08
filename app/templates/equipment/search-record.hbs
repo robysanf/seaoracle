@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="lead">Equipment Search</p>
+                </div>
+                <div class="col-lg-6">
+                    {{#view "search"}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right">
+                            <span class="glyphicon glyphbutton glyphicon-search"></span> Search
+                        </button>
+                    {{/view}}
+                </div>
+            </div>
+            <div class="row" style="margin-top: 25px; margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Classification</label>
+                    <a id="autocomplete-classification">
+                        {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <label>Supplier</label>
+                    <a id="autocomplete-supplier">
+                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Code</label>
+                    {{input value = controller.searchCode class='form-control'}}
+                </div>
+                <div class="col-lg-5">
+                    <label>Position</label>
+                    <a id="autocomplete-position">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPosition searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>Current Status</label>
+                    {{view Ember.Select content=statuses value=controller.statusVal class='form-control'}}
+                </div>
+                <div class="col-lg-5">
+                    <label>Voyage</label>
+                    <a id="autocomplete-voy">
+                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoyage searchPath="name" minChars=2}}
+                    </a>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>

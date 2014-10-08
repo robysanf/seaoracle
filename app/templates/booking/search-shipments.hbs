@@ -1,0 +1,119 @@
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Shipment Report</h3>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Booking</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{#if controller.isActive}}
+                                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-default" {{action "bookState" false}}>
+                                        {{input type="radio" name="options"}} Inactive
+                                    </label>
+                                    <label class="btn btn-default active" {{action "bookState" true}}>
+                                        {{input type="radio" name="options"}} Active
+                                    </label>
+                                </div>
+                            {{else}}
+                                <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-default active" {{action "bookState" false}}>
+                                        {{input type="radio" name="options"}} Inactive
+                                    </label>
+                                    <label class="btn btn-default" {{action "bookState" true}}>
+                                        {{input type="radio" name="options"}} Active
+                                    </label>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Booking ref.</label>
+                            {{input value= controller.searchBook class='form-control'}}
+                            <!--<a id="autocomplete-searchBook">-->
+                            <!--{{!{{auto-complete source=controller.autoCompleteBook destination=controller.searchBook searchPath="code" minChars=2}}-->
+                            <!--</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Type</label>
+                            {{view Ember.Select content=itemTypeList value=controller.itemType class='form-control'}}
+                        </div>
+                    </div>
+
+                    {{#if controller.isContainer}}
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label>Equipment ref.</label>
+                                {{input value= controller.searchEquipmentCode class='form-control'}}
+                                <!--<a id="autocomplete-searchEquipmentCode">-->
+                                <!--{{!{{auto-complete source=App.autoCompleteEquipmentCode destination=controller.searchEquipmentCode searchPath="equipmentCode" minChars=2}}-->
+                                <!--</a>-->
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if controller.isRoRo}}
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label>Chassis number</label>
+                                <a id="autocomplete-searchChassisNum">
+                                    {{auto-complete source=app_controller.autocompleteChassisNum destination=controller.searchChassisNum searchPath="chassisNum" minChars=2}}
+                                </a>
+                            </div>
+                        </div>
+                    {{/if}}
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Description</label>
+                            {{textarea cols="80" rows="4" type="text" value=controller.keyWords placeholder='Enter key words' class='form-control'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=page-header></div>
+            <div class=row>
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-primary pull-right btn-group-justified" {{action "searchRecords"}}>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        {{#if controller.research_is_active}}
+            {{#if controller.searchResults}}
+                {{partial 'booking/-result-search-shipments'}}
+            {{else}}
+                <div class="well well-lg" style="background-color: #FAFDFD">
+                    <h3 class="page-header">Loading...</h3>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+</div>

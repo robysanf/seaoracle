@@ -1,0 +1,168 @@
+INSTALLAZIONE PROGETTO EMBER-CLI BASIC
+
+
+/**************************************************
+*	installazione base di bootstrap e gliphicons
+*
+*/
+
+.jshintrc  {
+	aggiungere a 'predef' :
+            "$": true,
+            "PNotify": true,
+            "moment": true,
+            "auto-complete": true
+}
+
+package.json {
+	installare trmite terminal -->  
+            npm install --save broccoli-dist-es6-module					//necessario?
+            npm install --save broccoli-merge-trees 					//require from bootstrap glyphicons
+            npm install --save broccoli-ember-hbs-template-compiler		//necessario?
+            npm install --save broccoli-concat							//necessario?
+            npm install --save broccoli-static-compiler  				//require from bootstrap glyphicons
+}	
+
+vendor {
+	installare tramite terminal -->  
+				bower install --save-dev bootstrap
+}
+
+vendor > bootstrap > dist > css {
+	sostituire bootstrap.min.css con uno di quelli scaricati da bootswatch
+}
+
+Brocfile.js {
+	inserire questi import per bootstrap e glyphicons
+	
+		// IMPORT BOOTSTRAP
+		app.import('vendor/bootstrap/dist/css/bootstrap.min.css');
+		app.import('vendor/bootstrap/dist/js/bootstrap.min.js');
+
+		// IMPORT GLYPHICONS
+		var mergeTrees = require('broccoli-merge-trees');
+		var pickFiles = require('broccoli-static-compiler');
+		var extraAssets = pickFiles('vendor/bootstrap/dist/fonts',{
+			srcDir: '/',
+			files: ['**/*'],
+			destDir: '/fonts'
+		});
+
+		module.exports = mergeTrees([app.toTree(), extraAssets]);
+		//module.exports = app.toTree();
+}
+
+/**************************************************
+*	installazione p-notify.JS
+*
+*/
+
+vendor {
+	installare tramite terminal -->  
+				bower install --save pnotify
+}
+
+vendor > pnotify{
+	inserire la propria versione custom di pnotify scaricata dal sito di riferimento
+}
+
+Brocfile.js {
+		// IMPORT P-NOTIFY
+		app.import('vendor/pnotify/pnotify.custom.css');
+		app.import('vendor/pnotify/pnotify.custom.js');
+
+}
+
+/**************************************************
+*	installazione moment.JS
+*
+*/
+
+vendor {
+	installare tramite terminal -->
+				bower install --save moment
+}
+
+Brocfile.js {
+		// IMPORT MOMENT.JS
+		app.import('vendor/moment/moment.js');
+
+}
+
+/**************************************************
+*	installazione ember-spin-box
+*
+*/
+
+vendor {
+	installare tramite terminal -->
+				bower install --save ember-spin-box
+}
+
+Brocfile.js {
+		// IMPORT EMBER-SPIN-BOX
+		app.import('vendor/ember-spin-box/dist/ember-spin-box.min.css');
+		app.import('vendor/ember-spin-box/dist/ember-spin-box.min.js');
+
+}
+
+/**************************************************
+*	installazione EMBER-DATE-PICKER
+*
+*/
+
+vendor {
+	installare tramite terminal -->
+				bower install --save ember-date-picker
+}
+
+vendor > ember-date-picker > dist {
+	inserire la propria versione custom di date-picker
+}
+
+Brocfile.js {
+		// IMPORT EMBER-DATE-PICKER
+		app.import('vendor/ember-date-picker/dist/ember-date-picker-custom.css');
+		app.import('vendor/ember-date-picker/dist/ember-date-picker-custom.js');
+
+}
+
+/**************************************************
+*	installazione AUTO-COMPLETE
+*
+*/
+
+installare tramite terminal -->  
+	ember generate component auto-complete
+
+installare tramite terminal -->  
+	ember generate helper display-helper
+	ember generate helper display-result    
+
+name-helper.js {
+	modificare gli helpers con questa intestazione:
+	
+			export default function(value) {
+				return ...
+			}
+}
+
+app.js {
+	dichiarare gli helpers creati in app.js :
+			import nameHelper from './helpers/name-helper';
+			Ember.Handlebars.registerBoundHelper('name-helper', nameHelper);
+
+			ovvero in questo caso:
+
+			import displayHelper from './helpers/display-helper';
+            import displayResult from './helpers/display-result';
+
+            Ember.Handlebars.registerBoundHelper('display-helper', displayHelper);
+            Ember.Handlebars.registerBoundHelper('display-result', displayResult);
+}
+
+Terminal > ember generate initializer inject-store-into-autocomplete
+
+app.css {
+	definire lo style per l'auto-complete
+}

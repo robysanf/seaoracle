@@ -1,0 +1,89 @@
+<!--
+
+TYPE: partial
+FROM: 'templates/bookings/pieces/_buttonLeftNav'
+
+-->
+
+
+<!-- ADMIN -->
+{{#if controller.is_admin}}
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState_and_share" id "edit" client 'lock'}}>
+                <span class="glyphicon glyphlink glyphicon-fast-backward" ></span> Unlock
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState" "register" id}}>
+                <span class="glyphicon glyphlink glyphicon-folder-close"  style="color: aliceblue"></span> Register
+            </button>
+        </div>
+    </div>
+    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "openModal_deleteBooking" 'modalRemove_booking' id}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
+        </div>
+    {{!{{/inArray}}
+
+    {{#unless isDocBL}}
+        <h5 class="page-header"></h5>
+        <div class="row">
+            <div class="col-lg-12">
+                <button class="btn btn-primary btn-small btn-group-justified pull-right"{{action 'openModal_BL' id 'docBL'}}>Bill of Lading</button>
+            </div>
+        </div>
+    {{/unless}}
+
+{{/if}}
+
+<!-- AGENCIES -->
+{{#if controller.is_agency}}
+    {{#unless isDocBL}}
+        <h5 class="page-header"></h5>
+        <div class="row">
+            <div class="col-lg-12">
+                <button class="btn btn-primary btn-small btn-group-justified pull-right" {{action 'openModal_BL' id 'docBL'}}>Bill of Lading</button>
+            </div>
+        </div>
+    {{/unless}}
+{{/if}}
+
+<!-- SHIPOWNER -->
+{{#if controller.is_shipowner}}
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState_and_share" id "edit" client 'lock'}}>
+                <span class="glyphicon glyphlink glyphicon-fast-backward" ></span> Unlock
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified"  {{action "changeState_and_share" id "register" client 'lock'}}>
+                <span class="glyphicon glyphlink glyphicon-folder-close"  style="color: aliceblue"></span> Register
+            </button>
+        </div>
+    </div>
+    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "openModal_deleteBooking" 'modalRemove_booking' id}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
+        </div>
+{{!{{/inArray}}
+{{/if}}

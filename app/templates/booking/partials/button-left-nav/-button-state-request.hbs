@@ -1,0 +1,49 @@
+<!--
+
+TYPE: partial
+FROM: 'templates/bookings/pieces/_buttonLeftNav'
+
+-->
+
+
+<!--FIXME: ho dovuto separare i controlli sul tipo di companyType poiche' se vado a creare -->
+{{#if controller.is_admin}}
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified" {{action "changeState_and_share" id 'pending' agency 'request'}}>
+                <span class="glyphicon glyphlink glyphicon-send"  style="color: aliceblue"></span>Send
+            </button>
+        </div>
+    </div>
+    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "openModal_deleteBooking" 'modalRemove_booking' id}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
+        </div>
+{{!{{/inArray}}
+{{/if}}
+{{#if controller.is_client}}
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified" {{action "changeState_and_share" id 'pending' agency 'request'}}>
+                <span class="glyphicon glyphlink glyphicon-send"  style="color: aliceblue"></span>Send
+            </button>
+        </div>
+    </div>
+    {{!{{#inArray App.grantsValue "access/booking/remove"}}
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "openModal_deleteBooking" 'modalRemove_booking' id}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
+        </div>
+{{!{{/inArray}}
+{{/if}}

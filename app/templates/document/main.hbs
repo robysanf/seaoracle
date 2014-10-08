@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>{{type_extendedVersion}}</h3>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-lg-3" style="padding-top: 10px"><strong>date:</strong></div>
+                <div class="col-lg-9">{{input value= date type= date class='form-control' disabled=true}}</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3" style="padding-top: 10px"><strong>number:</strong></div>
+                <div class="col-lg-9" style="padding-top: 10px">{{code}}</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {{#if isBLorCM}}
+                        <div class="panel panel-primary" style="margin-top: 15px">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Booking ref.</h3>
+                            </div>
+                            <div class="panel-body">
+                                {{#each booking in bookings}}
+                                    {{#link-to 'booking/main' booking}}
+                                        {{booking.code}}
+                                    {{/link-to}}
+                                    <br>
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+            <h3 class="page-header"></h3>
+            {{#link-to 'document/search-record'}}
+                <button type="button" class="btn btn btn-primary btn-group-justified">
+                    Go to search
+                </button>
+            {{/link-to}}
+            {{#if isBL}}
+                {{#if canEdit}}
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-default btn-group-justified" {{action 'resetBL' this}}>Reset</button>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/if}}
+            {{#if isCM}}
+                {{#if canEdit}}
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-default btn-group-justified" {{action 'resetCM' this}}>Reset</button>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
+            <li {{bind-attr class="controller.tabList.doc:active"}}>
+                <a href="#"{{action setTabs "doc"}}><h4>Document</h4></a>
+            </li>
+            {{#if isBL}}
+                <li {{bind-attr class="controller.tabList.items:active"}}>
+                    <a href="#" {{action setTabs "items"}}><h4>Items</h4></a>
+                </li>
+                <li {{bind-attr class="controller.tabList.details:active"}}>
+                    <a href="#" {{action setTabs "details"}}><h4>Details</h4></a>
+                </li>
+            {{/if}}
+            <li {{bind-attr class="controller.tabList.files:active"}}>
+                <a href="#" {{action setTabs "files"}}><h4>Files</h4></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                {{#if controller.tabList.doc}}
+                    {{partial "document/partials/-doc-tab"}}
+                {{/if}}
+                {{#if controller.tabList.items}}
+                    {{partial "document/partials/-items-tab"}}
+                {{/if}}
+                {{#if controller.tabList.details}}
+                    {{partial "document/partials/-details-tab"}}
+                {{/if}}
+                {{#if controller.tabList.files}}
+                    {{partial "document/partials/-files-tab"}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+

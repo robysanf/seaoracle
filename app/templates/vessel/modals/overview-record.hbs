@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Vessel overview</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-3"><h4>Name</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.name class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Nickname</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.nickname class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Company Owner</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.company.name class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Payload</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.payload class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Length</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.length class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"><h4>Width</h4></div>
+        <div class="col-lg-7">
+            <div class="form-group">{{input value= controller.vessel_record.width class='form-control' disabled="disabled"}}</div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+</div>

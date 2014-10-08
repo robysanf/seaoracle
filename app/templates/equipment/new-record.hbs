@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <p class="lead"><h3>New Equipment</h3>
+            <p><h5>Code: <b>{{newCode}}</b></h5>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
+            <li {{bind-attr class="controller.tabList.details:active"}}>
+                <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
+            </li>
+            <li {{bind-attr class="controller.tabList.import_template:active"}}>
+                <a href="#" {{action setTabs "import_template"}}><h4>Import Template</h4></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                {{#if controller.tabList.details}}
+                    <div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+                        <div class="col-lg-12">
+                            {{#view "check-unique-field" model_val='equipment' filter_val='code' val=controller.newName path='equipment.new-record'}}
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="col-lg-3"><h4>Code</h4></div>
+                                    <div class="col-lg-9">
+                                        <div class="input-group input-group">
+                                            {{input id='code' value= controller.newName placeholder='Enter name' class='form-control'}}
+                                            <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/view}}
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-lg-3"><h4>Classification</h4></div>
+                                <div class="col-lg-9">
+                                    <a id="autocomplete-classification">
+                                        {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"><h4>Daily cost</h4></div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        {{input id='dailyCost' value=controller.newDailyCost type='number' placeholder='Enter daily cost' class='form-control'}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    {{view Ember.Select content=app_controller.currencyClassification value=controller.newCurrency class='form-control'}}
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-lg-3"><h4>Position</h4></div>
+                                <div class="col-lg-9">
+                                    <a id="autocomplete-position">
+                                        {{auto-complete source=app_controller.autocompletePoi destination=controller.searchPosition searchPath="name" minChars=2}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"><h4>Available</h4></div>
+                                <div class="col-lg-9">
+                                    <label class="form-control" style="text-align: left">{{input type="checkbox" checked=controller.newAvailable}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"><h4>Current status</h4></div>
+                                <div class="col-lg-9">
+                                    {{view Ember.Select content=controller.statuses value= newCurrentStatus class='form-control'}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 class="page-header"></h4>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-lg-3"><h4>Supplier</h4></div>
+                                <div class="col-lg-9">
+                                    <a id="autocomplete-supplier">
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-lg-3"><h4>Holder</h4></div>
+                                <div class="col-lg-9">
+                                    <a id="autocomplete-holder">
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchHolder searchPath="name" minChars=2}}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3"><h4>Planners</h4></div>
+                                <div class="col-lg-9">
+                                    <a id="autocomplete-planner1" data-id="{{unbound this.id}}">    <!--view.contentIndex-->
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner1 searchPath="name" minChars=2}}
+                                    </a>
+                                    <p></p>
+                                    <a id="autocomplete-planner2" data-id="{{unbound this.id}}">
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner2 searchPath="name" minChars=2}}
+                                    </a>
+                                    <p></p>
+                                    <a id="autocomplete-planner3" data-id="{{unbound this.id}}">
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner3 searchPath="name" minChars=2}}
+                                    </a>
+                                    <p></p>
+                                    <a id="autocomplete-planner4" data-id="{{unbound this.id}}">
+                                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner4 searchPath="name" minChars=2}}
+                                    </a>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 class="page-header"></h4>
+                            </div>
+                            <div class="row">
+                                <!--RINA-->
+                                <div class="col-lg-3"><h4>Certificate</h4></div>
+                                <div class="col-lg-9">
+                                    <table class="table table-striped table-hover table-condensed">
+                                        <tbody>
+                                        <tr>
+                                            <!--Commencement Date-->
+                                            <td>On hire</td> <!--from-->
+                                            <td>
+                                                {{date-picker-custom controls='datepicker_rinaFrom' value=controller.newRinaFromDate placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                                {{date-picker-controls id='datepicker_rinaFrom' maxYear="+50" minYear="-10"}}
+                                                {{!{{input value= controller.newRinaFromDate type='date' class='form-control'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Off hire</td> <!--to-->
+                                            <td>
+                                                {{date-picker-custom controls='datepicker_rinaTo' value=controller.newRinaToDate placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                                {{date-picker-controls id='datepicker_rinaTo' maxYear="+50" minYear="-10"}}
+                                                {{!{{input value= controller.newRinaToDate type="date" class='form-control'}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="page-header"></h5>
+                                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if controller.tabList.import_template}}
+
+                    <div class="well well-lg" style="margin-top: 25px; color: #ffffff">
+                        <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+                            <div class="col-lg-3">
+                                <button class="btn btn-default btn-130" {{action "create_exel"}}>Create Exel</button>
+                            </div>
+                            <div class="col-lg-9">
+                                {{#view 'upload-exel' value1='equipment'}}
+                                    <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-primary btn-file">
+                                    Browse exel&hellip; <input type="file" multiple>
+                                </span>
+                            </span>
+                                        {{input id="selected_exel" type="text" placeholder="max. 10 MB" class='form-control'}}
+                                        <span class="input-group-btn">
+                            <button id='button_upload_exel' {{bind-attr value=id}} type="button" data-loading-text="Loading..." class="btn btn-primary btn-130 pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Upload</button>
+                            </span>
+                                    </div>
+                                {{/view}}
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

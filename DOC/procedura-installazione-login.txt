@@ -1,0 +1,7 @@
+INSTALLAZIONE PROGETTO EMBER-CLI BASIC - login
+
+terminal > ember generate adapter application
+terminal > ember generate initializer globals
+terminal > ember generate route application
+terminal > ember generate controller application
+...

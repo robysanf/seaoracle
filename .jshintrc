@@ -1,8 +1,14 @@
 {
   "predef": {
-    "document": true,
-    "window": true,
-    "-Promise": true
+      "document": true,
+      "window": true,
+      "-Promise": true,
+      "$": true,
+      "PNotify": true,
+      "moment": true,
+      "auto-complete": true,
+      "Stripe": true
+
   },
   "browser" : true,
   "boss" : true,

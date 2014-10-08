@@ -1,0 +1,91 @@
+<div class="row" style="margin-top: 60px; margin-bottom: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr style="border-bottom: 2px solid #000000;">
+                        <th>Port</th>
+                        <th colspan="2">Estimated</th>
+                        <th colspan="2">Actual</th>
+                        <th colspan="2">Closing time for customs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{#each leg in schedules}}
+                        <tr>
+                            <td rowspan="2">
+                                {{#if leg.isBookingOpen}}
+                                    <button class="btn btn-success btn-160" type="button" {{action "change_bookingStatus" 'closed' leg}} {{bind-attr disabled=controller.details_isView}}>
+                                        <span class="glyphicon glyphicon-folder-open"></span> <strong>{{leg.poi.name}}</strong>
+                                    </button>
+                                {{else}}
+                                    <button class="btn btn-danger btn-160" type="button" {{action "change_bookingStatus" 'open' leg}} {{bind-attr disabled=controller.details_isView}}>
+                                        <span class="glyphicon glyphicon-folder-close"></span> <strong>{{leg.poi.name}}</strong>
+                                    </button>
+                                {{/if}}
+                            </td>
+                            <td>Arr:</td>
+                            <td>
+                                {{!{{date-picker-custom controls=leg.etaId value=leg.eta placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                {{!{{date-picker-controls id=leg.etaId maxYear="+50" minYear="-10"}}
+                                {{input type="date" value= leg.eta class='form-control' placeholder='YYYY-MM-DD' disabled=controller.details_isView}}
+                            </td>
+                            <td>Arr:</td>
+                            <td>
+                                {{!{{date-picker-custom controls=leg.ataId value=leg.ata placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                {{!{{date-picker-controls id=leg.ataId maxYear="+50" minYear="-10"}}
+                                {{input type="date" value= leg.ata class='form-control' placeholder='YYYY-MM-DD' disabled=controller.details_isView}}
+                            </td>
+
+                            <td>Date:</td>
+                            <td>
+                                {{!{{date-picker-custom controls=leg.customsClosingDateId value=leg.customsClosingDate placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                {{!{{date-picker-controls id=leg.customsClosingDateId maxYear="+50" minYear="-10"}}
+                                {{input type="date" value= leg.customsClosingDate class='form-control' placeholder='YYYY-MM-DD' disabled=controller.details_isView}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Dep:</td>
+                            <td>
+                                {{!{{date-picker-custom controls=leg.etdId value=leg.etd placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                {{!{{date-picker-controls id=leg.etdId maxYear="+50" minYear="-10"}}
+                                {{input type="date" value= leg.etd class='form-control' placeholder='YYYY-MM-DD' disabled=controller.details_isView}}
+                            </td>
+                            <td>Dep:</td>
+                            <td>
+                                {{!{{date-picker-custom controls=leg.atdId value=leg.atd placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                {{!{{date-picker-controls id=leg.atdId maxYear="+50" minYear="-10"}}
+                                {{input type="date" value= leg.atd class='form-control' placeholder='YYYY-MM-DD' disabled=controller.details_isView}}
+                            </td>
+
+                            <td>Time:</td>
+                            <td>{{input type="time" value= leg.customsClosingTime class='form-control' disabled=controller.details_isView}} </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.details_isView}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" false null null null 'details'}}>Edit</button>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" true this this.schedules null 'details'}}>Save</button>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+
+    </div>
+</div>

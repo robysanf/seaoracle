@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
+            {{#if appController.authToken}}
+            {{else}}
+                {{#if loggedIn}}
+                    <p>You are already logged in!</p>
+                {{else}}
+                    <form class="form-inline" {{action login on="submit"}}>
+                        <h2 style="color: white" ><strong>Sea Forward</strong></h2>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {{input id='username' valueBinding='username' type="text"  placeholder='Username' class='form-control'}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {{input id='password' valueBinding='password' type="password"  placeholder='Password' class='form-control'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+
+                            <div class="col-lg-8">
+                                <br>
+                                <br>
+
+                                <button type="button" class="btn btn-default btn-small btn-130 pull-left" {{action "change_newLog" 1}}>
+                                    Sign up
+                                </button>
+
+                                <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" >Login</button>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </form>
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>

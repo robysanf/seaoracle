@@ -1,0 +1,235 @@
+<div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='name' value=name type="text"  placeholder='Enter name' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>VAT number</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='vatNumber' value=vat type="text"  placeholder='Enter VAT number' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Street</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='street' value=street type="text"  placeholder='Enter street' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3"><h4>City</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='city' value=city type="text"  placeholder='Enter city' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Zip code</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='postCode'  value=zipCode  type="text"  placeholder='Enter zip code' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Province</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='province'  value=province type="text"  placeholder='Enter province' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Country</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">
+                    {{view Ember.Select valueBinding='country' prompt="Please select a country" content=app_controller.nations_name value=country class='form-control' disabled=controller.isView}}
+                    {{!{{input id='country'  value=country type="text"  placeholder='Enter country' class='form-control' disabled=controller.isView}}
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        {{#if controller.isView}}
+            {{#each emails}}
+                <div class="row">
+                    <div class="col-lg-3"><h4>E-mail:</h4></div>
+                    <div class="col-lg-7">
+                        <div class="form-group">{{input value=this type="text"  placeholder='Enter email num.1' class='form-control' disabled="disabled"}}</div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                </div>
+            {{/each}}
+        {{else}}
+            {{#each email in emails}}
+                <div class="row" style="margin-bottom: 8px;">
+                    <div class="col-lg-3"><h4>E-mail:</h4></div>
+                    <div class="col-lg-7">
+                        <div class="input-group">
+                            {{input value=email type="text" placeholder='Enter email' class='form-control' }}
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger " type="button" {{action 'removeEmail' email id}}>
+                                    <span class="glyphicon glyphicon-remove" style="color: aliceblue"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            <div class="row">
+                <div class="col-lg-3"><h4>E-mail:</h4></div>
+                <div class="col-lg-7">
+                    <div class="input-group">
+                        {{input value=controller.newEmail type="text"  placeholder='Enter email' class='form-control'}}
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary " type="button" {{action 'addEmail' this newEmail}}>
+                                <span class="glyphicon glyphicon-plus" style="color: aliceblue"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="form-group"></div>
+                </div>
+            </div>
+        {{/if}}
+
+
+        <div class="row">
+            <div class="col-lg-3"><h4>Phone</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='phone'  value=phone type="text"  placeholder='Enter phone' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"><h4>Fax</h4></div>
+            <div class="col-lg-7">
+                <div class="form-group">{{input id='fax' value=fax type="text"  placeholder='Enter Fax' class='form-control' disabled=controller.isView}}</div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+
+            <!--se sono ADMIN (property a livello di controller) e la company è di tipo shipowner (property a livello di model 'company')-->
+            {{#if typeAdmin}}
+                {{#if isTypeShipowner}}
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-lg-3"><h4>Agent commission</h4></div>
+                        <div class="col-lg-7">
+                            <div class="input-group input-group">
+                                {{input type=number value=agentCommission class='form-control' disabled=controller.isView}}
+                                <span class="input-group-addon " id="1">
+                                   <strong>% </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-lg-3"><h4>Brokerage</h4></div>
+                        <div class="col-lg-7">
+                            <div class="input-group input-group">
+                                {{input type=number value=brokerage class='form-control' disabled=controller.isView}}
+                                <span class="input-group-addon " id="1">
+                                   <strong>% </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-lg-3"><h4>Handling Fee</h4></div>
+                        <div class="col-lg-7">
+                            <div class="input-group input-group">
+                                {{input type=number value=handlingFee class='form-control' disabled=controller.isView}}
+                                <span class="input-group-addon " id="1">
+                                   <strong>% </strong>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                {{/if}}
+            {{else}}
+                <!--altrimenti se l'utente è sul suo profilo (property a livello di model 'company') ed è di tipo shipowner (property a livello di controller)-->
+                {{#if isMyCompany}}
+                    {{#if typeShipowner}}
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Agent commission</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input type=number value=agentCommission class='form-control' disabled=controller.isView}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Brokerage</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input type=number value=brokerage class='form-control' disabled=controller.isView}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col-lg-3"><h4>Handling Fee</h4></div>
+                            <div class="col-lg-7">
+                                <div class="form-group">{{input type=number value=handlingFee class='form-control' disabled=controller.isView}}</div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Referring port</h4></div>
+            <div class="col-lg-7">
+                {{#if controller.isView}}
+                    {{input value=referringPort.name type="text" class='form-control' disabled=controller.isView}}
+                {{else}}
+                    <a id="autocomplete-referringPort">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" minChars=2}}
+                    </a>
+                {{/if}}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-lg-3"><h4>Stamp</h4></div>
+            <div class="col-lg-7">
+                {{#if controller.isView}}
+                    {{input value=stamp.name type="text" class='form-control' disabled=controller.isView}}
+                {{else}}
+                    <a id="autocomplete-segment">
+                        {{auto-complete source=app_controller.autocompleteStamp destination=stamp searchPath="name" minChars=1}}
+                    </a>
+                {{/if}}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+{{!{{#inArray App.grantsValue "access/company/edit"}}
+    <div class="row">
+    <div class="col-lg-10">
+        <h5 class="page-header"></h5>
+        {{#if controller.isView}}
+            <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action 'change_state' false}}>Edit</button>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-9">
+                    {{!{{#ifEqual App.companyType 'admin'}}
+                    <button class="btn btn-default btn-130 pull-right" {{action "open_modal" 'company.modals.company-grant' this 'company'}}>Edit grants</button>
+                    {{!{{/ifEqual}}
+                </div>
+                <div class="col-lg-3">
+                    <!--<button type="submit" class="btn btn-primary btn-small custom100 pull-right" {{!{{action "saveEditCompany" id}}>Save</button>-->
+                    <button class="btn btn-primary btn-130 pull-right" {{action 'change_state' true this}}>Save</button>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+        <div class="col-lg-2"></div>
+    </div>
+        {{!{{/inArray}}
+    </div>
+</div>
+

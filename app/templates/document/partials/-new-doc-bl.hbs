@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class= "well well-lg" style="background-color: #FAFDFD">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">New Bill of Lading
+                    </h3>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Origin</label>
+                    <a id="autocomplete-orig">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchOrigin searchPath="name" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <label>Destination</label>
+                    <a id="autocomplete-dest">
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchDestination searchPath="name" minChars=1}}
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>Voyage</label>
+                    <a id="autocomplete-voy">
+                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoyage searchPath="name" minChars=1}}
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <label>Code</label>
+                    {{!{{#view App.CheckDocumentCodeView type='docBL' val=controller.name  val1=false}}
+                    <div class="form-group">
+                        {{input type=text value= controller.name class='form-control'}}
+                    </div>
+                    {{!{{/view}}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    {{#view 'search'}}
+                        <button type="button" class="btn btn-primary pull-right btn-130">
+                            Search Booking
+                        </button>
+                    {{/view}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

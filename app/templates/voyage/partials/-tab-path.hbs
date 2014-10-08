@@ -1,0 +1,105 @@
+<div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-3"><h4>Name</h4></div>
+            <div class="col-lg-9">
+                {{input id='name' value=name class='form-control' disabled=true}}
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px">
+            <div class="col-lg-3"><h4>Previous voyage</h4></div>
+            <div class="col-lg-9">
+                {{#if controller.isView}}
+                    {{input value=parentVoyage.name class='form-control' disabled=true}}
+                {{else}}
+                    <a id="autocomplete-voyage">
+                        {{auto-complete source=app_controller.autocompleteVoyage destination= parentVoyage searchPath="name" minChars=1}}
+                    </a>
+                {{/if}}
+            </div>
+        </div>
+        {{#unless controller.isView}}
+            <div class="row">
+                <div class="panel panel-default" style="margin-top: 25px; margin-bottom: 15px">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="lead">Add items to path</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-default btn-130 pull-right" {{action "add_item" this}}>Add item</button>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                        <div class="panel-body">
+                            <div class="row" style="margin-top: 25px; margin-bottom: 35px">
+                                <div class="col-lg-6">
+                                    <label style="color: #000000">Port</label>
+                                    <a id="autocomplete-searchPort">
+                                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label style="color: #000000">Template</label>
+                                    <a id="autocomplete-searchTemplate">
+                                        {{auto-complete source=app_controller.autocompleteTemplate destination=controller.searchTemplate searchPath="name" minChars=0}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        {{/unless}}
+
+        <div class="row">
+            <div class="col-lg-3"><h4>Path</h4></div>
+            {{#if controller.isView}}
+                {{#each leg in schedules}}
+                    <div class="col-lg-3"><h4></h4></div>
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            {{input value= leg.poi.name class='form-control' disabled=controller.isView}}
+                        </div>
+                    </div>
+                {{/each}}
+            {{/if}}
+            <div class="col-lg-3"><h4></h4></div>
+            {{#view "sortable" type='edit'}}
+                <div class="col-lg-9">
+                    <div class="sortable" style="cursor: pointer">
+                        {{#each controller.legs itemViewClass="Em.View"}}
+                            <ul class="list-group">
+                                <li class="list-group-item" data-id="{{unbound this.poi.id}}" data-value="{{unbound view.contentIndex}}"> {{!{{this.poi.id}}  <!--FIXME: itemViewClass causa un inconsistenza dei dati per cui al refresh della pagina le legs spariscono dal layout -->
+                                    <span class="glyphicon glyphicon-sort pull-left" style="color: #428bca; width: 10%"></span>
+                                    <strong>{{this.poi.name}}</strong>      {{!{{this.poi.name}}
+                                    <button type="button" class="close" {{action "remove_item" view.contentIndex}}>&times;</button>
+                                </li>
+                            </ul>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/view}}
+        </div>
+
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h5 class="page-header"></h5>
+                    {{#if controller.isView}}
+                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" false null schedules null 'path'}}>Edit</button>
+                    {{else}}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "change_state" true this this.schedules this.vessel 'path'}}>Save</button>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>

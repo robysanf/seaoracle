@@ -1,0 +1,40 @@
+appunti.hbs*****************************************  how to use NEED  **********************************************
+
+dichiaro i need:
+        needs: ['company/main'],
+        companyRecord: Ember.computed.alias('controllers.company/main.companyRecord'),
+
+li utilizzo in questo modo:
+        this.set('companyRecord', value);
+
+per utilizzo pratico vedi:
+        controllers > company > search-company.js
+
+*********************************************************************************************************
+
+Route#transitionTo
+Controller#transitionToRoute
+
+
+********************************************  isDirty  **************************************************
+
+è buona regola prima di un salvataggio (PUT) per una relazione hasMany controllare se i dati sono "sporchi"
+ovvero se sono stati modificati; in caso contrario non sarà necessario fare l'azione.
+
+        elems.filter(function(val, index){
+             switch(val.get('isDirty')) {
+                   case true:
+                        val.save();
+                   break
+
+                   case false:
+                   break
+             }
+        })
+
+*********************************** chiamare un altro controller dalla view ***********************************
+
+
+view.get('controller.controllers.application').token      (dove application è il nome del controller)
+
+nb: sul controller deve esserci il 'needs' per application

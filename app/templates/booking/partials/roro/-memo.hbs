@@ -1,0 +1,67 @@
+{{#if isEditing}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-danger">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h4>
+                        <strong>Memo</strong>
+                    </h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        <!-- Table -->
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th colspan="2" rowspan="2">Original</th>
+                                <th colspan="2" rowspan="2">Actual</th>
+                                <th > </th>
+                                <th style=" text-align: right">Remove</th>
+                                <th style=" text-align: right">Add Item</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each item in items}}
+                                {{#if item.tu_roro}}
+                                    {{#unless item.is_typeItem}}
+                                        <tr>
+                                            <td rowspan="2">{{item.code}}</td>
+                                            <td>Length: </td>
+                                            <td>{{item.eLength}}</td>
+                                            <td>Length: </td>
+                                            <td>{{item.countMtl}}</td>
+                                            <td></td>
+                                            <td  rowspan="2">
+                                                <a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                                            </td>
+                                            <td rowspan="2">
+                                                <a href="#" {{action "createRecord_item" "item" "roro" item this true}}>
+                                                    <span class="glyphicon glyphicon-plus pull-right"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>weight: </td>
+                                            <td>{{item.eWeight}}</td>
+                                            <td>weight: </td>
+                                            <td>{{item.countWeight}}</td>
+                                            <td></td>
+                                        </tr>
+                                    {{/unless}}
+                                {{/if}}
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+{{/if}}

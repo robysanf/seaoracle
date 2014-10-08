@@ -1,0 +1,89 @@
+<!-- **********************************************
+        NEW ITEM
+-->
+{{#if controller.itemListActive}}
+    <div class="row">
+        {{partial "booking/partials/roro/-item-new"}}
+    </div>
+{{else}}
+
+
+    <!-- **********************************************
+            ITEM LIST
+    -->
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 class="page-header">List-view</h3>
+        </div>
+        <div class="col-lg-6">
+            <br>
+            <br>
+            <!--  ******* HEAD ********  -->
+
+            <!--azioni diverse per stati diversi-->
+            {{#if controller.is_client}}
+                {{#if isRequest}}
+                {{!{{#inArray App.grantsValue "access/booking/new"}}
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary btn-130 pull-right" {{action "createRecord_item" "item" "roro" null this true}}>
+                            <span class="glyphicon glyphbutton glyphicon-plus-sign"></span> Add item
+                        </button>
+                    </div>
+                {{!{{/inArray}}
+                {{/if}}
+            {{else}}
+                {{#if isEditing}}
+                {{!{{#inArray App.grantsValue "access/booking/edit"}}
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-default btn-130 pull-right" {{action "open_modal" 'booking.modals.loaded-on' this}}>
+                            Loaded On
+                        </button>
+                    </div>
+                    <div class="col-lg-4 ">
+                    {{!{{#inArray App.grantsValue "access/booking/new"}}
+                            <button type="button" class="btn btn-default btn-130 pull-right" {{action "open_modal" 'booking.modals.memo' this null}}{{!{{action "modal_addMemo" this}}>
+                                Add Memo
+                            </button>
+                        {{!{{/inArray}}
+                    </div>
+                    <div class="col-lg-4">
+                        {{!{{#inArray App.grantsValue "access/booking/new"}}
+                        <button type="button" class="btn btn-primary btn-130 pull-right" {{action "createRecord_item" "item" "roro" null this true}}>
+                            <span class="glyphicon glyphbutton glyphicon-plus-sign"></span> Add item
+                        </button>
+                        {{!{{/inArray}}
+                    </div>
+                {{!{{/inArray}}
+                {{/if}}
+                {{#if isLocked}}
+                    {{#if is_shipowner}}
+                        <button type="button" class="btn btn-info btn-130 pull-right" {{action "open_modal" 'booking.modals.delay' null null}}>
+                            <span class="glyphicon glyphbutton glyphicon-backward"></span> Delay
+                        </button>
+                    {{/if}}
+                    {{#if is_admin}}
+                        <button type="button" class="btn btn-info btn-130 pull-right" {{action "open_modal" 'booking.modals.delay' null null}}>
+                            <span class="glyphicon glyphbutton glyphicon-backward"></span> Delay
+                        </button>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+
+    <!--  ******* BODY ********  -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!--table con lista dei Ro/Ro-->
+            {{partial "booking/partials/roro/-item-list"}}
+            <br>
+            <!--riquadro per la creazione di memo-->
+            {{#unless controller.is_client}}
+                {{#if thereIsMemo}}
+                    {{partial "bookings/partials/roro/-memo"}}
+                {{/if}}
+            {{/unless}}
+        </div>
+    </div>
+{{/if}}

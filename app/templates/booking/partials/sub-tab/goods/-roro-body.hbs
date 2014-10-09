@@ -339,17 +339,17 @@
                 </div>
             </div>
             <div class="row">
-                {{#if isRegister}}
+                {{#if isLockedOrRegistered}}
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Type</label>
-                            {{input value= freightEquipment.equipmentClassification.name type="text" class='form-control' disabled=isRegister}}
+                            {{input value= freightEquipment.equipmentClassification.name type="text" class='form-control' disabled=true}}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Identifier</label>
-                            {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=isRegister}}
+                            {{input value= freightEquipment.equipment.code type="text" class='form-control' disabled=true}}
                         </div>
                     </div>
                 {{else}}

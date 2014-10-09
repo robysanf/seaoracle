@@ -1602,10 +1602,12 @@ export default Ember.Route.extend({
                                     bookPromise.save().then(function(){
                                         booking_record.reload();
 
-                                        //at the end
-                                        self.store.findQuery("equipment").then(function(comp){
-                                            app_controller.set("autocompleteEquipment", comp);
-                                        });
+                                        if( tu_type === 'container' ) {
+                                            //at the end
+                                            self.store.findQuery("equipment").then(function(comp){
+                                                app_controller.set("autocompleteEquipment", comp);
+                                            });
+                                        }
 
                                         controller.set('subTabLists.details', false);
                                         controller.set('subTabLists.haulage', false);
@@ -1622,15 +1624,6 @@ export default Ember.Route.extend({
 
                                         controller.set('item_record', bookPromise);
                                         controller.set('itemId', bookPromise.id);
-
-//                                        controller.setSubTabs('subTabLists.goods');
-//                                        controller.set('activeSubTab',"goods");
-//
-//
-//                                        self.render("bookings.tabs.subTab.goods", {
-//                                            into: 'bookings.tabs.' + controller.activeTab,
-//                                            outlet: 'subTab' });
-
                                     }, function(){
                                         //NOT SAVED
                                         new PNotify({

@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 export default DS.RESTAdapter.extend({
     //host: 'http://localhost',
-    //host: 'https://test.zenointelligence.com',
+    host: 'https://test.zenointelligence.com',
     namespace: "seaforward/api",
 
     buildURL: function() {

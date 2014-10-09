@@ -16,11 +16,12 @@ export default Ember.ObjectController.extend({
     }.property('app_controller_companyType'),
 
     is_myCompany: function(){
-         return ( this.get('companyRecord') === this.get('app_company') )
-    }.property('companyRecord'),
+         return ( this.get('company_id') === this.get('app_company') )
+    }.property('company_id'),
 
     userId: null,
     companyRecord: null,
+    company_id: null,
     fileRecord: null,
     isView: true,
 

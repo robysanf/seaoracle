@@ -14,6 +14,9 @@ export default Ember.Route.extend({
     },
 
     model: function( company ) {
+        var self = this,  controller = self.controllerFor('company.main');
+        controller.set('company_id', company.company_id);
+
         return this.store.find('company', company.company_id);
     },
 

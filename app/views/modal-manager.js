@@ -9,6 +9,55 @@ export default Ember.View.extend({
 
     layoutName: 'modal-layout',
     actions: {
+        remove_booking: function(){
+            var view = this;
+            this.controller.send('remove_booking');
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                view.controller.send('close_item');
+            });
+
+            this.$('.modal').removeClass('in');
+        },
+
+        send_shareResource: function() {
+            var view = this;
+            view.controller.send('send_shareResource');
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                view.controller.send('close_item');
+            });
+            this.$('.modal').removeClass('in');
+        },
+
+        send_BL: function() {
+            var view = this, data = view.getProperties();
+
+            data.val = view.controller.codeBL;
+            data.type = 'docBL';
+            $.post('api/custom/checkDocumentCode?token=' + view.get('controller.controllers.application').token, data).then(function(response){
+                if (response.success) {
+                    view.controller.send('generate_BL');
+
+                    view.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                        view.controller.send('close_item');
+                    });
+                    view.$('.modal').removeClass('in');
+                } else {
+                    new PNotify({
+                        title: 'Attention',
+                        text: 'A document with this code already exists, please change it.',
+                        type: 'info'
+                    });
+                }
+            }, function(){
+                new PNotify({
+                    title: 'Attention',
+                    text: 'A problem occurred.',
+                    type: 'info'
+                });
+            });
+        },
 
         /**
          Chiamata per definire (PUT) i grants associati alla compani in oggetto.

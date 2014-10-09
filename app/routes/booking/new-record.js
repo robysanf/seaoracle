@@ -275,12 +275,22 @@ export default Ember.Route.extend({
                                 delay: 1000
                             });
 
+                            controller.set('tabList_details', false);
+                            controller.set('tabList_freightPlan', false);
+                            controller.set('tabList_revenues', false);
+                            controller.set('tabList_container', false);
+                            controller.set('tabList_roro', false);
+                            controller.set('tabList_bb', false);
+                            controller.set('tabList_itemStatus', false);
+                            controller.set('tabList_files', false);
+                            controller.set('bookingMain_record', val);
+
                             self.transitionTo('booking/main', promise);
                             self.get('controller').set('finalDestination', null);
                             self.get('controller').set('dtd', null);
                             self.get('controller').set('dta', null);
                         });
-                    }, function(error){
+                    }, function(){
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',

@@ -10,7 +10,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
     <h5 class="page-header"></h5>
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState" "pending" id}}>
+            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState" "pending" this}}>
                 Back to Pend.
             </button>
         </div>
@@ -19,7 +19,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
     <div class="row">
         <div class="col-lg-12">
             {{#if isAccept}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" id "lock" client 'edit'}}>
+                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" this "lock" client 'edit'}}>
                     <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock
                 </button>
             {{/if}}
@@ -28,7 +28,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
     <br>
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "shareResource" id 'modalShareResource'}}>
+            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "open_modal" 'booking.modals.share' this}}{{!{{action "shareResource" id 'modalShareResource'}}>
                 Share
             </button>
         </div>
@@ -37,32 +37,54 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
 
 <!-- AGENCIES -->
 {{#if controller.is_agency}}
-    <h5 class="page-header"></h5>
+
     <!--<div class="row">-->
     <!--<div class="col-lg-12">-->
-    <!--<button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{!{{action "changeState" "pending" id}}>-->
+    <!--<button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{!{{action "changeState" "pending" this}}>-->
     <!--Back to Pend.-->
     <!--</button>-->
     <!--</div>-->
     <!--</div>-->
     <!--<br>-->
-    <div class="row">
-        <div class="col-lg-12">
-            {{#if isAccept}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" id "lock" client 'edit'}}>
+    {{#if isAccept}}
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" this "lock" client 'edit'}}>
                     <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock
                 </button>
-            {{/if}}
+            </div>
         </div>
-    </div>
-    <br>
+        <br>
+    {{/if}}
+    {{#if noFreightPlan}}
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" this "lock" client 'edit'}}>
+                    <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock
+                </button>
+            </div>
+        </div>
+        <br>
+    {{/if}}
     <div class="row">
         <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "shareResource" id 'modalShareResource'}}>
+            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "open_modal" 'booking.modals.share' this}}>
                 Share
             </button>
         </div>
     </div>
+    {{#if freightPlans}}
+        {{#if isNaN_orReject}}
+            <div class="row" style="margin-top: 15px">
+                <div class="col-lg-12">
+                    <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "acknowledge" this 'requested'}}>
+                        Send Request
+                    </button>
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+
 {{/if}}
 
 <!-- SHIPOWNER -->
@@ -71,7 +93,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
     <div class="row">
         <div class="col-lg-12">
             {{#if isAccept}}
-                <button type="button" style="text-align: left" class="btn btn-info btn-group-justified " {{action "changeState_and_share" id "lock" client 'edit'}}>
+                <button type="button" style="text-align: left" class="btn btn-info btn-group-justified " {{action "changeState_and_share" this "lock" client 'edit'}}>
                     <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock
                 </button>
             {{/if}}
@@ -82,10 +104,10 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
         <div class="col-lg-12">
             {{#if freightPlans}}
                 <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-success" {{action "acknowledge" id "accepted"}}>
+                    <label class="btn btn-success" {{action "acknowledge" this "accepted"}}>
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                     </label>
-                    <label class="btn btn-danger" {{action "acknowledge" id "rejected"}}>
+                    <label class="btn btn-danger" {{action "acknowledge" this "rejected"}}>
                         <span class="glyphicon glyphicon-thumbs-down"></span>
                     </label>
                 </div>

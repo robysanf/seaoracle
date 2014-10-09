@@ -1,38 +1,65 @@
 <tr>
     <td>{{chargeItem.code}}</td>
     <td>
-        {{#if isRegister}}
-            {{input value=chargeItem.billTo.name class='form-control' disabled=isRegister}}
+        {{#if isLockedOrRegistered}}
+            {{input value=chargeItem.billTo.name class='form-control' disabled=true}}
         {{else}}
-            <a id="autocomplete-charge">
-                {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
-            </a>
+            {{#if controller.is_shipowner}}
+                {{input value=chargeItem.billTo.name class='form-control' disabled=true}}
+            {{else}}
+                <a id="autocomplete-charge">
+                    {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
+                </a>
+            {{/if}}
         {{/if}}
     </td>
+    <td>{{input value= chargeItem.originalRevenueCurrency class='form-control' disabled=true}}</td>
+    <td>{{input value= chargeItem.originalRevenue type='number' class='form-control' disabled=true}}</td>
     <td>
-        {{input value= chargeItem.originalRevenueCurrency class='form-control' disabled=true}}
+    {{#if controller.is_shipowner}}
+        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=true}}
+    {{else}}
+        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isLockedOrRegistered}}
+    {{/if}}
     </td>
     <td>
-        {{input value= chargeItem.originalRevenue type='number' class='form-control' disabled=true}}
-    </td>
-    <td> {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isRegister}}</td>
-    <td>
-        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isRegister}}
+    {{#if controller.is_shipowner}}
+        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=true}}
+    {{else}}
+        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isLockedOrRegistered}}
+    {{/if}}
     </td>
     {{#if controller.revenuesTabList.bookingCharges}}
-        <td> NUM </td>
-        <td>{{input type='number' value=chargeItem.num class='form-control' disabled=isRegister}}</td>
-    {{else}}
-        <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}</td>
-        {{#if chargeItem.isMultiplierNum}}
-            <td>{{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}</td>
+        {{#if controller.is_shipowner}}
+            <td> NUM </td>
+            <td>{{input type='number' value=chargeItem.num class='form-control' disabled=true}}</td>
         {{else}}
-            <td></td>
+            <td> NUM </td>
+            <td>{{input type='number' value=chargeItem.num class='form-control' disabled=isLockedOrRegistered}}</td>
+        {{/if}}
+
+    {{else}}
+        {{#if controller.is_shipowner}}
+            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}</td>
+            {{#if chargeItem.isMultiplierNum}}
+                <td>{{input type='number' value= chargeItem.num class='form-control' disabled=true}}</td>
+            {{else}}
+                <td></td>
+            {{/if}}
+        {{else}}
+            <td>{{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}</td>
+            {{#if chargeItem.isMultiplierNum}}
+                <td>{{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}</td>
+            {{else}}
+                <td></td>
+            {{/if}}
         {{/if}}
     {{/if}}
     <td>
-        {{#unless isRegister}}
+        {{#unless isLockedOrRegistered}}
+            {{#unless controller.is_shipowner}}
             <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
+            {{/unless}}
         {{/unless}}
     </td>
 </tr>

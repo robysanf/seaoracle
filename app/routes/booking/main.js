@@ -28,6 +28,8 @@ export default Ember.Route.extend({
             controller.set('subTabLists.goods', true);
         }
 
+
+
         controller.set('isView', true);
         controller.set('itemListActive', false);
         controller.set('newContainerItemActive', false);
@@ -94,10 +96,29 @@ export default Ember.Route.extend({
         }
         controller.set('searchVoy', []);
     },
-    model: function(booking) {
-        return this.store.find('booking', booking.booking_id);
+    model: function( booking ) {
+        var self = this, controller = self.controllerFor('booking.main');
+
+       var book = this.store.find('booking', booking.booking_id);
+
+        controller.set('booking_record', book);
+
+        return book;
     },
 
+    afterModel: function() {
+        var self = this, controller = self.controllerFor('booking.main');
+
+        if( controller.booking_record.get('noFreightPlan') ) {
+            controller.set('freightPlan_mode.search', false);
+            controller.set('freightPlan_mode.manual', false);
+            controller.set('freightPlan_mode.no_freight_plan', true);
+        } else {
+            controller.set('freightPlan_mode.search', true);
+            controller.set('freightPlan_mode.manual', false);
+            controller.set('freightPlan_mode.no_freight_plan', false);
+        }
+    },
     actions: {
         /****************************************************************************************************
          * BOOKING NAVIGATION
@@ -264,6 +285,33 @@ export default Ember.Route.extend({
                 queryExpression = {}, searchPath = "";
 
             switch ( path ){
+                case 'booking.modals.share':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
+                case 'booking.modals.new-bill-of-lading':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
+                case 'booking.modals.remove-booking':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
                 case 'booking.modals.memo':
                     controller.set("booking_record", booking);
 
@@ -1249,7 +1297,7 @@ export default Ember.Route.extend({
                 bookItemsList = this.get("controller").get("delayItemsList").filterBy("isChecked").mapBy("id").join(",").split(","),
                 data = this.getProperties('token');
 
-            data.token = App.token;
+            data.token = app_controller.token;
             data.bookingItem = bookItemsList;
 
             if(controller.codeBooking !== "" && controller.codeBooking !== null){
@@ -2491,8 +2539,8 @@ export default Ember.Route.extend({
 
                         break;
                     case 'roro':
-                        var chass_len = controller.item_record.get('chassisNum').length;
-                        ( controller.item_record.get('chassisNum') !== null && chass_len > 0 ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
+                        var chass_len = controller.item_record.get('chassisNum');
+                        ( chass_len !== "" && chass_len !== undefined ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
 
                         if ( controller.item_record.get('chassisNum') !== null && chass_len > 0 ) {
                             $('div.alert.alert-danger').css('display', 'none');
@@ -2936,7 +2984,996 @@ export default Ember.Route.extend({
                 //});
 
             });
+        },
+
+        /**
+         Cambio degli stati del booking
+
+         @action changeState
+         @for Booking
+         @param {String} - request / pending / edit / lock / register
+         @param {Number} - unique key
+         */
+        changeState: function( state, booking ) {
+            var self = this, app_controller = self.controllerFor('application'),
+                data = this.getProperties();
+
+            data.bookingId = booking.get('id');
+            data.state = state;
+            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                booking.reload();
+            }, function(){
+                new PNotify({
+                    title: 'Not saved',
+                    text: 'A problem has occurred.',
+                    type: 'error',
+                    delay: 2000
+                });
+            });
+        },
+
+        /**
+         Cambio di quegli stati che implicano la conferma di alcuni campi obbligatori. Inoltre per alcuni
+         casi il cambio di stato implica la condivisione 'function: share' o il ritiro di visibilità
+         'function: unshare' con alcune company.
+
+         @action changeState_and_share
+         @for Booking
+         @param {Number} - unique key
+         @param {String} - stato a cui si andrà
+         @param {Number} - unique key
+         @param {String} - stato da cui si arriva
+         */
+        changeState_and_share: function( book, stateTo, companyToShare, stateFrom ){
+            var self = this, app_controller = self.controllerFor('application'),
+                data = this.getProperties();
+
+            //controllo per verificare che l'utente abbia inserito una company con cui fare lo Share della risosrsa
+            if( companyToShare ) {
+                    data.resource_id = book.get('id');
+                    data.model = "booking";       //modello della risorsa che condivido
+                    data.companies = "["+companyToShare.get('id')+"]";
+
+                    if( stateFrom = 'request' && stateTo == 'pending' ){
+                        $.post('api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
+                            if (response.success) {
+                                book.get('sharedWith').then(function(valShar){
+                                    valShar.pushObject(companyToShare);
+                                    //book.set('state', stateTo).save();
+
+                                    book.save().then(function(success){
+                                        var data = self.getProperties();
+
+                                        data.bookingId = book.get('id');
+                                        data.state = stateTo;
+                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                            book.reload();
+                                        }, function(error){
+                                            new PNotify({
+                                                title: 'Not saved',
+                                                text: 'A problem has occurred.',
+                                                type: 'error',
+                                                delay: 2000
+                                            });
+                                        });
+                                    });
+                                });
+                            }
+                        }, function(){
+                            // NOT SAVED
+                            new PNotify({
+                                title: 'Not saved',
+                                text: 'A problem has occurred.',
+                                type: 'error',
+                                delay: 2000
+                            });
+                        });
+                    }
+
+                    if( stateFrom = 'edit' && stateTo == 'lock' ){
+                        var attrToCheck = ['client','agency','origin','destination','dtd','currency'],
+                            promiseToCheck = [], //'freightPlans'
+                            subEntity = 'bookingItems',
+                            attrToCheck_subFreight = [],      //'equipmentClassificationName'
+                            attrToCheck_subEntity = Ember.Object.create({ tags: ['container', 'roro', 'bb'] },{ container: ['eWeight'] }, { roro : ['chassisNum','eVolume','eHeight','eWeight','eWidth','eLength']}, { bb : ['eWeight','eVolume'] }),
+                            attrToValue = [
+                                {'attr': "origin", 'value': "Origin"},
+                                {'attr': "destination", 'value': "Destination"},
+                                {'attr': "dtd", 'value': "DTD"},
+                                {'attr': "currency", 'value': "Currency"},
+                                {'attr': "client", 'value': "Client"},
+                                {'attr': "agency", 'value': "Agency"},
+                              //  {'attr': "freightPlans", 'value': "Freight Plan"},
+                                //{'attr': "equipmentCode", 'value': "Identifier"},
+                                {'attr': "eWeight", 'value': "Estimated Weight"},
+                                {'attr': "chassisNum", 'value': "Chassis Number"},
+                                {'attr': "eVolume", 'value': "Estimated Volume"},
+                                {'attr': "eHeight", 'value': "Estimated Height"},
+                                {'attr': "eWidth", 'value': "Estimated Width"},
+                                {'attr': "eLength", 'value': "Estimated Length"}
+                            ];
+
+                        self.send('checkTransitionFromStates', book, attrToCheck, promiseToCheck, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, companyToShare, stateTo);
+                    }
+
+                    if(stateFrom = 'lock' && stateTo == 'register'){
+                        var attrToCheck = ['currency'],
+                            promiseToCheck = [],
+                            subEntity = 'bookingItems',
+                            attrToCheck_subFreight = ['equipmentClassificationName', 'equipmentCode', 'sealCode'],
+                            attrToCheck_subEntity = Ember.Object.create({
+                                tags: ['container', 'roro', 'bb'] },{ container: ['custom'] }, { roro : ['volume','weight','height','width','length','custom']}, { bb : ['weight','volume','custom']}),
+                            attrToValue = [
+                                {'attr': "currency", 'value': "Currency"},
+                                {'attr': "equipmentCode", 'value': "Identifier"},
+                                {'attr': "equipmentClassificationName", 'value': "Type"},
+                                {'attr': "sealCode", 'value': "Seal"},
+                                {'attr': "weight", 'value': "Actual weight"},
+                                {'attr': "custom", 'value': "Custom Check"},
+                                {'attr': "volume", 'value': "Actual volume"},
+                                {'attr': "height", 'value': "Actual height"},
+                                {'attr': "width", 'value': "Actual width"},
+                                {'attr': "length", 'value': "Actual length"}
+                            ];
+
+                        self.send('checkTransitionFromStates', book, attrToCheck, promiseToCheck, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, companyToShare, stateTo);
+                    }
+
+                    if( ( stateFrom = 'pending' && stateTo == 'request' ) || ( stateFrom = 'lock' &&  stateTo == 'edit' )){
+//                        console.log('clientAgencyAreEqual: '+book.get('clientAgencyAreEqual'));
+//                        console.log(book.get('clientAgencyAreEqual') != true);
+                        if(book.get('clientAgencyAreEqual')){                     //se agenzia e cliente sono la stessa company allora non faccio l'unshare del cliente
+                            //book.set('state', stateTo).save();
+
+                            book.save().then(function(success){
+                                var data = self.getProperties();
+
+                                data.bookingId = book.get('id');
+                                data.state = stateTo;
+                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                    book.reload();
+                                }, function(error){
+                                    new PNotify({
+                                        title: 'Not saved',
+                                        text: 'A problem has occurred.',
+                                        type: 'error',
+                                        delay: 2000
+                                    });
+                                });
+                            });
+                        }else {
+                            $.post('api/custom/unshareResource?token=' + app_controller.token, data).then(function(response){
+                                if (response.success) {
+                                    book.get('sharedWith').then(function(valShar){
+                                        var temporaryList = valShar.filter(function(i) {      //rimuovo l'id del porto rimosso dall'utente
+                                            return i != companyToShare.get('id')
+                                        });
+                                        valShar.set('');
+                                        valShar.pushObjects(temporaryList);
+
+                                        book.save().then(function(){
+                                            var data = self.getProperties();
+
+                                            data.bookingId = book.get('id');
+                                            data.state = stateTo;
+                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
+                                                book.reload();
+                                            }, function(){
+                                                new PNotify({
+                                                    title: 'Not saved',
+                                                    text: 'A problem has occurred.',
+                                                    type: 'error',
+                                                    delay: 2000
+                                                });
+                                            });
+                                        });
+                                    });
+                                }
+                            }, function(){
+                                // NOT SAVED
+                                new PNotify({
+                                    title: 'Not saved',
+                                    text: 'A problem has occurred.',
+                                    type: 'error',
+                                    delay: 2000
+                                });
+                            });
+                        }
+                    }
+            } else {
+                //avverto l'utente di inserire la company con cui fare lo share
+                if( stateTo === 'lock' ){
+                    new PNotify({
+                        title: 'Warning',
+                        text: 'You did not set the field Client.',
+                        delay: 2000
+                    });
+                }
+                if( stateTo === 'pending' ){
+                    new PNotify({
+                        title: 'Warning',
+                        text: 'You did not set the field Agency.',
+                        delay: 2000
+                    });
+                }
+            }
+        },
+
+        /*      BOOKING: SET PENDING STATE
+         * ******************************************************************************/
+        //controllo che tutti i campi obbligatori a livello di booking siano stati inseriti
+        checkTransitionFromStates: function(entity, attrToCheck, promiseToCheck, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, agency, stateTo){
+            var self = this;
+            //1) inizio il controllo sugli attributi
+            attrToCheck.every(function(attr, indexAttr) {
+
+                // 2a) controllo che non ci siano attributi nulli
+                if ( entity.get(attr) ) {
+
+                    // 2a.1) se sono all'ultimo elemento della lista passo ai controlli sui booking items
+                    if ( indexAttr + 1 == attrToCheck.length ) {
+                        //console.log('reg1');
+                        //SUCCESS!!!:
+                        self.send('checkTransitionFromStatesSubItem', entity, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, agency, stateTo);
+
+                    } else {
+                        return true;
+                    }
+                    // 2b) l'attributo è nullo; avverto l'utente ed esco.
+                } else {
+                    //console.log('failed');
+                    // NOT SAVED
+                    var myAttr = attrToValue.filterBy('attr', attr);
+
+                    myAttr.every(function(item) {
+                        new PNotify({
+                            title: 'Warning',
+                            text: 'You did not set the field "' + item.value +'" on the booking.',
+                            delay: 2000
+                        });
+                        return false;
+                    });
+                }
+            });
+        },
+
+
+        //controllo che tutti i campi obbligatori a livello di booking items siano stati inseriti
+        checkTransitionFromStatesSubItem: function(entity, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, agency, stateTo){
+            var self = this, app_controller = self.controllerFor('application'), loopCheck = true;
+
+            entity.get('items').then(function(subEntities){      //1) recupero tutti i bookingItems
+                if(subEntities.get('length') == 0){         //se non ci sono booking items
+                    new PNotify({
+                        title: 'Warning',
+                        text: 'You have not added any booking items.',
+                        delay: 2000
+                    });
+                } else {
+                    subEntities.every(function(subEnt, indexSubEnt) { //console.log('BOOKING ITEM ');
+                        attrToCheck_subEntity.get('tags').forEach(function(tu){  //2) ciclo i 3 tipi di TU: container, bb, roro
+                            if(subEnt.get('tu') == tu){   //3)verifico che tipo di TU ha l'item in oggetto
+                                attrToCheck_subEntity.get(tu).every(function(subAttr, indexSubAttr){   //4)recupero tutti gli attributi da controllare per quella specifica TU
+                                    if ( subEnt.get('tu') === 'roro' && subEnt.get('bookingItemType') === 'memo' ) {    //se la TU è di tipo RORO e il bookingItemType è di tipo memo evito il controllo
+                                        if ( indexSubEnt + 1 == subEntities.get('length') && indexSubAttr + 1 == attrToCheck_subEntity.get(tu).length ) {
+                                            //console.log('SUCCESS!');
+                                            if( stateTo === 'register' ){
+                                                self.send('checkTransitionFromStatesFreight', entity, attrToCheck_subFreight, attrToValue, data, agency, stateTo);
+                                            } else {
+                                                entity.get('sharedWith').then(function(valShar){
+                                                    valShar.pushObject(agency);
+
+                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                        var data = self.getProperties();
+
+                                                        data.bookingId = entity.get('id');
+                                                        data.state = stateTo;
+                                                        //https://test.zenointelligence.com/seaforward/
+                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                            entity.reload();
+                                                        }, function(){
+                                                            new PNotify({
+                                                                title: 'Not saved',
+                                                                text: 'A problem has occurred.',
+                                                                type: 'error',
+                                                                delay: 2000
+                                                            });
+                                                        });
+                                                    });
+
+                                                });
+                                            }
+                                        }
+                                        return true;
+                                    } else if ( subEnt.get(subAttr) !== undefined && subEnt.get(subAttr) !== null ){ //5)se l'attributo è nullo blocco il processo e genero un eccezione
+                                        if ( indexSubEnt + 1 == subEntities.get('length') && indexSubAttr + 1 == attrToCheck_subEntity.get(tu).length ) {    //se sono all'ultima entity ed è l'ultimo attributo passo all'ultimo controllo
+                                            //console.log('SUCCESS!');
+                                            if( stateTo === 'register' ){
+                                                self.send('checkTransitionFromStatesFreight', entity, attrToCheck_subFreight, attrToValue, data, agency, stateTo);
+                                            } else {
+                                                entity.get('sharedWith').then(function(valShar){
+                                                    valShar.pushObject(agency);
+                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                        var data = self.getProperties();
+                                                        data.bookingId = entity.get('id');
+                                                        data.state = stateTo;
+                                                        //https://test.zenointelligence.com/seaforward/
+                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                            entity.reload();
+                                                        }, function(){
+                                                            new PNotify({
+                                                                title: 'Not saved',
+                                                                text: 'A problem has occurred.',
+                                                                type: 'error',
+                                                                delay: 2000
+                                                            });
+                                                        });
+                                                    });
+
+                                                });
+                                            }
+                                        }
+                                        return true;
+                                    } else {
+                                        loopCheck = false;
+                                        var myAttr = attrToValue.filterBy('attr', subAttr);
+                                        myAttr.every(function(item) {
+                                            if(tu == 'bb') {
+                                                new PNotify({
+                                                    title: 'Warning',
+                                                    text: 'You did not set the field "' + item.value + '" in a "Break Bulk" item.',
+                                                    delay: 6000
+                                                });
+                                            } else {
+                                                new PNotify({
+                                                    title: 'Warning',
+                                                    text: 'You did not set the field "' + item.value + '" in a "' + tu +'" item.',
+                                                    delay: 6000
+                                                });
+                                            }
+                                            return false;
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                        if(loopCheck){
+                            return true;
+                        }
+                    });
+                }
+            });
+        },
+
+
+        //controllo dell'identifier del container
+        checkTransitionFromStatesFreight: function( entity, attrToCheck_subFreight, attrToValue, data, agency, stateTo ){
+            var self = this, app_controller = self.controllerFor('application'),
+                loopCheck = true, containerCheck = false, containerEntity = [];
+
+            //1) recupero tutti i bookingItems
+            entity.get('items').then(function(subEntities){
+                subEntities.forEach(function(subEntit, indexSubEntit) {
+
+                    //verifico che ci sia almeno un booking item di tipo container se no procedo al cambio di stato
+                    if(subEntit.get('tu') == 'container'){
+                        containerEntity.pushObject(subEntit);
+                        containerCheck = true;
+                    }
+
+                    if( indexSubEntit + 1 == subEntities.get('length') ) {
+
+                        //quando ho controllato tutti gli item vedo se cè almeno un container
+                        if( containerCheck ) {
+
+                            //in tal caso scorro la lista  di items container
+                            containerEntity.every(function(subEnt, indexSubEnt) {
+
+                                //4)recupero tutti gli attributi da controllare per quella specifica TU
+                                attrToCheck_subFreight.every(function(subAttr, indexSubAttr){
+
+                                    subEnt.get('freightEquipments').then(function(freightEqs){
+                                        freightEqs.filter(function(freight, indexFreight){
+
+                                            //5)se l'attributo è nullo blocco il processo e genero un eccezione
+                                            if ( freight.get(subAttr) ) {
+
+                                                //console.log(indexSubEnt + 1 +' == '+ containerEntity.get('length') +'&&'+ indexSubAttr + 1 +' == '+ attrToCheck_subFreight.length );
+                                                //se sono all'ultima entity ed è l'ultimo attributo passo all'ultimo controllo
+                                                if ( indexSubEnt + 1 == containerEntity.get('length') && indexSubAttr + 1 == attrToCheck_subFreight.length && loopCheck == true ) {
+
+                                                    //console.log('SUCCESS!');
+                                                    if( stateTo === 'lock' ) {
+//                                                        $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
+//                                                            if (response.success) {
+                                                                entity.get('sharedWith').then(function(valShar){
+                                                                    valShar.pushObject(agency);
+                                                                    //entity.set('state', state).save();
+                                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                                        var data = self.getProperties();
+
+                                                                        data.bookingId = entity.get('id');
+                                                                        data.state = stateTo;
+                                                                        //https://test.zenointelligence.com/seaforward/
+                                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                                            entity.reload();
+                                                                        }, function(error){
+                                                                            new PNotify({
+                                                                                title: 'Not saved',
+                                                                                text: 'A problem has occurred.',
+                                                                                type: 'error',
+                                                                                delay: 2000
+                                                                            });
+                                                                        });
+                                                                    });
+
+                                                                });
+//                                                            }
+//                                                        }, function(error){
+//                                                            // NOT SAVED
+//                                                            new PNotify({
+//                                                                title: 'Not saved',
+//                                                                text: 'A problem has occurred.',
+//                                                                type: 'error',
+//                                                                delay: 2000
+//                                                            });
+//                                                        });
+                                                    } else {
+
+                                                        entity.save().then(function(success){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                            var data = self.getProperties();
+
+                                                            data.bookingId = entity.get('id');
+                                                            data.state = stateTo;
+                                                            //https://test.zenointelligence.com/seaforward/
+                                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                                entity.reload();
+                                                            }, function(error){
+                                                                new PNotify({
+                                                                    title: 'Not saved',
+                                                                    text: 'A problem has occurred.',
+                                                                    type: 'error',
+                                                                    delay: 2000
+                                                                });
+                                                            });
+                                                        });
+                                                        //entity.set('state', state).save();
+                                                    }
+                                                }
+                                                return true;
+                                            } else {
+                                                //se l'identifier dell'equipment è nullo controllo che ci sia equipmentClientCode (SOC identifier)... in caso affermativo procedo
+                                                if(subAttr == 'equipmentCode' && freight.get('equipmentClientCode') != null && freight.get('equipmentClientCode') != '') {
+                                                    if ( indexSubEnt + 1 == containerEntity.get('length') && indexSubAttr + 1 == attrToCheck_subFreight.length && loopCheck == true ) {
+
+                                                        console.log('SUCCESS!');
+                                                        if(stateTo == 'lock') {
+//                                                            $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
+//                                                                if (response.success) {
+                                                                    entity.get('sharedWith').then(function(valShar){
+                                                                        valShar.pushObject(agency);
+
+
+
+                                                                        entity.save().then(function(success){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                                            var data = self.getProperties();
+
+                                                                            data.bookingId = entity.get('id');
+                                                                            data.state = stateTo;
+                                                                            //https://test.zenointelligence.com/seaforward/
+                                                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                                                entity.reload();
+                                                                            }, function(error){
+                                                                                new PNotify({
+                                                                                    title: 'Not saved',
+                                                                                    text: 'A problem has occurred.',
+                                                                                    type: 'error',
+                                                                                    delay: 2000
+                                                                                });
+                                                                            });
+                                                                        });
+
+                                                                        //entity.set('state', state).save();
+                                                                    });
+//                                                                }
+//                                                            }, function(error){
+//                                                                // NOT SAVED
+//                                                                new PNotify({
+//                                                                    title: 'Not saved',
+//                                                                    text: 'A problem has occurred.',
+//                                                                    type: 'error',
+//                                                                    delay: 2000
+//                                                                });
+//                                                            });
+                                                        } else {
+                                                            entity.save().then(function(success){
+                                                                var data = self.getProperties();
+
+                                                                data.bookingId = entity.get('id');
+                                                                data.state = stateTo;
+                                                                //https://test.zenointelligence.com/seaforward/
+                                                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                                    entity.reload();
+                                                                }, function(error){
+                                                                    new PNotify({
+                                                                        title: 'Not saved',
+                                                                        text: 'A problem has occurred.',
+                                                                        type: 'error',
+                                                                        delay: 2000
+                                                                    });
+                                                                });
+                                                            });
+
+
+                                                            //entity.set('state', state).save();
+                                                        }
+                                                    }
+                                                    return true;
+
+                                                } else {
+                                                    loopCheck = false;
+                                                    var myAttr = attrToValue.filterBy('attr', subAttr);
+
+                                                    myAttr.every(function(item) {
+                                                        new PNotify({
+                                                            title: 'Warning',
+                                                            text: 'You did not set the field "' + item.value + '" in a "Container" item.',
+                                                            delay: 6000
+                                                        });
+                                                        return false;
+                                                    });
+
+                                                }
+                                            }
+                                        });
+                                    });
+                                    // senza di questi il ciclo 'every' si blocca ad ogni item
+                                    if(loopCheck){
+                                        return true;
+                                    }
+                                });
+                                // senza di questi il ciclo 'every' si blocca ad ogni item
+                                if(loopCheck){
+                                    return true;
+                                }
+                            });
+
+                        } else {
+                            console.log('SUCCESS!');
+                            if(stateTo == 'lock') {
+//                                $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
+//                                    if (response.success) {
+                                        entity.get('sharedWith').then(function(valShar){
+                                            valShar.pushObject(agency);
+
+                                            entity.save().then(function(success){
+                                                var data = self.getProperties();
+
+                                                data.bookingId = entity.get('id');
+                                                data.state = stateTo;
+                                                //https://test.zenointelligence.com/seaforward/
+                                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                    entity.reload();
+                                                }, function(error){
+                                                    new PNotify({
+                                                        title: 'Not saved',
+                                                        text: 'A problem has occurred.',
+                                                        type: 'error',
+                                                        delay: 2000
+                                                    });
+                                                });
+                                            });
+
+
+                                            //entity.set('state', state).save();
+                                        });
+//                                    }
+//                                }, function(error){
+//                                    // NOT SAVED
+//                                    new PNotify({
+//                                        title: 'Not saved',
+//                                        text: 'A problem has occurred.',
+//                                        type: 'error',
+//                                        delay: 2000
+//                                    });
+//                                });
+                            } else {
+                                entity.save().then(function(success){
+                                    var data = self.getProperties();
+
+                                    data.bookingId = entity.get('id');
+                                    data.state = stateTo;
+                                    //https://test.zenointelligence.com/seaforward/
+                                    $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                        entity.reload();
+                                    }, function(error){
+                                        new PNotify({
+                                            title: 'Not saved',
+                                            text: 'A problem has occurred.',
+                                            type: 'error',
+                                            delay: 2000
+                                        });
+                                    });
+                                });
+
+                                // entity.set('state', state).save();
+                            }
+                        }
+                    }
+                });
+
+            });
+        },
+
+        /**
+         Permette di contrassegnare un booking come 'accettato' o 'rifiutato'.
+         Azione compiuta dallo Shipowner durante lo stato 'Edit';
+         se il booking viene accettato le Agencies potranno passare allo stato lock
+         in caso contrario tale passaggio di stato non sarà possibile.
+         Inoltre l'accettazione rende visibile il pulsante 'Confirmation' nel tab 'Files'.
+
+         @action acknowledge
+         @for Booking - details - lateral navBar
+         @param {number} unique key
+         @param {string} value
+         @return assegna all'attributo acknowledge (booking model) valore accepted/rejected.
+         */
+        acknowledge: function( book, value ) {
+            book.set('acknowledge', value).save().then(function(promise){
+                promise.reload();
+            });
+        },
+
+        /**
+         per generare una Bill of Lading direttamente a partire da un booking.
+
+         @action generate_BL
+         @for Booking
+         @return file di tipo BL
+         */
+        generate_BL: function() {
+            var self = this, controller = self.controllerFor('booking.main'), shipper= null, consignee= null, notify= null;
+            var shipperCheck = true, consigneeCheck = true, notifyCheck = true,
+                stringShipper=null, stringConsignee=null, stringNotify=null;
+
+
+            controller.booking_record.get('items').then(function(bookingItems){
+
+                    //prendo in esame uno ad uno gli item del booking
+                    bookingItems.filter(function(bookIt, index){
+
+
+                        /*  controllo per shipper/consignee/notify
+                         *
+                         *   se non sono nulli verifico che il valore dell'attuale book items sia lo stesso di
+                         *   quello precedente; se ci saranno delle inconsistenze la BL non verrà fatta.
+                         *
+                         * */
+
+                        if(shipper!=null) {
+                            if(shipper != bookIt.get('shipper')) {
+                                shipperCheck = false;
+                            }
+                        }
+                        if(consignee!=null) {
+                            if(consignee != bookIt.get('consignee')) {
+                                consigneeCheck = false;
+                            }
+                        }
+                        if(notify!=null) {
+                            if(notify != bookIt.get('notify')) {
+                                notifyCheck = false;
+                            }
+                        }
+
+                        //ad ogni ciclo tengo traccia del nuovo valore per shipper / consignee / notify
+
+                        if(bookIt.get('shipper')){
+                            shipper = bookIt.get('shipper');
+                        }
+                        if(bookIt.get('consignee')){
+                            consignee = bookIt.get('consignee');
+                        }
+                        if(bookIt.get('notify')){
+                            notify = bookIt.get('notify');
+                        }
+
+                        //controllo che negli items di tipo container sia presente l'identifier
+
+                        bookIt.get('freightEquipments').then(function(freightEqs){
+                            freightEqs.filter(function(freight, indexFreight){
+
+                                //se non è presente genero un errore
+                                if( (freight.get('equipmentCode') == null) && (freight.get('equipmentClientCode') == null || freight.get('equipmentClientCode') == '') && bookIt.get('tu') == 'container') {
+                                    new PNotify({
+                                        title: 'Attention',
+                                        text: 'There is a container item without identifier.',
+                                        delay: 2000
+                                    });
+                                } else {
+
+                                    //se questi tre valori sono tutti nulli o tutti compilati
+                                    if(shipperCheck && consigneeCheck && notifyCheck) {
+
+                                        //se ho eseguito il controllo su tutti gli items
+                                        if(bookingItems.get('length') == index+1) {
+
+                                            self.store.find('company', App.company).then(function(comp){
+
+                                                //se esite il freight plan
+                                                if( controller.booking_record.get('freightPlans') ){
+                                                    controller.booking_record.get('freightPlans').then(function(frPlans){
+                                                        if( frPlans.get('length') ){
+                                                            frPlans.filter(function(frPlan){
+
+                                                                frPlan.get('voyages').then(function(voy){
+                                                                    voy.filter(function(myVoy, index){
+
+                                                                        if(index == 0) {
+                                                                            var date = new Date();
+                                                                            var newBL = self.store.createRecord('document',  {
+                                                                                name: controller.codeBL,
+                                                                                origin: controller.booking_record.get('origin'),
+                                                                                destination: controller.booking_record.get('destination'),
+                                                                                nrOriginal: '03/THREE',
+                                                                                voyage: myVoy,
+                                                                                date: date,
+                                                                                type: 'docBL',
+                                                                                company: comp,
+                                                                                itemsIn: 'Document',
+                                                                                visibility: 'private'
+                                                                            });
+
+                                                                            newBL.get('bookings').then(function(myBook){
+                                                                                myBook.pushObject(controller.booking_record);
+                                                                            });
+
+                                                                            if(bookIt.get('shipper')){
+                                                                                self.store.find('company', shipper.get('id')).then(function(shipperObj){
+
+                                                                                    if(shipperObj.get('name')) {
+                                                                                        stringShipper = shipperObj.get('name')
+                                                                                    }
+                                                                                    if(shipperObj.get('street')) {
+                                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('street')
+                                                                                    }
+                                                                                    if(shipperObj.get('city') && shipperObj.get('country')) {
+                                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('city') + " " + shipperObj.get('country')
+                                                                                    }
+                                                                                    if(shipperObj.get('phone')) {
+                                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('phone');
+                                                                                    }
+                                                                                    if(shipperObj.get('vat')) {
+                                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('vat');
+                                                                                    }
+                                                                                    newBL.set('shipper', stringShipper);
+                                                                                })
+                                                                            }
+
+                                                                            if(bookIt.get('consignee')){
+                                                                                self.store.find('company', consignee.get('id')).then(function(consigneeObj){
+                                                                                    if(consigneeObj.get('name')) {
+                                                                                        stringConsignee = consigneeObj.get('name')
+                                                                                    }
+                                                                                    if(consigneeObj.get('street')) {
+                                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('street')
+                                                                                    }
+                                                                                    if(consigneeObj.get('city') && consigneeObj.get('country')) {
+                                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('city') + " " + consigneeObj.get('country')
+                                                                                    }
+                                                                                    if(consigneeObj.get('phone')) {
+                                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('phone');
+                                                                                    }
+                                                                                    if(consigneeObj.get('vat')) {
+                                                                                        stringShipper = stringShipper + "\n" + consigneeObj.get('vat');
+                                                                                    }
+                                                                                    newBL.set('consignee', stringConsignee);
+                                                                                })
+                                                                            }
+
+                                                                            if(bookIt.get('notify')){
+                                                                                self.store.find('company', notify.get('id')).then(function(notifyObj){
+                                                                                    if(notifyObj.get('name')) {
+                                                                                        stringNotify = notifyObj.get('name')
+                                                                                    }
+                                                                                    if(notifyObj.get('street')) {
+                                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('street')
+                                                                                    }
+                                                                                    if(notifyObj.get('city') && notifyObj.get('country')) {
+                                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('city') + " " + notifyObj.get('country')
+                                                                                    }
+                                                                                    if(notifyObj.get('phone')) {
+                                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('phone');
+                                                                                    }
+                                                                                    if(notifyObj.get('vat')) {
+                                                                                        stringShipper = stringShipper + "\n" + notifyObj.get('vat');
+                                                                                    }
+                                                                                    newBL.set('notify', stringNotify);
+                                                                                })
+                                                                            }
+
+                                                                            newBL.get('bookingItems').then(function(bookItems){
+                                                                                bookItems.pushObjects(bookingItems);
+                                                                                newBL.save().then(function(){
+                                                                                    controller.set('codeBL', null);
+                                                                                    //self.controllerFor('document.main').setDocs(controller.docType);
+                                                                                    self.transitionTo('document.main', newBL);
+                                                                                })
+                                                                            });
+                                                                        }
+
+                                                                    })
+                                                                })
+                                                            });
+                                                        } else if( controller.booking_record.get('noFreightPlan') ){
+
+                                                            var date = new Date();
+                                                            var newBL = self.store.createRecord('document',  {
+                                                                name: controller.codeBL,
+                                                                origin: controller.booking_record.get('origin'),
+                                                                destination: controller.booking_record.get('destination'),
+                                                                nrOriginal: '03/THREE',
+                                                                date: date,
+                                                                type: 'docBL',
+                                                                company: comp,
+                                                                itemsIn: 'Document',
+                                                                visibility: 'private'
+                                                            });
+
+                                                            newBL.get('bookings').then(function(myBook){
+                                                                myBook.pushObject(controller.booking_record);
+                                                            });
+
+                                                            if(bookIt.get('shipper')){
+                                                                self.store.find('company', shipper.get('id')).then(function(shipperObj){
+
+                                                                    if(shipperObj.get('name')) {
+                                                                        stringShipper = shipperObj.get('name')
+                                                                    }
+                                                                    if(shipperObj.get('street')) {
+                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('street')
+                                                                    }
+                                                                    if(shipperObj.get('city') && shipperObj.get('country')) {
+                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('city') + " " + shipperObj.get('country')
+                                                                    }
+                                                                    if(shipperObj.get('phone')) {
+                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('phone');
+                                                                    }
+                                                                    if(shipperObj.get('vat')) {
+                                                                        stringShipper = stringShipper + "\n" + shipperObj.get('vat');
+                                                                    }
+                                                                    newBL.set('shipper', stringShipper);
+                                                                })
+                                                            }
+
+                                                            if(bookIt.get('consignee')){
+                                                                self.store.find('company', consignee.get('id')).then(function(consigneeObj){
+                                                                    if(consigneeObj.get('name')) {
+                                                                        stringConsignee = consigneeObj.get('name')
+                                                                    }
+                                                                    if(consigneeObj.get('street')) {
+                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('street')
+                                                                    }
+                                                                    if(consigneeObj.get('city') && consigneeObj.get('country')) {
+                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('city') + " " + consigneeObj.get('country')
+                                                                    }
+                                                                    if(consigneeObj.get('phone')) {
+                                                                        stringConsignee = stringConsignee + "\n" + consigneeObj.get('phone');
+                                                                    }
+                                                                    if(consigneeObj.get('vat')) {
+                                                                        stringShipper = stringShipper + "\n" + consigneeObj.get('vat');
+                                                                    }
+                                                                    newBL.set('consignee', stringConsignee);
+                                                                })
+                                                            }
+
+                                                            if(bookIt.get('notify')){
+                                                                self.store.find('company', notify.get('id')).then(function(notifyObj){
+                                                                    if(notifyObj.get('name')) {
+                                                                        stringNotify = notifyObj.get('name')
+                                                                    }
+                                                                    if(notifyObj.get('street')) {
+                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('street')
+                                                                    }
+                                                                    if(notifyObj.get('city') && notifyObj.get('country')) {
+                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('city') + " " + notifyObj.get('country')
+                                                                    }
+                                                                    if(notifyObj.get('phone')) {
+                                                                        stringNotify = stringNotify + "\n" + notifyObj.get('phone');
+                                                                    }
+                                                                    if(notifyObj.get('vat')) {
+                                                                        stringShipper = stringShipper + "\n" + notifyObj.get('vat');
+                                                                    }
+                                                                    newBL.set('notify', stringNotify);
+                                                                })
+                                                            }
+
+                                                            newBL.get('bookingItems').then(function(bookItems){
+                                                                bookItems.pushObjects(bookingItems);
+                                                                newBL.save().then(function(){
+                                                                    controller.set('codeBL', null);
+                                                                    //self.controllerFor('document.main').setDocs(controller.docType);
+                                                                    self.transitionTo('document.main', newBL);
+                                                                })
+                                                            });
+                                                        } else {
+                                                            new PNotify({
+                                                                title: 'Attention',
+                                                                text: 'Please check if freight plan is been entered.',
+                                                                delay: 2000
+                                                            });
+                                                        }
+                                                    });
+                                                } else {
+                                                    new PNotify({
+                                                        title: 'Attention',
+                                                        text: 'Please check if freight plan is been entered.',
+                                                        delay: 2000
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        new PNotify({
+                                            title: 'Attention',
+                                            text: 'Please verify that shipper, consignee and notify are consistent between items. Different shippers (or consignees / notifies) do not allow the creation of a single bill of lading. Please use instead the function "document -> new bill of lading"',
+                                            delay: 8000
+                                        });
+                                    }
+                                }
+                            })
+                        })
+                    })
+                })
+
+        },
+
+        remove_booking: function() {
+            var self = this, controller = self.controllerFor('booking.main');
+            controller.booking_record.deleteRecord();
+            controller.booking_record.save().then(function(){
+
+                self.transitionTo('dashboardPage');
+                new PNotify({
+                    title: 'Success',
+                    text: 'The booking was successfully deleted.',
+                    type: 'success',
+                    delay: 2000
+                });
+
+            });
+        },
+        /**
+         funzione custom per la condivisione dei booking con altre company.
+
+         @action shareResource
+         @for Booking
+         */
+        send_shareResource: function() {
+            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
+                data = this.getProperties();
+
+            if(controller.searchCompanyToShare.text() !== "" && controller.searchCompanyToShare.text() !== null ){
+                data.resource_id = controller.booking_record;
+                data.model = "booking";       //modello della risorsa che condivido
+                data.companies = "["+controller.searchCompanyToShare.get("id")+"]";
+
+                $.post('api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
+                    if (response.success) {
+                        controller.booking_record.get('sharedWith').then(function(valShar){
+                            valShar.pushObject(controller.searchCompanyToShare).save();
+                        });
+                    }
+                }, function(){
+                    // NOT SAVED
+                    new PNotify({
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
+                        delay: 2000
+                    });
+                });
+            }
         }
     }
-
 });

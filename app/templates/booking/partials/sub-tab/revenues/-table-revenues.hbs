@@ -10,7 +10,7 @@
                         <th style="width: 20%">Revenue</th>
                         <th style="width: 20%">PER</th>
                         <th style="width: 15%"></th>
-                        {{#unless isRegister}}
+                        {{#unless isLockedOrRegistered}}
                             <th style="width: 5%">Remove</th>
                         {{/unless}}
                     </tr>
@@ -24,7 +24,7 @@
                                         <tr>
                                             <td>{{chargeItem.code}}</td>
                                             <td>
-                                                {{#if isRegister}}
+                                                {{#if isLockedOrRegistered}}
                                                     {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
                                                     {{#if controller.is_shipowner}}
@@ -45,7 +45,7 @@
                                                 {{else}}
                                                     <div class="input-group">
                                                         <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
-                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
                                                     </div>
                                                 {{/if}}
                                             </td>
@@ -53,7 +53,7 @@
                                                 {{#if controller.is_shipowner}}
                                                     {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
                                                 {{else}}
-                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
                                                 {{/if}}
                                             </td>
                                             {{#if controller.is_shipowner}}
@@ -67,20 +67,19 @@
                                             {{else}}
                                                 {{#if chargeItem.isMultiplierNum}}
                                                     <td>
-                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
                                                     </td>
                                                 {{else}}
                                                     <td> </td>
                                                 {{/if}}
                                             {{/if}}
-
-                                            {{#unless isRegister}}
-                                                {{#unless controller.is_shipowner}}
-                                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
-                                                {{else}}
-                                                        <td> </td>
+                                            <td>
+                                                {{#unless isLockedOrRegistered}}
+                                                    {{#unless controller.is_shipowner}}
+                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                                                    {{/unless}}
                                                 {{/unless}}
-                                            {{/unless}}
+                                            </td>
                                         </tr>
                                     {{/if}}
                                 {{/if}}
@@ -89,7 +88,7 @@
                                         <tr>
                                             <td>{{chargeItem.code}}</td>
                                             <td>
-                                                {{#if isRegister}}
+                                                {{#if isLockedOrRegistered}}
                                                     {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
                                                     {{#if controller.is_shipowner}}
@@ -110,7 +109,7 @@
                                                 {{else}}
                                                     <div class="input-group">
                                                         <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
-                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
                                                     </div>
                                                 {{/if}}
                                             </td>
@@ -118,7 +117,7 @@
                                                 {{#if controller.is_shipowner}}
                                                     {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
                                                 {{else}}
-                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
                                                 {{/if}}
                                             </td>
                                             {{#if controller.is_shipowner}}
@@ -132,20 +131,19 @@
                                             {{else}}
                                                 {{#if chargeItem.isMultiplierNum}}
                                                     <td>
-                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
                                                     </td>
                                                 {{else}}
                                                     <td> </td>
                                                 {{/if}}
                                             {{/if}}
-
-                                            {{#unless isRegister}}
+                                            <td>
+                                            {{#unless isLockedOrRegistered}}
                                                 {{#unless is_shipowner}}
-                                                    <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
-                                                {{else}}
-                                                    <td> </td>
+                                                    <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
                                                 {{/unless}}
                                             {{/unless}}
+                                            </td>
                                         </tr>
                                     {{/if}}
                                 {{/if}}
@@ -154,7 +152,7 @@
                                         <tr>
                                             <td>{{chargeItem.code}}</td>
                                             <td>
-                                                {{#if isRegister}}
+                                                {{#if isLockedOrRegistered}}
                                                     {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                 {{else}}
                                                     {{#if controller.is_shipowner}}
@@ -175,7 +173,7 @@
                                                 {{else}}
                                                     <div class="input-group">
                                                         <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
-                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isRegister}}
+                                                        {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
                                                     </div>
                                                 {{/if}}
 
@@ -184,7 +182,7 @@
                                                 {{#if controller.is_shipowner}}
                                                     {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
                                                 {{else}}
-                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isRegister}}
+                                                    {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
                                                 {{/if}}
                                             </td>
                                             {{#if controller.is_shipowner}}
@@ -198,20 +196,19 @@
                                             {{else}}
                                                 {{#if chargeItem.isMultiplierNum}}
                                                     <td>
-                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isRegister}}
+                                                        {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
                                                     </td>
                                                 {{else}}
                                                     <td> </td>
                                                 {{/if}}
                                             {{/if}}
-
-                                        {{#unless isRegister}}
-                                            {{#unless is_shipowner}}
-                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a></td>
-                                            {{else}}
-                                                <td> </td>
-                                            {{/unless}}
-                                        {{/unless}}
+                                            <td>
+                                                {{#unless isLockedOrRegistered}}
+                                                    {{#unless is_shipowner}}
+                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                                                    {{/unless}}
+                                                {{/unless}}
+                                            </td>
                                         </tr>
                                     {{/if}}
                                 {{/if}}

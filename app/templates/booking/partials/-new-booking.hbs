@@ -72,13 +72,13 @@
 <div class="row">
     {{#if controller.is_admin}}
         <div class="col-lg-3">
-            <label>Client</label>
+            <label style="color: red">Client</label>
             <a id="autocomplete-clientName">
                 {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany size=10 searchPath="name" minChars=1}}
             </a>
         </div>
         <div class="col-lg-3">
-            <label>Agency</label>
+            <label style="color: red">Agency</label>
             <a id="autocomplete-agencyName">
                 {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency size=10 searchPath="name" minChars=1}}
             </a>
@@ -92,12 +92,12 @@
     {{else}}
         <div class="col-lg-6">
             {{#if controller.is_client}}
-                <label>Agency</label>
+                <label style="color: red">Agency</label>
                 <a id="autocomplete-agencyName">
                     {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency searchPath="name" minChars=1}}
                 </a>
             {{else}}
-                <label>Client</label>
+                <label style="color: red">Client</label>
                 <a id="autocomplete-clientName">
                     {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=1}}
                 </a>

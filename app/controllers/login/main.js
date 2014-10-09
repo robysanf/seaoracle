@@ -33,8 +33,9 @@ export default Ember.Controller.extend({
         login: function() {
             var self = this, data = this.getProperties('username', 'password');
 
-            $.post('https://test.zenointelligence.com/seaforward/api/auth', data).then(function(response){
+            //$.post('https://test.zenointelligence.com/seaforward/api/auth', data).then(function(response){
             //$.post('http://localhost/seaforward/api/auth', data).then(function(response){
+            $.post('api/auth', data).then(function(response){
                 if (response.success) {
 
                     //inizializzo variabili globali in application

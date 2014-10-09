@@ -46,7 +46,7 @@
                                 {{#if controller.user_record.poi_new}}<li>{{#link-to 'port/new-poi'}}new port{{/link-to}}</li>{{/if}}
                                 {{#if controller.user_record.poi_view}}<li>{{#link-to 'port/search-poi'}}search port{{/link-to}}</li>{{/if}}
                             {{/if}}
-                            {{#if controller.user_record.route}}
+                            {{#if controller.user_record.segment}}
                                 <li class="divider"></li>
                                 <li class="dropdown-header">Routes</li>
                                 {{#if controller.user_record.segment_new}}<li>{{#link-to 'segment/segment-new'}}new route{{/link-to}}</li>{{/if}}
@@ -74,9 +74,9 @@
                                 <li class="dropdown-header">Templates</li>
                                 {{#if controller.user_record.template_new}}<li>{{#link-to 'template/new-record'}}new template{{/link-to}}</li>{{/if}}
                                 {{#if controller.user_record.template_view}}<li>{{#link-to 'template/search-record'}}search template{{/link-to}}</li>{{/if}}
+                                <li class="divider"></li>
                             {{/if}}
                             {{#if controller.user_record.voyage}}
-                                <li class="divider"></li>
                                 <li class="dropdown-header">Voyages</li>
                                 {{#if controller.user_record.voyage_new}}<li>{{#link-to 'voyage/new-record'}}new voyage{{/link-to}}</li>{{/if}}
                                 {{#if controller.user_record.voyage_view}}<li>{{#link-to 'voyage/search-record'}}search voyage{{/link-to}}</li>{{/if}}

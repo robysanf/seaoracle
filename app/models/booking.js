@@ -104,10 +104,16 @@ export default DS.Model.extend({
     thereIsMemo: function(){
         return this.get('items').filterBy('bookingItemType', 'memo').get('length');
     }.property('items.@each.bookingItemType'),
+    isNaN_orReject: function(){
+        return (this.get('acknowledge') === 'rejected' || this.get('acknowledge') === 'NaN' );
+    }.property('acknowledge'),
+    isNaN: function(){
+        return (this.get('acknowledge') === 'NaN');
+    }.property('acknowledge'),
     isAccept: function(){
-        return (this.get('acknowledge') == 'accepted');
+        return (this.get('acknowledge') === 'accepted');
     }.property('acknowledge'),
     isReject: function(){
-        return (this.get('acknowledge') == 'rejected');
+        return (this.get('acknowledge') === 'rejected');
     }.property('acknowledge')
 });

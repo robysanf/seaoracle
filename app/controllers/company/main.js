@@ -14,6 +14,7 @@ export default Ember.ObjectController.extend({
     is_admin: function(){
         return ( this.get('app_controller_companyType') === 'admin' );
     }.property('app_controller_companyType'),
+
     is_myCompany: function(){
          return ( this.get('companyRecord') === this.get('app_company') )
     }.property('companyRecord'),

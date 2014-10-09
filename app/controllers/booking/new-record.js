@@ -1,8 +1,21 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    needs: ['application'],
+    needs: ['application', 'booking/main'],
     app_controller: Ember.computed.alias('controllers.application'),
+
+
+    bookingMain_record: Ember.computed.alias('controllers.booking/main.booking_record'),
+
+    tabList_details: Ember.computed.alias('controllers.booking/main.tabList.details'),
+    tabList_freightPlan: Ember.computed.alias('controllers.booking/main.tabList.freightPlan'),
+    tabList_revenues: Ember.computed.alias('controllers.booking/main.tabList.revenues'),
+    tabList_container: Ember.computed.alias('controllers.booking/main.tabList.container'),
+    tabList_roro: Ember.computed.alias('controllers.booking/main.tabList.roro'),
+    tabList_bb: Ember.computed.alias('controllers.booking/main.tabList.bb'),
+    tabList_itemStatus: Ember.computed.alias('controllers.booking/main.tabList.itemStatus'),
+    tabList_files: Ember.computed.alias('controllers.booking/main.tabList.files'),
+
 
     is_admin: function(){
         return ( this.get('app_controller_companyType') === 'admin' );

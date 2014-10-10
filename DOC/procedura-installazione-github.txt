@@ -1,0 +1,5 @@
+npm install --save-dev ember-cli
+npm install -g grunt-cli
+npm install
+bower install
+ember build

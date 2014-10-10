@@ -85,8 +85,8 @@ export default Ember.Route.extend({
                     // response contains id and card, which contains additional card details
                     customerData.token = response.id;
                     customerData.user_id = app_controller.userId;
-
-                    $.post('https://test.zenointelligence.com/seaforward/api/custom/customerCard?token=' + app_controller.token, customerData).then(function(response){
+                      //https://test.zenointelligence.com/seaforward/
+                    $.post('api/custom/customerCard?token=' + app_controller.token, customerData).then(function(response){
                         if (response.success) {
                             new PNotify({
                                 title: 'Well done',
@@ -137,8 +137,8 @@ export default Ember.Route.extend({
             data.currency = payment.get('currency');
             data.company = company.get('id');
             data.user = user.get('id');
-
-            $.post('https://test.zenointelligence.com/seaforward/api/custom/refill?token=' + app_controller.token, data).then(function(response){
+                    //https://test.zenointelligence.com/seaforward/
+            $.post('api/custom/refill?token=' + app_controller.token, data).then(function(response){
 
                 if (response.success) {
                     company.reload();

@@ -87,6 +87,16 @@
                 </div>
                 <div class="col-lg-1"></div>
             </div>
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <label>State</label>
+                    {{view Ember.Select content=stateList value=controller.searchState class='form-control'}}
+
+                </div>
+                <div class="col-lg-5"></div>
+                <div class="col-lg-1"></div>
+            </div>
         </div>
     </div>
     <div class="col-lg-1"></div>

@@ -41,6 +41,16 @@ export default Ember.Controller.extend({
     searchContainerNumber: null,
     searchChassis: null,
 
+    searchState: null,
+    stateList: [
+        '',
+        'request',
+        'pending',
+        'edit',
+        'lock',
+        'register'
+    ],
+
     acknowledgeList: [
         '',
         'NaN',

@@ -7,8 +7,7 @@
             <li {{bind-attr class="controller.subTabLists.details:active"}}>
                 <a href="#" {{action selectSubTab "details"}}>Item details</a>
             </li>
-            {{!{{#if controller.is_shipowner}}
-            {{!{{else}}
+            {{#unless controller.is_shipowner}}
                 {{#if controller.tabList.container}}
                     <li {{bind-attr class="controller.subTabLists.haulage:active"}}>
                         <a href="#" {{action selectSubTab "haulage"}}>Haulage</a>
@@ -19,7 +18,7 @@
                         <a href="#" {{action selectSubTab "haulage"}}>Haulage</a>
                     </li>
                 {{/if}}
-            {{!{{/if}}
+            {{/unless}}
             {{#if controller.is_client}}
             {{else}}
                 {{#unless isPending}}
@@ -29,12 +28,11 @@
                     <li {{bind-attr class="controller.subTabLists.status:active"}}>
                         <a href="#" data-tab="status" {{action selectSubTab "status"}}>Status</a>
                     </li>
-                    {{!{{#if controller.is_shipowner}}
-                    {{!{{else}}
+                    {{!{{#unless controller.is_shipowner}}
                         <li {{bind-attr class="controller.subTabLists.revenues:active"}}>
                             <a href="#" data-tab="revenues" {{action selectSubTab "revenues"}}>Item revenues</a>
                         </li>
-                    {{!{{/if}}
+                    {{!{{/unless}}
 
                     <li {{bind-attr class="controller.subTabLists.files:active"}}>
                         <a href="#" data-tab="files" {{action selectSubTab "files"}}>Files</a>

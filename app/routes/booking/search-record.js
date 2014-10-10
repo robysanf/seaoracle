@@ -51,6 +51,10 @@ export default Ember.Route.extend({
             app_controller.set('items', []);
 
             //find input values
+            if(controller.searchState !== ""){
+                searchPath = "state"; queryExpression[searchPath] = controller.searchState;
+            }
+
             if(controller.searchBookRef !== "" && controller.searchBookRef !== null){
                 searchPath = "code"; queryExpression[searchPath] = controller.searchBookRef;
             }

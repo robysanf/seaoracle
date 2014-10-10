@@ -1,74 +1,46 @@
+
 <div class="row">
     <div class="col-lg-1"></div>
     <div class="col-lg-11">
-    {{#unless isRegister}}
-        <div class="row">
-            <br>
-            <br>
-            <br>
-        </div>
-        <div class="row">
-            <div class="col-lg-10">
-                <div class= "well well-lg" style="background-color: #FAFDFD">
-                    <div class="row">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-10">
-                            {{#view 'upload-file' value1='booking'}}
-                                <div class="input-group">
+        {{#unless isRegister}}
+            <div class="row">
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    {{#view 'upload-file' value1='booking'}}
+                        <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-primary btn-file">
                                     Browse file&hellip; <input type="file" multiple>
                                 </span>
                             </span>
-                                    {{input id="selected_file" type="text" placeholder="max. 10 MB" class='form-control'}}
-                                    <span class="input-group-btn">
-                            <button id='button_upload' {{bind-attr value=id}} type="button" data-loading-text="Loading..." class="btn btn-primary btn-130 pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Upload</button>
+                            {{input id="selected_file" type="text" placeholder="max. 10 MB" class='form-control'}}
+                            <span class="input-group-btn">
+                            <button id='button_upload' {{bind-attr value=controller.item_record.id}} type="button" data-loading-text="Loading..." class="btn btn-primary btn-130 pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Upload</button>
                             </span>
-                                </div>
-                            {{/view}}
                         </div>
-                    </div>
+                    {{/view}}
                 </div>
+                <div class="col-lg-2"></div>
             </div>
-        </div>
-    {{/unless}}
-
-        <div class="row">
-            <div class="col-lg-6">
-                <h3 class="page-header">All Files</h3>
-            </div>
-            <div class="col-lg-4">
-                <br>
-                <br>
-                <!--  ******* HEAD ********  -->
-                <div class="col-lg-6">
-                    <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default custom120 pull-right" {{action "generate_bookFolder" this}}>
-                        <span class="glyphicon glyphbutton glyphicon-folder-open"></span> Generate
-                    </button>
-                </div>
-
-                <div class="col-lg-6">
-                    {{#unless isRegister}}
-                        {{#if isAccept}}
-                            <button type="button" class="btn btn-default custom120 pull-right" {{action "generate_confirmation" this}}>
-                                Confirmation
-                            </button>
-                        {{/if}}
-                    {{/unless}}
-                </div>
+            <br>
+        {{/unless}}
+        <div class=row>
+            <div class="col-lg-10">
+                <div class='page-header'><h3>All files</h3></div>
             </div>
             <div class="col-lg-2"></div>
         </div>
-
         <div class=row>
             <div class="col-lg-10">
-
                 <table class="table table-condensed">
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Email</th>
                         <th>Download</th>
                         {{#unless isRegister}}
                             <th>Remove</th>
@@ -76,23 +48,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each file in files}}
+                    {{#each file in controller.item_record.files}}
                         <tr>
                             <td>{{file.name}}</td>
                             <td>{{file.type}}</td>
-                            {{#if file.isConfirmation}}
-                                {{#unless isRegister}}
-                                    <td><a href="#" {{action "send_bookingConfirmationEmail" this 'confirmation'}}><span class="glyphicon glyphicon-send"></span></a></td>
-                                {{/unless}}
-                            {{else}}
-                                {{#if file.isNote}}
-                                    {{#unless isRegister}}
-                                        <td><a href="#" {{action "send_bookingConfirmationEmail" this 'note'}}><span class="glyphicon glyphicon-send"></span></a></td>
-                                    {{/unless}}
-                                {{else}}
-                                    <td></td>
-                                {{/if}}
-                            {{/if}}
                             <td><a href="#" {{action "download_file" file.id}}><span class="glyphicon glyphicon-download"></span></a></td>
                             {{#unless isRegister}}
                                 <td><a href="#" {{action "open_modal" 'booking.modals.remove-file' file}}><span class="glyphicon glyphicon-remove"></span></a></td>

@@ -31,28 +31,51 @@
     <div class="row">
         <h5 class="page-header"></h5>
         <div class="col-lg-12">
-            {{!{{#unless controller.is_shipowner}}
-            {{#if controller.revenuesTabList.bookingCharges}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking'}}>
-                    <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
-                </button>
+            {{#if controller.is_shipowner}}
+                {{#if controller.revenuesTabList.bookingCharges}}
+                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'cost'}}>
+                        <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                    </button>
+                {{/if}}
+                {{#if controller.revenuesTabList.containerCharges}}
+                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'cost'}}>
+                        <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                    </button>
+                {{/if}}
+                {{#if controller.revenuesTabList.roroCharges}}
+                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'cost'}}>
+                        <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                    </button>
+                {{/if}}
+                {{#if controller.revenuesTabList.bbCharges}}
+                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'itemCharges' this 'bb' 'booking' 'cost'}}>
+                        <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                    </button>
+                {{/if}}
+            {{else}}
+                {{#if controller.is_agency}}
+                    {{#if controller.revenuesTabList.bookingCharges}}
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'revenue'}}>
+                            <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                        </button>
+                    {{/if}}
+                    {{#if controller.revenuesTabList.containerCharges}}
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'revenue'}}>
+                            <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                        </button>
+                    {{/if}}
+                    {{#if controller.revenuesTabList.roroCharges}}
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'revenue'}}>
+                            <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                        </button>
+                    {{/if}}
+                    {{#if controller.revenuesTabList.bbCharges}}
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'itemCharges' this 'bb' 'booking' 'revenue'}}>
+                            <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
+                        </button>
+                    {{/if}}
+                {{/if}}
             {{/if}}
-            {{#if controller.revenuesTabList.containerCharges}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking'}}>
-                    <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
-                </button>
-            {{/if}}
-            {{#if controller.revenuesTabList.roroCharges}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking'}}>
-                    <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
-                </button>
-            {{/if}}
-            {{#if controller.revenuesTabList.bbCharges}}
-                <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'itemCharges' this 'bb' 'booking'}}>
-                    <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Confirm
-                </button>
-            {{/if}}
-            {{!{{/unless}}
         </div>
     </div>
 {{/unless}}

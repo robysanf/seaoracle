@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'seaoracle',
     environment: environment,
-    baseURL: '/',
+    baseURL: '/seaoracle',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {

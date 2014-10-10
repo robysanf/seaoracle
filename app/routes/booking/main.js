@@ -2010,14 +2010,12 @@ export default Ember.Route.extend({
          @param {String}
          @param {String}
          */
-        update_Charges: function( next, book_record, type, entityType) {
+        update_Charges: function( next, book_record, type, entityType, chargeType ) {
             var self = this, controller = self.controllerFor('booking.main');
 
             book_record.get("chargeItems").then(function(chargeIt){
                 chargeIt.forEach(function(charge){
-
-                    if(type === charge.get('type') && entityType === charge.get('entityType')) {
-
+                    if(type === charge.get('type') && entityType === charge.get('entityType') && chargeType === charge.get('chargeType') ) {
                         charge.save().then(function(){
                             if(charge === book_record.get("chargeItems").get("lastObject")) {
                                 //SUCCESS
@@ -2116,46 +2114,42 @@ export default Ember.Route.extend({
                 chItem.set('revenueCurrency', booking_record.get("currency"));
             }
 
-                var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
+            var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
 
-                //se l'entità è di tipo item passo l'id dell'item associato a questo charge
-                if(enType === 'item') {
-                    chItem.set('bookingItem', controller.item_record);
+            //se l'entità è di tipo item passo l'id dell'item associato a questo charge
+            if(enType === 'item') {
+                chItem.set('bookingItem', controller.item_record);
+            }
+
+            myChargeItem.every(function(item) {
+                chItem.set('code', item.code);
+                chItem.set('type', type);
+                chItem.set('entityType', enType);
+
+                if(type === 'container') {
+                    chItem.set('multiplier', 'QTY');
+                } else if(type === 'roro') {
+                    chItem.set('multiplier', 'LNG');
+                } else if(type === 'bb') {
+                    chItem.set('multiplier', 'VOL');
+                } else {
+                    chItem.set('multiplier', 'NUM');
                 }
 
-                myChargeItem.every(function(item) {
-                    chItem.set('code', item.code);
-                    chItem.set('type', type);
-                    chItem.set('entityType', enType);
-
-                    if(type === 'container') {
-                        chItem.set('multiplier', 'QTY');
-                    } else if(type === 'roro') {
-                        chItem.set('multiplier', 'LNG');
-                    } else if(type === 'bb') {
-                        chItem.set('multiplier', 'VOL');
-                    } else {
-                        chItem.set('multiplier', 'NUM');
+                chItem.save().then(function(){
+                    if(enType === 'item') {
+                        controller.item_record.reload();
                     }
-
-                    chItem.save().then(function(){
-//                        if(type === 'roro') {
-//                            app_controller.autocompleteRoRo.pushObject(myVal);
-//                        }
-                        booking_record.reload();
-                        if( is_shipowner ){
-                            controller.set('revenuesTable.revenues', false);
-                            controller.set('revenuesTable.costs', true);
-                        } else {
-                            controller.set('revenuesTable.revenues', true);
-                            controller.set('revenuesTable.costs', false);
-                        }
-                        if(enType === 'item') {
-                            controller.item_record.reload();
-                        }
-
-                    });
+                    booking_record.reload();
+                    if( is_shipowner ){
+                        controller.set('revenuesTable.revenues', false);
+                        controller.set('revenuesTable.costs', true);
+                    } else {
+                        controller.set('revenuesTable.revenues', true);
+                        controller.set('revenuesTable.costs', false);
+                    }
                 });
+            });
         },
 
         /*  FILES TAB
@@ -2388,23 +2382,13 @@ export default Ember.Route.extend({
                                                 type: 'success',
                                                 delay: 1000
                                             });
-//                                            if( app_controller.companyType === 'shipowner' ){
-//                                                controller.set('subTabLists.details', false);
-//                                                controller.set('subTabLists.haulage', false);
-//                                                controller.set('subTabLists.customs', false);
-//                                                controller.set('subTabLists.status', false);
-//                                                controller.set('subTabLists.revenues', false);
-//                                                controller.set('subTabLists.files', false);
-//                                                controller.set('subTabLists.goods', true);
-//                                            } else{
-                                                controller.set('subTabLists.details', false);
-                                                controller.set('subTabLists.haulage', false);
-                                                controller.set('subTabLists.customs', false);
-                                                controller.set('subTabLists.status', false);
-                                                controller.set('subTabLists.revenues', true);
-                                                controller.set('subTabLists.files', false);
-                                                controller.set('subTabLists.goods', false);
-//                                            }
+                                            controller.set('subTabLists.details', false);
+                                            controller.set('subTabLists.haulage', false);
+                                            controller.set('subTabLists.customs', false);
+                                            controller.set('subTabLists.status', false);
+                                            controller.set('subTabLists.revenues', true);
+                                            controller.set('subTabLists.files', false);
+                                            controller.set('subTabLists.goods', false);
                                         });
                                     }
                                     count = count +1;
@@ -2421,23 +2405,13 @@ export default Ember.Route.extend({
                             });
                             //altrimenti passo alla tab successiva
                         } else {
-//                            if(app_controller.companyType == 'shipowner'){
-//                                controller.set('subTabLists.details', false);
-//                                controller.set('subTabLists.haulage', false);
-//                                controller.set('subTabLists.customs', false);
-//                                controller.set('subTabLists.status', false);
-//                                controller.set('subTabLists.revenues', false);
-//                                controller.set('subTabLists.files', false);
-//                                controller.set('subTabLists.goods', true);
-//                            } else{
-                                controller.set('subTabLists.details', false);
-                                controller.set('subTabLists.haulage', false);
-                                controller.set('subTabLists.customs', false);
-                                controller.set('subTabLists.status', false);
-                                controller.set('subTabLists.revenues', true);
-                                controller.set('subTabLists.files', false);
-                                controller.set('subTabLists.goods', false);
-//                            }
+                            controller.set('subTabLists.details', false);
+                            controller.set('subTabLists.haulage', false);
+                            controller.set('subTabLists.customs', false);
+                            controller.set('subTabLists.status', false);
+                            controller.set('subTabLists.revenues', true);
+                            controller.set('subTabLists.files', false);
+                            controller.set('subTabLists.goods', false);
                         }
                     });
                 });
@@ -2535,7 +2509,7 @@ export default Ember.Route.extend({
                         var chass_len = controller.item_record.get('chassisNum');
                         ( chass_len !== "" && chass_len !== undefined ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
 
-                        if ( controller.item_record.get('chassisNum') !== null && chass_len > 0 ) {
+                        if ( chass_len !== "" && chass_len !== undefined ) {
                             $('div.alert.alert-danger').css('display', 'none');
                             if (fun_status === 'E' || fun_status === 'Req') {
                                 if(controller.item_record.get('eLength') && controller.item_record.get('eWidth') && controller.item_record.get('eHeight')) {
@@ -2946,7 +2920,7 @@ export default Ember.Route.extend({
 
             booking_record.get("items").filter(function(item, index){
                 //item.get('freightEquipments').filter(function(freightEquipment, index){
-                    if( item.get('isDirty') ){
+                    //if( item.get('isDirty') ){
                         item.save().then(function(){
 
                             if(index+1 == booking_record.get("items").get('length')){
@@ -2973,7 +2947,7 @@ export default Ember.Route.extend({
                                 }
                             });
                         })
-                    }
+                    //}
                 //});
 
             });

@@ -441,7 +441,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <label>Equivalent length per unit </label>
+                {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=isRegistOrPend}}
+            </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <div class="row">
@@ -454,14 +457,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-6">
-            <label>Equivalent length per unit </label>
-            {{input value= controller.item_record.equivLength type='number' class='form-control' disabled=isRegistOrPend}}
-        </div>
-        <div class="col-lg-6"></div>
     </div>
 {{/if}}
 <h5 class=page-header>IMO</h5>

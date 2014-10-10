@@ -1,1 +1,222 @@
-{"port":false,"port_new":false,"port_view":false,"port_edit":false,"port_remove":false,"grant":false,"grant_new":false,"grant_view":true,"grant_edit":false,"grant_remove":false,"voyage":true,"voyage_new":false,"voyage_view":true,"voyage_edit":false,"voyage_remove":false,"user":true,"user_new":true,"user_view":true,"user_edit":true,"user_remove":true,"poi":true,"poi_new":true,"poi_view":true,"poi_edit":true,"poi_remove":true,"region":true,"region_new":true,"region_view":true,"region_edit":true,"region_remove":true,"paymentPlan":true,"paymentPlan_new":false,"paymentPlan_view":true,"paymentPlan_edit":false,"paymentPlan_remove":false,"document":true,"document_new":true,"document_view":true,"document_edit":true,"document_remove":true,"company":true,"company_new":true,"company_view":true,"company_edit":true,"company_remove":true,"shipment":false,"shipment_new":false,"shipment_view":false,"shipment_edit":false,"shipment_remove":false,"xmlFormat_new":true,"xmlFormat_view":true,"xmlFormat_edit":true,"xmlFormat_remove":true,"equipmentClassification":false,"equipmentClassification_new":false,"equipmentClassification_view":true,"equipmentClassification_edit":false,"equipmentClassification_remove":false,"stamp":true,"stamp_new":true,"stamp_view":true,"stamp_edit":true,"stamp_remove":true,"template":false,"template_new":false,"template_view":false,"template_edit":false,"template_remove":false,"freightPlan":true,"freightPlan_new":true,"freightPlan_view":true,"freightPlan_edit":true,"freightPlan_remove":true,"refill":true,"refill_new":true,"refill_view":true,"refill_edit":false,"refill_remove":false,"vessel":false,"vessel_new":false,"vessel_view":false,"vessel_edit":false,"vessel_remove":false,"equipment":true,"equipment_new":true,"equipment_view":true,"equipment_edit":true,"equipment_remove":true,"charge":true,"charge_new":true,"charge_view":true,"charge_edit":true,"charge_remove":true,"booking":true,"booking_new":true,"booking_view":true,"booking_edit":true,"booking_remove":true,"segment":true,"segment_new":true,"segment_view":true,"segment_edit":true,"segment_remove":true}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th style="width: 10%">Service</th>
+                        <th style="width: 20%">Bill to</th>
+                        <th style="width: 20%">Revenue</th>
+                        <th style="width: 20%">PER</th>
+                        <th style="width: 15%"></th>
+                        {{#unless isLockedOrRegistered}}
+                            <th style="width: 5%">Remove</th>
+                        {{/unless}}
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#unless chargeItem.is_chargeType_cost}}
+    {{#if chargeItem.is_entityType_item}}
+        {{#if controller.tabList.container}}
+            {{#if chargeItem.isTypeContainer}}
+                <tr>
+                    <td>{{chargeItem.code}}</td>
+                    <td>
+                        {{#if isLockedOrRegistered}}
+                            {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                        {{else}}
+                            {{#if controller.is_shipowner}}
+                                {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                            {{else}}
+                                <a id="autocomplete-charge">
+                                    {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
+                                </a>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                            </div>
+                        {{else}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
+                            </div>
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                        {{else}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
+                        {{/if}}
+                    </td>
+                    {{#if controller.is_shipowner}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{else}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{/if}}
+                    <td>
+                        {{#unless isLockedOrRegistered}}
+                            {{#unless controller.is_shipowner}}
+                                <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                            {{/unless}}
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/if}}
+        {{/if}}
+        {{#if controller.tabList.roro}}
+            {{#if chargeItem.isTypeRoRo}}
+                <tr>
+                    <td>{{chargeItem.code}}</td>
+                    <td>
+                        {{#if isLockedOrRegistered}}
+                            {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
+                        {{else}}
+                            {{#if controller.is_shipowner}}
+                                {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
+                            {{else}}
+                                <a id="autocomplete-charge">
+                                    {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                </a>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                            </div>
+                        {{else}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency}}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
+                            </div>
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                        {{else}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
+                        {{/if}}
+                    </td>
+                    {{#if controller.is_shipowner}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{else}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{/if}}
+                    <td>
+                        {{#unless isLockedOrRegistered}}
+                            {{#unless is_shipowner}}
+                                <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                            {{/unless}}
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/if}}
+        {{/if}}
+        {{#if controller.tabList.bb}}
+            {{#if chargeItem.isTypeBB}}
+                <tr>
+                    <td>{{chargeItem.code}}</td>
+                    <td>
+                        {{#if isLockedOrRegistered}}
+                            {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                        {{else}}
+                            {{#if controller.is_shipowner}}
+                                {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
+                            {{else}}
+                                <a id="autocomplete-charge">
+                                    {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                </a>
+                            {{/if}}
+                        {{/if}}
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=true}}
+                            </div>
+                        {{else}}
+                            <div class="input-group">
+                                <span class="input-group-addon">{{chargeItem.revenueCurrency }}</span>
+                                {{input value=chargeItem.revenue type='number' class='form-control' disabled=isLockedOrRegistered}}
+                            </div>
+                        {{/if}}
+
+                    </td>
+                    <td>
+                        {{#if controller.is_shipowner}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=true}}
+                        {{else}}
+                            {{view Ember.Select content=controller.per_list value=chargeItem.multiplier class='form-control' disabled=isLockedOrRegistered}}
+                        {{/if}}
+                    </td>
+                    {{#if controller.is_shipowner}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=true}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{else}}
+                        {{#if chargeItem.isMultiplierNum}}
+                            <td>
+                                {{input type='number' value= chargeItem.num class='form-control' disabled=isLockedOrRegistered}}
+                            </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                    {{/if}}
+                    <td>
+                        {{#unless isLockedOrRegistered}}
+                            {{#unless is_shipowner}}
+                                <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                            {{/unless}}
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/if}}
+        {{/if}}
+    {{/if}}

@@ -1979,7 +1979,10 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('booking.main'), myIndex = null;
 
             frEquipment_record.get('orderedEquipmentStatuses').then(function(eqStatuses) {
-                    eqStatuses.popObject();
+                eqStatuses.popObject();
+
+                var is_notEmpty = eqStatuses.get('length');
+                if( is_notEmpty ) {
                     var last = eqStatuses.get('lastObject');
 
                     if( item.get('tu') === "container" ) {
@@ -1994,10 +1997,17 @@ export default Ember.Route.extend({
                             .set("currentStatusDateFrom", last.get('from'));
                     }
 
+                } else {
+                    frEquipment_record.set("currentStatus", null)
+                        .set("currentStatusCode", null)
+                        .set("currentStatusDateFrom", null);
+                }
+
                 frEquipment_record.save().then(function(){
                     item.reload();
-                        });
-                    });
+                });
+
+            });
         },
 
         /**
@@ -3002,32 +3012,21 @@ export default Ember.Route.extend({
                     data.companies = "["+companyToShare.get('id')+"]";
 
                     if( stateFrom = 'request' && stateTo == 'pending' ){
-                        $.post('api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
-                            if (response.success) {
-                                book.get('sharedWith').then(function(valShar){
-                                    valShar.pushObject(companyToShare);
-                                    //book.set('state', stateTo).save();
+                        var data = self.getProperties();
 
-                                    book.save().then(function(success){
-                                        var data = self.getProperties();
+                        data.bookingId = book.get('id');
+                        data.state = stateTo;
+                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                            book.get('sharedWith').then(function(val_toShare){
 
-                                        data.bookingId = book.get('id');
-                                        data.state = stateTo;
-                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                            book.reload();
-                                        }, function(error){
-                                            new PNotify({
-                                                title: 'Not saved',
-                                                text: 'A problem has occurred.',
-                                                type: 'error',
-                                                delay: 2000
-                                            });
-                                        });
-                                    });
+                                val_toShare.pushObject(companyToShare);
+                                book.save().then(function(){
+                                    book.reload();
                                 });
-                            }
-                        }, function(){
-                            // NOT SAVED
+
+                            });
+
+                        }, function(error){
                             new PNotify({
                                 title: 'Not saved',
                                 text: 'A problem has occurred.',
@@ -3087,19 +3086,15 @@ export default Ember.Route.extend({
                     }
 
                     if( ( stateFrom = 'pending' && stateTo == 'request' ) || ( stateFrom = 'lock' &&  stateTo == 'edit' )){
-//                        console.log('clientAgencyAreEqual: '+book.get('clientAgencyAreEqual'));
-//                        console.log(book.get('clientAgencyAreEqual') != true);
                         if(book.get('clientAgencyAreEqual')){                     //se agenzia e cliente sono la stessa company allora non faccio l'unshare del cliente
-                            //book.set('state', stateTo).save();
-
-                            book.save().then(function(success){
+                            book.save().then(function(){
                                 var data = self.getProperties();
 
                                 data.bookingId = book.get('id');
                                 data.state = stateTo;
                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                                     book.reload();
-                                }, function(error){
+                                }, function(){
                                     new PNotify({
                                         title: 'Not saved',
                                         text: 'A problem has occurred.',
@@ -3109,35 +3104,25 @@ export default Ember.Route.extend({
                                 });
                             });
                         }else {
-                            $.post('api/custom/unshareResource?token=' + app_controller.token, data).then(function(response){
-                                if (response.success) {
-                                    book.get('sharedWith').then(function(valShar){
-                                        var temporaryList = valShar.filter(function(i) {      //rimuovo l'id del porto rimosso dall'utente
-                                            return i != companyToShare.get('id')
-                                        });
-                                        valShar.set('');
-                                        valShar.pushObjects(temporaryList);
+                            var data = self.getProperties();
 
-                                        book.save().then(function(){
-                                            var data = self.getProperties();
+                            data.bookingId = book.get('id');
+                            data.state = stateTo;
+                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
 
-                                            data.bookingId = book.get('id');
-                                            data.state = stateTo;
-                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
-                                                book.reload();
-                                            }, function(){
-                                                new PNotify({
-                                                    title: 'Not saved',
-                                                    text: 'A problem has occurred.',
-                                                    type: 'error',
-                                                    delay: 2000
-                                                });
-                                            });
-                                        });
+                                book.get('sharedWith').then(function(valShar){
+                                    var temporaryList = valShar.filter(function(i) {      //rimuovo l'id del porto rimosso dall'utente
+                                        return i != companyToShare.get('id')
                                     });
-                                }
+                                    valShar.set('');
+                                    valShar.pushObjects(temporaryList);
+
+                                    book.save().then(function(){
+                                        book.reload();
+                                    });
+                                });
+
                             }, function(){
-                                // NOT SAVED
                                 new PNotify({
                                     title: 'Not saved',
                                     text: 'A problem has occurred.',
@@ -3227,28 +3212,31 @@ export default Ember.Route.extend({
                                             if( stateTo === 'register' ){
                                                 self.send('checkTransitionFromStatesFreight', entity, attrToCheck_subFreight, attrToValue, data, agency, stateTo);
                                             } else {
-                                                entity.get('sharedWith').then(function(valShar){
-                                                    valShar.pushObject(agency);
 
-                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
-                                                        var data = self.getProperties();
+                                                var data = self.getProperties();
 
-                                                        data.bookingId = entity.get('id');
-                                                        data.state = stateTo;
-                                                        //https://test.zenointelligence.com/seaforward/
-                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                data.bookingId = entity.get('id');
+                                                data.state = stateTo;
+
+                                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                    entity.get('sharedWith').then(function(valShar){
+                                                        valShar.pushObject(agency);
+
+                                                        entity.save().then(function(){
                                                             entity.reload();
-                                                        }, function(){
-                                                            new PNotify({
-                                                                title: 'Not saved',
-                                                                text: 'A problem has occurred.',
-                                                                type: 'error',
-                                                                delay: 2000
-                                                            });
                                                         });
+
                                                     });
 
+                                                }, function(){
+                                                    new PNotify({
+                                                        title: 'Not saved',
+                                                        text: 'A problem has occurred.',
+                                                        type: 'error',
+                                                        delay: 2000
+                                                    });
                                                 });
+
                                             }
                                         }
                                         return true;
@@ -3258,26 +3246,29 @@ export default Ember.Route.extend({
                                             if( stateTo === 'register' ){
                                                 self.send('checkTransitionFromStatesFreight', entity, attrToCheck_subFreight, attrToValue, data, agency, stateTo);
                                             } else {
-                                                entity.get('sharedWith').then(function(valShar){
-                                                    valShar.pushObject(agency);
-                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
-                                                        var data = self.getProperties();
-                                                        data.bookingId = entity.get('id');
-                                                        data.state = stateTo;
-                                                        //https://test.zenointelligence.com/seaforward/
-                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                            entity.reload();
-                                                        }, function(){
-                                                            new PNotify({
-                                                                title: 'Not saved',
-                                                                text: 'A problem has occurred.',
-                                                                type: 'error',
-                                                                delay: 2000
-                                                            });
-                                                        });
-                                                    });
 
+                                                var data = self.getProperties();
+                                                data.bookingId = entity.get('id');
+                                                data.state = stateTo;
+
+                                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                                    entity.get('sharedWith').then(function(valShar){
+                                                        valShar.pushObject(agency);
+
+                                                        entity.save().then(function(){
+                                                            entity.reload();
+                                                        });
+
+                                                    });
+                                                }, function(){
+                                                    new PNotify({
+                                                        title: 'Not saved',
+                                                        text: 'A problem has occurred.',
+                                                        type: 'error',
+                                                        delay: 2000
+                                                    });
                                                 });
+
                                             }
                                         }
                                         return true;
@@ -3351,40 +3342,29 @@ export default Ember.Route.extend({
 
                                                     //console.log('SUCCESS!');
                                                     if( stateTo === 'lock' ) {
-//                                                        $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
-//                                                            if (response.success) {
-                                                                entity.get('sharedWith').then(function(valShar){
-                                                                    valShar.pushObject(agency);
-                                                                    //entity.set('state', state).save();
-                                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
-                                                                        var data = self.getProperties();
+                                                        var data = self.getProperties();
 
-                                                                        data.bookingId = entity.get('id');
-                                                                        data.state = stateTo;
-                                                                        //https://test.zenointelligence.com/seaforward/
-                                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                                            entity.reload();
-                                                                        }, function(error){
-                                                                            new PNotify({
-                                                                                title: 'Not saved',
-                                                                                text: 'A problem has occurred.',
-                                                                                type: 'error',
-                                                                                delay: 2000
-                                                                            });
-                                                                        });
-                                                                    });
+                                                        data.bookingId = entity.get('id');
+                                                        data.state = stateTo;
+                                                        $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
 
+                                                            entity.get('sharedWith').then(function(valShar){
+                                                                valShar.pushObject(agency);
+                                                                entity.save().then(function(){
+                                                                    entity.reload();
                                                                 });
-//                                                            }
-//                                                        }, function(error){
-//                                                            // NOT SAVED
-//                                                            new PNotify({
-//                                                                title: 'Not saved',
-//                                                                text: 'A problem has occurred.',
-//                                                                type: 'error',
-//                                                                delay: 2000
-//                                                            });
-//                                                        });
+                                                            });
+
+                                                        }, function(){
+                                                            new PNotify({
+                                                                title: 'Not saved',
+                                                                text: 'A problem has occurred.',
+                                                                type: 'error',
+                                                                delay: 2000
+                                                            });
+
+
+                                                        });
                                                     } else {
 
                                                         entity.save().then(function(success){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
@@ -3392,7 +3372,7 @@ export default Ember.Route.extend({
 
                                                             data.bookingId = entity.get('id');
                                                             data.state = stateTo;
-                                                            //https://test.zenointelligence.com/seaforward/
+
                                                             $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                                                                 entity.reload();
                                                             }, function(error){
@@ -3404,7 +3384,7 @@ export default Ember.Route.extend({
                                                                 });
                                                             });
                                                         });
-                                                        //entity.set('state', state).save();
+
                                                     }
                                                 }
                                                 return true;
@@ -3413,52 +3393,37 @@ export default Ember.Route.extend({
                                                 if(subAttr == 'equipmentCode' && freight.get('equipmentClientCode') != null && freight.get('equipmentClientCode') != '') {
                                                     if ( indexSubEnt + 1 == containerEntity.get('length') && indexSubAttr + 1 == attrToCheck_subFreight.length && loopCheck == true ) {
 
-                                                        console.log('SUCCESS!');
+                                                        //console.log('SUCCESS!');
                                                         if(stateTo == 'lock') {
-//                                                            $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
-//                                                                if (response.success) {
-                                                                    entity.get('sharedWith').then(function(valShar){
-                                                                        valShar.pushObject(agency);
+                                                            var data = self.getProperties();
 
+                                                            data.bookingId = entity.get('id');
+                                                            data.state = stateTo;
+                                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
 
+                                                                entity.get('sharedWith').then(function(valShar){
+                                                                    valShar.pushObject(agency);
 
-                                                                        entity.save().then(function(success){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
-                                                                            var data = self.getProperties();
-
-                                                                            data.bookingId = entity.get('id');
-                                                                            data.state = stateTo;
-                                                                            //https://test.zenointelligence.com/seaforward/
-                                                                            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                                                entity.reload();
-                                                                            }, function(error){
-                                                                                new PNotify({
-                                                                                    title: 'Not saved',
-                                                                                    text: 'A problem has occurred.',
-                                                                                    type: 'error',
-                                                                                    delay: 2000
-                                                                                });
-                                                                            });
-                                                                        });
-
-                                                                        //entity.set('state', state).save();
+                                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                                        entity.reload();
                                                                     });
-//                                                                }
-//                                                            }, function(error){
-//                                                                // NOT SAVED
-//                                                                new PNotify({
-//                                                                    title: 'Not saved',
-//                                                                    text: 'A problem has occurred.',
-//                                                                    type: 'error',
-//                                                                    delay: 2000
-//                                                                });
-//                                                            });
+                                                                });
+                                                            }, function(){
+                                                                new PNotify({
+                                                                    title: 'Not saved',
+                                                                    text: 'A problem has occurred.',
+                                                                    type: 'error',
+                                                                    delay: 2000
+                                                                });
+                                                            });
+
                                                         } else {
                                                             entity.save().then(function(success){
                                                                 var data = self.getProperties();
 
                                                                 data.bookingId = entity.get('id');
                                                                 data.state = stateTo;
-                                                                //https://test.zenointelligence.com/seaforward/
+
                                                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                                                                     entity.reload();
                                                                 }, function(error){
@@ -3470,9 +3435,6 @@ export default Ember.Route.extend({
                                                                     });
                                                                 });
                                                             });
-
-
-                                                            //entity.set('state', state).save();
                                                         }
                                                     }
                                                     return true;
@@ -3508,49 +3470,33 @@ export default Ember.Route.extend({
                         } else {
                             console.log('SUCCESS!');
                             if(stateTo == 'lock') {
-//                                $.post('https://test.zenointelligence.com/api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
-//                                    if (response.success) {
-                                        entity.get('sharedWith').then(function(valShar){
-                                            valShar.pushObject(agency);
+                                var data = self.getProperties();
 
-                                            entity.save().then(function(success){
-                                                var data = self.getProperties();
+                                data.bookingId = entity.get('id');
+                                data.state = stateTo;
+                                //https://test.zenointelligence.com/seaforward/
+                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                    entity.get('sharedWith').then(function(valShar){
+                                        valShar.pushObject(agency);
 
-                                                data.bookingId = entity.get('id');
-                                                data.state = stateTo;
-                                                //https://test.zenointelligence.com/seaforward/
-                                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                    entity.reload();
-                                                }, function(error){
-                                                    new PNotify({
-                                                        title: 'Not saved',
-                                                        text: 'A problem has occurred.',
-                                                        type: 'error',
-                                                        delay: 2000
-                                                    });
-                                                });
-                                            });
-
-
-                                            //entity.set('state', state).save();
+                                        entity.save().then(function(success){
+                                            entity.reload();
                                         });
-//                                    }
-//                                }, function(error){
-//                                    // NOT SAVED
-//                                    new PNotify({
-//                                        title: 'Not saved',
-//                                        text: 'A problem has occurred.',
-//                                        type: 'error',
-//                                        delay: 2000
-//                                    });
-//                                });
+                                    });
+                                }, function(){
+                                    new PNotify({
+                                        title: 'Not saved',
+                                        text: 'A problem has occurred.',
+                                        type: 'error',
+                                        delay: 2000
+                                    });
+                                });
                             } else {
                                 entity.save().then(function(success){
                                     var data = self.getProperties();
 
                                     data.bookingId = entity.get('id');
                                     data.state = stateTo;
-                                    //https://test.zenointelligence.com/seaforward/
                                     $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                                         entity.reload();
                                     }, function(error){
@@ -3562,8 +3508,6 @@ export default Ember.Route.extend({
                                         });
                                     });
                                 });
-
-                                // entity.set('state', state).save();
                             }
                         }
                     }
@@ -3920,10 +3864,11 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
                 data = this.getProperties();
 
-            if(controller.searchCompanyToShare.text() !== "" && controller.searchCompanyToShare.text() !== null ){
-                data.resource_id = controller.booking_record;
+            if(controller.searchCompanyToShare !== "" && controller.searchCompanyToShare !== null ){
+                data.resource_id = controller.booking_record.get("id");
                 data.model = "booking";       //modello della risorsa che condivido
                 data.companies = "["+controller.searchCompanyToShare.get("id")+"]";
+//
 
                 $.post('api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
                     if (response.success) {

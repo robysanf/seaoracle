@@ -56,25 +56,6 @@ export default Ember.ObjectController.extend({
      * DETAILS tab
      **/
 
-//    isFiles: function(){
-//        if(this.get('activeSubTab') === 'files'){
-//            return true
-//        }
-//    }.property('activeSubTab'),
-
-    //activeSubTab: null,
-//    setSubTabs: function(subTabToActive){
-//        this.set('subTabLists.goods',false);
-//        this.set('subTabLists.details',false);
-//        this.set('subTabLists.haulage',false);
-//        this.set('subTabLists.customs',false);
-//        this.set('subTabLists.status',false);
-//        this.set('subTabLists.revenues',false);
-//        this.set('subTabLists.files',false);
-//
-//        this.set(subTabToActive, true);
-//    },
-
     subTabLists: Ember.A(
         {'goods': false},
         {'details': false},
@@ -84,19 +65,6 @@ export default Ember.ObjectController.extend({
         {'revenues': false},
         {'files': false}
     ),
-
-//    activeSubTabRevenue: null,
-//
-//    revenuesTabList: function(subTabToActive){
-//        this.set('subTabRevenueLists.general',false);
-//        this.set('subTabRevenueLists.bookingCharges',false);
-//        this.set('subTabRevenueLists.containerCharges',false);
-//        this.set('subTabRevenueLists.roroCharges',false);
-//        this.set('subTabRevenueLists.bbCharges',false);
-//
-//        this.set(subTabToActive, true);
-//    },
-
 
     revenuesTabList: Ember.A(
         {'general': true},
@@ -112,10 +80,7 @@ export default Ember.ObjectController.extend({
         {'costs': false}
     ),
 
-//    revenuesSubTable: Ember.A(
-//        {'revenues': true},
-//        {'costs': false}
-//    ),
+
 //  ******************
 //  *** DETAILS tab
 
@@ -123,7 +88,7 @@ export default Ember.ObjectController.extend({
     searchPortOrigin: Ember.A(),
     searchPortDestination: Ember.A(),
     searchCompany: Ember.A(),
-    searchCompanyToShare: Ember.A(),
+    searchCompanyToShare: null,
 
 //  ******************
 //   *** GOODS

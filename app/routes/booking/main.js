@@ -2976,8 +2976,10 @@ export default Ember.Route.extend({
 
             data.bookingId = booking.get('id');
             data.state = state;
-            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                booking.reload();
+            $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
+                booking.set('state', state).save().then(function(){
+                    booking.reload();
+                });
             }, function(){
                 new PNotify({
                     title: 'Not saved',
@@ -3017,7 +3019,7 @@ export default Ember.Route.extend({
                         data.state = stateTo;
                         $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                             book.get('sharedWith').then(function(val_toShare){
-
+                                book.set('state', stateTo);
                                 val_toShare.pushObject(companyToShare);
                                 book.save().then(function(){
                                     book.reload();
@@ -3092,7 +3094,9 @@ export default Ember.Route.extend({
                                 data.bookingId = book.get('id');
                                 data.state = stateTo;
                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
-                                    book.reload();
+                                    book.set('state', stateTo).save().then(function(){
+                                        book.reload();
+                                    });
                                 }, function(){
                                     new PNotify({
                                         title: 'Not saved',
@@ -3115,8 +3119,7 @@ export default Ember.Route.extend({
                                     });
                                     valShar.set('');
                                     valShar.pushObjects(temporaryList);
-
-                                    book.save().then(function(){
+                                    book.set('state', stateTo).save().then(function(){
                                         book.reload();
                                     });
                                 });
@@ -3220,8 +3223,7 @@ export default Ember.Route.extend({
                                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
                                                     entity.get('sharedWith').then(function(valShar){
                                                         valShar.pushObject(agency);
-
-                                                        entity.save().then(function(){
+                                                        entity.set('state', stateTo).save().then(function(){
                                                             entity.reload();
                                                         });
 
@@ -3254,7 +3256,7 @@ export default Ember.Route.extend({
                                                     entity.get('sharedWith').then(function(valShar){
                                                         valShar.pushObject(agency);
 
-                                                        entity.save().then(function(){
+                                                        entity.set('state', stateTo).save().then(function(){
                                                             entity.reload();
                                                         });
 
@@ -3349,7 +3351,7 @@ export default Ember.Route.extend({
 
                                                             entity.get('sharedWith').then(function(valShar){
                                                                 valShar.pushObject(agency);
-                                                                entity.save().then(function(){
+                                                                entity.set('state', stateTo).save().then(function(){
                                                                     entity.reload();
                                                                 });
                                                             });
@@ -3373,8 +3375,10 @@ export default Ember.Route.extend({
                                                             data.state = stateTo;
 
                                                             $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                                entity.reload();
-                                                            }, function(error){
+                                                                entity.set('state', stateTo).save().then(function(){
+                                                                    entity.reload();
+                                                                });
+                                                            }, function(){
                                                                 new PNotify({
                                                                     title: 'Not saved',
                                                                     text: 'A problem has occurred.',
@@ -3403,7 +3407,7 @@ export default Ember.Route.extend({
                                                                 entity.get('sharedWith').then(function(valShar){
                                                                     valShar.pushObject(agency);
 
-                                                                    entity.save().then(function(){  //fixme: da rimuovere quando la hciamata custom farà anche lo share
+                                                                    entity.set('state', stateTo).save().then(function(){
                                                                         entity.reload();
                                                                     });
                                                                 });
@@ -3424,7 +3428,9 @@ export default Ember.Route.extend({
                                                                 data.state = stateTo;
 
                                                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                                                    entity.reload();
+                                                                    entity.set('state', stateTo).save().then(function(){
+                                                                        entity.reload();
+                                                                    });
                                                                 }, function(error){
                                                                     new PNotify({
                                                                         title: 'Not saved',
@@ -3478,7 +3484,7 @@ export default Ember.Route.extend({
                                     entity.get('sharedWith').then(function(valShar){
                                         valShar.pushObject(agency);
 
-                                        entity.save().then(function(success){
+                                        entity.set('state', stateTo).save().then(function(){
                                             entity.reload();
                                         });
                                     });
@@ -3497,8 +3503,10 @@ export default Ember.Route.extend({
                                     data.bookingId = entity.get('id');
                                     data.state = stateTo;
                                     $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
-                                        entity.reload();
-                                    }, function(error){
+                                        entity.set('state', stateTo).save().then(function(){
+                                            entity.reload();
+                                        });
+                                    }, function(){
                                         new PNotify({
                                             title: 'Not saved',
                                             text: 'A problem has occurred.',
@@ -3854,7 +3862,7 @@ export default Ember.Route.extend({
             });
         },
         /**
-         funzione custom per la condivisione dei booking con altre company.
+         autorizzo a vedere il booking con i permessi di chi ha fatto lo share.
 
          @action shareResource
          @for Booking
@@ -3887,8 +3895,38 @@ export default Ember.Route.extend({
             }
         },
 
-        send_authorizeResource: function() {
+        /**
+         autorizzo a vedere il booking con i tuoi permessi.
 
+         @action shareResource
+         @for Booking
+         */
+        send_authorizeResource: function() {
+            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
+                data = this.getProperties();
+
+            if(controller.searchCompanyToShare !== "" && controller.searchCompanyToShare !== null ){
+                data.resource_id = controller.booking_record.get("id");
+                data.model = "booking";       //modello della risorsa che condivido
+                data.companies = "["+controller.searchCompanyToShare.get("id")+"]";
+//
+
+                $.post('api/custom/authorizeResource?token=' + app_controller.token, data).then(function(response){
+                    if (response.success) {
+                        controller.booking_record.get('sharedWith').then(function(valShar){
+                            valShar.pushObject(controller.searchCompanyToShare).save();
+                        });
+                    }
+                }, function(){
+                    // NOT SAVED
+                    new PNotify({
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
+                        delay: 2000
+                    });
+                });
+            }
         }
     }
 });

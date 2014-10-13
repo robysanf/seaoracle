@@ -20,6 +20,16 @@ export default Ember.View.extend({
             this.$('.modal').removeClass('in');
         },
 
+        send_authorizeResource: function() {
+            var view = this;
+            view.controller.send('send_authorizeResource');
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                view.controller.send('close_item');
+            });
+            this.$('.modal').removeClass('in');
+        },
+
         send_shareResource: function() {
             var view = this;
             view.controller.send('send_shareResource');

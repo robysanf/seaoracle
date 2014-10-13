@@ -70,16 +70,15 @@ export default Ember.Route.extend({
             });
         }
 
-        if( !app_controller.autocompleteEquipment.get('length') ) {
-            self.store.findQuery("equipment").then(function(comp){
-                app_controller.set("autocompleteEquipment", comp);
-            });
+        if( !controller.is_client ) {
+            if( !app_controller.autocompleteEquipment.get('length') ) {
+                self.store.findQuery("equipment").then(function(comp){
+                    app_controller.set("autocompleteEquipment", comp);
+                });
+            }
         }
 
-        //freightPlan list: fixme: questo creava problemi se inizializzato come = Ember.A()
-        controller.set('freightPlanList', []);
-
-
+        controller.set('freightPlanList', []);  //freightPlan list: fixme: questo creava problemi se inizializzato come = Ember.A()
 
 //      *** CUSTOMS
         if( !app_controller.autocompletePoi.get('length') ) {
@@ -3092,7 +3091,7 @@ export default Ember.Route.extend({
 
                                 data.bookingId = book.get('id');
                                 data.state = stateTo;
-                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(response){
+                                $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
                                     book.reload();
                                 }, function(){
                                     new PNotify({
@@ -3886,6 +3885,10 @@ export default Ember.Route.extend({
                     });
                 });
             }
+        },
+
+        send_authorizeResource: function() {
+
         }
     }
 });

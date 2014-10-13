@@ -171,7 +171,6 @@
             {{#if item.tu_roro}}
                 {{#if item.is_typeItem}}
                     <tr>
-
                         <td>{{item.code}}</td>
                         <td>{{item.classification}}</td>
                         <td>{{item.chassisNum}}</td>
@@ -186,10 +185,11 @@
                             <td> </td>
                         {{/if}}
                         <td><a href="#" {{action "goToView" item }}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+
                         {{#if is_shipowner}}
                             <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                         {{/if}}
-                        {{#if is_client}}
+                        {{#if is_admin}}
                             <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                         {{/if}}
                     </tr>

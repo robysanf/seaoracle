@@ -76,7 +76,7 @@
                                             <td>
                                                 {{#unless isLockedOrRegistered}}
                                                     {{#unless controller.is_shipowner}}
-                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
                                                     {{/unless}}
                                                 {{/unless}}
                                             </td>
@@ -140,7 +140,7 @@
                                             <td>
                                             {{#unless isLockedOrRegistered}}
                                                 {{#unless is_shipowner}}
-                                                    <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                                                    <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
                                                 {{/unless}}
                                             {{/unless}}
                                             </td>
@@ -205,7 +205,7 @@
                                             <td>
                                                 {{#unless isLockedOrRegistered}}
                                                     {{#unless is_shipowner}}
-                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "removeChargeItem" id chargeItem "modalRemoveChargeItem"}}></span></a>
+                                                        <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
                                                     {{/unless}}
                                                 {{/unless}}
                                             </td>

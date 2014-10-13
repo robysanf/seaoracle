@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
     needs: ['application', 'booking/main'],
     app_controller: Ember.computed.alias('controllers.application'),
 
+    app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
 
     bookingMain_record: Ember.computed.alias('controllers.booking/main.booking_record'),
 

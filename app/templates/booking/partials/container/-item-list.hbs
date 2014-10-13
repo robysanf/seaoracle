@@ -141,12 +141,10 @@
         {{/if}}
         {{#if isLocked}}
             {{#each item in items itemController="booking/delay-list"}}       <!--facciamo riferimento ad un altro controller per tenere il conto dei delay check-->
-            {{#with item}}
-                {{#if tu_container}}
+                {{#if item.tu_container}}
                     <tr>
-
-                        <td>{{code}}</td>
-                        {{#each freightEquipment in freightEquipments}}
+                        <td>{{item.code}}</td>
+                        {{#each freightEquipment in item.freightEquipments}}
                             <td>{{freightEquipment.equipmentClassification.typeCode}}</td>
                             <td>{{freightEquipment.equipmentClassification.sizeCode}}</td>
                             {{#if freightEquipment.equipment.code}}
@@ -167,43 +165,38 @@
                         {{#if is_shipowner}}
                             <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                         {{/if}}
-                        {{#if is_client}}
+                        {{#if is_admin}}
                             <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                         {{/if}}
-
                     </tr>
                 {{/if}}
-            {{/with}}
             {{/each}}
         {{/if}}
         {{#if isRegister}}
             {{#each item in items}}
-                {{#with item}}
-                    {{#if tu_container}}
-                        <tr>
-
-                            <td>{{code}}</td>
-                            {{#each freightEquipment in freightEquipments}}
-                                <td>{{freightEquipment.equipmentClassification.typeCode}}</td>
-                                <td>{{freightEquipment.equipmentClassification.sizeCode}}</td>
-                                {{#if freightEquipment.equipment.code}}
-                                    <td>{{freightEquipment.equipment.code}}</td>
-                                {{else}}
-                                    <td>{{freightEquipment.equipmentClientCode}}</td>
-                                {{/if}}
-                                <td>{{freightEquipment.sealCode}}</td>
-                            {{/each}}
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            {{#if item.loadedOn}}
-                                <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                {{#if item.tu_container}}
+                    <tr>
+                        <td>{{item.code}}</td>
+                        {{#each freightEquipment in item.freightEquipments}}
+                            <td>{{freightEquipment.equipmentClassification.typeCode}}</td>
+                            <td>{{freightEquipment.equipmentClassification.sizeCode}}</td>
+                            {{#if freightEquipment.equipment.code}}
+                                <td>{{freightEquipment.equipment.code}}</td>
                             {{else}}
-                                <td> </td>
+                                <td>{{freightEquipment.equipmentClientCode}}</td>
                             {{/if}}
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        </tr>
-                    {{/if}}
-                {{/with}}
+                            <td>{{freightEquipment.sealCode}}</td>
+                        {{/each}}
+                        <td>{{item.eWeight}}</td>
+                        <td>{{item.weight}}</td>
+                        {{#if item.loadedOn}}
+                            <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                        {{else}}
+                            <td> </td>
+                        {{/if}}
+                        <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                    </tr>
+                {{/if}}
             {{/each}}
         {{/if}}
     {{/if}}

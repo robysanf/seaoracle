@@ -49,12 +49,14 @@
             <li {{bind-attr class="controller.tabList.details:active"}}>
                 <a href="#"{{action setTabs "details" this}}><h4>Details</h4></a>
             </li>
-            <li {{bind-attr class="controller.tabList.freightPlan:active"}}>
-                <a href="#" {{action setTabs "freightPlan" this}}><h4>Freight Plan</h4></a>
-            </li>
-            <li {{bind-attr class="controller.tabList.revenues:active"}}>
-                <a href="#" {{action setTabs "revenues" this}}><h4>Revenues</h4></a>
-            </li>
+            {{#unless controller.is_client}}
+                <li {{bind-attr class="controller.tabList.freightPlan:active"}}>
+                    <a href="#" {{action setTabs "freightPlan" this}}><h4>Freight Plan</h4></a>
+                </li>
+                <li {{bind-attr class="controller.tabList.revenues:active"}}>
+                    <a href="#" {{action setTabs "revenues" this}}><h4>Revenues</h4></a>
+                </li>
+            {{/unless}}
             <li {{bind-attr class="controller.tabList.container:active"}}>
                 <a href="#" {{action setTabs "container" this}}><h4>Container</h4></a>
             </li>
@@ -64,12 +66,15 @@
             <li {{bind-attr class="controller.tabList.bb:active"}}>
                 <a href="#" {{action setTabs "bb" this}}><h4>Break Bulks</h4></a>
             </li>
-            <li {{bind-attr class="controller.tabList.itemStatus:active"}}>
-                <a href="#" {{action setTabs "itemStatus" this}}><h4>Item Status</h4></a>
-            </li>
-            <li {{bind-attr class="controller.tabList.files:active"}}>
-                <a href="#" {{action setTabs "files" this}}><h4>Files</h4></a>
-            </li>
+            {{#unless controller.is_client}}
+                <li {{bind-attr class="controller.tabList.itemStatus:active"}}>
+                    <a href="#" {{action setTabs "itemStatus" this}}><h4>Item Status</h4></a>
+                </li>
+                <li {{bind-attr class="controller.tabList.files:active"}}>
+                    <a href="#" {{action setTabs "files" this}}><h4>Files</h4></a>
+                </li>
+            {{/unless}}
+
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active in">

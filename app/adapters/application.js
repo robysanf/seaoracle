@@ -12,3 +12,5 @@ export default DS.RESTAdapter.extend({
         return normalURL + '?token=' + token;
     }
 });
+
+

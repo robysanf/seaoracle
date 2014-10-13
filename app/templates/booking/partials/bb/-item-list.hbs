@@ -47,6 +47,7 @@
                 <th>Loaded on</th>
                 <th>View</th>
             {{/if}}
+        {{/if}}
             </tr>
             </thead>
             <tbody>
@@ -54,26 +55,26 @@
                 {{#if isRequest}}
                     {{#each item in items}}
                         {{#if item.tu_bb}}
-                        <tr>
-                            <td>{{item.code}}</td>
-                            <td>{{item.packNum}}</td>
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                        </tr>
+                            <tr>
+                                <td>{{item.code}}</td>
+                                <td>{{item.packNum}}</td>
+                                <td>{{item.eWeight}}</td>
+                                <td>{{item.weight}}</td>
+                                <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                                <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                            </tr>
                         {{/if}}
                     {{/each}}
                 {{else}}
                     {{#each item in items}}
                         {{#if item.tu_bb}}
-                        <tr>
-                            <td>{{item.code}}</td>
-                            <td>{{item.packNum}}</td>
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        </tr>
+                            <tr>
+                                <td>{{item.code}}</td>
+                                <td>{{item.packNum}}</td>
+                                <td>{{item.eWeight}}</td>
+                                <td>{{item.weight}}</td>
+                                <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            </tr>
                         {{/if}}
                     {{/each}}
                 {{/if}}
@@ -81,59 +82,59 @@
                 {{#if isRequest}}
                     {{#each item in items}}
                         {{#if item.tu_bb}}
-                        <tr>
-                            <td>{{item.code}}</td>
-                            <td>{{item.packNum}}</td>
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                        </tr>
+                            <tr>
+                                <td>{{item.code}}</td>
+                                <td>{{item.packNum}}</td>
+                                <td>{{item.eWeight}}</td>
+                                <td>{{item.weight}}</td>
+                                <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                                <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                            </tr>
                         {{/if}}
                     {{/each}}
                 {{/if}}
                 {{#if isPending}}
                     {{#each item in items}}
                         {{#if item.tu_bb}}
-                        <tr>
-                            <td>{{item.code}}</td>
-                            <td>{{item.packNum}}</td>
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        </tr>
+                            <tr>
+                                <td>{{item.code}}</td>
+                                <td>{{item.packNum}}</td>
+                                <td>{{item.eWeight}}</td>
+                                <td>{{item.weight}}</td>
+                                <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                            </tr>
                         {{/if}}
                     {{/each}}
                 {{/if}}
                 {{#if isEditing}}
                     {{#each item in items itemController='booking/mtl-list'}}
                         {{#if item.tu_bb}}
-                        <tr>
-                            <td>{{input type="checkbox" checked=isChecked}}</td>
-                            <td>{{item.code}}</td>
-                            <td>{{item.packNum}}</td>
-                            <td>{{item.eWeight}}</td>
-                            <td>{{item.weight}}</td>
-                            <td><a href="#" {{action "split" item.booking item item.packNum}}><span class="glyphicon glyphicon-fullscreen"></span></a></td>
-                            <td><a href="#" {{action "open_modal" 'booking.modals.replica' this item}}><span class="glyphicon glyphicon-registration-mark"></span></a></td>
-                            {{#if item.loadedOn}}
-                                <td><button type="button" class="close" aria-hidden="true" {{action "remove_loadedOn" this item}}>&times;</button> </td>
-                                <td>{{item.referringItemLoadedOn.chassisNum}} </td>
-                            {{else}}
-                                <td> </td>
-                                <td> </td>
-                            {{/if}}
+                            <tr>
+                                <td>{{input type="checkbox" checked=isChecked}}</td>
+                                <td>{{item.code}}</td>
+                                <td>{{item.packNum}}</td>
+                                <td>{{item.eWeight}}</td>
+                                <td>{{item.weight}}</td>
+                                <td><a href="#" {{action "split" item.booking item item.packNum}}><span class="glyphicon glyphicon-fullscreen"></span></a></td>
+                                <td><a href="#" {{action "open_modal" 'booking.modals.replica' this item}}><span class="glyphicon glyphicon-registration-mark"></span></a></td>
+                                {{#if item.loadedOn}}
+                                    <td><button type="button" class="close" aria-hidden="true" {{action "remove_loadedOn" this item}}>&times;</button> </td>
+                                    <td>{{item.referringItemLoadedOn.chassisNum}} </td>
+                                {{else}}
+                                    <td> </td>
+                                    <td> </td>
+                                {{/if}}
 
-                            <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                            <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                        </tr>
+                                <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                                <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                            </tr>
 
                         {{/if}}
                     {{/each}}
                 {{/if}}
                 {{#if isLocked}}
                     {{#each item in items itemController="booking/delay-list"}}            <!--facciamo riferimento ad un altro controller per tenere il conto dei delay check-->
-                        {{#if item.tu_bb}}
+                    {{#if item.tu_bb}}
                         <tr>
                             <td>{{item.code}}</td>
                             <td>{{item.packNum}}</td>
@@ -148,16 +149,16 @@
                             {{#if is_shipowner}}
                                 <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                             {{/if}}
-                            {{#if is_client}}
+                            {{#if is_admin}}
                                 <td>{{view Ember.Checkbox viewName="checkboxView" checked=controller.delayItemsList.isChecked}}</td>
                             {{/if}}
                         </tr>
-                        {{/if}}
+                    {{/if}}
                     {{/each}}
                 {{/if}}
                 {{#if isRegister}}
                     {{#each item in items}}       <!--facciamo riferimento ad un altro controller per tenere il conto dei delay check-->
-                        {{#if item.tu_bb}}
+                    {{#if item.tu_bb}}
                         <tr>
                             <td>{{item.code}}</td>
                             <td>{{item.packNum}}</td>
@@ -170,11 +171,10 @@
                             {{/if}}
                             <td><a href="#" {{action "goToView" item false}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
                         </tr>
-                        {{/if}}
+                    {{/if}}
                     {{/each}}
                 {{/if}}
             {{/if}}
-        {{/if}}
     </tbody>
     </table>
 {{/if}}

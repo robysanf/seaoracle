@@ -7,6 +7,8 @@ export default Ember.Route.extend({
         /** se non è presente in memoria il token l'utente viene ri-direzionato alla pagina di login **/
         if ( !app_controller.token ){
             this.redirectToLogin();
+        } else {
+            this.redirectToDashboard();
         }
     },
 
@@ -20,7 +22,6 @@ export default Ember.Route.extend({
 
     actions: {
         error: function(reason) {
-
 //            switch (reason.status){
 //                case '401':
 //
@@ -36,7 +37,7 @@ export default Ember.Route.extend({
 //                    break;
 //            }
 
-            if (reason.status === 401) {        //ANAUTHORIZED  - invalid authentication token
+            if (reason.status === 400) {        //ANAUTHORIZED  - invalid authentication token
                 this.redirectToLogin();
             } else {
                 new PNotify({

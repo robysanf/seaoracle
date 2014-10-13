@@ -18,6 +18,9 @@
                 <li class="disabled">
                     <a data-tab="freightPlan"><h4>Freight Plan</h4></a>
                 </li>
+                <li class="disabled">
+                    <a data-tab="revenues"><h4>Revenues</h4></a>
+                </li>
             {{/unless}}
             <li class="disabled">
                 <a data-tab="container"><h4>Container</h4></a>
@@ -29,9 +32,6 @@
                 <a data-tab="bb"><h4>Break Bulks</h4></a>
             </li>
             {{#unless controller.is_client}}     <!--se sono in modalità booking request queste tab non le vedo-->
-                <li class="disabled">
-                    <a data-tab="revenues"><h4>Revenues</h4></a>
-                </li>
                 <li class="disabled">
                     <a data-tab="itemStatus"><h4>Item Status</h4></a>
                 </li>

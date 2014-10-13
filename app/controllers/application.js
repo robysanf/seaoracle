@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+export default Ember.ArrayController.extend({
     isLogin: false,
 
     LOG_TRANSITIONS: true,

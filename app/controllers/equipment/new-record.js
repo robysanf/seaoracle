@@ -33,6 +33,7 @@ export default Ember.Controller.extend({
     newRinaFromDate: null,
     newRinaToDate: null,
     newAvailable: true,
+    newCurrentStatusDateFrom: null,
 
     searchClassification: Ember.A(),
     searchPosition: Ember.A(),

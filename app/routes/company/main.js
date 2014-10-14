@@ -82,50 +82,57 @@ export default Ember.Route.extend({
          @param {boolean} true si passa a 'stato === view'; false si passa a 'stato === edit'
          @param {record} entità company di riferimento
          */
-        change_state: function( bool, companyRecord ) {
+        change_state: function( _btn, bool, id_record ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('company.main'),
                 iso3 = null;
-            controller.set("companyRecord", companyRecord);
 
-            if( bool === true ) {
-                //this.store.find('company', id).then( function(company){
-                var this_nation = app_controller.nations.filterBy('country',controller.companyRecord.get('country'));
-                if( this_nation[0] ){
-                    iso3 = this_nation[0].iso3;
-                }
-                controller.companyRecord.set('countryIso3', iso3).save().then(function(val){
+                if( bool === true ) {
+                    this.store.find('company', id_record).then(function( record ){
+                        controller.set("companyRecord", record);
+                        var this_nation = app_controller.nations.filterBy('country',controller.companyRecord.get('country'));
+                        if( this_nation[0] ){
+                            iso3 = this_nation[0].iso3;
+                        }
+                        controller.companyRecord.set('countryIso3', iso3).save().then(function(val){
 
-                    app_controller.autocompleteCompany.forEach(function(item, index){
-                            if( item ) {
-                                var item_id = item.get('id');
+                            app_controller.autocompleteCompany.forEach(function(item, index){
+                                if( item ) {
+                                    var item_id = item.get('id');
 
-                                if( item_id === controller.companyRecord.get('id') ) {
-                                    app_controller.autocompleteCompany.removeAt(index);
-                                    app_controller.autocompleteCompany.pushObject(val);
+                                    if( item_id === controller.companyRecord.get('id') ) {
+                                        app_controller.autocompleteCompany.removeAt(index);
+                                        app_controller.autocompleteCompany.pushObject(val);
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-                        //SUCCESS
-                        new PNotify({
-                            title: 'Saved',
-                            text: 'You successfully saved new company.',
-                            type: 'success',
-                            delay: 1000
-                        });
-                    }, function(){
-                        //NOT SAVED
-                        new PNotify({
-                            title: 'Not saved',
-                            text: 'A problem has occurred.',
-                            type: 'error',
-                            delay: 2000
+                            _btn.stop();
+                            self.controller.set('isView', bool);
+                            //SUCCESS
+                            new PNotify({
+                                title: 'Saved',
+                                text: 'You successfully saved new company.',
+                                type: 'success',
+                                delay: 1000
+                            });
+
+                        }, function(){
+                            _btn.stop();
+                            //NOT SAVED
+                            new PNotify({
+                                title: 'Not saved',
+                                text: 'A problem has occurred.',
+                                type: 'error',
+                                delay: 2000
+                            });
+                            self.controller.set('isView', bool);
                         });
                     });
-                //});
-            }
+                } else {
+                    this.controller.set('isView', bool);
+                }
 
-            this.controller.set('isView', bool);
+
         },
 
         goTo: function( val ) {

@@ -152,6 +152,7 @@ export default Ember.Route.extend({
                         newRina.set('to', controller.newRinaToDate);//rinaToDate);
                     }
 
+
                     //create a rina record
                     newRina.save().then(function(rina){
                         //set commission state to default "decommissioned"
@@ -178,6 +179,10 @@ export default Ember.Route.extend({
                                     available: controller.newAvailable,
                                     visibility: 'private'
                                 });
+                                if(controller.newCurrentStatusDateFrom !== null && controller.newCurrentStatusDateFrom !== '') {
+                                    newEquipment.set('currentStatusDateFrom', controller.newCurrentStatusDateFrom);
+                                }
+
                                 if( controller.searchClassification.get('length') !== 0 ){
                                     newEquipment.set('equipmentClassification', controller.searchClassification);
                                 }
@@ -224,6 +229,7 @@ export default Ember.Route.extend({
                                                                     controller.set('newRinaFromDate', null);
                                                                     controller.set('newRinaToDate', null);
                                                                     self.set('newVisibility', null);
+                                                                    controller.set('currentStatusDateFrom', null);
 
                                                                     //SUCCESS
                                                                     new PNotify({
@@ -267,7 +273,7 @@ export default Ember.Route.extend({
                                                         controller.set('newVisibility', null);
                                                         controller.set('newRinaFromDate', null);
                                                         controller.set('newRinaToDate', null);
-
+                                                        controller.set('currentStatusDateFrom', null);
                                                         //SUCCESS
                                                         new PNotify({
                                                             title: 'Saved',
@@ -342,6 +348,9 @@ export default Ember.Route.extend({
                                 availability: true,
                                 visibility: 'private'
                             });
+                            if(controller.newCurrentStatusDateFrom !== null && controller.newCurrentStatusDateFrom !== '') {
+                                newEquipment.set('currentStatusDateFrom', controller.newCurrentStatusDateFrom);
+                            }
                             if( controller.searchClassification.get('length') !== 0 ){
                                 newEquipment.set('equipmentClassification', controller.searchClassification);
                             }
@@ -383,6 +392,7 @@ export default Ember.Route.extend({
                                                             controller.set('newRinaFromDate', null);
                                                             controller.set('newRinaToDate', null);
                                                             self.set('newVisibility', null);
+                                                            controller.set('currentStatusDateFrom', null);
 
                                                             //SUCCESS
                                                             new PNotify({
@@ -424,7 +434,7 @@ export default Ember.Route.extend({
                                                 controller.set('newVisibility', null);
                                                 controller.set('newRinaFromDate', null);
                                                 controller.set('newRinaToDate', null);
-
+                                                controller.set('currentStatusDateFrom', null);
                                                 //SUCCESS
                                                 new PNotify({
                                                     title: 'Saved',

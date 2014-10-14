@@ -56,9 +56,12 @@
                         <div class="col-lg-12">
                             <h5 class="page-header"></h5>
                             {{#if is_viewMode}}
-                                <button type="submit" class="btn btn-primary pull-right btn-130" {{action 'manager_user' 'changeMode_edit'}}>Edit</button>
+                                <button type="submit" class="btn btn-primary pull-right btn-130" {{action 'manager_user' null 'changeMode_edit'}}>Edit</button>
                             {{else}}
-                                <button type="submit" class="btn btn-primary pull-right btn-130" {{action 'manager_user' 'put'}}>Save</button>
+                                {{#view 'standby-button' id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" data-style="expand-left" action_name='manager_user' arg1='put' arg2=null}}
+                                    <span class="ladda-label">Save</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary pull-right btn-130" {{!{{action 'manager_user' 'put'}}>Save</button>-->
                             {{/if}}
                         </div>
                     </div>

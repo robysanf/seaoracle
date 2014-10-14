@@ -27,7 +27,7 @@ export default Ember.Route.extend({
 
     },
     actions: {
-        create_record: function(){
+        create_record: function( _btn ){
             var self = this, controller = self.controllerFor('company.new-company'), app_controller = self.controllerFor('application');
             var allEmail = [], country = null, iso3 = null;
             //this.store.unloadAll('company');
@@ -112,6 +112,8 @@ export default Ember.Route.extend({
                 this.store.find('company', app_controller.company).then(function(company){
 
                     newCompany.set('parentCompany', company).save().then(function(val) {
+                        _btn.stop();
+
                         app_controller.autocompleteCompany.pushObject(val);
 
                         self.transitionTo('company/main', val.get('id'));
@@ -146,6 +148,7 @@ export default Ember.Route.extend({
 
 
                     }, function() {
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -157,6 +160,7 @@ export default Ember.Route.extend({
                 });
             }
             else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

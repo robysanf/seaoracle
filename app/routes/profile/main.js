@@ -6,7 +6,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        manager_user: function(action){
+        manager_user: function( _btn, action ){
             var self = this, app_controller = this.controllerFor('application');
 
             switch (action) {
@@ -24,6 +24,7 @@ export default Ember.Route.extend({
 
             var success = function(){
                 //SUCCESS
+                _btn.stop();
                 self.controller.set('is_viewMode', true);
 
                 new PNotify({
@@ -35,6 +36,7 @@ export default Ember.Route.extend({
             };
             var error = function(){
                 //NOT SAVED
+                _btn.stop();
                 new PNotify({
                     title: 'Not saved',
                     text: 'A problem has occurred.',

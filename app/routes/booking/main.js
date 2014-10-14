@@ -680,31 +680,36 @@ export default Ember.Route.extend({
          @param {String}
          @param {Number} - unique key
          */
-        update_general: function( name, book_record ) {
+        update_general: function( _btn, name, book_id ) {
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application');
 
             //controllo che sia stato inserito il chargeMode (PP/COLL) in caso contrario lo setto a COLL
-            if( !book_record.get('chargeMode') ) {
-                book_record.set('chargeMode', 'PP');
-            }
+            this.store.find( 'booking', book_id).then(function( book_record ){
+                if( !book_record.get('chargeMode') ) {
+                    book_record.set('chargeMode', 'PP');
+                }
 
-            book_record.save().then(function(){
-                //SUCCESS
-                new PNotify({
-                    title: 'Saved',
-                    text: 'You successfully saved general charge.',
-                    type: 'success',
-                    delay: 1000
-                });
+                book_record.save().then(function(){
+                    _btn.stop();
 
-                controller.set('revenuesTabList.general', false);
-                controller.set('revenuesTabList.bookingCharges', true);
-                controller.set('revenuesTabList.containerCharges', false);
-                controller.set('revenuesTabList.roroCharges', false);
-                controller.set('revenuesTabList.bbCharges', false);
-                controller.set('revenuesTabList.itemCharges', false);
+                    //SUCCESS
+                    new PNotify({
+                        title: 'Saved',
+                        text: 'You successfully saved general charge.',
+                        type: 'success',
+                        delay: 1000
+                    });
+
+                    controller.set('revenuesTabList.general', false);
+                    controller.set('revenuesTabList.bookingCharges', true);
+                    controller.set('revenuesTabList.containerCharges', false);
+                    controller.set('revenuesTabList.roroCharges', false);
+                    controller.set('revenuesTabList.bbCharges', false);
+                    controller.set('revenuesTabList.itemCharges', false);
 
                 }, function(){
+                    _btn.stop();
+
                     //NOT SAVED
                     new PNotify({
                         title: 'Not saved',
@@ -713,6 +718,7 @@ export default Ember.Route.extend({
                         delay: 2000
                     });
                 });
+            });
 
         },
 
@@ -3115,13 +3121,13 @@ export default Ember.Route.extend({
                             $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
 
                                 book.get('sharedWith').then(function(valShar){
-                                    var temp_valShar = valShar;
-                                    var temporaryList = temp_valShar.filter(function( i ) {      //rimuovo l'id del porto rimosso dall'utente
+                                    var temp_valShar = valShar;                                   //memorizzo la lista di riferimenti
+                                    var temporaryList = temp_valShar.filter(function( i ) {      //scorro la lista di riferimenti eliminando quelo da togliere
                                         return i !== companyToShare.get('id');
-                                        valShar.push();
+                                        valShar.push();                                           //svuoto la vecchia lista di riferimenti un elemento alla volta
                                     });
 
-                                    valShar.pushObjects(temporaryList);
+                                    valShar.pushObjects(temporaryList);                        //riassegno la nuova lista al riferimento hasMany
                                     book.set('state', stateTo);
                                     book.save().then(function(){
                                         book.reload();

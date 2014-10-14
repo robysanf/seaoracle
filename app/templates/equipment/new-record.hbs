@@ -63,10 +63,19 @@
                                     <label class="form-control" style="text-align: left">{{input type="checkbox" checked=controller.newAvailable}}</label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="margin-top: 10px">
                                 <div class="col-lg-3"><h4>Current status</h4></div>
                                 <div class="col-lg-9">
                                     {{view Ember.Select content=controller.statuses value= newCurrentStatus class='form-control'}}
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-lg-3"><h4>Current status date</h4></div>
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        {{date-picker-custom controls='currStatusDate' value= newCurrentStatusDateFrom placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                        {{date-picker-controls id='currStatusDate' maxYear="+50" minYear="-10"}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

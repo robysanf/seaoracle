@@ -7,7 +7,7 @@ export default Ember.View.extend({
     vessel:[],
     number:[],
 
-    focusOut: function(e) {
+    focusOut: function() {
         this.get('controller').send('check_uniqueVoyageNumber', this.model, this.filter_vessel, this.filter_number, this.vessel.get('id'), this.number);
     }
 });

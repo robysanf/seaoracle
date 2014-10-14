@@ -41,7 +41,7 @@ export default Ember.View.extend({
         });
 
         function actionPost() {
-            if($("#selected_logo").val() != ''){
+            if($("#selected_logo").val() !== ''){
                 if(formData_size > '10000000') {     //verifico che il file sia meno grande di 10 Mega-Byte
                     new PNotify({
                         title: 'Warning',
@@ -60,7 +60,7 @@ export default Ember.View.extend({
                         data: formData,
                         processData: false,
                         contentType: false
-                    }).then(function(val){
+                    }).then(function(){
                         formData = new FormData();
                         $("#selected_logo").val(" ");
                         controller.send('update_filesList', self.value, view.value1, $btn);

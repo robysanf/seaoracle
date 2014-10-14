@@ -64,8 +64,7 @@ export default Ember.Route.extend({
         },
 
         create_exel: function(){
-            var self = this, app_controller = self.controllerFor('application'),
-                data = this.getProperties();
+            var self = this, app_controller = self.controllerFor('application');
 
             $.fileDownload('api/custom/createModelExcel?token=' +app_controller.token+'&model=equipment')
                 .done(function () {

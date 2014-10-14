@@ -8,7 +8,7 @@ export default Ember.View.extend({
     focusOut: function() {
         var self = this, data = self.getProperties(), controller = this.get('controller');
 
-        if(this.val != '' && this.val != null){
+        if(this.val !== '' && this.val !== null){
 
             data.val = this.val;
             data.type = this.type;
@@ -18,7 +18,7 @@ export default Ember.View.extend({
                 } else {
                     controller.set('name', null);
 
-                    if( self.val == '' || self.val == null ){
+                    if( self.val === '' || self.val === null ){
                         new PNotify({
                             title: 'Attention',
                             text: 'You must compile the code field.',

@@ -5,7 +5,7 @@ export default Ember.View.extend({
 
     valueObserver: function() {
         if(this.value){
-            this.get('controller').send('filterIdentifier', this.value)
+            this.get('controller').send('filterIdentifier', this.value);
         }
     }.observes('value')
 });

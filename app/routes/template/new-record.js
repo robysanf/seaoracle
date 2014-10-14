@@ -104,7 +104,7 @@ export default Ember.Route.extend({
 
                                         controller.set('newName', null);
                                         controller.set('temporaryPath', []);
-                                    }, function(error){
+                                    }, function(){
                                         //NOT SAVED
                                         new PNotify({
                                             title: 'Not saved',

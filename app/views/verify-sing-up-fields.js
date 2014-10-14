@@ -4,7 +4,7 @@ export default Ember.View.extend({
     model_val:[],
     val:[],
 
-    focusOut: function(e) {
+    focusOut: function() {
         var self = this, data = self.getProperties();
 
         if(this.model_val === 'company') {

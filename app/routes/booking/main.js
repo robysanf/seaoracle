@@ -3012,7 +3012,7 @@ export default Ember.Route.extend({
                     data.model = "booking";       //modello della risorsa che condivido
                     data.companies = "["+companyToShare.get('id')+"]";
 
-                    if( stateFrom = 'request' && stateTo == 'pending' ){
+                    if( stateFrom === 'request' && stateTo === 'pending' ){
                         var data = self.getProperties();
 
                         data.bookingId = book.get('id');
@@ -3027,7 +3027,7 @@ export default Ember.Route.extend({
 
                             });
 
-                        }, function(error){
+                        }, function(){
                             new PNotify({
                                 title: 'Not saved',
                                 text: 'A problem has occurred.',
@@ -3037,7 +3037,7 @@ export default Ember.Route.extend({
                         });
                     }
 
-                    if( stateFrom = 'edit' && stateTo == 'lock' ){
+                    if( stateFrom === 'edit' && stateTo === 'lock' ){
                         var attrToCheck = ['client','agency','origin','destination','dtd','currency'],
                             promiseToCheck = [], //'freightPlans'
                             subEntity = 'bookingItems',
@@ -3063,7 +3063,7 @@ export default Ember.Route.extend({
                         self.send('checkTransitionFromStates', book, attrToCheck, promiseToCheck, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, companyToShare, stateTo);
                     }
 
-                    if(stateFrom = 'lock' && stateTo == 'register'){
+                    if(stateFrom === 'lock' && stateTo === 'register'){
                         var attrToCheck = ['currency'],
                             promiseToCheck = [],
                             subEntity = 'bookingItems',
@@ -3086,7 +3086,7 @@ export default Ember.Route.extend({
                         self.send('checkTransitionFromStates', book, attrToCheck, promiseToCheck, attrToCheck_subEntity, attrToCheck_subFreight, attrToValue, data, companyToShare, stateTo);
                     }
 
-                    if( ( stateFrom = 'pending' && stateTo == 'request' ) || ( stateFrom = 'lock' &&  stateTo == 'edit' )){
+                    if( ( stateFrom === 'pending' && stateTo === 'request' ) || ( stateFrom === 'lock' &&  stateTo === 'edit' )){
                         if(book.get('clientAgencyAreEqual')){                     //se agenzia e cliente sono la stessa company allora non faccio l'unshare del cliente
                             book.save().then(function(){
                                 var data = self.getProperties();
@@ -3094,7 +3094,8 @@ export default Ember.Route.extend({
                                 data.bookingId = book.get('id');
                                 data.state = stateTo;
                                 $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
-                                    book.set('state', stateTo).save().then(function(){
+                                    book.set('state', stateTo);
+                                    book.save().then(function(){
                                         book.reload();
                                     });
                                 }, function(){
@@ -3119,7 +3120,8 @@ export default Ember.Route.extend({
                                     });
                                     valShar.set('');
                                     valShar.pushObjects(temporaryList);
-                                    book.set('state', stateTo).save().then(function(){
+                                    book.set('state', stateTo);
+                                    book.save().then(function(){
                                         book.reload();
                                     });
                                 });

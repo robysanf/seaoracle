@@ -11,7 +11,7 @@ export default Ember.Route.extend({
         },
 
         new_signUp: function() {
-            var self = this, data = this.controller.getProperties(
+            var data = this.controller.getProperties(
                 'firstName',
                 'lastName',
                 'username',
@@ -27,19 +27,19 @@ export default Ember.Route.extend({
                 'companyType'
             );
 
-            if( (data.firstName != '' && data.firstName != null) &&
-                (data.lastName != '' && data.lastName != null) &&
-                (data.username != '' && data.username != null) &&
-                (data.pwd != '' && data.pwd != null) &&
-                (data.userEmail != '' && data.userEmail != null) &&
-                (data.name != '' && data.name != null) &&
-                (data.vatNumber != '' && data.vatNumber != null) &&
-                (data.street != '' && data.street != null) &&
-                (data.city != '' && data.city != null) &&
-                (data.zipCode != '' && data.zipCode != null) &&
-                (data.country != '' && data.country != null) &&
-                (data.companyEmail != '' && data.companyEmail != null) &&
-                (data.companyType != '' && data.companyType != null) ){
+            if( (data.firstName !== '' && data.firstName !== null) &&
+                (data.lastName !== '' && data.lastName !== null) &&
+                (data.username !== '' && data.username !== null) &&
+                (data.pwd !== '' && data.pwd !== null) &&
+                (data.userEmail !== '' && data.userEmail !== null) &&
+                (data.name !== '' && data.name !== null) &&
+                (data.vatNumber !== '' && data.vatNumber !== null) &&
+                (data.street !== '' && data.street !== null) &&
+                (data.city !== '' && data.city !== null) &&
+                (data.zipCode !== '' && data.zipCode !== null) &&
+                (data.country !== '' && data.country !== null) &&
+                (data.companyEmail !== '' && data.companyEmail !== null) &&
+                (data.companyType !== '' && data.companyType !== null) ){
 
                 data.userType = 'powerUser';
                 // Clear out any error messages.

@@ -13,7 +13,7 @@ export default Ember.View.extend({
                     update: function() {
                         view.get('controller').set('sorted_list', []);
 
-                        $(this).find('.sort-item').each(function(index) {
+                        $(this).find('.sort-item').each(function() {
                             view.get('controller').sorted_list.pushObject({
                                 sort_index: $(this).data('id'),
                                 record_index: $(this).data('value')

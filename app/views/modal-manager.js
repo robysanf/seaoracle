@@ -13,7 +13,7 @@ export default Ember.View.extend({
             var view = this;
             this.controller.send('remove_booking');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
                 view.controller.send('close_item');
             });
 
@@ -24,7 +24,7 @@ export default Ember.View.extend({
             var view = this;
             view.controller.send('send_authorizeResource');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
                 view.controller.send('close_item');
             });
             this.$('.modal').removeClass('in');
@@ -34,7 +34,7 @@ export default Ember.View.extend({
             var view = this;
             view.controller.send('send_shareResource');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
                 view.controller.send('close_item');
             });
             this.$('.modal').removeClass('in');
@@ -49,7 +49,7 @@ export default Ember.View.extend({
                 if (response.success) {
                     view.controller.send('generate_BL');
 
-                    view.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                    view.$('.modal, .modal-backdrop').one("transitionend", function() {
                         view.controller.send('close_item');
                     });
                     view.$('.modal').removeClass('in');
@@ -114,12 +114,12 @@ export default Ember.View.extend({
                                 view.controller.bookingCodeId = val.get('id');
                                 view.controller.send('send_delay');
 
-                                this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                                this.$('.modal, .modal-backdrop').one("transitionend", function() {
                                     view.controller.send('close');
                                 });
                                 this.$('.modal').removeClass('in');
                             }
-                        })
+                        });
 
                     } else {
                         new PNotify({
@@ -203,7 +203,7 @@ export default Ember.View.extend({
 
             this.controller.send('createRecord_item', bookItem_type, tu_type, item, booking, val);
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
                 view.controller.send('close');
             });
             this.$('.modal').removeClass('in');
@@ -220,7 +220,7 @@ export default Ember.View.extend({
                 credit: view.controller.planCredit
             }).save().then(function(val){
 
-                view.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                view.$('.modal, .modal-backdrop').one("transitionend", function() {
                     view.get('controller.controllers.application').autocompletePaymentPlan.pushObject(val);
 
                     view.controller.send('close_item');
@@ -245,7 +245,7 @@ export default Ember.View.extend({
                 ) {
                 this.controller.send('send_toStripe');
 
-                this.$('.modal, .modal-backdrop').one("transitionend", function(ev) {
+                this.$('.modal, .modal-backdrop').one("transitionend", function() {
                     view.controller.send('close_item');
                 });
 

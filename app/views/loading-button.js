@@ -8,11 +8,11 @@ export default Ember.View.extend({
         var view = this;
         var controller = this.get('controller');
 
-        $(document).ready(function(event) {
+        $(document).ready(function() {
             $('#button_save').bind('click', loading);
         });
 
-        function loading(event) {
+        function loading() {
             var $btn = $(this);
             $btn.button('loading');
 

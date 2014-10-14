@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     beforeModel: function() {
-        var self = this, app_controller= self.controllerFor('application'), controller = self.controllerFor('voyage.new-record');
+        var self = this, app_controller= self.controllerFor('application');
 
         //reset del campo di ricerca in caso di reload della pagina
         if( !app_controller.autocompleteVessel.get('length') ) {
@@ -115,8 +115,7 @@ export default Ember.Route.extend({
         },
 
         remove_item: function( indexToRemove ){ //rimozione di un toggle a layout
-            var self = this, controller = self.controllerFor('voyage.new-record'),
-                arrayOrigin = [], arrayDestination = [];
+            var self = this, controller = self.controllerFor('voyage.new-record');
 
             $.each(controller.listOfElements, function(index, val){
 
@@ -160,7 +159,7 @@ export default Ember.Route.extend({
         create_record: function( ){
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('voyage.new-record'),
                 queryExpression = {}, searchPath = '',
-                listOfLegs = [], countSchedules = 1, count = controller.listOfElements.length, countLeg = 0;
+                listOfLegs = [], count = controller.listOfElements.length, countLeg = 0;
 
             searchPath = 'vessel'; queryExpression[searchPath] = controller.searchVessel.get('id');
             searchPath = 'number'; queryExpression[searchPath] = controller.newNumber;
@@ -208,7 +207,7 @@ export default Ember.Route.extend({
                                         newLeg.save().then(function(myLeg){
 
                                             $.each(controller.listOfElements, function(index, val) {
-                                                if( (myLeg.get("poi").get("id") == val.poi.get('id')) && (listOfLegs[index] == null)){
+                                                if( (myLeg.get("poi").get("id") === val.poi.get('id')) && (listOfLegs[index] === null)){
                                                     listOfLegs[index] = myLeg;
                                                     return false;
                                                 }
@@ -246,7 +245,7 @@ export default Ember.Route.extend({
                                                     });
                                                 });
                                             }
-                                        }, function(error){
+                                        }, function(){
                                             //NOT SAVED
                                             new PNotify({
                                                 title: 'Not saved',
@@ -259,7 +258,7 @@ export default Ember.Route.extend({
 
                                     });
                                 });
-                            }, function(error){
+                            }, function(){
                                 //NOT SAVED
                                 new PNotify({
                                     title: 'Not saved',

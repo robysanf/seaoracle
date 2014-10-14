@@ -220,7 +220,7 @@ export default Ember.Route.extend({
 
                             if( leg.get('isDirty') ){
                                 leg.save().then(function(){
-                                    if(schedules.get("length") == count){
+                                    if(schedules.get("length") === count){
                                         //SUCCESS
                                         new PNotify({
                                             title: 'Saved',
@@ -241,7 +241,7 @@ export default Ember.Route.extend({
                                     });
                                 });
                             } else {
-                                if(schedules.get("length") == count){
+                                if(schedules.get("length") === count){
                                     //SUCCESS
                                     new PNotify({
                                         title: 'Saved',

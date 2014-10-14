@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-    beforeModel: function(){
-        var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('template.main');
-
-        //reset search variables
-//        controller.searchCompany = Ember.A();
-//        controller.searchPort = Ember.A();
-    },
+//    beforeModel: function(){
+//        var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('template.main');
+//
+//        //reset search variables
+////        controller.searchCompany = Ember.A();
+////        controller.searchPort = Ember.A();
+//    },
 
     model: function(template) {
         return this.store.find('template', template.template_id);

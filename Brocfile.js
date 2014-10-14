@@ -18,6 +18,11 @@ var extraAssets = pickFiles('vendor/bootstrap/dist/fonts',{
     destDir: '/fonts'
 });
 
+// IMPORT LADDA
+app.import('vendor/ladda/ladda-themeless.min.css');
+app.import('vendor/ladda/spin.min.js');
+app.import('vendor/ladda/ladda.min.js');
+
 // IMPORT STRIPE
 app.import('vendor/stripe/stripe-2.min.js');
 app.import('vendor/stripe/stripe_key.js');
@@ -44,6 +49,9 @@ app.import('vendor/ember-spin-box/ember-spin-box.min.js');
 // IMPORT EMBER-DATE-PICKER
 app.import('vendor/ember-date-picker/dist/ember-date-picker-custom.css');
 app.import('vendor/ember-date-picker/dist/ember-date-picker-custom.js');
+
+
+
 
 module.exports = mergeTrees([app.toTree(), extraAssets]);
 //module.exports = app.toTree();

@@ -125,8 +125,8 @@ export default Ember.Route.extend({
                             if( destinationList == null ){
                                 newBL.save().then(success);
                             }
-                        })
-                    })
+                        });
+                    });
                 }
                 if( destinationList !== null ){
                     self.store.find('leg', destinationList).then(function(destination){
@@ -134,8 +134,8 @@ export default Ember.Route.extend({
                             newBL.set('destination', destinationP);
                             newBL.set('destinationLeg', destination);
                             newBL.save().then(success);
-                        })
-                    })
+                        });
+                    });
                 }
             }
 
@@ -366,7 +366,7 @@ export default Ember.Route.extend({
                 bookItList = null,
                 data = self.getProperties();
 
-            if(controller.actualOrigin != '' && controller.actualDestination != '' && controller.actualVoyage != '' && controller.name != '' && controller.name != null ){
+            if(controller.actualOrigin !== '' && controller.actualDestination !== '' && controller.actualVoyage !== '' && controller.name !== '' && controller.name !== null ){
                 $('div.alert.alert-danger').css('display', 'none');   //REMOVE THE WARNING
 
                 /*
@@ -385,12 +385,12 @@ export default Ember.Route.extend({
                         bookItList =  controller.get("selectedBookItList").filterBy("isChecked").mapBy("id").unique();
 
 //                   var bookItListFilter =  bookItList.filterBy("isChecked");
-                        if(bookItList.length != 0){
+                        if(bookItList.length !== 0){
                             bookItList.filter(function(val, index){
                                 self.store.find('bookingItem', val).then(function(bookIt){
                                     allBook.pushObject(bookIt.get('booking'));
 
-                                    if( bookItList.get( 'length') == index+1 ) {
+                                    if( bookItList.get( 'length') === index+1 ) {
                                         allBook = allBook.unique();      // tolgo possibili ripetizioni dalla lista di bookings padre
                                         bookItemsToBL( bookItList.join(",").split(","), allBook );
                                     }
@@ -433,17 +433,17 @@ export default Ember.Route.extend({
 
                     self.store.find('bookingItem', bookItem).then(function(bookIt){  // recupero gli oggetti item tramite i loro id
 
-                        if(shipper!=null) {    //controllo per shipper/consignee/notify
-                            if(shipper != bookIt.get('shipper')) {
+                        if(shipper!== null) {    //controllo per shipper/consignee/notify
+                            if(shipper !== bookIt.get('shipper')) {
                                 shipperCheck = false;
                             }
                         }
-                        if(consignee!=null) {
+                        if(consignee!== null) {
                             if(consignee != bookIt.get('consignee')) {
                                 consigneeCheck = false;
                             }
                         }
-                        if(notify!=null) {
+                        if(notify!== null) {
                             if(notify != bookIt.get('notify')) {
                                 notifyCheck = false;
                             }
@@ -462,7 +462,7 @@ export default Ember.Route.extend({
                         }
 
                         if(shipperCheck && consigneeCheck && notifyCheck) {
-                            if(allBookItems.filter(function(val){return val!==''}).length == index_bi+1) {
+                            if(allBookItems.filter(function(val){return val!==''}).length === index_bi+1) {
                                 self.store.find('company', app_controller.company).then(function(comp){
                                     var date = new Date(), arr = [], val2 = 'dangerous_good|' + false;      //svuoto l'array e successivamente lo ripopolo in modo da non mandare in errore la property bl_type in documentModel.js
                                     arr.push(val2);
@@ -488,13 +488,13 @@ export default Ember.Route.extend({
                                     if(bookIt.get('shipper')){
                                         self.store.find('company', shipper.get('id')).then(function(shipperObj){
                                             if(shipperObj.get('name')) {
-                                                stringShipper = shipperObj.get('name')
+                                                stringShipper = shipperObj.get('name');
                                             }
                                             if(shipperObj.get('street')) {
-                                                stringShipper = stringShipper + "\n" + shipperObj.get('street')
+                                                stringShipper = stringShipper + "\n" + shipperObj.get('street');
                                             }
                                             if(shipperObj.get('city') && shipperObj.get('country')) {
-                                                stringShipper = stringShipper + "\n" + shipperObj.get('city') + " " + shipperObj.get('country')
+                                                stringShipper = stringShipper + "\n" + shipperObj.get('city') + " " + shipperObj.get('country');
                                             }
                                             if(shipperObj.get('phone')) {
                                                 stringShipper = stringShipper + "\n" + shipperObj.get('phone');
@@ -506,13 +506,13 @@ export default Ember.Route.extend({
                                     if(bookIt.get('consignee')){
                                         self.store.find('company', consignee.get('id')).then(function(consigneeObj){
                                             if(consigneeObj.get('name')) {
-                                                stringConsignee = consigneeObj.get('name')
+                                                stringConsignee = consigneeObj.get('name');
                                             }
                                             if(consigneeObj.get('street')) {
-                                                stringConsignee = stringConsignee + "\n" + consigneeObj.get('street')
+                                                stringConsignee = stringConsignee + "\n" + consigneeObj.get('street');
                                             }
                                             if(consigneeObj.get('city') && consigneeObj.get('country')) {
-                                                stringConsignee = stringConsignee + "\n" + consigneeObj.get('city') + " " + consigneeObj.get('country')
+                                                stringConsignee = stringConsignee + "\n" + consigneeObj.get('city') + " " + consigneeObj.get('country');
                                             }
                                             if(consigneeObj.get('phone')) {
                                                 stringConsignee = stringConsignee + "\n" + consigneeObj.get('phone');
@@ -524,13 +524,13 @@ export default Ember.Route.extend({
                                     if(bookIt.get('notify')){
                                         self.store.find('company', notify.get('id')).then(function(notifyObj){
                                             if(notifyObj.get('name')) {
-                                                stringNotify = notifyObj.get('name')
+                                                stringNotify = notifyObj.get('name');
                                             }
                                             if(notifyObj.get('street')) {
-                                                stringNotify = stringNotify + "\n" + notifyObj.get('street')
+                                                stringNotify = stringNotify + "\n" + notifyObj.get('street');
                                             }
                                             if(notifyObj.get('city') && notifyObj.get('country')) {
-                                                stringNotify = stringNotify + "\n" + notifyObj.get('city') + " " + notifyObj.get('country')
+                                                stringNotify = stringNotify + "\n" + notifyObj.get('city') + " " + notifyObj.get('country');
                                             }
                                             if(notifyObj.get('phone')) {
                                                 stringNotify = stringNotify + "\n" + notifyObj.get('phone');
@@ -565,8 +565,8 @@ export default Ember.Route.extend({
                             });
                         }
 
-                    })
-                })
+                    });
+                });
             }
         }
     }

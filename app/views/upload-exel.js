@@ -4,8 +4,7 @@ export default Ember.View.extend({
     value1:[],
 
     didInsertElement: function() {
-        var view = this, controller = this.get('controller'),
-            formData = new FormData(),formData_size = null;
+        var formData = new FormData(),formData_size = null;
 
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this),

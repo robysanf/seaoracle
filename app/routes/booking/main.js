@@ -3115,10 +3115,12 @@ export default Ember.Route.extend({
                             $.post('api/custom/changeBookingState?token=' + app_controller.token, data).then(function(){
 
                                 book.get('sharedWith').then(function(valShar){
-                                    var temporaryList = valShar.filter(function(i) {      //rimuovo l'id del porto rimosso dall'utente
-                                        return i != companyToShare.get('id')
+                                    var temp_valShar = valShar;
+                                    var temporaryList = temp_valShar.filter(function( i ) {      //rimuovo l'id del porto rimosso dall'utente
+                                        return i !== companyToShare.get('id');
+                                        valShar.push();
                                     });
-                                    valShar.set('');
+
                                     valShar.pushObjects(temporaryList);
                                     book.set('state', stateTo);
                                     book.save().then(function(){

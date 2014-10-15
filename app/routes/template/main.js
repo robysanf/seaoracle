@@ -29,45 +29,57 @@ export default Ember.Route.extend({
                             });
                         });
 
-                        $.each( controller.temporary_records_list, function(index, val) {
-                            self.store.find('poi', val).then(function(poi){
-                                paths.pushObject(poi);
-                                if( controller.temporary_records_list.length === index + 1 ){
-                                    record.save().then(function(res){
-                                        app_controller.obj = Ember.Object.create({
-                                            things: []
-                                        });
-                                        controller.set('temporary_records_list', app_controller.obj.things);
+                        if( controller.temporary_records_list.length ) {
+                            $.each( controller.temporary_records_list, function(index, val) {
+                                self.store.find('poi', val).then(function(poi){
+                                    paths.pushObject(poi);
+                                    if( controller.temporary_records_list.length === index + 1 ){
+                                        record.save().then(function(res){
+                                            app_controller.obj = Ember.Object.create({
+                                                things: []
+                                            });
+                                            controller.set('temporary_records_list', app_controller.obj.things);
 
-                                        app_controller.autocompleteTemplate.forEach(function(item, index){
-                                            if( item.get('id') === val ) {
-                                                app_controller.autocompleteTemplate.removeAt(index);
-                                                app_controller.autocompleteTemplate.pushObject(res);
-                                            }
-                                        });
+                                            app_controller.autocompleteTemplate.forEach(function(item, index){
+                                                if( item.get('id') === val ) {
+                                                    app_controller.autocompleteTemplate.removeAt(index);
+                                                    app_controller.autocompleteTemplate.pushObject(res);
+                                                }
+                                            });
 
-                                        //SUCCESS
-                                        new PNotify({
-                                            title: 'Saved',
-                                            text: 'You successfully saved template.',
-                                            type: 'success',
-                                            delay: 1000
-                                        });
+                                            //SUCCESS
+                                            new PNotify({
+                                                title: 'Saved',
+                                                text: 'You successfully saved template.',
+                                                type: 'success',
+                                                delay: 1000
+                                            });
 
-                                        controller.set( 'isView', bool );
+                                            controller.set( 'isView', bool );
 
-                                    }, function(){
-                                        //NOT SAVED
-                                        new PNotify({
-                                            title: 'Not saved',
-                                            text: 'A problem has occurred.',
-                                            type: 'error',
-                                            delay: 2000
+                                        }, function(){
+                                            //NOT SAVED
+                                            new PNotify({
+                                                title: 'Not saved',
+                                                text: 'A problem has occurred.',
+                                                type: 'error',
+                                                delay: 2000
+                                            });
                                         });
-                                    });
-                                }
+                                    }
+                                });
                             });
-                        });
+                        } else {
+
+                            //NOT SAVED
+                            new PNotify({
+                                title: 'Not saved',
+                                text: 'Please check if required field has been entered.',
+                                type: 'error',
+                                delay: 2000
+                            });
+                        }
+
                     });
 
                 });

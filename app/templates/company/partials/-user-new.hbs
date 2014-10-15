@@ -111,7 +111,10 @@
                 <h5 class="page-header"></h5>
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action "createUser" id}}>Save</button>
+                        {{#view 'standby-button' action_name='createUser' arg1=id arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" }}
+                            <span class="ladda-label">Save</span>
+                        {{/view}}
+                        <!--<button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{!{{action "createUser" id}}>Save</button>-->
                     </div>
                 </div>
             </div>

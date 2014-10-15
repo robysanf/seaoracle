@@ -57,29 +57,41 @@
                                 </div>
                                 {{#if controller.is_admin}}
                                     <div class="col-lg-2">
-                                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save" 'request'}}>
-                                            <span class="glyphicon glyphicon-ok"></span> Confirm Req.
-                                        </button>
+                                        {{#view 'standby-button' action_name='save' arg1='request' arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                            <span class="ladda-label">Confirm Req.</span>
+                                        {{/view}}
+                                        <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save" 'request'}}>-->
+                                            <!--<span class="glyphicon glyphicon-ok"></span> Confirm Req.-->
+                                        <!--</button>-->
                                     </div>
                                     <div class="col-lg-2">
-                                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save" 'edit'}}>
-                                            <span class="glyphicon glyphicon-ok"></span> Confirm
-                                        </button>
+                                        {{#view 'standby-button' action_name='save' arg1='edit' arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                            <span class="ladda-label">Confirm</span>
+                                        {{/view}}
+                                        <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save" 'edit'}}>-->
+                                            <!--<span class="glyphicon glyphicon-ok"></span> Confirm-->
+                                        <!--</button>-->
                                     </div>
                                 {{else}}
                                     {{#if controller.is_client}}
                                         <div class="col-lg-2"></div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save" 'request'}}>
-                                                <span class="glyphicon glyphicon-ok"></span> Confirm Req.
-                                            </button>
+                                            {{#view 'standby-button' action_name='save' arg1='request' arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                                <span class="ladda-label">Confirm Req.</span>
+                                            {{/view}}
+                                            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save" 'request'}}>-->
+                                                <!--<span class="glyphicon glyphicon-ok"></span> Confirm Req.-->
+                                            <!--</button>-->
                                         </div>
                                     {{else}}
                                         <div class="col-lg-2"></div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save" 'edit'}}>
-                                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                                            </button>
+                                            {{#view 'standby-button' action_name='save' arg1='edit' arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                                <span class="ladda-label">Confirm</span>
+                                            {{/view}}
+                                            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save" 'edit'}}>-->
+                                                <!--<span class="glyphicon glyphicon-ok"></span> Confirm-->
+                                            <!--</button>-->
                                         </div>
                                     {{/if}}
                                 {{/if}}

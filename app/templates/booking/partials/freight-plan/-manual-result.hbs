@@ -9,7 +9,7 @@
                             <h3 class="panel-title">
                                 <span class="glyphicon glyphicon-sort pull-left" style="color: #d3d3d3; width: 10%"></span>
                                 <a class="sort-item" data-toggle="collapse" data-parent="#accordion" href="#{{unbound _view.contentIndex}}" data-id="{{unbound _view.contentIndex}}" data-value="{{unbound voyage.id}}">
-                                    <strong>{{voyage.name}} : {{voyage.id}}</strong>
+                                    <strong>{{voyage.name}}</strong>
                                 </a>
 
                                 <button type="button" class="btn close pull-right" {{action "remove_freight_item" _view.contentIndex}}>&times;</button>
@@ -66,7 +66,7 @@
                                                 {{/if}}
                                             </td>
                                             <td></td>
-                                            <td> {{#if leg.isTranshipment}}<strong>{{leg.poi.name}} poi:{{leg.poi.id}} leg:{{leg.id}}</strong>{{else}}{{leg.poi.name}} poi:{{leg.poi.id}} leg:{{leg.id}}{{/if}}</td>
+                                            <td> {{#if leg.isTranshipment}}<strong>{{leg.poi.name}}</strong>{{else}}{{leg.poi.name}}{{/if}}</td>
                                             {{#if leg.atd}}
                                                 <td>{{#if leg.isTranshipment}}<strong>{{leg.atd}}</strong>{{else}}{{leg.atd}}{{/if}}</td>
                                             {{else}}
@@ -95,9 +95,12 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             <h5 class="page-header"></h5>
-            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_freightPlan" this this.origin.name this.destination.name}}>
-                <span class="glyphicon glyphicon-ok"></span> Confirm
-            </button>
+            {{#view 'standby-button' action_name='save_freightPlan' arg1=id arg2=origin.name arg3=destination.name data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                <span class="ladda-label">Confirm</span>
+            {{/view}}
+            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save_freightPlan" this this.origin.name this.destination.name}}>-->
+                <!--<span class="glyphicon glyphicon-ok"></span> Confirm-->
+            <!--</button>-->
         </div>
         <div class="col-lg-1"></div>
     </div>

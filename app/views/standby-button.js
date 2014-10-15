@@ -8,6 +8,8 @@ export default Ember.View.extend({
     action_name: [],
     arg1: [],
     arg2: [],
+    arg3: [],
+    arg4: [],
 
     didInsertElement: function() {
         var view = this;
@@ -23,7 +25,7 @@ export default Ember.View.extend({
             e.preventDefault();
             var _btn = Ladda.create(this);
             _btn.start();
-            controller.send(view.action_name, _btn, view.arg1, view.arg2);
+            controller.send(view.action_name, _btn, view.arg1, view.arg2, view.arg3, view.arg4);
         }
     }
 });

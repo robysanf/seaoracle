@@ -1,6 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
+    needs: ['company/main'],
+
+    company_id: Ember.computed.alias('controllers.company/main.company_id'),
+
+    tabListDetails: Ember.computed.alias('controllers.company/main.tabList.details'),
+    tabListUsers: Ember.computed.alias('controllers.company/main.tabList.users'),
+    tabListFiles: Ember.computed.alias('controllers.company/main.tabList.files'),
+
     isLogin: false,
 
     LOG_TRANSITIONS: true,

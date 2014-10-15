@@ -6,7 +6,6 @@
             <p><h5>Type: <b>{{type}}</b></h5>
             <p><h5>Visibility: <b>{{visibility}}</b></h5>
 
-
             <h3 class="page-header"></h3>
             {{#if controller.itemListActive}}
                 <button type="button" class="btn btn-primary btn-group-justified" {{action 'goTo' false}}>
@@ -32,7 +31,6 @@
                 <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
             </li>
             <!--user può essere visto se l'utente è admin o se la company è la sua-->
-
             {{#if controller.is_admin}}
                 <li {{bind-attr class="controller.tabList.users:active"}}>
                     <a href="#" {{action setTabs "users"}}><h4>Users</h4></a>

@@ -17,7 +17,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{unbound 'indexes-each-helper' voyage.id _view.contentIndex}}">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{unbound 'indexes-each-helper' this.id _view.contentIndex}}">
                                             <div style="color: darkgray">
                                                 {{voyage.name}}
                                                 {{#if transhipmentTo.poi.name}}<span class="pull-right">To:&nbsp;<strong>{{transhipmentTo.poi.name}}&nbsp;&nbsp;&nbsp;</strong></span>{{/if}}
@@ -26,7 +26,7 @@
                                         </a>
                                     </h3>
                                 </div>
-                                <div class="panel-collapse collapse" id="{{unbound 'indexes-each-helper' voyage.id _view.contentIndex}}">
+                                <div class="panel-collapse collapse" id="{{unbound 'indexes-each-helper' this.id _view.contentIndex}}">
                                     <div class="panel-body">
                                         <table class="table">
                                             <thead>
@@ -74,9 +74,12 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             <h5 class="page-header"></h5>
-            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_freightPlan" this}}>
-                <span class="glyphicon glyphicon-ok"></span> Confirm
-            </button>
+            {{#view 'standby-button' action_name='save_freightPlan' arg1=id arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                <span class="ladda-label">Confirm</span>
+            {{/view}}
+            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save_freightPlan" this}}>-->
+                <!--<span class="glyphicon glyphicon-ok"></span> Confirm-->
+            <!--</button>-->
         </div>
         <div class="col-lg-1"></div>
     </div>

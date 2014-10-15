@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('vessel.new-record');
 
             //verifico che i campi obbligatori siano stati compilati
@@ -38,6 +38,7 @@ export default Ember.Route.extend({
 
                         app_controller.autocompleteVessel.pushObject(vessel);
 
+                        _btn.stop();
                         //SUCCESS
                         new PNotify({
                             title: 'Saved',
@@ -54,6 +55,8 @@ export default Ember.Route.extend({
                         controller.set('newWidth', null);
 
                     }, function(){
+
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -65,6 +68,7 @@ export default Ember.Route.extend({
                 });
 
             } else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

@@ -16,8 +16,8 @@ export default Ember.ObjectController.extend({
     }.property('app_controller_companyType'),
 
     is_myCompany: function(){
-         return ( this.get('company_id') === this.get('app_company') )
-    }.property('company_id'),
+         return ( String(this.get('company_id')) === String(this.get('app_company')) );
+    }.property('company_id', 'app_company'),
 
     userId: null,
     companyRecord: null,
@@ -72,7 +72,7 @@ export default Ember.ObjectController.extend({
         newPhone: null,
         newType: 'user',
 
-        createUser: function(id) {
+        createUser: function( _btn, id ) {
             var self = this;
             this.companyId = id;
             var data = this.getProperties(
@@ -137,6 +137,7 @@ export default Ember.ObjectController.extend({
                         self.set('newPhone', null);
                         self.set('newVisibility', null);
 
+                        _btn.stop();
                         //SUCCESS
                         new PNotify({
                             title: 'Saved',
@@ -153,6 +154,7 @@ export default Ember.ObjectController.extend({
                         });
                         //self.transitionToRoute('companies.companyViews.companyView', self.companyId);
                     }, function() {
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',

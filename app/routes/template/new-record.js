@@ -68,13 +68,14 @@ export default Ember.Route.extend({
             });
         },
 
-        create_record: function(){
-            var self = this, app_controller= self.controllerFor('application'), controller = self.controllerFor('template.new-record');
+        create_record: function( _btn ){
+            var self = this, app_controller= self.controllerFor('application'), controller = self.controllerFor('template.new-record'),
+                path_length = controller.listOfPorts.length;
 
             (controller.newName != null && controller.newName.length > 1 ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
 
             //check for the validity name
-            if (controller.newName != null && controller.newName.length > 1) {
+            if ( controller.newName != null && controller.newName.length > 1 && path_length ) {
 
                 //create new Template
                 var newTemplate = this.store.createRecord('template', {
@@ -94,6 +95,7 @@ export default Ember.Route.extend({
                                     newTemplate.save().then(function(temp){
                                         app_controller.autocompleteTemplate.pushObject(temp);
 
+                                        _btn.stop();
                                         //SUCCESS
                                         new PNotify({
                                             title: 'Saved',
@@ -105,6 +107,7 @@ export default Ember.Route.extend({
                                         controller.set('newName', null);
                                         controller.set('temporaryPath', []);
                                     }, function(){
+                                        _btn.stop();
                                         //NOT SAVED
                                         new PNotify({
                                             title: 'Not saved',
@@ -121,6 +124,7 @@ export default Ember.Route.extend({
             }
             else {
                 //WARNING
+                _btn.stop();
                 //NOT SAVED
                 new PNotify({
                     title: 'Attention',

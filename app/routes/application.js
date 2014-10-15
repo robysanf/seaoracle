@@ -126,6 +126,17 @@ export default Ember.Route.extend({
                     });
                 }
             });
+        },
+
+        linkto: function( path, record_id ){
+            var self = this, controller = self.controllerFor('application');
+
+            controller.set('company_id', record_id);
+            controller.set('tabListDetails', false);
+            controller.set('tabListUsers', false);
+            controller.set('tabListFiles', false);
+
+            this.transitionTo(path, record_id);
         }
 
     }

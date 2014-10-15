@@ -25,7 +25,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, controller = self.controllerFor('segment.segment-new'), app_controller = self.controllerFor('application');
 
             //verifico che i campi obbligatori siano stati compilati
@@ -43,6 +43,7 @@ export default Ember.Route.extend({
                     newSegment.save().then(function(promise){
                         app_controller.autocompleteSegment.pushObject(promise);
 
+                        _btn.stop();
                         //SUCCESS
                         new PNotify({
                             title: 'Saved',
@@ -56,15 +57,17 @@ export default Ember.Route.extend({
                         controller.set('newDestination', []);
 
                 }, function(){
-                    //NOT SAVED
-                    new PNotify({
-                        title: 'Not saved',
-                        text: 'A problem has occurred.',
-                        type: 'error',
-                        delay: 2000
-                    });
+                        _btn.stop();
+                        //NOT SAVED
+                        new PNotify({
+                            title: 'Not saved',
+                            text: 'A problem has occurred.',
+                            type: 'error',
+                            delay: 2000
+                        });
                 });
             } else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

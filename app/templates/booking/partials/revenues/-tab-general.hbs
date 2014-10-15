@@ -82,9 +82,12 @@
         <div class="row" style="margin-bottom: 25px">
             <h5 class="page-header"></h5>
             <div class="col-lg-12">
-                {{#view 'standby-button' id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" data-style="expand-left" action_name='update_general' arg1='bookingCharges' arg2=id}}
-                    <span class="ladda-label">Confirm</span>
-                {{/view}}
+                <button type="button" class="btn btn-primary btn-130 pull-right" {{action 'update_general' 'bookingCharges' this}}>
+                    Confirm
+                </button>
+                <!--{{!{{#view 'standby-button' id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" data-style="expand-left" action_name='update_general' arg1='bookingCharges' arg2=id}}-->
+                    <!--<span class="ladda-label">Confirm</span>-->
+                <!--{{!{{/view}}-->
             </div>
         </div>
     {{/unless}}

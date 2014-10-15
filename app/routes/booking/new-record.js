@@ -35,7 +35,7 @@ export default Ember.Route.extend({
 
         /*      NEW BOOKING
          * *******************************************************************************************************/
-        save: function(state){
+        save: function( _btn, state ){
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('booking.new-record'),
                 clientDetList=null, agencyDetList=null, shipperDetList= null, consigneeDetList= null, notifyDetList=null, finalDest = null,
                 dtd = new Date(), dta = new Date();
@@ -210,8 +210,6 @@ export default Ember.Route.extend({
 
                             booking.set('clientDetail', clientDetList);
                         }
-
-
                     }else{
                         if(state === 'request'){
                             if( controller.searchAgency !== "" && controller.searchAgency !== null ) {
@@ -267,6 +265,8 @@ export default Ember.Route.extend({
 
                     booking.set('company', company).save().then(function(promise){
                         promise.reload().then(function(val){
+
+                            _btn.stop();
                             //SUCCESS
                             new PNotify({
                                 title: 'Saved',
@@ -291,6 +291,7 @@ export default Ember.Route.extend({
                             self.get('controller').set('dta', null);
                         });
                     }, function(){
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',

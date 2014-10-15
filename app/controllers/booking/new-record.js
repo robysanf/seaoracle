@@ -43,6 +43,8 @@ export default Ember.Controller.extend({
     searchNotify: null,
     searchAgency: null,
 
+    //dtd: new Date(),
+
     currencyClassification: [
         'EUR',
         'USD'

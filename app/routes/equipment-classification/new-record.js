@@ -19,7 +19,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('equipment-classification.new-record');
 
             this.unique = controller.newSizeCode !== null && controller.newSizeCode.length >= 1 &&
@@ -99,6 +99,7 @@ export default Ember.Route.extend({
                         controller.set('newDeclaredVolume', null);
                         controller.set('newTeu', null);
 
+                        _btn.stop();
                         //SAVED
                         new PNotify({
                             title: 'Saved',
@@ -108,6 +109,7 @@ export default Ember.Route.extend({
                         });
 
                     }, function() {
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -119,6 +121,7 @@ export default Ember.Route.extend({
                 });
             }
             else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

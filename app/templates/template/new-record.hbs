@@ -55,7 +55,10 @@
                                 <button type="submit" class="btn btn-default btn-130 pull-right" {{action "open_modal" 'template.modals.select-item' this}}>Add leg</button>
                             </div>
                             <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                                {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Save</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
                             </div>
                         </div>
                     </div>

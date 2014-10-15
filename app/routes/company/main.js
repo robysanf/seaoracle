@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     beforeModel: function() {
-        var self = this,  controller = self.controllerFor('company.main');
+        var self = this,  controller = self.controllerFor('company.main'), app_controller= self.controllerFor('application');
 
         //imposto la tab details come default per 'company'
         if( controller.tabList.details !== true &&  controller.tabList.users !== true &&  controller.tabList.files !== true ) {
@@ -165,7 +165,7 @@ export default Ember.Route.extend({
          @param {record} entità user di riferimento
          @param {boolean} false - per tornare a visualizzare la lista di utenti associati alla company
          */
-        editUser: function( record, bool ){
+        editUser: function( _btn, record, bool ){
             var self = this, controller = self.controllerFor('company.main'),
                 firstName = record.get('firstName'), lastName = record.get('lastName'), email = record.get('email');
 
@@ -180,6 +180,7 @@ export default Ember.Route.extend({
                 controller.set('itemEditActive', bool);
                 record.save().then(function(val){
                     val.reload();
+                    _btn.stop();
                     //SUCCESS
                     new PNotify({
                         title: 'Saved',
@@ -189,6 +190,7 @@ export default Ember.Route.extend({
                     });
                 });
             } else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

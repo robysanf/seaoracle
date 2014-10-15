@@ -70,9 +70,12 @@
                 <div class="col-lg-10">
                     <h5 class="page-header"></h5>
                     {{#if controller.isView}}
-                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action "change_state" false}}>Edit</button>
+                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" {{action "change_state" null false}}>Edit</button>
                     {{else}}
-                        <button type="submit" class="btn btn-primary btn-small btn-130 pull-right"{{action "change_state" true this}}>Save</button>
+                        {{#view 'standby-button' action_name='change_state' arg1=true arg2=id data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" }}
+                            <span class="ladda-label">Save</span>
+                        {{/view}}
+                        <!--<button type="submit" class="btn btn-primary btn-small btn-130 pull-right"{{!{{action "change_state" true this}}>Save</button>-->
                     {{/if}}
                 </div>
                 <div class="col-lg-2"></div>

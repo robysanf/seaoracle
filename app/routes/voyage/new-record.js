@@ -156,26 +156,30 @@ export default Ember.Route.extend({
 
         },
 
-        create_record: function( ){
+        create_record: function( _btn ){
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('voyage.new-record'),
                 queryExpression = {}, searchPath = '',
                 listOfLegs = [], count = controller.listOfElements.length, countLeg = 0;
 
-            searchPath = 'vessel'; queryExpression[searchPath] = controller.searchVessel.get('id');
-            searchPath = 'number'; queryExpression[searchPath] = controller.newNumber;
+            if( controller.searchVessel !== null && controller.searchVessel !== undefined &&
+                controller.newNumber !== null && controller.newNumber !== '' && count) {
 
-            this.store.findQuery('voyage', queryExpression).then(function(val){
-                if(val.get('length') >= 1){
-                    controller.set('newNumber', null);
-                    //Attention
-                    new PNotify({
-                        title: 'Attention',
-                        text: 'Already exists a voyage with this vessel and this number.',
-                        delay: 2000
-                    });
-                } else {
-                    if( controller.searchVessel !== null && controller.searchVessel !== undefined ) {
-                        $('div.alert.alert-danger').css('display', 'none');
+                $('div.alert.alert-danger').css('display', 'none');
+
+                searchPath = 'vessel'; queryExpression[searchPath] = controller.searchVessel.get('id');
+                searchPath = 'number'; queryExpression[searchPath] = controller.newNumber;
+
+                this.store.findQuery('voyage', queryExpression).then(function( val ){
+                    if(val.get('length') >= 1){
+                        _btn.stop();
+                        controller.set('newNumber', null);
+                        //Attention
+                        new PNotify({
+                            title: 'Attention',
+                            text: 'Already exists a voyage with this vessel and this number.',
+                            delay: 2000
+                        });
+                    } else {
 
                         //create new Template
                         var newVoyage = self.store.createRecord('voyage', {
@@ -207,7 +211,10 @@ export default Ember.Route.extend({
                                         newLeg.save().then(function(myLeg){
 
                                             $.each(controller.listOfElements, function(index, val) {
-                                                if( (myLeg.get("poi").get("id") === val.poi.get('id')) && (listOfLegs[index] === null)){
+                                                var pois_leg_id = myLeg.get("poi").get("id");
+                                                var poi_id = val.poi.get('id');
+                                                var is_cell_empty = listOfLegs[index];
+                                                if( ( pois_leg_id === poi_id ) && ( is_cell_empty === null || is_cell_empty === undefined )){
                                                     listOfLegs[index] = myLeg;
                                                     return false;
                                                 }
@@ -215,37 +222,43 @@ export default Ember.Route.extend({
 
                                             countLeg = countLeg + 1;
                                             if (countLeg === count) {
-                                                schedules.pushObjects(listOfLegs);
-                                                voi.set('company', company).save().then(function(new_voyage){
 
-                                                    //SUCCESS
-                                                    new PNotify({
-                                                        title: 'Saved',
-                                                        text: 'You successfully saved voyage path.',
-                                                        type: 'success',
-                                                        delay: 1000
+                                                    schedules.pushObjects(listOfLegs);
+                                                    voi.set('company', company).save().then(function(new_voyage){
+
+                                                        _btn.stop();
+                                                        //SUCCESS
+                                                        new PNotify({
+                                                            title: 'Saved',
+                                                            text: 'You successfully saved voyage path.',
+                                                            type: 'success',
+                                                            delay: 1000
+                                                        });
+
+                                                        controller.set( 'newNumber', null );
+                                                        controller.set( 'listOfElements', [] );
+                                                        controller.set( 'temporaryPath', [] );
+                                                        controller.set( 'searchVessel', null );
+                                                        controller.set( 'searchVoyage', null );
+
+                                                        app_controller.autocompleteVoyage.pushObject(new_voyage);
+                                                        self.transitionTo('voyage/main', new_voyage);
+
+                                                    }, function(){
+                                                        _btn.stop();
+                                                        //NOT SAVED
+                                                        new PNotify({
+                                                            title: 'Not saved',
+                                                            text: 'A problem has occurred.',
+                                                            type: 'error',
+                                                            delay: 2000
+                                                        });
                                                     });
+                                                }
 
-                                                    controller.set( 'newNumber', null );
-                                                    controller.set( 'listOfElements', [] );
-                                                    controller.set( 'temporaryPath', [] );
-                                                    controller.set( 'searchVessel', null );
-                                                    controller.set( 'searchVoyage', null );
 
-                                                    app_controller.autocompleteVoyage.pushObject(new_voyage);
-                                                    self.transitionTo('voyage/main', new_voyage);
-
-                                                }, function(){
-                                                    //NOT SAVED
-                                                    new PNotify({
-                                                        title: 'Not saved',
-                                                        text: 'A problem has occurred.',
-                                                        type: 'error',
-                                                        delay: 2000
-                                                    });
-                                                });
-                                            }
                                         }, function(){
+                                            _btn.stop();
                                             //NOT SAVED
                                             new PNotify({
                                                 title: 'Not saved',
@@ -259,6 +272,7 @@ export default Ember.Route.extend({
                                     });
                                 });
                             }, function(){
+                                _btn.stop();
                                 //NOT SAVED
                                 new PNotify({
                                     title: 'Not saved',
@@ -269,17 +283,19 @@ export default Ember.Route.extend({
                             });
 
                         });
+
                     }
-                    else {
-                        //WARNING
-                        new PNotify({
-                            title: 'Attention',
-                            text: 'Please check if vessel name has been entered.',
-                            delay: 2000
-                        });
-                    }
-                }
-            });
+                });
+            }
+            else {
+                _btn.stop();
+                //WARNING
+                new PNotify({
+                    title: 'Attention',
+                    text: 'Please check to have insert all the fields.',
+                    delay: 2000
+                });
+            }
         }
     }
 });

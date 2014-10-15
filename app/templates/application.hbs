@@ -13,7 +13,8 @@
                         <ul class="dropdown-menu" aria-labelledby="themes">
                             <!--<li>{{!{{#link-to 'colorindex'}}item 1{{!{{/link-to}}</li>-->
                             <li>{{#link-to 'profile/main' controller.userId}}your profile{{/link-to}}</li>
-                            <li>{{#link-to 'company/main' controller.company}}your company{{/link-to}}</li>
+
+                            <li><a href="#" {{action "linkto" 'company/main' controller.company}}>your company</a></li>
                             <li>{{#link-to 'account/main' controller.userId}}your account{{/link-to}}</li>
                             <li class="divider"></li>
                             <li>{{#link-to 'change-password/main' controller.userId}}change password{{/link-to}}</li>

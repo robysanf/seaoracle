@@ -680,18 +680,16 @@ export default Ember.Route.extend({
          @param {String}
          @param {Number} - unique key
          */
-        update_general: function( _btn, name, book_id ) {
+        update_general: function( name, book_record ) {
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application');
 
             //controllo che sia stato inserito il chargeMode (PP/COLL) in caso contrario lo setto a COLL
-            this.store.find( 'booking', book_id).then(function( book_record ){
+//            this.store.find( 'booking', book_id).then(function( book_record ){
                 if( !book_record.get('chargeMode') ) {
                     book_record.set('chargeMode', 'PP');
                 }
 
                 book_record.save().then(function(){
-                    _btn.stop();
-
                     //SUCCESS
                     new PNotify({
                         title: 'Saved',
@@ -708,8 +706,6 @@ export default Ember.Route.extend({
                     controller.set('revenuesTabList.itemCharges', false);
 
                 }, function(){
-                    _btn.stop();
-
                     //NOT SAVED
                     new PNotify({
                         title: 'Not saved',
@@ -718,7 +714,7 @@ export default Ember.Route.extend({
                         delay: 2000
                     });
                 });
-            });
+//            });
 
         },
 
@@ -891,95 +887,98 @@ export default Ember.Route.extend({
          @param { record } - poi
          @param { record } - poi
          */
-        save_freightPlan: function( booking_record, book_origin, book_destination ){
+        save_freightPlan: function( _btn, booking_id, book_origin, book_destination ){
             var self = this, controller = self.controllerFor('booking.main'),
                 ordered_voyages = [], ordered_transhipments_leg = [], ordered_transhipments_poi = [], path = [], origin_leg = null, destination_leg = null,
                 previous_disembark = null, next_is_child = false, ordered_voyages_without_child_voyage = [];
 
-            if ( controller.freightPlan_mode.manual ){
 
-                $.each(controller.sorted_list, function(index, val){
-                    ordered_voyages.pushObject(controller.freightPlanList[ val.sort_index ]);  //riordino la lista dei viaggi in una variabile temporanea
+            this.store.find('booking', booking_id).then(function( booking_record ){
+                if ( controller.freightPlan_mode.manual ){
 
-                    if( index +1 === controller.sorted_list.get('length') ){ //quando ho aggiornato la lista procedo
-                        ordered_voyages.forEach( function( val, index ){ //scorro 1 ad 1 i voyages
+                    $.each(controller.sorted_list, function(index, val){
+                        ordered_voyages.pushObject(controller.freightPlanList[ val.sort_index ]);  //riordino la lista dei viaggi in una variabile temporanea
+
+                        if( index +1 === controller.sorted_list.get('length') ){ //quando ho aggiornato la lista procedo
+                            ordered_voyages.forEach( function( val, index ){ //scorro 1 ad 1 i voyages
 
 
-                            if( index === 0 ){       //primo voyage
+                                if( index === 0 ){       //primo voyage
                                     if( val.get('embarkingLeg') === book_origin){   //confronto la leg di imbarco del primo viaggio con l'origine del booking. devono essere uguali
                                         if( val.get('embark') && val.get('disembark') ){   //verifico che embark e disembark non siano nulli, tutti i viaggi devono averli
 
                                             if( val.get('childVoyages').get('length') && ordered_voyages.get('length') > 1 ){      //verifico se il voyage ha dei child voyages
                                                 var next_voyage = controller.sorted_list[ index + 1 ].record_index;   //prendo il viaggio successivo
-                                               //var val1 = val.get('data');
-                                               // var val3 = val.get('childVoyages')
+                                                //var val1 = val.get('data');
+                                                // var val3 = val.get('childVoyages')
 
-                                                    val.get('childVoyages').forEach(function( child, child_index ){   //per tutti i childs
-                                                        if( next_voyage === child.get('id') ){  //verifico se il successivo è uno dei child di quello attuale
-                                                            next_is_child = true;
+                                                val.get('childVoyages').forEach(function( child, child_index ){   //per tutti i childs
+                                                    if( next_voyage === child.get('id') ){  //verifico se il successivo è uno dei child di quello attuale
+                                                        next_is_child = true;
+                                                    }
+
+                                                    if( child_index + 1 === val._data.childVoyages.get('length') ){    //quando ho controllato tutti i child...
+
+                                                        origin_leg = val.get('embark');
+                                                        path.pushObject(val.get('embark').get('id'));
+                                                        path.pushObject(val.get('id'));
+                                                        ordered_voyages_without_child_voyage.pushObject(val);
+                                                        previous_disembark = val.get('disembarkationLeg');
+
+                                                        if( !next_is_child ){   // se next_is_child === true non inserisco nel path e nei transhipments la destination leg e nel viaggio successivo non inserisco origin e voyage
+                                                            ordered_transhipments_leg.pushObject(val.get('disembark'));
+                                                            ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
+                                                            path.pushObject(val.get('disembark').get('id'));
                                                         }
+                                                    }
 
-                                                        if( child_index + 1 === val._data.childVoyages.get('length') ){    //quando ho controllato tutti i child...
-
-                                                            origin_leg = val.get('embark');
-                                                            path.pushObject(val.get('embark').get('id'));
-                                                            path.pushObject(val.get('id'));
-                                                            ordered_voyages_without_child_voyage.pushObject(val);
-                                                            previous_disembark = val.get('disembarkationLeg');
-
-                                                            if( !next_is_child ){   // se next_is_child === true non inserisco nel path e nei transhipments la destination leg e nel viaggio successivo non inserisco origin e voyage
-                                                                ordered_transhipments_leg.pushObject(val.get('disembark'));
-                                                                ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
-                                                                path.pushObject(val.get('disembark').get('id'));
-                                                            }
-                                                        }
-
-                                                    });
+                                                });
 
                                             } else if ( ordered_voyages.get('length') === 1 ) {          //cè solo un voyage
-                                                    origin_leg = val.get('embark');
-                                                    destination_leg = val.get('disembark');
-                                                    path.pushObject(val.get('embark').get('id'));
-                                                    path.pushObject(val.get('id'));
-                                                    path.pushObject(val.get('disembark').get('id'));
-                                                    ordered_voyages_without_child_voyage.pushObject(val);
+                                                origin_leg = val.get('embark');
+                                                destination_leg = val.get('disembark');
+                                                path.pushObject(val.get('embark').get('id'));
+                                                path.pushObject(val.get('id'));
+                                                path.pushObject(val.get('disembark').get('id'));
+                                                ordered_voyages_without_child_voyage.pushObject(val);
 
-                                                    var newFreightPlan = self.store.createRecord('freightPlan', {
-                                                        booking: booking_record,
-                                                        origin: booking_record.get('origin'),
-                                                        originLeg: origin_leg,
-                                                        destination: booking_record.get('destination'),
-                                                        destinationLeg:  destination_leg,
-                                                        path: path
-                                                    });
+                                                var newFreightPlan = self.store.createRecord('freightPlan', {
+                                                    booking: booking_record,
+                                                    origin: booking_record.get('origin'),
+                                                    originLeg: origin_leg,
+                                                    destination: booking_record.get('destination'),
+                                                    destinationLeg:  destination_leg,
+                                                    path: path
+                                                });
 
-                                                    newFreightPlan.get('voyages').then(function(voyages) {
-                                                        newFreightPlan.get('orderedVoyages').then(function(orderedVoyages) {
-                                                            newFreightPlan.get('orderedTranshipmentLegs').then(function(orderedTranshipmentLegs) {
-                                                                newFreightPlan.get('transhipmentLegs').then(function(transhipmentLegs) {
-                                                                    newFreightPlan.get('transhipments').then(function(transhipments) {
-                                                                        voyages.pushObjects( ordered_voyages_without_child_voyage );
-                                                                        orderedVoyages.pushObjects( ordered_voyages_without_child_voyage );
-                                                                        orderedTranshipmentLegs.pushObjects( ordered_transhipments_leg );
-                                                                        transhipmentLegs.pushObjects( ordered_transhipments_leg );
-                                                                        transhipments.pushObjects( ordered_transhipments_poi );
+                                                newFreightPlan.get('voyages').then(function(voyages) {
+                                                    newFreightPlan.get('orderedVoyages').then(function(orderedVoyages) {
+                                                        newFreightPlan.get('orderedTranshipmentLegs').then(function(orderedTranshipmentLegs) {
+                                                            newFreightPlan.get('transhipmentLegs').then(function(transhipmentLegs) {
+                                                                newFreightPlan.get('transhipments').then(function(transhipments) {
+                                                                    voyages.pushObjects( ordered_voyages_without_child_voyage );
+                                                                    orderedVoyages.pushObjects( ordered_voyages_without_child_voyage );
+                                                                    orderedTranshipmentLegs.pushObjects( ordered_transhipments_leg );
+                                                                    transhipmentLegs.pushObjects( ordered_transhipments_leg );
+                                                                    transhipments.pushObjects( ordered_transhipments_poi );
 
-                                                                        newFreightPlan.save().then(function(){
-                                                                            booking_record.reload();
-                                                                            controller.set('freightPlanList', []);
-                                                                            controller.set('sorted_list', []);
-                                                                            new PNotify({
-                                                                                title: 'Success',
-                                                                                text: 'Record saved successfully.',
-                                                                                type: 'success',
-                                                                                delay: 2000
-                                                                            });
+                                                                    newFreightPlan.save().then(function(){
+                                                                        booking_record.reload();
+                                                                        controller.set('freightPlanList', []);
+                                                                        controller.set('sorted_list', []);
+                                                                        _btn.stop();
+                                                                        new PNotify({
+                                                                            title: 'Success',
+                                                                            text: 'Record saved successfully.',
+                                                                            type: 'success',
+                                                                            delay: 2000
                                                                         });
                                                                     });
                                                                 });
                                                             });
                                                         });
                                                     });
+                                                });
 
                                             } else {           // non ha un child e ci sono più voyages
                                                 ordered_transhipments_leg.pushObject(val.get('disembark'));
@@ -995,6 +994,7 @@ export default Ember.Route.extend({
                                             }
 
                                         } else {
+                                            _btn.stop();
                                             new PNotify({
                                                 title: 'Attention',
                                                 text: 'The first voyage does not have a transhipment.',
@@ -1003,6 +1003,7 @@ export default Ember.Route.extend({
                                             });
                                         }
                                     } else {
+                                        _btn.stop();
                                         new PNotify({
                                             title: 'Attention',
                                             text: 'The embarking of the first voyage does not match with booking origin.',
@@ -1012,10 +1013,11 @@ export default Ember.Route.extend({
                                     }
 
 
-                            } else if ( index +1 === ordered_voyages.get('length') ) {    //ultimo voyage
+                                } else if ( index +1 === ordered_voyages.get('length') ) {    //ultimo voyage
                                     if( val.get('disembarkationLeg') === book_destination ){ //confronto la leg di imbarco del primo viaggio con la destination del booking. devono essere uguali
 
                                         if( previous_disembark !== val.get('embarkingLeg') ) {
+                                            _btn.stop();
                                             new PNotify({
                                                 title: 'Attention',
                                                 text: 'Transhipments do not match.',
@@ -1060,6 +1062,7 @@ export default Ember.Route.extend({
                                                                         booking_record.reload();
                                                                         controller.set('freightPlanList', []);
                                                                         controller.set('sorted_list', []);
+                                                                        _btn.stop();
                                                                         new PNotify({
                                                                             title: 'Success',
                                                                             text: 'Record saved successfully.',
@@ -1074,6 +1077,7 @@ export default Ember.Route.extend({
                                                 });
 
                                             } else {
+                                                _btn.stop();
                                                 new PNotify({
                                                     title: 'Attention',
                                                     text: 'The last voyage does not have a transhipment.',
@@ -1084,6 +1088,7 @@ export default Ember.Route.extend({
                                         }
 
                                     } else {
+                                        _btn.stop();
                                         new PNotify({
                                             title: 'Attention',
                                             text: 'The disembarkation of the last voyage does not match with booking destination.',
@@ -1091,118 +1096,126 @@ export default Ember.Route.extend({
                                             delay: 2000
                                         });
                                     }
-                            } else {   //voyages centrali
+                                } else {   //voyages centrali
 
-                                if( val.get('embark') && val.get('disembark') ){
-                                   if( previous_disembark !== val.get('embarkingLeg') ) {
-                                       new PNotify({
-                                           title: 'Attention',
-                                           text: 'Transhipments do not match.',
-                                           type: 'warning',
-                                           delay: 2000
-                                       });
-                                   } else {
+                                    if( val.get('embark') && val.get('disembark') ){
+                                        if( previous_disembark !== val.get('embarkingLeg') ) {
+                                            _btn.stop();
+                                            new PNotify({
+                                                title: 'Attention',
+                                                text: 'Transhipments do not match.',
+                                                type: 'warning',
+                                                delay: 2000
+                                            });
+                                        } else {
 
-                                       if( val.get('childVoyages').get('length') ){   //verifico se il voyage ha un dei child voyages
-                                           var this_is_child = next_is_child;
-                                           next_is_child = false;
+                                            if( val.get('childVoyages').get('length') ){   //verifico se il voyage ha un dei child voyages
+                                                var this_is_child = next_is_child;
+                                                next_is_child = false;
 
-                                           var next_voyage = controller.sorted_list[ index + 1 ].record_index;  //prendo il viaggio successivo e vedo se fa parte dei childs
+                                                var next_voyage = controller.sorted_list[ index + 1 ].record_index;  //prendo il viaggio successivo e vedo se fa parte dei childs
 
-                                               val._data.childVoyages.forEach(function( child, child_index ){
-                                                   if( next_voyage === child.get('id') ){
-                                                       next_is_child = true;
-                                                   }
-                                                   if( child_index + 1 === val._data.childVoyages.get('length') ){
-                                                       if( !this_is_child ){
-                                                           origin_leg = val.get('embark');
-                                                           path.pushObject(val.get('embark').get('id'));
-                                                           path.pushObject(val.get('id'));
-                                                           ordered_voyages_without_child_voyage.pushObject(val);
-                                                       }
-                                                       if( !next_is_child ){
-                                                           ordered_transhipments_leg.pushObject(val.get('disembark'));
-                                                           ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
-                                                           path.pushObject(val.get('disembark').get('id'));
-                                                       }
+                                                val._data.childVoyages.forEach(function( child, child_index ){
+                                                    if( next_voyage === child.get('id') ){
+                                                        next_is_child = true;
+                                                    }
+                                                    if( child_index + 1 === val._data.childVoyages.get('length') ){
+                                                        if( !this_is_child ){
+                                                            origin_leg = val.get('embark');
+                                                            path.pushObject(val.get('embark').get('id'));
+                                                            path.pushObject(val.get('id'));
+                                                            ordered_voyages_without_child_voyage.pushObject(val);
+                                                        }
+                                                        if( !next_is_child ){
+                                                            ordered_transhipments_leg.pushObject(val.get('disembark'));
+                                                            ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
+                                                            path.pushObject(val.get('disembark').get('id'));
+                                                        }
 
-                                                       previous_disembark = val.get('disembarkationLeg');
-                                                   }
-                                               });
+                                                        previous_disembark = val.get('disembarkationLeg');
+                                                    }
+                                                });
 
-                                       } else {
-                                           if( !next_is_child ){
-                                               ordered_transhipments_leg.pushObject(val.get('embark'));
-                                               ordered_transhipments_poi.pushObject(val.get('embark').get('poi'));
-                                               path.pushObject(val.get('embark').get('id'));
-                                               path.pushObject(val.get('id'));
-                                           }
+                                            } else {
+                                                if( !next_is_child ){
+                                                    ordered_transhipments_leg.pushObject(val.get('embark'));
+                                                    ordered_transhipments_poi.pushObject(val.get('embark').get('poi'));
+                                                    path.pushObject(val.get('embark').get('id'));
+                                                    path.pushObject(val.get('id'));
+                                                }
 
-                                           ordered_voyages_without_child_voyage.pushObject(val);
-                                           ordered_transhipments_leg.pushObject(val.get('disembark'));
-                                           ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
-                                           path.pushObject(val.get('disembark').get('id'));
+                                                ordered_voyages_without_child_voyage.pushObject(val);
+                                                ordered_transhipments_leg.pushObject(val.get('disembark'));
+                                                ordered_transhipments_poi.pushObject(val.get('disembark').get('poi'));
+                                                path.pushObject(val.get('disembark').get('id'));
 
-                                           previous_disembark = val.get('disembarkationLeg');
-                                           next_is_child = false;
-                                       }
-                                   }
+                                                previous_disembark = val.get('disembarkationLeg');
+                                                next_is_child = false;
+                                            }
+                                        }
 
-                                } else {
-                                    new PNotify({
-                                        title: 'Attention',
-                                        text: 'Some voyage not have the transhipment details.',
-                                        type: 'warning',
-                                        delay: 2000
-                                    });
+                                    } else {
+                                        _btn.stop();
+                                        new PNotify({
+                                            title: 'Attention',
+                                            text: 'Some voyage not have the transhipment details.',
+                                            type: 'warning',
+                                            delay: 2000
+                                        });
+                                    }
                                 }
-                            }
-                        });
-                    }
-                });
-
-
-            } else if ( controller.freightPlan_mode.search ) {
-                var freightPlan_tempId = this.get("controller").get("freightPlanItemsList").filterBy("isChecked").mapBy("id").join(",").split(",");
-
-                if( freightPlan_tempId.length > 1 ){
-                    new PNotify({
-                        title: 'Attention',
-                        text: 'You can select only one freight plan.',
-                        type: 'warning',
-                        delay: 2000
+                            });
+                        }
                     });
-                } else {
-                    controller.freightPlanList.store.find('freightPlan', freightPlan_tempId[0]).then(function(val){
-                       var freight = val;
 
-                        var newFreightPlan = self.store.createRecord('freightPlan', {     //creazione del Freight Plan
-                            booking: booking_record,
-                            origin: val.get('origin'),
-                            originLeg: val.get('originLeg'),
-                            destination: val.get('destination'),
-                            destinationLeg:  val.get('destinationLeg'),
-                            path: val._data.paths
+
+                } else if ( controller.freightPlan_mode.search ) {
+                    var freightPlan_tempId = self.get("controller").get("freightPlanItemsList").filterBy("isChecked").mapBy("id").join(",").split(",");
+
+                    if( freightPlan_tempId.length > 1 ){
+                        _btn.stop();
+                        new PNotify({
+                            title: 'Attention',
+                            text: 'You can select only one freight plan.',
+                            type: 'warning',
+                            delay: 2000
                         });
+                    } else {
+                        controller.freightPlanList.store.find('freightPlan', freightPlan_tempId[0]).then(function(val){
+                            var freight = val;
 
-                        newFreightPlan.get('voyages').then(function(voyages) {
-                            newFreightPlan.get('orderedVoyages').then(function(orderedVoyages) {
-                                newFreightPlan.get('orderedTranshipmentLegs').then(function(orderedTranshipmentLegs) {
-                                    newFreightPlan.get('transhipmentLegs').then(function(transhipmentLegs) {
-                                        newFreightPlan.get('transhipments').then(function(transhipments) {
-                                            voyages.pushObjects(val._data.voyages);
-                                            orderedVoyages.pushObjects(val._data.orderedVoyages);
-                                            orderedTranshipmentLegs.pushObjects(val._data.orderedTranshipmentLegs);
-                                            transhipmentLegs.pushObjects(val._data.transhipmentLegs);
-                                            transhipments.pushObjects(val._data.transhipments);
+                            var newFreightPlan = self.store.createRecord('freightPlan', {     //creazione del Freight Plan
+                                booking: booking_record,
+                                origin: val.get('origin'),
+                                originLeg: val.get('originLeg'),
+                                destination: val.get('destination'),
+                                destinationLeg:  val.get('destinationLeg'),
+                                path: val._data.paths
+                            });
 
-                                            newFreightPlan.save().then(function(){
-                                                booking_record.reload();
-                                                controller.set('freightPlanList', []);
-                                                new PNotify({
-                                                    title: 'Success',
-                                                    text: 'Record saved successfully.',
-                                                    delay: 2000
+                            newFreightPlan.get('voyages').then(function(voyages) {
+                                newFreightPlan.get('orderedVoyages').then(function(orderedVoyages) {
+                                    newFreightPlan.get('orderedTranshipmentLegs').then(function(orderedTranshipmentLegs) {
+                                        newFreightPlan.get('transhipmentLegs').then(function(transhipmentLegs) {
+                                            newFreightPlan.get('transhipments').then(function(transhipments) {
+                                                voyages.pushObjects(val._data.voyages);
+                                                orderedVoyages.pushObjects(val._data.orderedVoyages);
+                                                orderedTranshipmentLegs.pushObjects(val._data.orderedTranshipmentLegs);
+                                                transhipmentLegs.pushObjects(val._data.transhipmentLegs);
+                                                transhipments.pushObjects(val._data.transhipments);
+
+                                                newFreightPlan.save().then(function(){
+                                                    booking_record.reload();
+                                                    controller.set('freightPlanList', []);
+
+                                                    _btn.stop();
+
+                                                    new PNotify({
+                                                        title: 'Success',
+                                                        text: 'Record saved successfully.',
+                                                        type: 'success',
+                                                        delay: 2000
+                                                    });
                                                 });
                                             });
                                         });
@@ -1210,9 +1223,10 @@ export default Ember.Route.extend({
                                 });
                             });
                         });
-                    });
+                    }
                 }
-            }
+            });
+
         },
 
 
@@ -2095,76 +2109,81 @@ export default Ember.Route.extend({
          @param {String} - container/roro/bb/none
          @param {String} - booking/item
          */
-        add_ChargeItem: function( booking_record, type, enType, is_shipowner ) {
+        add_ChargeItem: function( _btn, booking_record_id, type, enType, is_shipowner ) {
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
                 data = this.getProperties();
 
+            this.store.find('booking', booking_record_id).then(function( booking_record ){
                 //this.store.find('company', controller.booking_record.get("client")).then(function(client){
                 data.changeRate = self.get("controller").get("newCharge");
 
                 var chItem = self.get('store').createRecord('chargeItem', {
                     name: data.changeRate,
                     booking: booking_record,
-                    //originalRevenue: 0,
-                    //originalRevenueCurrency: booking_record.get("currency"),
-                    //revenue: 0,
-                    //revenueCurrency: booking_record.get("currency"),
-                    //originalCost: 0,
-                    //originalCostCurrency: booking_record.get("currency"),
-                    //cost: 0,
-                    //costCurrency: booking_record.get("currency"),
                     billTo: booking_record.get("client"),
                     num: 1
                 });
 
-            if ( is_shipowner ) {
-                chItem.set('chargeType', 'cost');
-                chItem.set('cost', 0);
-                chItem.set('costCurrency', booking_record.get("currency"));
-            } else {
-                chItem.set('chargeType', 'revenue');
-                chItem.set('originalRevenue', 0);
-                chItem.set('originalRevenueCurrency', booking_record.get("currency"));
-                chItem.set('revenue', 0);
-                chItem.set('revenueCurrency', booking_record.get("currency"));
-            }
-
-            var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
-
-            //se l'entità è di tipo item passo l'id dell'item associato a questo charge
-            if(enType === 'item') {
-                chItem.set('bookingItem', controller.item_record);
-            }
-
-            myChargeItem.every(function(item) {
-                chItem.set('code', item.code);
-                chItem.set('type', type);
-                chItem.set('entityType', enType);
-
-                if(type === 'container') {
-                    chItem.set('multiplier', 'QTY');
-                } else if(type === 'roro') {
-                    chItem.set('multiplier', 'LNG');
-                } else if(type === 'bb') {
-                    chItem.set('multiplier', 'VOL');
+                if ( is_shipowner ) {
+                    chItem.set('chargeType', 'cost');
+                    chItem.set('cost', 0);
+                    chItem.set('costCurrency', booking_record.get("currency"));
                 } else {
-                    chItem.set('multiplier', 'NUM');
+                    chItem.set('chargeType', 'revenue');
+                    chItem.set('originalRevenue', 0);
+                    chItem.set('originalRevenueCurrency', booking_record.get("currency"));
+                    chItem.set('revenue', 0);
+                    chItem.set('revenueCurrency', booking_record.get("currency"));
                 }
 
-                chItem.save().then(function(){
-                    if(enType === 'item') {
-                        controller.item_record.reload();
-                    }
-                    booking_record.reload();
-                    if( is_shipowner ){
-                        controller.set('revenuesTable.revenues', false);
-                        controller.set('revenuesTable.costs', true);
+                var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
+
+                //se l'entità è di tipo item passo l'id dell'item associato a questo charge
+                if(enType === 'item') {
+                    chItem.set('bookingItem', controller.item_record);
+                }
+
+                myChargeItem.every(function(item) {
+                    chItem.set('code', item.code);
+                    chItem.set('type', type);
+                    chItem.set('entityType', enType);
+
+                    if(type === 'container') {
+                        chItem.set('multiplier', 'QTY');
+                    } else if(type === 'roro') {
+                        chItem.set('multiplier', 'LNG');
+                    } else if(type === 'bb') {
+                        chItem.set('multiplier', 'VOL');
                     } else {
-                        controller.set('revenuesTable.revenues', true);
-                        controller.set('revenuesTable.costs', false);
+                        chItem.set('multiplier', 'NUM');
                     }
+
+                    chItem.save().then(function(){
+                        _btn.stop();
+                        if(enType === 'item') {
+                            controller.item_record.reload();
+                        }
+                        booking_record.reload();
+                        if( is_shipowner ){
+                            controller.set('revenuesTable.revenues', false);
+                            controller.set('revenuesTable.costs', true);
+                        } else {
+                            controller.set('revenuesTable.revenues', true);
+                            controller.set('revenuesTable.costs', false);
+                        }
+                    }, function(){   //ERROR
+                        _btn.stop();
+
+                        new PNotify({
+                            title: 'Not saved',
+                            text: 'A problem has occurred.',
+                            type: 'error',
+                            delay: 2000
+                        });
+                    });
                 });
             });
+
         },
 
         /*  FILES TAB

@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        createNewPort: function(){
+        createNewPort: function( _btn ){
             var self = this, controller = self.controllerFor('port.new-poi'), app_controller = self.controllerFor('application'),
                 country = null, iso3 = null;
 
@@ -53,6 +53,7 @@ export default Ember.Route.extend({
                     controller.set('newUnLocode', null);
                     controller.set('newCountry', null);
 
+                    _btn.stop();
                     new PNotify({
                         title: 'Saved',
                         text: 'You successfully saved port.',
@@ -63,6 +64,7 @@ export default Ember.Route.extend({
                     //self.transitionTo('ports.port', poi_port.id);
 
                 }, function() {
+                    _btn.stop();
                     new PNotify({
                         title: 'Not saved',
                         text: 'A problem has occurred.',
@@ -73,6 +75,7 @@ export default Ember.Route.extend({
             }
             else {
                 //WARNING
+                _btn.stop();
                 new PNotify({
                     title: 'Attention',
                     text: 'Please check if required fields have been entered..',

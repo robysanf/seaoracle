@@ -14,16 +14,28 @@
                     <br style="line-height:42px">
                     {{!{{#unless controller.is_shipowner}}
                         {{#if controller.revenuesTabList.bookingCharges}}
-                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'none' 'booking' controller.is_shipowner}}>Add charge</button>
+                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='none' arg3='booking' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                <span class="ladda-label">Add Charge</span>
+                            {{/view}}
+                            <!--<button type="submit" class="btn btn-primary custom130 pull-right" {{!{{action "add_ChargeItem" this 'none' 'booking' controller.is_shipowner}}>Add charge</button>-->
                         {{/if}}
                         {{#if controller.revenuesTabList.containerCharges}}
-                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'container' 'booking' controller.is_shipowner}}>Add charge</button>
+                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='container' arg3='booking' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                <span class="ladda-label">Add Charge</span>
+                            {{/view}}
+                            <!--<button type="submit" class="btn btn-primary custom130 pull-right" {{!{{action "add_ChargeItem" this 'container' 'booking' controller.is_shipowner}}>Add charge</button>-->
                         {{/if}}
                         {{#if controller.revenuesTabList.roroCharges}}
-                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'roro' 'booking' controller.is_shipowner}}>Add charge</button>
+                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='roro' arg3='booking' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                <span class="ladda-label">Add Charge</span>
+                            {{/view}}
+                            <!--<button type="submit" class="btn btn-primary custom130 pull-right" {{!{{action "add_ChargeItem" this 'roro' 'booking' controller.is_shipowner}}>Add charge</button>-->
                         {{/if}}
                         {{#if controller.revenuesTabList.bbCharges}}
-                            <button type="submit" class="btn btn-primary custom130 pull-right" {{action "add_ChargeItem" this 'bb' 'booking' controller.is_shipowner}}>Add charge</button>
+                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='bb' arg3='booking' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                <span class="ladda-label">Add Charge</span>
+                            {{/view}}
+                            <!--<button type="submit" class="btn btn-primary custom130 pull-right" {{!{{action "add_ChargeItem" this 'bb' 'booking' controller.is_shipowner}}>Add charge</button>-->
                         {{/if}}
                     {{!{{/unless}}
                 </div>

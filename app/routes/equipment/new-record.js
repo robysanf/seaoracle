@@ -85,7 +85,7 @@ export default Ember.Route.extend({
                 });
         },
 
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('equipment.new-record');
             //csqu3054383
 
@@ -230,7 +230,7 @@ export default Ember.Route.extend({
                                                                     controller.set('newRinaToDate', null);
                                                                     self.set('newVisibility', null);
                                                                     controller.set('currentStatusDateFrom', null);
-
+                                                                    _btn.stop();
                                                                     //SUCCESS
                                                                     new PNotify({
                                                                         title: 'Saved',
@@ -242,6 +242,7 @@ export default Ember.Route.extend({
                                                                     //go to view
                                                                     //self.transitionTo('equipments.equipmentView', eq.id);
                                                                 }, function(){
+                                                                    _btn.stop();
                                                                     //NOT SAVED
                                                                     new PNotify({
                                                                         title: 'Not saved',
@@ -274,6 +275,8 @@ export default Ember.Route.extend({
                                                         controller.set('newRinaFromDate', null);
                                                         controller.set('newRinaToDate', null);
                                                         controller.set('currentStatusDateFrom', null);
+
+                                                        _btn.stop();
                                                         //SUCCESS
                                                         new PNotify({
                                                             title: 'Saved',
@@ -284,6 +287,8 @@ export default Ember.Route.extend({
 
                                                         //self.transitionTo('equipments.equipmentView', eq.id);
                                                     }, function(){
+
+                                                        _btn.stop();
                                                         //NOT SAVED
                                                         new PNotify({
                                                             title: 'Not saved',
@@ -298,6 +303,8 @@ export default Ember.Route.extend({
                                     });
                                 });
                             }, function(){
+
+                                _btn.stop();
                                 //NOT SAVED
                                 new PNotify({
                                     title: 'Not saved',
@@ -307,6 +314,8 @@ export default Ember.Route.extend({
                                 });
                             });
                         }, function(){
+
+                            _btn.stop();
                             //NOT SAVED
                             new PNotify({
                                 title: 'Not saved',
@@ -316,6 +325,8 @@ export default Ember.Route.extend({
                             });
                         });
                     }, function(){
+
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -394,6 +405,7 @@ export default Ember.Route.extend({
                                                             self.set('newVisibility', null);
                                                             controller.set('currentStatusDateFrom', null);
 
+                                                            _btn.stop();
                                                             //SUCCESS
                                                             new PNotify({
                                                                 title: 'Saved',
@@ -405,6 +417,8 @@ export default Ember.Route.extend({
                                                             //go to view
                                                             //self.transitionTo('equipments.equipmentView', eq.id);
                                                         }, function(){
+
+                                                            _btn.stop();
                                                             //NOT SAVED
                                                             new PNotify({
                                                                 title: 'Not saved',
@@ -435,6 +449,8 @@ export default Ember.Route.extend({
                                                 controller.set('newRinaFromDate', null);
                                                 controller.set('newRinaToDate', null);
                                                 controller.set('currentStatusDateFrom', null);
+
+                                                _btn.stop();
                                                 //SUCCESS
                                                 new PNotify({
                                                     title: 'Saved',
@@ -445,6 +461,8 @@ export default Ember.Route.extend({
 
                                                 //self.transitionTo('equipments.equipmentView', eq.id);
                                             }, function(){
+
+                                                _btn.stop();
                                                 //NOT SAVED
                                                 new PNotify({
                                                     title: 'Not saved',
@@ -459,6 +477,8 @@ export default Ember.Route.extend({
 
                             });
                         }, function(){
+
+                            _btn.stop();
                             //NOT SAVED
                             new PNotify({
                                 title: 'Not saved',
@@ -468,6 +488,8 @@ export default Ember.Route.extend({
                             });
                         });
                     }, function(){
+
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -478,6 +500,8 @@ export default Ember.Route.extend({
                     });
                 }
             } else {
+
+                _btn.stop();
                 //WARNING
                 //NOT SAVED
                 new PNotify({

@@ -20,7 +20,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('charge.new-record');
 
             //verifico che i campi obbligatori siano stati compilati
@@ -46,6 +46,7 @@ export default Ember.Route.extend({
 
                         app_controller.autocompleteCharge.pushObject(val);
 
+                        _btn.stop();
                         self.transitionTo( 'charge/main', val.id );
                         //SUCCESS
                         new PNotify({
@@ -61,6 +62,7 @@ export default Ember.Route.extend({
                         controller.set('searchSegment', []);
 
                     }, function(){
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -71,6 +73,7 @@ export default Ember.Route.extend({
                     });
                 });
             } else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

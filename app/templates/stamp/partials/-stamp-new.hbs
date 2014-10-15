@@ -52,7 +52,10 @@
         <div class="row">
             <div class="col-lg-10">
                 <h5 class="page-header"></h5>
-                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "create_record"}}>Save</button>
+                {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                    <span class="ladda-label">Save</span>
+                {{/view}}
+                <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
             </div>
             <div class="col-lg-2"></div>
         </div>

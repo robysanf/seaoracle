@@ -16,7 +16,7 @@ export default Ember.Route.extend({
 
 
     actions: {
-        createWarehouse: function() {
+        createWarehouse: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('warehouse.new-warehouse');
             var data = controller.getProperties(
                 'newName',
@@ -66,7 +66,7 @@ export default Ember.Route.extend({
                         controller.set('newEmail', null);
                         controller.set('newPhone', null);
                         controller.set('newNotifyParty', null);
-
+                        _btn.stop();
                         //SAVED
                         new PNotify({
                             title: 'Saved',
@@ -76,6 +76,7 @@ export default Ember.Route.extend({
                         });
 
                     }, function() {
+                        _btn.stop();
                         //NOT SAVED
                         new PNotify({
                             title: 'Not saved',
@@ -87,6 +88,7 @@ export default Ember.Route.extend({
                 });
             }
             else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

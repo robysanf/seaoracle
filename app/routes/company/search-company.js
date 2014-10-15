@@ -117,7 +117,7 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('company.search-company');
 
             controller.set('companyRecord', value);
-
+            controller.set('company_id', value.get('id'));
             controller.set('tabListDetails', false);
             controller.set('tabListUsers', false);
             controller.set('tabListFiles', false);

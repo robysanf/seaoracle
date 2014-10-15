@@ -37,72 +37,77 @@ export default Ember.Route.extend({
          @param {boolean} true si passa a 'stato === view'; false si passa a 'stato === edit'
          @param {record} entità poi di riferimento
          */
-        change_state: function( bool, record ) {
+        change_state: function( _btn, bool, record_id ) {
             var self = this,  controller = self.controllerFor('port.main'), app_controller = self.controllerFor('application'),
                 str_unLocode = null, unique = false, iso3 = null;
 
             if( bool === true ) {
 
-                if( record.get('unLocode') ){
-                    str_unLocode = record.get('unLocode').replace(/[^A-Z]/gi, "").toUpperCase();
-                }
-
-                ( ( str_unLocode !== null ) ? ( unique = str_unLocode !== "" && str_unLocode.length === 5 ) : self.set('unique', false) );
-
-                (unique ? $('span#2.input-group-addon').removeClass('alert-danger') : $('span#2.input-group-addon').addClass('alert-danger'));
-
-                if (unique) {
-                    var this_nation = app_controller.nations.filterBy('country', record.get('country'));
-                    if( this_nation[0] ){
-                        iso3 = this_nation[0].iso3;
+                this.store.find('poi', record_id).then(function( record ){
+                    if( record.get('unLocode') ){
+                        str_unLocode = record.get('unLocode').replace(/[^A-Z]/gi, "").toUpperCase();
                     }
-                    record.set('countryIso3', iso3);
 
-                    record.set('unLocode', str_unLocode);
-                    record.save().then(function(success){
+                    ( ( str_unLocode !== null ) ? ( unique = str_unLocode !== "" && str_unLocode.length === 5 ) : self.set('unique', false) );
 
-                        controller.set('isView', bool);
+                    (unique ? $('span#2.input-group-addon').removeClass('alert-danger') : $('span#2.input-group-addon').addClass('alert-danger'));
 
-                        //SAVED
+                    if (unique) {
+                        var this_nation = app_controller.nations.filterBy('country', record.get('country'));
+                        if( this_nation[0] ){
+                            iso3 = this_nation[0].iso3;
+                        }
+                        record.set('countryIso3', iso3);
+
+                        record.set('unLocode', str_unLocode);
+                        record.save().then(function(success){
+
+                            controller.set('isView', bool);
+                            _btn.stop();
+                            //SAVED
+                            new PNotify({
+                                title: 'Saved',
+                                text: 'You successfully saved new company.',
+                                type: 'success',
+                                delay: 1000
+                            });
+
+                            app_controller.autocompletePoiPort.forEach(function(item, index){
+                                if( item.get('id') === record.get('id') ) {
+                                    app_controller.autocompletePoiPort.removeAt(index);
+                                    app_controller.autocompletePoiPort.pushObject(success);
+                                }
+                            });
+
+                            app_controller.autocompletePoi.forEach(function(item, index){
+                                if( item.get('id') === record.get('id') ) {
+                                    app_controller.autocompletePoi.removeAt(index);
+                                    app_controller.autocompletePoi.pushObject(success);
+                                }
+                            });
+                        }, function(){
+                            _btn.stop();
+                            //NOT SAVED
+                            new PNotify({
+                                title: 'Not saved',
+                                text: 'A problem has occurred.',
+                                type: 'error',
+                                delay: 2000
+                            });
+                        });
+
+                    } else {
+                        _btn.stop();
+                        //WARNING
                         new PNotify({
-                            title: 'Saved',
-                            text: 'You successfully saved new company.',
-                            type: 'success',
-                            delay: 1000
-                        });
-
-                        app_controller.autocompletePoiPort.forEach(function(item, index){
-                            if( item.get('id') === record.get('id') ) {
-                                app_controller.autocompletePoiPort.removeAt(index);
-                                app_controller.autocompletePoiPort.pushObject(success);
-                            }
-                        });
-
-                        app_controller.autocompletePoi.forEach(function(item, index){
-                            if( item.get('id') === record.get('id') ) {
-                                app_controller.autocompletePoi.removeAt(index);
-                                app_controller.autocompletePoi.pushObject(success);
-                            }
-                        });
-                    }, function(){
-                        //NOT SAVED
-                        new PNotify({
-                            title: 'Not saved',
-                            text: 'A problem has occurred.',
+                            title: 'Attention',
+                            text: 'please check if required fields have been entered.',
                             type: 'error',
                             delay: 2000
                         });
-                    });
+                    }
+                });
 
-                } else {
-                    //WARNING
-                    new PNotify({
-                        title: 'Attention',
-                        text: 'please check if required fields have been entered.',
-                        type: 'error',
-                        delay: 2000
-                    });
-                }
             } else {
                 controller.set('isView', bool);
             }

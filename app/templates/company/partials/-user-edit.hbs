@@ -96,7 +96,10 @@
                             {{/if}}
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn btn-primary btn-130 pull-right" {{action 'editUser' controller.userRecord false}}>Save</button>
+                            {{#view 'standby-button' action_name='editUser' arg1=controller.userRecord arg2=false data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" }}
+                                <span class="ladda-label">Save</span>
+                            {{/view}}
+                            <!--<button class="btn btn-primary btn-130 pull-right" {{!{{action 'editUser' controller.userRecord false}}>Save</button>-->
                         </div>
                         <div class="col-lg-2"></div>
                     </div>

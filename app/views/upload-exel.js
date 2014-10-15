@@ -51,7 +51,7 @@ export default Ember.View.extend({
                     //https://test.zenointelligence.com/seaforward/
                     $.ajax({
                         url: 'api/custom/readModelExcel?token='+view.get('controller.controllers.application').token+'&model=equipment',
-                        type: "GET",
+                        type: "POST",
                         data: formData,
                         processData: false,
                         contentType: false

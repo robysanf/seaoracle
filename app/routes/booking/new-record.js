@@ -17,6 +17,9 @@ export default Ember.Route.extend({
             });
         }
 
+        var today = new Date();
+        controller.set('dtd', moment(today).format("YYYY-MM-DD"));
+
         //reset search variables
         controller.set('searchAgency', null);
         controller.set('searchPortOrigin', null);

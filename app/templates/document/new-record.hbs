@@ -1,34 +1,40 @@
-<div class="row">
-    <div class="col-lg-3">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
-            <p class="lead"><h3>New Document</h3>
-            <p style="margin-top: 15px">
-            <h5>
-                {{#if controller.is_shipowner}}
-                    {{view Ember.Select content=docLLFPType value=controller.docType prompt="Please select a type" class='form-control'}}
-                {{/if}}
-                {{#if controller.is_agency}}
-                    {{view Ember.Select content=docBLCMType value=controller.docType prompt="Please select a type" class='form-control'}}
-                {{/if}}
-                {{#if controller.is_admin}}
-                    {{view Ember.Select content=docAllType value=controller.docType prompt="Please select a type" class='form-control'}}
-                {{/if}}
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <p class="lead"><h3>New Document</h3>
+                        <p style="margin-top: 15px">
+                        <h5>
+                            {{#if controller.is_shipowner}}
+                                {{view Ember.Select content=docLLFPType value=controller.docType prompt="Please select a type" class='form-control'}}
+                            {{/if}}
+                            {{#if controller.is_agency}}
+                                {{view Ember.Select content=docBLCMType value=controller.docType prompt="Please select a type" class='form-control'}}
+                            {{/if}}
+                            {{#if controller.is_admin}}
+                                {{view Ember.Select content=docAllType value=controller.docType prompt="Please select a type" class='form-control'}}
+                            {{/if}}
 
-            </h5>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    {{#if controller.is_docType_docBL}}
+                        {{partial 'document/partials/-new-docBL'}}
+                    {{/if}}
+                    {{#if controller.is_docType_docCM}}
+                        {{partial 'document/partials/-new-docCM'}}
+                    {{/if}}
+                    {{#if controller.is_docType_docLL}}
+                        {{partial 'document/partials/-new-docLL'}}
+                    {{/if}}
+                    {{#if controller.is_docType_docFP}}
+                        {{partial 'document/partials/-new-docFP'}}
+                    {{/if}}
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-9">
-        {{#if controller.is_docType_docBL}}
-            {{partial 'document/partials/-new-docBL'}}
-        {{/if}}
-        {{#if controller.is_docType_docCM}}
-            {{partial 'document/partials/-new-docCM'}}
-        {{/if}}
-        {{#if controller.is_docType_docLL}}
-            {{partial 'document/partials/-new-docLL'}}
-        {{/if}}
-        {{#if controller.is_docType_docFP}}
-            {{partial 'document/partials/-new-docFP'}}
-        {{/if}}
     </div>
 </div>

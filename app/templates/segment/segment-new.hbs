@@ -1,58 +1,64 @@
-<div class="row">
-    <div class="col-lg-3">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
-            <p class="lead"><h3>New Route</h3>
-            <p><h5>Name: <b>{{newName}}</b></h5>
-        </div>
-    </div>
-    <div class="col-lg-9">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#segmentDetails" data-toggle="tab"><h3>Details</h3></a></li>
-        </ul>
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <p class="lead"><h3>New Route</h3>
+                        <p><h5>Name: <b>{{newName}}</b></h5>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#segmentDetails" data-toggle="tab"><h3>Details</h3></a></li>
+                    </ul>
 
-        <div class="tab-content">
-            <div class="tab-pane fade active in" id="segmentDetails">
-                <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
-                    <div class="col-lg-12">
-                        {{#view "check-unique-field" model_val='segment' filter_val='name' val=newName path='segment.segment-new'}}
-                            <div class="row" style="margin-bottom: 15px;">
-                                <div class="col-lg-3"><h4>Name</h4></div>
-                                <div class="col-lg-7">
-                                    <div class="input-group input-group">
-                                        {{input value= controller.newName placeholder='Enter name' class='form-control' disabled= controller.isView}}
-                                        <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="segmentDetails">
+                            <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+                                <div class="col-lg-12">
+                                    {{#view "check-unique-field" model_val='segment' filter_val='name' val=newName path='segment.segment-new'}}
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="col-lg-3"><h4>Name</h4></div>
+                                            <div class="col-lg-7">
+                                                <div class="input-group input-group">
+                                                    {{input value= controller.newName placeholder='Enter name' class='form-control' disabled= controller.isView}}
+                                                    <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2"></div>
+                                        </div>
+                                    {{/view}}
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="col-lg-3"><h4>Origin</h4></div>
+                                        <div class="col-lg-7">
+                                            <a id="autocomplete-origin">
+                                                {{auto-complete source=app_controller.autocompletePoiPort destination=controller.newOrigin searchPath="name" minChars=2}}
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="col-lg-3"><h4>Destination</h4></div>
+                                        <div class="col-lg-7">
+                                            <a id="autocomplete-destination">
+                                                {{auto-complete source=app_controller.autocompletePoiPort destination=controller.newDestination searchPath="name" minChars=2}}
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <h5 class="page-header"></h5>
+                                            {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" }}
+                                                <span class="ladda-label">Save</span>
+                                            {{/view}}
+                                            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
+                                        </div>
+                                        <div class="col-lg-2"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-2"></div>
                             </div>
-                        {{/view}}
-                        <div class="row" style="margin-bottom: 15px;">
-                            <div class="col-lg-3"><h4>Origin</h4></div>
-                            <div class="col-lg-7">
-                                <a id="autocomplete-origin">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.newOrigin searchPath="name" minChars=2}}
-                                </a>
-                            </div>
-                            <div class="col-lg-2"></div>
-                        </div>
-                        <div class="row" style="margin-bottom: 15px;">
-                            <div class="col-lg-3"><h4>Destination</h4></div>
-                            <div class="col-lg-7">
-                                <a id="autocomplete-destination">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.newDestination searchPath="name" minChars=2}}
-                                </a>
-                            </div>
-                            <div class="col-lg-2"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-10">
-                                <h5 class="page-header"></h5>
-                                {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right" }}
-                                    <span class="ladda-label">Save</span>
-                                {{/view}}
-                                <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
-                            </div>
-                            <div class="col-lg-2"></div>
                         </div>
                     </div>
                 </div>

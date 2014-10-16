@@ -1,50 +1,56 @@
-<div class="container bs-docs-log">
-    <div class="row" style="margin-top: 20px">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            <div class= "well well-lg" style="background-color: #FAFDFD">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="lead">Change password</p>
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="container bs-docs-log">
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div class= "well well-lg" style="background-color: #FAFDFD">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="lead">Change password</p>
 
-                    </div>
-                    <div class="col-lg-6">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <label>Current password</label>
-                        {{input value=controller.curr_pwd class='form-control' type="password"}}
-                    </div>
-                    <div class="col-lg-3"></div>
-                </div>
-                <div class="row">
-                    <h5 class="page-header"></h5>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <label>New password</label>
-                        {{input value=controller.new_pwd class='form-control' type="password"}}
-                    </div>
-                    <div class="col-lg-3"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <label>Confirm new password</label>
-                        <div class="input-group">
-                            {{input value=controller.confirm_pwd type="password" class='form-control'}}
-                            <span class="input-group-btn"><button class="btn btn-primary btn-130" type="button" {{action 'check_pwd'}}>Change</button></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3"></div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
+                                </div>
+                                <div class="col-lg-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <label>Current password</label>
+                                    {{input value=controller.curr_pwd class='form-control' type="password"}}
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                            <div class="row">
+                                <h5 class="page-header"></h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <label>New password</label>
+                                    {{input value=controller.new_pwd class='form-control' type="password"}}
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <label>Confirm new password</label>
+                                    <div class="input-group">
+                                        {{input value=controller.confirm_pwd type="password" class='form-control'}}
+                                        <span class="input-group-btn"><button class="btn btn-primary btn-130" type="button" {{action 'check_pwd'}}>Change</button></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

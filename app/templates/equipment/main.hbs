@@ -1,35 +1,41 @@
-<div class="row">
-    <div class="col-lg-3">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
-            <p class="lead"><h3>Equipment</h3>
-            <p><h5>Code: <b>{{code}}</b></h5>
-            <p><h5>Classification: <b>{{equipmentClassification.name}}</b></h5>
-            <h3 class="page-header"></h3>
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <p class="lead"><h3>Equipment</h3>
+                        <p><h5>Code: <b>{{code}}</b></h5>
+                        <p><h5>Classification: <b>{{equipmentClassification.name}}</b></h5>
+                        <h3 class="page-header"></h3>
 
-            {{#link-to 'equipment/search-record'}}
-                <button type="button" class="btn btn btn-primary btn-group-justified">
-                    Go to search
-                </button>
-            {{/link-to}}
-        </div>
-    </div>
-    <div class="col-lg-9">
-        <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
-            <li {{bind-attr class="controller.tabList.details:active"}}>
-                <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
-            </li>
-            <li {{bind-attr class="controller.tabList.states:active"}}>
-                <a href="#" {{action setTabs "states"}}><h4>States</h4></a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade active in">
-                {{#if controller.tabList.details}}
-                    {{partial "equipment/partials/-details"}}
-                {{/if}}
-                {{#if controller.tabList.states}}
-                    {{partial "equipment/partials/-states"}}
-                {{/if}}
+                        {{#link-to 'equipment/search-record'}}
+                            <button type="button" class="btn btn btn-primary btn-group-justified">
+                                Go to search
+                            </button>
+                        {{/link-to}}
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px;">
+                        <li {{bind-attr class="controller.tabList.details:active"}}>
+                            <a href="#"{{action setTabs "details"}}><h4>Details</h4></a>
+                        </li>
+                        <li {{bind-attr class="controller.tabList.states:active"}}>
+                            <a href="#" {{action setTabs "states"}}><h4>States</h4></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in">
+                            {{#if controller.tabList.details}}
+                                {{partial "equipment/partials/-details"}}
+                            {{/if}}
+                            {{#if controller.tabList.states}}
+                                {{partial "equipment/partials/-states"}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
-html, body {
-  margin: 20px;
-}
+/*html, body {*/
+  /*margin: 20px;*/
+/*}*/
 
 
 /*************************************/
@@ -11,6 +11,32 @@ html, body {
     overflow: hidden;
 }
 .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}
+input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+}
+
+/*************************************/
+/*BUTTON DOWNLOAD LOGO*/
+/***/
+.btn-logo {
+    position: relative;
+    overflow: hidden;
+}
+.btn-logo input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -407,4 +433,55 @@ fieldset[disabled] .btn-amazon.active {
      Darken IE7 buttons by default so they stand out more given they won't have borders
 
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+/**********************************************************************************************************************/
+
+
+
+/* MONDO */
+#mondo {
+    text-align: center;
+}
+#mondo {
+    /*position: relative;*/
+    text-align: center;
+}
+#mondo .mondo-wrap-outer {
+    background-image: url('../mondo2000x800.jpg');
+    /*background-image: url(http://zenointelligence.com/img/mondo2000x800.jpg);*/
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.mondo-fade {
+    /*background: #FFFFFF;*/
+}
+.mondo-fade .mondo-wrap-outer {
+    /*-moz-background-size: cover;*/
+    /*-webkit-background-size: cover;*/
+    position: relative;
+    background-size: cover;
+}
+
+.mondo-wrap-outer {
+    margin: 0 auto;
+}
+
+#mondo.mondo-tall .mondo-wrap-outer {
+    min-height: 2px;
+    background-position: center;
+}
+#mondo.mondo-tall .mondo-wrap-outer {
+    min-height: 979px;
+    background-size: cover;
+}
+/*INNER*/
+#mondo.mondo-tall .mondo-wrap-inner {
+    height: 200px;
+}
+
+#mondo.mondo-tall .mondo-wrap-inner {
+    height: 300px;
+    overflow: visible;
 }

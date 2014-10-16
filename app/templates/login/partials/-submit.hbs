@@ -7,44 +7,36 @@
                 {{#if loggedIn}}
                     <p>You are already logged in!</p>
                 {{else}}
-                    <form class="form-inline" {{action login on="submit"}}>
-                        <h2 style="color: white" ><strong>Sea Forward</strong></h2>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        {{input id='username' valueBinding='username' type="text"  placeholder='Username' class='form-control'}}
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        {{input id='password' valueBinding='password' type="password"  placeholder='Password' class='form-control'}}
-                                    </div>
+                    <div class="row" style="text-align: center">
+                        <h2 style="color: white"><strong>Sea Oracle</strong></h2>
+                    </div>
+                    <div class="row" style="margin-top: 30px; margin-bottom: 30px">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{input id='username' valueBinding='username' type="text"  placeholder='Username' class='form-control'}}
                                 </div>
                             </div>
-                            <div class="col-lg-2"></div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-
-                            <div class="col-lg-8">
-                                <br>
-                                <br>
-
-                                <button type="button" class="btn btn-default btn-small btn-130 pull-left" {{action "change_newLog" 1}}>
-                                    Sign up
-                                </button>
-
-                                <button type="submit" class="btn btn-primary btn-small btn-130 pull-right" >Login</button>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{input id='password' valueBinding='password' type="password"  placeholder='Password' class='form-control'}}
+                                </div>
                             </div>
-                            <div class="col-lg-2"></div>
                         </div>
-                    </form>
+                        <div class="col-lg-3"></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 30px">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-default btn-160 pull-left" {{action 'change_newLog' 1}}>
+                                Sign up
+                            </button>
+                            <button type="button" class="btn btn-primary btn-160 pull-right" {{action 'login'}}>Login</button>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
                 {{/if}}
             {{/if}}
         </div>

@@ -1,109 +1,115 @@
-<div class="row">
-    <div class="col-lg-2">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-12">
-                    {{#if controller.is_agency}}
-                        {{#if isEditing}}
-                            {{#if isAccept}}
-                                <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
-                            {{/if}}
-                            {{#if isReject}}
-                                <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
-                            {{/if}}
-                        {{/if}}
-                    {{/if}}
-                    {{#if controller.is_shipowner}}
-                        {{#if isEditing}}
-                            {{#if isAccept}}
-                                <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
-                            {{/if}}
-                            {{#if isReject}}
-                                <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
-                            {{/if}}
-                        {{/if}}
-                    {{/if}}
+                <div class="col-lg-2">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{#if controller.is_agency}}
+                                    {{#if isEditing}}
+                                        {{#if isAccept}}
+                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
+                                        {{/if}}
+                                        {{#if isReject}}
+                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/if}}
+                                {{#if controller.is_shipowner}}
+                                    {{#if isEditing}}
+                                        {{#if isAccept}}
+                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
+                                        {{/if}}
+                                        {{#if isReject}}
+                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+
+                        <p class="lead"><h3>Booking {{#if isPending}}(Pending){{/if}}{{#if isRequest}}(Request){{/if}}{{#if isEditing}}(Editing){{/if}}{{#if isLocked}}(Lock){{/if}}{{#if isRegister}}(Register){{/if}}</h3>
+                        <p><h5>Ref: <b>{{code}}</b></h5>
+                        <p><h5>Shared with: <b>{{#each sharedWith}}
+                        {{this.name}}
+                    {{/each}}</b></h5>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"></h3>
+                                <!--elenco di documenti associati al booking-->
+                                {{partial "booking/partials/-window-summary-documents"}}
+
+                                <!-- riquadro presente nelle tabs container/roro/bb riassuntivo dei vari items-->
+                                {{partial "booking/partials/-window-summary-nav"}}
+
+                                <!-- pulsanti laterali nella pagina (lock/register/back/Bill of Lading/share/delate)-->
+                                {{partial "booking/partials/-button-left-nav"}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="col-lg-10">
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li {{bind-attr class="controller.tabList.details:active"}}>
+                            <a href="#"{{action setTabs "details" this}}><h4>Details</h4></a>
+                        </li>
+                        {{#unless controller.is_client}}
+                            <li {{bind-attr class="controller.tabList.freightPlan:active"}}>
+                                <a href="#" {{action setTabs "freightPlan" this}}><h4>Freight Plan</h4></a>
+                            </li>
+                            <li {{bind-attr class="controller.tabList.revenues:active"}}>
+                                <a href="#" {{action setTabs "revenues" this}}><h4>Revenues</h4></a>
+                            </li>
+                        {{/unless}}
+                        <li {{bind-attr class="controller.tabList.container:active"}}>
+                            <a href="#" {{action setTabs "container" this}}><h4>Container</h4></a>
+                        </li>
+                        <li {{bind-attr class="controller.tabList.roro:active"}}>
+                            <a href="#" {{action setTabs "roro" this}}><h4>Ro/Ro</h4></a>
+                        </li>
+                        <li {{bind-attr class="controller.tabList.bb:active"}}>
+                            <a href="#" {{action setTabs "bb" this}}><h4>Break Bulks</h4></a>
+                        </li>
+                        {{#unless controller.is_client}}
+                            <li {{bind-attr class="controller.tabList.itemStatus:active"}}>
+                                <a href="#" {{action setTabs "itemStatus" this}}><h4>Item Status</h4></a>
+                            </li>
+                            <li {{bind-attr class="controller.tabList.files:active"}}>
+                                <a href="#" {{action setTabs "files" this}}><h4>Files</h4></a>
+                            </li>
+                        {{/unless}}
 
-            <p class="lead"><h3>Booking {{#if isPending}}(Pending){{/if}}{{#if isRequest}}(Request){{/if}}{{#if isEditing}}(Editing){{/if}}{{#if isLocked}}(Lock){{/if}}{{#if isRegister}}(Register){{/if}}</h3>
-            <p><h5>Ref: <b>{{code}}</b></h5>
-            <p><h5>Shared with: <b>{{#each sharedWith}}
-                {{this.name}}
-            {{/each}}</b></h5>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h3 class="page-header"></h3>
-                    <!--elenco di documenti associati al booking-->
-                    {{partial "booking/partials/-window-summary-documents"}}
-
-                    <!-- riquadro presente nelle tabs container/roro/bb riassuntivo dei vari items-->
-                    {{partial "booking/partials/-window-summary-nav"}}
-
-                    <!-- pulsanti laterali nella pagina (lock/register/back/Bill of Lading/share/delate)-->
-                    {{partial "booking/partials/-button-left-nav"}}
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in">
+                            {{#if controller.tabList.details}}
+                                {{partial "booking/partials/-tab-details"}}
+                            {{/if}}
+                            {{#if controller.tabList.freightPlan}}
+                                {{partial "booking/partials/-tab-freight-plan"}}
+                            {{/if}}
+                            {{#if controller.tabList.revenues}}
+                                {{partial "booking/partials/-tab-revenues"}}
+                            {{/if}}
+                            {{#if controller.tabList.container}}
+                                {{partial "booking/partials/-tab-container"}}
+                            {{/if}}
+                            {{#if controller.tabList.roro}}
+                                {{partial "booking/partials/-tab-roro"}}
+                            {{/if}}
+                            {{#if controller.tabList.bb}}
+                                {{partial "booking/partials/-tab-bb"}}
+                            {{/if}}
+                            {{#if controller.tabList.itemStatus}}
+                                {{partial "booking/partials/-tab-item-status"}}
+                            {{/if}}
+                            {{#if controller.tabList.files}}
+                                {{partial "booking/partials/-tab-files"}}
+                            {{/if}}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-10">
-        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-            <li {{bind-attr class="controller.tabList.details:active"}}>
-                <a href="#"{{action setTabs "details" this}}><h4>Details</h4></a>
-            </li>
-            {{#unless controller.is_client}}
-                <li {{bind-attr class="controller.tabList.freightPlan:active"}}>
-                    <a href="#" {{action setTabs "freightPlan" this}}><h4>Freight Plan</h4></a>
-                </li>
-                <li {{bind-attr class="controller.tabList.revenues:active"}}>
-                    <a href="#" {{action setTabs "revenues" this}}><h4>Revenues</h4></a>
-                </li>
-            {{/unless}}
-            <li {{bind-attr class="controller.tabList.container:active"}}>
-                <a href="#" {{action setTabs "container" this}}><h4>Container</h4></a>
-            </li>
-            <li {{bind-attr class="controller.tabList.roro:active"}}>
-                <a href="#" {{action setTabs "roro" this}}><h4>Ro/Ro</h4></a>
-            </li>
-            <li {{bind-attr class="controller.tabList.bb:active"}}>
-                <a href="#" {{action setTabs "bb" this}}><h4>Break Bulks</h4></a>
-            </li>
-            {{#unless controller.is_client}}
-                <li {{bind-attr class="controller.tabList.itemStatus:active"}}>
-                    <a href="#" {{action setTabs "itemStatus" this}}><h4>Item Status</h4></a>
-                </li>
-                <li {{bind-attr class="controller.tabList.files:active"}}>
-                    <a href="#" {{action setTabs "files" this}}><h4>Files</h4></a>
-                </li>
-            {{/unless}}
-
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade active in">
-                {{#if controller.tabList.details}}
-                    {{partial "booking/partials/-tab-details"}}
-                {{/if}}
-                {{#if controller.tabList.freightPlan}}
-                    {{partial "booking/partials/-tab-freight-plan"}}
-                {{/if}}
-                {{#if controller.tabList.revenues}}
-                    {{partial "booking/partials/-tab-revenues"}}
-                {{/if}}
-                {{#if controller.tabList.container}}
-                    {{partial "booking/partials/-tab-container"}}
-                {{/if}}
-                {{#if controller.tabList.roro}}
-                    {{partial "booking/partials/-tab-roro"}}
-                {{/if}}
-                {{#if controller.tabList.bb}}
-                    {{partial "booking/partials/-tab-bb"}}
-                {{/if}}
-                {{#if controller.tabList.itemStatus}}
-                    {{partial "booking/partials/-tab-item-status"}}
-                {{/if}}
-                {{#if controller.tabList.files}}
-                    {{partial "booking/partials/-tab-files"}}
-                {{/if}}
             </div>
         </div>
     </div>

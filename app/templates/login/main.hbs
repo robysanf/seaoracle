@@ -1,11 +1,23 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            {{#if controller.newLog}}
-                {{partial "login/partials/-new"}}
-            {{else}}
-                {{partial "login/partials/-submit"}}
-            {{/if}}
+<div id="mondo" class="mondo-tall mondo-fade">
+    <div class="mondo-wrap-outer" >
+        <div class="mondo-wrap-inner">
+            <div class="container">
+                <div class="row" style="margin-top: 40px">
+                    <div class="col-lg-12">
+                        {{#if controller.newLog}}
+                            {{partial "login/partials/-new"}}
+                        {{else}}
+                            {{partial "login/partials/-submit"}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+

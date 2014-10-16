@@ -10,7 +10,7 @@ export default Ember.View.extend({
             formData = new FormData(),formData_size = null;
 
         //recupero il nome del file da mettere nell'input per l'utente
-        $(document).on('change', '.btn-file :file', function() {
+        $(document).on('change', '.btn-logo :file', function() {
             var input = $(this),
                 numFiles = input.get(0).files ? input.get(0).files.length : 1,
                 label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -25,7 +25,7 @@ export default Ember.View.extend({
 
         $(document).ready( function() {
             //inserisco il nome del file nell'input per l'utente
-            $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            $('.btn-logo :file').on('fileselect', function(event, numFiles, label) {
                 var input = $(this).parents('.input-group').find(':text'),
                     log = numFiles > 1 ? numFiles + ' files selected' : label;
 

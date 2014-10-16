@@ -1,64 +1,70 @@
-<div class="row">
-    <div class="col-lg-3">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
-            <p class="lead"><h3>New Template</h3>
-            <p><h5>Name: <b>{{newName}}</b></h5>
-        </div>
-    </div>
-    <div class="col-lg-9">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#warehouseDetails" data-toggle="tab"><h3>Details</h3></a></li>
-        </ul>
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <p class="lead"><h3>New Template</h3>
+                        <p><h5>Name: <b>{{newName}}</b></h5>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#warehouseDetails" data-toggle="tab"><h3>Details</h3></a></li>
+                    </ul>
 
-        <div class="tab-content">
-            <div class="tab-pane fade active in" id="warehouseDetails">
-                <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
-                    <div class="col-lg-12">
-                        {{#view "check-unique-field" model_val='template' filter_val='name' val=controller.newName path='template.new-record'}}
-                            <div class="row">
-                                <div class="col-lg-3"><h4>Name</h4></div>
-                                <div class="col-lg-9">
-                                    <div class="input-group input-group">
-                                        {{input id='name' value= controller.newName placeholder='Enter name' class='form-control'}}
-                                        <span class="input-group-addon " id="1">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="warehouseDetails">
+                            <div class="row" style="margin-top: 40px; margin-bottom: 25px; margin-left: 25px;">
+                                <div class="col-lg-12">
+                                    {{#view "check-unique-field" model_val='template' filter_val='name' val=controller.newName path='template.new-record'}}
+                                        <div class="row">
+                                            <div class="col-lg-3"><h4>Name</h4></div>
+                                            <div class="col-lg-9">
+                                                <div class="input-group input-group">
+                                                    {{input id='name' value= controller.newName placeholder='Enter name' class='form-control'}}
+                                                    <span class="input-group-addon " id="1">
                                             <span class="glyphicon glyphicon-asterisk"></span>
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
-                        {{/view}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/view}}
 
-                        <div class="row">
-                            <div class="col-lg-12"><h2 class="page-header"></h2></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3"><h4>Path</h4></div>
-                            {{#view "sortable" type='new'}}
-                                <div class="col-lg-9">
-                                    <div class="sortable" style="cursor: pointer">
-                                        {{#each controller.legs itemViewClass="Em.View"}}
-                                            <ul class="list-group">
-                                                <li class="list-group-item" data-id="{{unbound this.id}}" data-value="{{unbound view.contentIndex}}">
-                                                    <span class="glyphicon glyphicon-sort pull-left" style="color: #428bca; width: 10%"></span>
-                                                    <strong>{{this.name}}</strong>
-                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" {{action "remove_item" view.contentIndex}}>&times;</button>
-                                                </li>
-                                            </ul>
-                                        {{/each}}
+                                    <div class="row">
+                                        <div class="col-lg-12"><h2 class="page-header"></h2></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3"><h4>Path</h4></div>
+                                        {{#view "sortable" type='new'}}
+                                            <div class="col-lg-9">
+                                                <div class="sortable" style="cursor: pointer">
+                                                    {{#each controller.legs itemViewClass="Em.View"}}
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item" data-id="{{unbound this.id}}" data-value="{{unbound view.contentIndex}}">
+                                                                <span class="glyphicon glyphicon-sort pull-left" style="color: #428bca; width: 10%"></span>
+                                                                <strong>{{this.name}}</strong>
+                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true" {{action "remove_item" view.contentIndex}}>&times;</button>
+                                                            </li>
+                                                        </ul>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                        {{/view}}
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="page-header"></h5>
+                                        <div class="col-lg-10">
+                                            <button type="submit" class="btn btn-default btn-130 pull-right" {{action "open_modal" 'template.modals.select-item' this}}>Add leg</button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                                <span class="ladda-label">Save</span>
+                                            {{/view}}
+                                            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
+                                        </div>
                                     </div>
                                 </div>
-                            {{/view}}
-                        </div>
-                        <div class="row">
-                            <h5 class="page-header"></h5>
-                            <div class="col-lg-10">
-                                <button type="submit" class="btn btn-default btn-130 pull-right" {{action "open_modal" 'template.modals.select-item' this}}>Add leg</button>
-                            </div>
-                            <div class="col-lg-2">
-                                {{#view 'standby-button' action_name='create_record' arg1=null arg2=null data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
-                                    <span class="ladda-label">Save</span>
-                                {{/view}}
-                                <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "create_record"}}>Save</button>-->
                             </div>
                         </div>
                     </div>

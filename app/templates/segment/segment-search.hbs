@@ -1,45 +1,51 @@
-<div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-6">
-                    <p class="lead">Route Search</p>
-                </div>
-                <div class="col-lg-6">
-                    {{#view "search"}}
-                        <button type="button" class="btn btn-primary btn-130 pull-right">
-                            <span class="glyphicon glyphbutton glyphicon-search"></span> Search
-                        </button>
-                    {{/view}}
-                </div>
-            </div>
-            <div class="row" style="margin-top: 25px; margin-bottom: 15px">
                 <div class="col-lg-1"></div>
-                <div class="col-lg-5">
-                    <label>Origin</label>
-                    <a id="autocomplete-shOrigin">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchOrigin searchPath="name" minChars=2}}
-                    </a>
+                <div class="col-lg-10">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="lead">Route Search</p>
+                            </div>
+                            <div class="col-lg-6">
+                                {{#view "search"}}
+                                    <button type="button" class="btn btn-primary btn-130 pull-right">
+                                        <span class="glyphicon glyphbutton glyphicon-search"></span> Search
+                                    </button>
+                                {{/view}}
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 25px; margin-bottom: 15px">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5">
+                                <label>Origin</label>
+                                <a id="autocomplete-shOrigin">
+                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchOrigin searchPath="name" minChars=2}}
+                                </a>
+                            </div>
+                            <div class="col-lg-5">
+                                <label>Destination</label>
+                                <a id="autocomplete-shDestination">
+                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchDestination searchPath="name" minChars=2}}
+                                </a>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div class="row" style="margin-bottom: 25px">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5">
+                                <label>Name</label>
+                                {{input value= controller.searchName class='form-control'}}
+                            </div>
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-5">
-                    <label>Destination</label>
-                    <a id="autocomplete-shDestination">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchDestination searchPath="name" minChars=2}}
-                    </a>
-                </div>
-                <div class="col-lg-1"></div>
-            </div>
-            <div class="row" style="margin-bottom: 25px">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-5">
-                    <label>Name</label>
-                    {{input value= controller.searchName class='form-control'}}
-                </div>
-                <div class="col-lg-5"></div>
                 <div class="col-lg-1"></div>
             </div>
         </div>
     </div>
-    <div class="col-lg-1"></div>
 </div>

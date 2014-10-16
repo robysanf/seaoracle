@@ -9,7 +9,7 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Your Profile<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes"> {{controller.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="themes">
                             <!--<li>{{!{{#link-to 'colorindex'}}item 1{{!{{/link-to}}</li>-->
                             <li>{{#link-to 'profile/main' controller.userId}}your profile{{/link-to}}</li>
@@ -154,26 +154,22 @@
                 <!--</ul>-->
 
             </div>
-
-
         </div>
     </div>
 {{/unless}}
 
+
+{{outlet}}
+
+
 <div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-lg-12">
-            {{outlet}}
-        </div>
-    </div>
-    <div class="row" style="margin-top: 40px">
-        <!--<div class="col-lg-1"></div>-->
-        <div class="col-lg-12">
             {{outlet 'search-result'}}
         </div>
-        <!--<div class="col-lg-1"></div>-->
     </div>
 </div>
+
 
 {{outlet 'overview'}}
 

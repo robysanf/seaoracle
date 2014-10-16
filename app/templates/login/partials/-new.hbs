@@ -1,109 +1,112 @@
 <div class="row">
     <div class="col-lg-6">
-        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
-            <form class="form-inline" style="min-height: 480px">
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px; min-height: 500px">
+            <div class="row" style="text-align: center">
                 <h2 style="color: white" ><strong>Company</strong></h2>
-                <br>
-                <div class="row">
-                    <div class="col-lg-10">
-                        {{#view 'verify-sing-up-fields' model_val='company' val=name}}
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    {{input id='name' value=controller.name type="text"  placeholder='Name' class='form-control'}}
-                                </div>
-                            </div>
-                        {{/view}}
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='vatNumber' valueBinding='vatNumber' type="text"  placeholder='Vat number' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='street' valueBinding='street' type="text"  placeholder='Street' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='city' valueBinding='city' type="text"  placeholder='City' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='zipCode' valueBinding='zipCode' type="text"  placeholder='Zip code' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!--optionValuePath = "content.id"-->
-                                {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value=country class='form-control'}}
-                                {{!{{input id='country' valueBinding='country' type="text"  placeholder='Country' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='email' valueBinding='companyEmail' type="text"  placeholder='E-mail' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{view Ember.Select id='companyType' valueBinding='companyType' prompt="Please select a company type"  content=companyTypeList value=companyType class='form-control'}}
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="row" style="margin-top: 30px; margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{#view 'verify-sing-up-fields' model_val='company' val=name}}
+                       {{input id='name' value=controller.name type="text"  placeholder='Name' class='form-control'}}
+                    {{/view}}
                 </div>
-            </form>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                {{input id='vatNumber' valueBinding='vatNumber' type="text"  placeholder='Vat number' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='street' valueBinding='street' type="text"  placeholder='Street' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='city' valueBinding='city' type="text"  placeholder='City' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='zipCode' valueBinding='zipCode' type="text"  placeholder='Zip code' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{view Ember.Select content=app_controller.nations optionLabelPath = "content.country" valueBinding='country' prompt="Please select a country" value=country class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='email' valueBinding='companyEmail' type="text"  placeholder='E-mail' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 30px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{view Ember.Select id='companyType' valueBinding='companyType' prompt="Please select a company type"  content=companyTypeList value=companyType class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
         </div>
     </div>
     <div class="col-lg-6">
-        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
-            <form class="form-inline " style="min-height: 480px">
-                <h2 style="color: #ffffff"><strong>User</strong></h2>
-                <br>
-                <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='firstName' valueBinding='firstName' type="text"  placeholder='First name' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='lastName' valueBinding='lastName' type="text"  placeholder='Last name' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        {{#view 'verify-sing-up-fields' model_val='user' val=username}}
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    {{input id='username' value=controller.username type="text"  placeholder='Username' class='form-control'}}
-                                </div>
-                            </div>
-                        {{/view}}
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='pwd' valueBinding='pwd' type="password"  placeholder='Password' class='form-control'}}
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                {{input id='userEmail' valueBinding='userEmail' type="text"  placeholder='E-mail' class='form-control'}}
-                            </div>
-                        </div>
-                    </div>
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px; min-height: 500px">
+
+            <div class="row" style="text-align: center">
+                <h2 style="color: white" ><strong>Company</strong></h2>
+            </div>
+            <div class="row" style="margin-top: 30px; margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='firstName' valueBinding='firstName' type="text"  placeholder='First name' class='form-control'}}
                 </div>
-            </form>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='lastName' valueBinding='lastName' type="text"  placeholder='Last name' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{#view 'verify-sing-up-fields' model_val='user' val=username}}
+                        {{input id='username' value=controller.username type="text"  placeholder='Username' class='form-control'}}
+                    {{/view}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='pwd' valueBinding='pwd' type="password"  placeholder='Password' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row" style="margin-bottom: 30px">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    {{input id='userEmail' valueBinding='userEmail' type="text"  placeholder='E-mail' class='form-control'}}
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -111,21 +114,19 @@
 <div class="row">
     <div class="col-lg-12">
         <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
-            <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-5">
-                    <button class="btn btn-default btn-130 pull-left" {{action "change_newLog" 0}}>Back to login</button>
+            <div class="row" style="margin-left: 30px; margin-right: 30px">
+                <div class="col-lg-6">
+                    <button class="btn btn-default btn-160 pull-left" {{action "change_newLog" 0}}>Back to login</button>
                 </div>
-                <div class="col-lg-5">
-                    <button class="btn btn-primary btn-130 pull-right" {{action 'new_signUp'}}>Sign up</button>
+                <div class="col-lg-6">
+                    <button class="btn btn-primary btn-160 pull-right" {{action 'new_signUp'}}>Sign up</button>
                 </div>
-                <div class="col-lg-1"></div>
             </div>
         </div>
         <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
             <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -150,7 +151,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-2"></div>
             </div>
         </div>
     </div>

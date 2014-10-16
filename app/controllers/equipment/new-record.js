@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
     newCurrentStatus: null,
     newCurrency: null,
     newVisibility: null,
-    newCode: null,
+    newName: null,
     newDailyCost: null,
     newRinaFromDate: null,
     newRinaToDate: null,

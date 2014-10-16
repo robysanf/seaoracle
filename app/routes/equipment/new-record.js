@@ -127,9 +127,9 @@ export default Ember.Route.extend({
                 controller.plannersList.push(controller.searchPlanner4);
             }
 
-            (controller.newCode !== null && controller.newCode.length >= 1 ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
+            (controller.newName !== null && controller.newName.length >= 1 ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
 
-            if ( controller.newCode !== null && controller.newCode.length >= 1 && controller.searchClassification !== null ) {
+            if ( controller.newName !== null && controller.newName.length >= 1 && controller.searchClassification !== null ) {
 
                 var today = new Date();
 
@@ -170,8 +170,8 @@ export default Ember.Route.extend({
 
                                 //create the new equipment into the local storage
                                 var newEquipment = self.store.createRecord('equipment', {
-                                    code: controller.newCode,
-                                    originalCode: controller.newCode,
+                                    code: controller.newName,
+                                    originalCode: controller.newName,
                                     dailyCost: controller.newDailyCost,
                                     currency: controller.newCurrency,
                                     availability: true,
@@ -224,7 +224,7 @@ export default Ember.Route.extend({
                                                                     controller.set('searchPlanner3', []);
                                                                     controller.set('searchPlanner4', []);
                                                                     controller.set('plannersList', []);
-                                                                    controller.set('newCode', null);
+                                                                    controller.set('newName', null);
                                                                     controller.set('newDailyCost', null);
                                                                     controller.set('newRinaFromDate', null);
                                                                     controller.set('newRinaToDate', null);
@@ -269,7 +269,7 @@ export default Ember.Route.extend({
                                                         controller.set('searchPlanner2', []);
                                                         controller.set('searchPlanner3', []);
                                                         controller.set('searchPlanner4', []);
-                                                        controller.set('newCode', null);
+                                                        controller.set('newName', null);
                                                         controller.set('newDailyCost', null);
                                                         controller.set('newVisibility', null);
                                                         controller.set('newRinaFromDate', null);
@@ -352,8 +352,8 @@ export default Ember.Route.extend({
 
                             //create the new equipment into the local storage
                             var newEquipment = self.store.createRecord('equipment', {
-                                code: controller.newCode,
-                                originalCode: controller.newCode,
+                                code: controller.newName,
+                                originalCode: controller.newName,
                                 dailyCost: controller.newDailyCost,
                                 currency: controller.newCurrency,
                                 availability: true,
@@ -398,7 +398,7 @@ export default Ember.Route.extend({
                                                             controller.set('searchPlanner3', []);
                                                             controller.set('searchPlanner4', []);
                                                             controller.set('plannersList', []);
-                                                            controller.set('newCode', null);
+                                                            controller.set('newName', null);
                                                             controller.set('newDailyCost', null);
                                                             controller.set('newRinaFromDate', null);
                                                             controller.set('newRinaToDate', null);
@@ -443,7 +443,7 @@ export default Ember.Route.extend({
                                                 controller.set('searchPlanner2', []);
                                                 controller.set('searchPlanner3', []);
                                                 controller.set('searchPlanner4', []);
-                                                controller.set('newCode', null);
+                                                controller.set('newName', null);
                                                 controller.set('newDailyCost', null);
                                                 controller.set('newVisibility', null);
                                                 controller.set('newRinaFromDate', null);

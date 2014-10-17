@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'seaoracle',
     environment: environment,
     //baseURL: '/',
-    baseURL: '/seaoracle',
+    baseURL: '/seaoracle/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -31,7 +31,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/seaoracle';
+    ENV.baseURL = '/seaoracle/';
     ENV.locationType = 'auto';
 
     // keep test console output quieter

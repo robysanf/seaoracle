@@ -31,6 +31,7 @@ export default Ember.Controller.extend({
     },
     actions:{
         login: function() {
+
             var self = this, data = this.getProperties('username', 'password');
 
             //$.post('https://test.zenointelligence.com/seaforward/api/auth', data).then(function(response){

@@ -54,6 +54,16 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
             </div>
         </div>
     {{/unless}}
+    {{#if app_controller.user_record.booking_remove}}
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "open_modal" 'booking.modals.new-bill-of-lading' this}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
+        </div>
+    {{/if}}
 {{/if}}
 
 <!-- SHIPOWNER -->

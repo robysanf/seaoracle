@@ -2,22 +2,22 @@ import Ember from 'ember';
 import config from './config/environment';
 
 var Router = Ember.Router.extend({
-    location: config.locationType//,
-    //rootURL: config.baseURL
+    location: config.locationType,
+    rootURL: config.baseURL
 });
 
 Router.map(function() {
-    //this.route('application', {path: '/'});
-    this.route('application', {path: "/"}, function () {
-        this.route('login/main', {path: '/login'});
-        this.route('dashboard/main', {path: '/dashboard'});
+    this.resource('application',{path: "/"}, function () {
 
-        this.route('profile/main', {path: '/profile/:user_id'});
-        this.route('change-password/main', {path: '/changePassword/:user_id'});
+        this.route('login/main', {path: 'login'});
+        this.route('dashboard/main', {path: 'dashboard'});
 
-        this.route('account/main', {path: '/account/:user_id'});
+        this.route('profile/main', {path: 'profile/:user_id'});
+        this.route('change-password/main', {path: 'changePassword/:user_id'});
 
-        this.route('company/main', {path: '/company/:company_id'});
+        this.route('account/main', {path: 'account/:user_id'});
+
+        this.route('company/main', {path: 'company/:company_id'});
         this.route('company/search-company', {path: 'searchCompany'});
         this.route('company/new-company', {path: 'newCompany'});
 
@@ -71,5 +71,6 @@ Router.map(function() {
         this.route('document/new-record', {path: 'newDocument'});
     });
 });
+
 
 export default Router;

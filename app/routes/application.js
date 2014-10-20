@@ -42,7 +42,7 @@ export default Ember.Route.extend({
             } else {
                 new PNotify({
                     title: 'Attention!',
-                    text: 'Something went wrong.',
+                    text: 'Something went wrong: ' + reason.message,
                     type: 'error'
                 });
                 this.redirectToDashboard();

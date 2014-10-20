@@ -11,14 +11,13 @@ export default Ember.ArrayController.extend({
 
     isLogin: false,
 
-    LOG_TRANSITIONS: true,
+    //LOG_TRANSITIONS: true,
     visibility: [
         'private',
         'public'
     ],
 
     /*     ***local storage***     */
-    grantsValue: JSON.parse(localStorage["grantsValue"] ? localStorage["grantsValue"] : "[\" \"]"),
     user_record: JSON.parse(localStorage["user_record"] ? localStorage["user_record"] : "[\" \"]"),
 
     company: localStorage['company'],
@@ -30,7 +29,6 @@ export default Ember.ArrayController.extend({
     companyProfile: localStorage['companyProfile'],
     selectedDepot: localStorage['selectedDepot'],
     isAdmin: localStorage['isAdmin'],
-//    user_record: localStorage['userRecord'],
 
     companyChanged: function() { localStorage.company = this.company; }.observes('company'),
     tokenChanged: function() {
@@ -38,7 +36,6 @@ export default Ember.ArrayController.extend({
         this.globals.set('token', this.token);
     }.observes('token'),
 
-//    user_recordChanged: function() { localStorage.userRecord = this.userRecord; }.observes('userRecord'),
     companyTypeChanged: function() { localStorage.companyType = this.companyType; }.observes('companyType'),
     userIdChanged: function() { localStorage.userId = this.userId; }.observes('userId'),
     usernameChanged: function() { localStorage.username = this.username; }.observes('username'),
@@ -47,7 +44,6 @@ export default Ember.ArrayController.extend({
 
     selectedDepotChanged: function() { localStorage.selectedDepot = this.selectedDepot; }.observes('selectedDepot'),
     isAdminChanged: function() { localStorage.isAdmin = this.isAdmin; }.observes('isAdmin'),
-
 
     currencyClassification: [
         '',

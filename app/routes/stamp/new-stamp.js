@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        create_record: function() {
+        create_record: function( _btn ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('stamp.new-stamp'),
 
             attr = this.get('controller').getProperties(
@@ -43,32 +43,33 @@ export default Ember.Route.extend({
 
 
                 newStamp.save().then(function(promise){
-
                     app_controller.autocompleteStamp.pushObject(promise);
-
-                        //SUCCESS
-                        new PNotify({
-                            title: 'Saved',
-                            text: 'You successfully saved stamp.',
-                            type: 'success',
-                            delay: 1000
-                        });
-                        controller.set('newName', null);
-                        controller.set('newType', null);
-                        controller.set('newValue', null);
-                        controller.set('newDescription', null);
-                        controller.set('isDocCM', true);
-
-                    }, function(){
-                        //NOT SAVED
-                        new PNotify({
-                            title: 'Not saved',
-                            text: 'A problem has occurred.',
-                            type: 'error',
-                            delay: 2000
-                        });
+                    _btn.stop();
+                    //SUCCESS
+                    new PNotify({
+                        title: 'Saved',
+                        text: 'You successfully saved stamp.',
+                        type: 'success',
+                        delay: 1000
                     });
+                    controller.set('newName', null);
+                    controller.set('newType', null);
+                    controller.set('newValue', null);
+                    controller.set('newDescription', null);
+                    controller.set('isDocCM', true);
+
+                }, function(){
+                    _btn.stop();
+                    //NOT SAVED
+                    new PNotify({
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
+                        delay: 2000
+                    });
+                });
             } else {
+                _btn.stop();
                 //WARNING
                 new PNotify({
                     title: 'Attention',

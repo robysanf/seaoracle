@@ -3658,17 +3658,17 @@ export default Ember.Route.extend({
                                                         if( there_is_frPlans ){
                                                             frPlans.filter(function(frPlan){
 
-                                                                frPlan.get('voyages').then(function(voy){
-                                                                    voy.filter(function(myVoy, index){
+                                                                frPlan.get('orderedVoyages').then(function(voy){
+//                                                                    voy.filter(function(myVoy, index){
 
-                                                                        if(index == 0) {
+                                                                        if(index === 0) {
                                                                             var date = new Date();
                                                                             var newBL = self.store.createRecord('document',  {
                                                                                 name: controller.codeBL,
                                                                                 origin: controller.booking_record.get('origin'),
                                                                                 destination: controller.booking_record.get('destination'),
                                                                                 nrOriginal: '03/THREE',
-                                                                                voyage: myVoy,
+                                                                                voyage: voy.get('firstObject'),
                                                                                 date: date,
                                                                                 type: 'docBL',
                                                                                 company: comp,
@@ -3755,12 +3755,12 @@ export default Ember.Route.extend({
                                                                                         delay: 2000
                                                                                     });
                                                                                     self.transitionTo('document/main', newBL);
-                                                                                })
+                                                                                });
                                                                             });
                                                                         }
 
-                                                                    })
-                                                                })
+                                                                    });
+//                                                                })
                                                             });
                                                         } else if( controller.booking_record.get('noFreightPlan') ){
 
@@ -3858,7 +3858,7 @@ export default Ember.Route.extend({
                                                                     });
 
                                                                     self.transitionTo('document/main', newBL);
-                                                                })
+                                                                });
                                                             });
                                                         } else {
                                                             new PNotify({

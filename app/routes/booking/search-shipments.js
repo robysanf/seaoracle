@@ -10,6 +10,8 @@ export default Ember.Route.extend({
             });
         }
 
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
         controller.set('searchBook', []);
         controller.set('searchEquipmentCode', []);
         controller.set('searchChassisNum', []);
@@ -22,44 +24,43 @@ export default Ember.Route.extend({
         },
         searchRecords: function() {
             var self = this, controller = self.controllerFor('booking.search-shipments'), app_controller =self.controllerFor('application'),
-                queryExpression = {}, searchPath = "sortBy";
+                queryExpression = {};//, searchPath = "sortBy";
 
-            queryExpression[searchPath] = 'code';
-            controller.set('research_is_active', true);
+            //queryExpression[searchPath] = 'code';
+            queryExpression = 'sortBy="code"';
+            controller.set('is_loading', true);
             controller.set("shipmentList", null);
-//            /*     ***infinite scroll***     */
-//            app_controller.set('searchResultList', []);
-//            app_controller.set('isAll', false);
-//            app_controller.set('perPage', 25);
-//            app_controller.set('firstIndex', 0);
-//            app_controller.set('items', []);
-
 
             //recupero l'id del booking scelto
             if(controller.searchBook != "" && controller.searchBook != " " && controller.searchBook != null ){
-                searchPath = "booking"; queryExpression[searchPath] = '{"booking/code":"'+controller.searchBook+'"}}';
+               // searchPath = "booking"; queryExpression[searchPath] = '{"booking/code":"'+controller.searchBook+'"}';
+                queryExpression = queryExpression+'&booking={"booking/code":"'+controller.searchBook+'"}';
             }
 
             //recupero identifier del container
             if(controller.searchEquipmentCode != "" && controller.searchEquipmentCode != " " && controller.searchEquipmentCode != null ){
-                searchPath = "freightEquipments"; queryExpression[searchPath] = '{"freightEquipment/equipmentCode":' +'{"eq":"'+controller.searchEquipmentCode.get('equipmentCode') +'"}}';
+                //searchPath = "freightEquipments"; queryExpression[searchPath] = '{"freightEquipment/equipmentCode":' +'{"eq":"'+controller.searchEquipmentCode.get('equipmentCode') +'"}}';
+                queryExpression = queryExpression+'&freightEquipments={"freightEquipment/equipmentCode":' +'{"eq":"'+controller.searchEquipmentCode.get('equipmentCode') +'"}}';
             }
 
             //recupero chassis number del roro
             if( controller.searchChassisNum != "" && controller.searchChassisNum != " " && controller.searchChassisNum != null ){
-                searchPath = "chassisNum"; queryExpression[searchPath] = controller.searchChassisNum.get('chassisNum');
+                //searchPath = "chassisNum"; queryExpression[searchPath] = controller.searchChassisNum.get('chassisNum');
+                queryExpression = queryExpression+'&chassisNum=' + controller.searchChassisNum.get('chassisNum');
             }
 
             //recupero description
             if(controller.keyWords != "" && controller.keyWords != " " && controller.keyWords != null ){
-                searchPath = "description"; queryExpression[searchPath] = controller.keyWords;
+                //searchPath = "description"; queryExpression[searchPath] = controller.keyWords;
+                queryExpression = queryExpression+'&description=' + controller.keyWords;
             }
             if( controller.isActive ){
-                searchPath = 'booking{"booking/state":{"or":'; queryExpression[searchPath] = '["edit", "lock", "request", "pending"]}}';
+                //searchPath = 'booking='; queryExpression[searchPath] = '{"booking/state":{"or":["edit","lock","request","pending"]}}';
+                queryExpression = queryExpression+'&booking={"booking/state":{"or":["edit","lock","request","pending"]}}';
             } else {
-                searchPath = 'booking{"booking/state":'; queryExpression[searchPath] = '"register"}';
+                //searchPath = 'booking='; queryExpression[searchPath]='{"booking/state":"register"}';
+                queryExpression = queryExpression+'&booking={"booking/state":"register"}';
             }
-
 
             //recupero il tipo
             if(controller.itemType) {
@@ -80,41 +81,11 @@ export default Ember.Route.extend({
             }
 
 
-            this.store.findQuery('bookingItem', queryExpression).then(function(val){
+            this.store.findQuery( 'bookingItem', queryExpression ).then(function(val){
                 controller.set("shipmentList", val);
-                //controller.set('research_is_active', false);
+                controller.set('is_loading', false);
+                controller.set('before_search', false);
             });
-
-//            this.store.findQuery('bookingItem', queryExpression).then(function(queryExpressResults){
-//
-//                /*     ***infinite scroll***     */
-//                app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
-//                app_controller.set("queryExpressResults", queryExpressResults);
-//
-//                queryExpressResults.forEach(function(equ, index){
-//                    if(index+1 <= app_controller.perPage) {
-//                        app_controller.items.pushObject(equ);
-//
-//                        if(index+1 === queryExpressResults.get('length')){
-//                            renderResults();
-//                            return false;
-//                        }
-//                    } else {
-//                        renderResults();
-//                        return false;
-//                    }
-//                });
-//
-//                function renderResults() {
-//                    app_controller.set('firstIndex', app_controller.perPage);
-//                    app_controller.set("searchResultList", app_controller.items);
-//
-////                    self.render('booking.result-search-record', {
-////                        into: 'application',
-////                        outlet: 'search-result'
-////                    });
-//                }
-//            });
         }
 
     }

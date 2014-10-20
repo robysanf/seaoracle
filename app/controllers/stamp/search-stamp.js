@@ -7,5 +7,8 @@ export default Ember.Controller.extend({
     record_stamp: null,
 //    searchValue: Ember.A(),
     searchName: Ember.A(),
-    searchType: Ember.A()
+    searchType: Ember.A(),
+
+    before_search: false,
+    is_loading: false
 });

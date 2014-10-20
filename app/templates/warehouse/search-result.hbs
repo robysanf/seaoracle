@@ -1,49 +1,77 @@
-{{#if app_controller.searchResults}}
-    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+
+{{#if controller.is_loading}}
     <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Company Owner</th>
-                    <th>City</th>
-                    <th>Country</th>
-                    <th>Preview</th>
-                    <th>Go to</th>
-                    {{#if app_controller.user_record.poi_remove}}
-                        <th>Remove</th>
-                    {{else}}
-                        <th></th>
-                    {{/if}}
-
-
-                </tr>
-                </thead>
-                <tbody>
-
-                {{#each poi in app_controller.searchResults}}
-                    <tr>
-                        <td>{{poi.name}}</td>
-                        <td>{{poi.company.name}}</td>
-                        <td>{{poi.city}}</td>
-                        <td>{{poi.country}}</td>
-                        <td><a href="#" {{action "open_modal" 'warehouse.modals.poi-view' poi}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td>{{#link-to 'warehouse/main' poi.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
-                        {{#if poi.canRemove}}
-                            <td><a href="#" {{action "open_modal" 'warehouse.modals.poi-remove' poi}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                        {{else}}
-                            <td></td>
-                        {{/if}}
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="well well-lg" style="background-color: #FAFDFD">
+                <h3 class="page-header">Loading...</h3>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-lg-1"></div>
     </div>
 {{else}}
+    {{#unless controller.before_search}}
+        {{#if app_controller.searchResults}}
+            <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Company Owner</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Preview</th>
+                            <th>Go to</th>
+                            {{#if app_controller.user_record.poi_remove}}
+                                <th>Remove</th>
+                            {{else}}
+                                <th></th>
+                            {{/if}}
 
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {{#each poi in app_controller.searchResults}}
+                            <tr>
+                                <td>{{poi.name}}</td>
+                                <td>{{poi.company.name}}</td>
+                                <td>{{poi.city}}</td>
+                                <td>{{poi.country}}</td>
+                                <td><a href="#" {{action "open_modal" 'warehouse.modals.poi-view' poi}}><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                <td>{{#link-to 'warehouse/main' poi.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
+                                {{#if poi.canRemove}}
+                                    <td><a href="#" {{action "open_modal" 'warehouse.modals.poi-remove' poi}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="well well-lg" style="background-color: #FAFDFD">
+                        <h3 class="page-body">No results.</h3>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        {{/if}}
+    {{/unless}}
 {{/if}}
+
 
 <!--   infinite scroll  -->
 {{#if app_controller.loadingMore}}

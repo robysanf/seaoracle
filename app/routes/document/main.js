@@ -170,10 +170,10 @@ export default Ember.Route.extend({
             this.set('controller.isView', val);
         },
 
-        updateDoc_other: function( doc_record, $btn ){
+        updateDoc_other: function( docId, $btn ){
             var self = this, controller = self.controllerFor('document.main');
 
-
+            this.store.find("document", docId).then(function(doc_record){
                 if( doc_record.get('name') !== '' && doc_record.get('name') !== null &&
                     ( doc_record.get('nrOriginal') !== '' && doc_record.get('nrOriginal') !== null && doc_record.get('type') !== 'docCM' ) ||
                     ( doc_record.get('type') === 'docCM' )
@@ -181,11 +181,11 @@ export default Ember.Route.extend({
                     doc_record.save().then(function(success){
                         success.reload().then(function(){
                             $btn.button('reset');
-                            self.controllerFor('documents.document').set('doc_isView', true);
+                            controller.set('isView', true);
                         });
-                    }, function(error){
+                    }, function(){
                         $btn.button('reset');
-                        self.controllerFor('documents.document').set('doc_isView', true);
+                        controller.set('isView', true);
                         new PNotify({
                             title: 'Not saved',
                             text: 'An error was occurred.',
@@ -195,13 +195,14 @@ export default Ember.Route.extend({
                     });
                 } else {
                     $btn.button('reset');
+                    controller.set('isView', true);
                     new PNotify({
                         title: 'Attention',
                         text: 'Code field and Number of Originals field must be entered.',
                         type: 'info'
                     });
                 }
-
+            });
         },
 
         update_doc_bl: function( docId, $btn ){
@@ -250,12 +251,12 @@ export default Ember.Route.extend({
                                                                                         // Saving parent (doc) only after all hasMany items has been loaded
                                                                                         doc.set('tags', arr);
                                                                                         setTimeout(function(){
-                                                                                            doc.save().then(function(mydoc){
+                                                                                            doc.save().then(function(){
                                                                                                 $btn.button('reset');
 
                                                                                                 controller.set('isView', true);
 
-                                                                                            }, function(error){
+                                                                                            }, function(){
                                                                                                 $btn.button('reset');
                                                                                                 controller.set('isView', true);
                                                                                                 new PNotify({
@@ -280,15 +281,13 @@ export default Ember.Route.extend({
                                                                                     }
                                                                                     arr.push(val2);
                                                                                     doc.set('tags', []);
-                                                                                    console.log(doc.get('tags'));
                                                                                     doc.set('tags', arr);
                                                                                     setTimeout(function(){
-                                                                                        doc.save().then(function(mydoc){
+                                                                                        doc.save().then(function(){
                                                                                             $btn.button('reset');
-
                                                                                             controller.set('isView', true);
 
-                                                                                        }, function(error){
+                                                                                        }, function(){
                                                                                             $btn.button('reset');
                                                                                             controller.set('isView', true);
                                                                                             new PNotify({
@@ -336,12 +335,11 @@ export default Ember.Route.extend({
                                                                                     doc.set('tags', arr);
 
                                                                                     setTimeout(function(){
-                                                                                        doc.save().then(function(mydoc){
+                                                                                        doc.save().then(function(){
                                                                                             $btn.button('reset');
-
                                                                                             controller.set('isView', true);
 
-                                                                                        }, function(error){
+                                                                                        }, function(){
                                                                                             $btn.button('reset');
                                                                                             controller.set('isView', true);
                                                                                             new PNotify({
@@ -369,12 +367,12 @@ export default Ember.Route.extend({
                                                                                 doc.set('tags', []);
                                                                                 doc.set('tags', arr);
                                                                                 setTimeout(function(){
-                                                                                    doc.save().then(function(mydoc){
+                                                                                    doc.save().then(function(){
 
                                                                                         $btn.button('reset');
 
                                                                                         controller.set('isView', true);
-                                                                                    }, function(error){
+                                                                                    }, function(){
                                                                                         $btn.button('reset');
                                                                                         controller.set('isView', true);
                                                                                         new PNotify({
@@ -407,6 +405,7 @@ export default Ember.Route.extend({
 
                 } else {
                     $btn.button('reset');
+                    controller.set('isView', true);
                     new PNotify({
                         title: 'Attention',
                         text: 'Code field and Number of Originals field must be entered.',
@@ -434,7 +433,7 @@ export default Ember.Route.extend({
                                                         myDocDetails.filter(function(val, index){
                                                             switch(elem.get('isDirty')) {
                                                                 case true:
-                                                                    val.save().then(function(myVal){
+                                                                    val.save().then(function(){
                                                                         if( myDocDetails.get('length') === index+1 ){
                                                                             setTimeout(function(){
                                                                                 doc_record.save().then(function(){

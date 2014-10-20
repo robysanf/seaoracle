@@ -13,6 +13,8 @@ export default Ember.Route.extend({
             app_controller.set("autocompleteCompany", val);
         });
 
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
         controller.searchUser = Ember.A();
         controller.searchCompany = Ember.A();
         app_controller.set('searchResultList', []);
@@ -24,13 +26,19 @@ export default Ember.Route.extend({
             var queryExpression = {}, searchPath = "sortBy";
             queryExpression[searchPath] = 'name';
 
+            controller.set('is_loading', true);
+
+            self.render('company.search-result', {
+                into: 'application',
+                outlet: 'search-result'
+            });
+
             /*     ***infinite scroll***     */
             app_controller.set('searchResultList', []);
             app_controller.set('isAll', false);
             app_controller.set('perPage', 25);
             app_controller.set('firstIndex', 0);
             app_controller.set('items', []);
-
 
             if (controller.vat !== "" && controller.vat !== null) {
                 searchPath = "vat";
@@ -47,6 +55,9 @@ export default Ember.Route.extend({
                 /*     ***infinite scroll***     */
                 app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
                 app_controller.set("queryExpressResults", queryExpressResults);
+
+                controller.set('is_loading', false);
+                controller.set('before_search', false);
 
                 queryExpressResults.forEach(function(equ, index){
                     if(index+1 <= app_controller.perPage) {
@@ -65,11 +76,6 @@ export default Ember.Route.extend({
                 function renderResults() {
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
-
-                    self.render('company.search-result', {
-                        into: 'application',
-                        outlet: 'search-result'
-                    });
                 }
             });
         },

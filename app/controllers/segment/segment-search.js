@@ -8,5 +8,8 @@ export default Ember.Controller.extend({
     searchOrigin : Ember.A(),
     searchDestination: Ember.A(),
 
-    segmentRecord: null
+    segmentRecord: null,
+
+    before_search: false,
+    is_loading: false
 });

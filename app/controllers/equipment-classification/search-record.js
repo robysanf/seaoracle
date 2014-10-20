@@ -9,6 +9,9 @@ export default Ember.Controller.extend({
     searchTypeCode : Ember.A(),
     searchIsoCode : Ember.A(),
 
-    eqClassification_record: null
+    eqClassification_record: null,
+
+    before_search: false,
+    is_loading: false
 
 });

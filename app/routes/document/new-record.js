@@ -147,7 +147,10 @@ export default Ember.Route.extend({
                 controller.set('name', null);
                 controller.set('searchVoyage', null);
 //                self.controllerFor('documents.document').setDocs(docType);
-                self.transitionTo('document.main', val);
+                //self.transitionTo('document.main', val);
+                self.controllerFor('document.main').set('isView', false);
+
+                self.transitionTo('document/main', val);
             }
 
             //core
@@ -256,7 +259,10 @@ export default Ember.Route.extend({
                                 //}, 1000);
                                 controller.set('name', null);
                                 controller.set('searchVoyage', null);
-                                self.transitionTo('document.main', val);
+                                //self.transitionTo('document.main', val);
+                                self.controllerFor('document.main').set('isView', false);
+
+                                self.transitionTo('document/main', val);
                             });
                         });
 
@@ -327,7 +333,10 @@ export default Ember.Route.extend({
                                 controller.set('searchOrigin', null);
                                 controller.set('searchDestination', null);
                                 controller.set('searchVoyage', null);
-                                self.transitionTo('document.main', val);
+                                //self.transitionTo('document.main', val);
+                                self.controllerFor('document.main').set('isView', false);
+
+                                self.transitionTo('document/main', val);
                             });
                         });
 

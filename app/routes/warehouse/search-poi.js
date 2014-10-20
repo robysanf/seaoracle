@@ -17,6 +17,9 @@ export default Ember.Route.extend({
             });
         }
 
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
+
         controller.searchName = Ember.A();
         controller.searchCompany = Ember.A();
         app_controller.set('searchResultList', []);       //FIXME warehouseList
@@ -37,6 +40,12 @@ export default Ember.Route.extend({
             app_controller.set('perPage', 25);
             app_controller.set('firstIndex', 0);
             app_controller.set('items', []);
+
+            controller.set('is_loading', true);
+            self.render('warehouse.search-result', {
+                into: 'application',
+                outlet: 'search-result'
+            });
 
             //find input values
             if( controller.searchName !== "" && controller.searchName != null ){
@@ -65,6 +74,9 @@ export default Ember.Route.extend({
                 app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
                 app_controller.set("queryExpressResults", queryExpressResults);
 
+                controller.set('is_loading', false);
+                controller.set('before_search', false);
+
                 queryExpressResults.forEach(function(equ, index){
                     if(index+1 <= app_controller.perPage) {
                         app_controller.items.pushObject(equ);
@@ -82,11 +94,6 @@ export default Ember.Route.extend({
                 function renderResults() {
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
-
-                    self.render('warehouse.search-result', {
-                        into: 'application',
-                        outlet: 'search-result'
-                    });
                 }
 
 //                app_controller.set("searchResultList", queryExpressResults);

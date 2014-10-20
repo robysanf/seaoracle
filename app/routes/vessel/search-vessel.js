@@ -11,6 +11,9 @@ export default Ember.Route.extend({
             });
         }
 
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
+
         //reset search variables
         app_controller.set('searchResultList', Ember.A());
         controller.searchNickname = Ember.A();
@@ -30,6 +33,11 @@ export default Ember.Route.extend({
             app_controller.set('firstIndex', 0);
             app_controller.set('items', []);
 
+            controller.set('is_loading', true);
+            self.render('vessel.search-result', {
+                into: 'application',
+                outlet: 'search-result'
+            });
             if( controller.searchNickname !== "" && controller.searchNickname !== null ){
                 searchPath = "nickname";
                 queryExpression[searchPath] = controller.searchNickname;//.get('nickname');
@@ -45,6 +53,9 @@ export default Ember.Route.extend({
                 /*     ***infinite scroll***     */
                 app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
                 app_controller.set("queryExpressResults", queryExpressResults);
+
+                controller.set('is_loading', false);
+                controller.set('before_search', false);
 
                 queryExpressResults.forEach(function(equ, index){
                     if(index+1 <= app_controller.perPage) {
@@ -63,11 +74,6 @@ export default Ember.Route.extend({
                 function renderResults() {
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
-
-                    self.render('vessel.search-result', {
-                        into: 'application',
-                        outlet: 'search-result'
-                    });
                 }
             });
         },

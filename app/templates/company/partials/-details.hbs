@@ -113,8 +113,8 @@
 
 
             <!--se sono ADMIN (property a livello di controller) e la company è di tipo shipowner (property a livello di model 'company')-->
-            {{#if typeAdmin}}
-                {{#if isTypeShipowner}}
+            {{#if controller.is_dmin}}
+                {{#if controller.is_shipowner}}
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-lg-3"><h4>Agent commission</h4></div>
                         <div class="col-lg-7">
@@ -155,8 +155,8 @@
                 {{/if}}
             {{else}}
                 <!--altrimenti se l'utente è sul suo profilo (property a livello di model 'company') ed è di tipo shipowner (property a livello di controller)-->
-                {{#if isMyCompany}}
-                    {{#if typeShipowner}}
+                {{#if controller.is_myCompany}}
+                    {{#if controller.is_shipowner}}
                         <div class="row" style="margin-bottom: 15px">
                             <div class="col-lg-3"><h4>Agent commission</h4></div>
                             <div class="col-lg-7">

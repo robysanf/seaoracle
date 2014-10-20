@@ -10,5 +10,8 @@ export default Ember.Controller.extend({
     voyage_record: null,
 
     searchName: Ember.A(),
-    searchCompany: Ember.A()
+    searchCompany: Ember.A(),
+
+    before_search: false,
+    is_loading: false
 });

@@ -1,85 +1,112 @@
-{{#if app_controller.searchResults}}
-    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+
+{{#if controller.is_loading}}
     <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th>Booking Ref.</th>
-                    <th>POO</th>
-                    <th>POD</th>
-                    <th>Voyage</th>
-                    <th>Client</th>
-                    <th>Agency</th>
-                    <th>Shipper</th>
-                    <th>Consignee</th>
-                    <th>Status</th>
-                    <th>Acknowledge</th>
-                    {{#if app_controller.user_record.booking_edit}}
-                        <th>Go to</th>
-                    {{else}}
-                        <th></th>
-                    {{/if}}
-                    {{#if app_controller.user_record.booking_remove}}
-                        <th>Remove</th>
-                    {{else}}
-                        <th></th>
-                    {{/if}}
-                </tr>
-                </thead>
-                <tbody>
-                {{#each booking in app_controller.searchResults}}
-                    <tr>
-                        <td>{{booking.code}}</td>
-                        <td>{{booking.origin.name}}</td>
-                        <td>{{booking.destination.name}}</td>
-                        {{#if booking.freightPlans}}
-                            {{#each freightPlan in booking.freightPlans}}
-                                <td>
-                                    {{#each voyage in freightPlan.orderedVoyages}}
-                                        {{voyage.name}}
-                                    {{/each}}
-                                </td>
-                            {{/each}}
-                        {{else}}
-                            <td></td>
-                        {{/if}}
-                        <td>{{booking.client.name}}</td>
-                        <td>{{booking.agency.name}}</td>
-                        <td>{{booking.shipper.name}}</td>
-                        <td>{{booking.consignee.name}}</td>
-                        <td>{{booking.state}}</td>
-                        <td>{{booking.acknowledge}}</td>
-                        {{#if booking.canEdit}}
-                        <td><a href="#"><span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span></a></td>
-                        {{/if}}
-                        {{#if booking.canRemove}}
-                            {{#if controller.is_shipowner}}
-                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
-                            {{else}}
-                                {{#if controller.is_client}}
-                                    {{#if booking.isRequest}}
-                                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
-                                    {{else}}
-                                        <td></td>
-                                    {{/if}}
-                                {{else}}
-                                    {{#unless booking.isLockedOrRegistered}}
-                                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
-                                    {{else}}
-                                        <td></td>
-                                    {{/unless}}
-                                {{/if}}
-                            {{/if}}
-                        {{/if}}
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="well well-lg" style="background-color: #FAFDFD">
+                <h3 class="page-header">Loading...</h3>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-lg-1"></div>
     </div>
 {{else}}
-
+    {{#unless controller.before_search}}
+        {{#if app_controller.searchResults}}
+            <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Booking Ref.</th>
+                            <th>POO</th>
+                            <th>POD</th>
+                            <th>Voyage</th>
+                            <th>Client</th>
+                            <th>Agency</th>
+                            <th>Shipper</th>
+                            <th>Consignee</th>
+                            <th>Status</th>
+                            <th>Acknowledge</th>
+                            {{#if app_controller.user_record.booking_edit}}
+                                <th>Go to</th>
+                            {{else}}
+                                <th></th>
+                            {{/if}}
+                            {{#if app_controller.user_record.booking_remove}}
+                                <th>Remove</th>
+                            {{else}}
+                                <th></th>
+                            {{/if}}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each booking in app_controller.searchResults}}
+                            <tr>
+                                <td>{{booking.code}}</td>
+                                <td>{{booking.origin.name}}</td>
+                                <td>{{booking.destination.name}}</td>
+                                {{#if booking.freightPlans}}
+                                    {{#each freightPlan in booking.freightPlans}}
+                                        <td>
+                                            {{#each voyage in freightPlan.orderedVoyages}}
+                                                {{voyage.name}}
+                                            {{/each}}
+                                        </td>
+                                    {{/each}}
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                                <td>{{booking.client.name}}</td>
+                                <td>{{booking.agency.name}}</td>
+                                <td>{{booking.shipper.name}}</td>
+                                <td>{{booking.consignee.name}}</td>
+                                <td>{{booking.state}}</td>
+                                <td>{{booking.acknowledge}}</td>
+                                {{#if booking.canEdit}}
+                                    <td><a href="#"><span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span></a></td>
+                                {{/if}}
+                                {{#if booking.canRemove}}
+                                    {{#if controller.is_shipowner}}
+                                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                    {{else}}
+                                        {{#if controller.is_client}}
+                                            {{#if booking.isRequest}}
+                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                            {{else}}
+                                                <td></td>
+                                            {{/if}}
+                                        {{else}}
+                                            {{#unless booking.isLockedOrRegistered}}
+                                                <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>
+                                            {{else}}
+                                                <td></td>
+                                            {{/unless}}
+                                        {{/if}}
+                                    {{/if}}
+                                {{/if}}
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="well well-lg" style="background-color: #FAFDFD">
+                        <h3 class="page-body">No results.</h3>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        {{/if}}
+    {{/unless}}
 {{/if}}
 
 <!--   infinite scroll  -->

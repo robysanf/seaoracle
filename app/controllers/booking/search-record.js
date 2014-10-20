@@ -22,13 +22,15 @@ export default Ember.Controller.extend({
     subTabList_revenues: Ember.computed.alias('controllers.booking/main.subTabLists.revenues'),
     subTabList_files: Ember.computed.alias('controllers.booking/main.subTabLists.files'),
 
-
     is_client : function(){
         return ( this.app_controller_companyType === 'client' );
     }.property('app_controller_companyType'),
     is_shipowner : function(){
         return ( this.app_controller_companyType === 'shipowner' );
     }.property('app_controller_companyType'),
+
+    before_search: false,
+    is_loading: false,
 
     booking_record: null,
     searchPortOrigin: null,

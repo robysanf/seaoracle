@@ -1,43 +1,70 @@
-{{#if app_controller.searchResults}}
-    <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+
+{{#if controller.is_loading}}
     <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <!--<th>Value</th>-->
-                    <th>Edit</th>
-                    {{#if app_controller.user_record.stamp_remove}}
-                        <th>Remove</th>
-                    {{else}}
-                        <th></th>
-                    {{/if}}
-
-                </tr>
-                </thead>
-                <tbody>
-                {{#each stamp in app_controller.searchResults}}
-                    <tr>
-                        <td>{{stamp.name}}</td>
-                        <td>{{stamp.type}}</td>
-                        <!--<td>{{!{{stamp.value}}</td>-->
-
-                        <td>{{#link-to 'stamp/main' stamp.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
-                        {{#if stamp.canRemove}}
-                            <td><a href="#" {{action "open_modal" 'stamp.modals.remove-stamp' stamp}}><span class="glyphicon glyphicon-remove"></span></a></td>
-                        {{else}}
-                            <td></td>
-                        {{/if}}
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <div class="well well-lg" style="background-color: #FAFDFD">
+                <h3 class="page-header">Loading...</h3>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-lg-1"></div>
     </div>
 {{else}}
+    {{#unless controller.before_search}}
+        {{#if app_controller.searchResults}}
+            <div class="row"><div class="col-lg-12"><h3 class="page-header">Search results:</h3><br></div></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <!--<th>Value</th>-->
+                            <th>Edit</th>
+                            {{#if app_controller.user_record.stamp_remove}}
+                                <th>Remove</th>
+                            {{else}}
+                                <th></th>
+                            {{/if}}
 
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each stamp in app_controller.searchResults}}
+                            <tr>
+                                <td>{{stamp.name}}</td>
+                                <td>{{stamp.type}}</td>
+                                <!--<td>{{!{{stamp.value}}</td>-->
+
+                                <td>{{#link-to 'stamp/main' stamp.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
+                                {{#if stamp.canRemove}}
+                                    <td><a href="#" {{action "open_modal" 'stamp.modals.remove-stamp' stamp}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="well well-lg" style="background-color: #FAFDFD">
+                        <h3 class="page-body">No results.</h3>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        {{/if}}
+    {{/unless}}
 {{/if}}
 
 <!--   infinite scroll  -->

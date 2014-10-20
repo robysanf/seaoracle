@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
     searchCountry: null,
     searchCity: null,
 
-    poiRecord: null
-
+    poiRecord: null,
+    before_search: false,
+    is_loading: false
 });

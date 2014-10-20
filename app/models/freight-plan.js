@@ -14,6 +14,7 @@ export default DS.Model.extend({
     orderedVoyages: DS.hasMany('voyage', {
         async: true
     }),
+
     voyList: function(){
         var orderedVoyages = this.get("orderedVoyages");
         var list = '';

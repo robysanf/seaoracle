@@ -14,6 +14,9 @@ export default Ember.Controller.extend({
     itemType: null,
     keyWords: null,
 
+    before_search: false,
+    is_loading: false,
+
     searchBook: null,
     searchEquipmentCode: null,
     searchChassisNum: null,

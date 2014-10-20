@@ -25,7 +25,8 @@ export default Ember.Controller.extend({
         "Discharged",
         "Laden in Terminal",
         "Delivered to Receiver"
-    ]
+    ],
 
-
+    before_search: false,
+    is_loading: false
 });

@@ -8,11 +8,14 @@ export default Ember.ObjectController.extend({
     app_controller_token: Ember.computed.alias('controllers.application.token'),
     app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
 
-    typeAdmin: Ember.computed.equal('companyType', 'admin'),
-    typeShipowner: Ember.computed.equal('companyType', 'shipowner'),
+//    typeAdmin: Ember.computed.equal('companyType', 'admin'),
+//    typeShipowner: Ember.computed.equal('companyType', 'shipowner'),
 
     is_admin: function(){
         return ( this.get('app_controller_companyType') === 'admin' );
+    }.property('app_controller_companyType'),
+    is_shipowner: function(){
+        return ( this.get('app_controller_companyType') === 'shipowner' );
     }.property('app_controller_companyType'),
 
     is_myCompany: function(){

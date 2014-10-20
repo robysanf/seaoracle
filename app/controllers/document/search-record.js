@@ -24,6 +24,8 @@ export default Ember.Controller.extend({
         return ( this.get('app_controller_companyType') === 'shipowner' );
     }.property('app_controller_companyType'),
 
+    before_search: false,
+    is_loading: false,
 
     doc_toRemove: null,
     docType: null,

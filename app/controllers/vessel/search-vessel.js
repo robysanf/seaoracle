@@ -7,5 +7,8 @@ export default Ember.Controller.extend({
     searchNickname: Ember.A(),
     searchPayload: null,
 
-    vessel_record: null
+    vessel_record: null,
+
+    before_search: false,
+    is_loading: false
 });

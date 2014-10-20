@@ -17,5 +17,8 @@ export default Ember.Controller.extend({
     usersOwned: Ember.A(),
     searchCompany: Ember.A(),
     searchUser: Ember.A(),
-    companyId: null
+    companyId: null,
+
+    before_search: false,
+    is_loading: false
 });

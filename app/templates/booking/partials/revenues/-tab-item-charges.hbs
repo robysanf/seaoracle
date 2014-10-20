@@ -1,5 +1,11 @@
-{{#if isEditing}}
-    {{partial 'booking/partials/revenues/-add-charge'}}
+{{#if controller.is_shipowner}}
+    {{#if isEditOrLock}}
+        {{partial 'booking/partials/revenues/-add-charge'}}
+    {{/if}}
+{{else}}
+    {{#if isEditing}}
+        {{partial 'booking/partials/revenues/-add-charge'}}
+    {{/if}}
 {{/if}}
 
 <div class="row">

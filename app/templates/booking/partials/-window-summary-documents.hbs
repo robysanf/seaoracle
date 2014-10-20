@@ -6,7 +6,8 @@
         </div>
         <div class="panel-body">
             {{#each document in documents}}
-                <a href="#"><span {{action "goTo_doc" document.type document.id}}>{{document.type_codeVersion}}</span></a>
+                <!--<a href="#"><span {{!{{action "goTo_doc" document.type document.id}}>{{!{{document.type_codeVersion}}</span></a>-->
+            {{#link-to 'document/main' document.id}} {{document.type_codeVersion}} {{/link-to}}
                 <br>
             {{/each}}
         </div>

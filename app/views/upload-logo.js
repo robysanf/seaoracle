@@ -63,7 +63,7 @@ export default Ember.View.extend({
                     }).then(function(){
                         formData = new FormData();
                         $("#selected_logo").val(" ");
-                        controller.send('update_filesList', self.value, view.value1, $btn);
+                        controller.send('update_filesList', self.value, view.value1, $btn, true);
                     }, function(){
                         $btn.button('reset');
                         new PNotify({

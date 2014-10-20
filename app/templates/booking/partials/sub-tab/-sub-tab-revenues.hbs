@@ -1,43 +1,86 @@
-{{#unless isRegister}}
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10">
-            <div class= "well well-lg" style="background-color: #FAFDFD">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <label><h4>Name</h4></label>
-                        {{view Ember.Select content= allCharges_list value= newCharge class='form-control'}}
-                    </div>
-                    <div class="col-lg-3">
-                        <br style="line-height:42px">
-                        {{#each freightEquipment in controller.item_record.freightEquipments}}{{/each}}  <!--utile solo per non perdere riferimento al freight equipment durante il salvataggio-->
-                        {{#if controller.item_record.tu_container}}
-                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='container' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
-                                <span class="ladda-label">Add Charge</span>
-                            {{/view}}
-                            <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'container' 'item' controller.is_shipowner}}>Add charge</button>-->
-                        {{/if}}
-                        {{#if controller.item_record.tu_roro}}
-                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='roro' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
-                                <span class="ladda-label">Add Charge</span>
-                            {{/view}}
-                            <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'roro' 'item' controller.is_shipowner}}>Add charge</button>-->
-                        {{/if}}
-                        {{#if controller.item_record.tu_bb}}
-                            {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='bb' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
-                                <span class="ladda-label">Add Charge</span>
-                            {{/view}}
-                            <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'bb' 'item' controller.is_shipowner}}>Add charge</button>-->
-                        {{/if}}
+{{#if controller.is_shipowner}}
+    {{#if isEditOrLock}}
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class= "well well-lg" style="background-color: #FAFDFD">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <label><h4>Name</h4></label>
+                            {{view Ember.Select content= allCharges_list value= newCharge class='form-control'}}
+                        </div>
+                        <div class="col-lg-3">
+                            <br style="line-height:42px">
+                            {{#each freightEquipment in controller.item_record.freightEquipments}}{{/each}}  <!--utile solo per non perdere riferimento al freight equipment durante il salvataggio-->
+                            {{#if controller.item_record.tu_container}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='container' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'container' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                            {{#if controller.item_record.tu_roro}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='roro' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'roro' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                            {{#if controller.item_record.tu_bb}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='bb' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'bb' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-1"></div>
         </div>
-        <div class="col-lg-1"></div>
-    </div>
-{{/unless}}
+    {{/if}}
+{{else}}
+    {{#if isEditing}}
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class= "well well-lg" style="background-color: #FAFDFD">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <label><h4>Name</h4></label>
+                            {{view Ember.Select content= allCharges_list value= newCharge class='form-control'}}
+                        </div>
+                        <div class="col-lg-3">
+                            <br style="line-height:42px">
+                            {{#each freightEquipment in controller.item_record.freightEquipments}}{{/each}}  <!--utile solo per non perdere riferimento al freight equipment durante il salvataggio-->
+                            {{#if controller.item_record.tu_container}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='container' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'container' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                            {{#if controller.item_record.tu_roro}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='roro' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'roro' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                            {{#if controller.item_record.tu_bb}}
+                                {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='bb' arg3='item' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Add Charge</span>
+                                {{/view}}
+                                <!--<button type="submit" class="btn btn-primary btn-small custom120 pull-right" {{!{{action "add_ChargeItem" this 'bb' 'item' controller.is_shipowner}}>Add charge</button>-->
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    {{/if}}
+{{/if}}
 
 <br>
 <br>

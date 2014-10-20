@@ -541,13 +541,14 @@ export default Ember.Route.extend({
 
                                     newBL.get('bookingItems').then(function(bookItems){
                                         bookItems.pushObjects(bookItemsList);
-                                        newBL.save().then(function(val){
+                                        newBL.save().then(function( val ){
+
                                             controller.set('name', null);
                                             controller.set('selectedBookItList', []);
-                                            self.controllerFor('document.main').set('doc_isView', false);
+                                            self.controllerFor('document.main').set('isView', false);
 
-                                            self.transitionTo('document.main', val);
-                                        }, function(error){
+                                            self.transitionTo('document/main', val);
+                                        }, function(){
                                             new PNotify({
                                                 title: 'Not saved!',
                                                 text: 'Something wrong happened.',

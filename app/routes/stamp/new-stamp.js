@@ -18,7 +18,7 @@ export default Ember.Route.extend({
             attr = this.get('controller').getProperties(
                 'newName',
                 'newType',
-                'newValue',
+//                'newValue',
                 'newDescription'
             );
 
@@ -30,7 +30,7 @@ export default Ember.Route.extend({
                 var newStamp = this.get('store').createRecord('stamp', {
                     name: attr.newName,
                     type: attr.newType,
-                    value: attr.newValue,
+//                    value: attr.newValue,
                     description: attr.newDescription,
                     visibility: 'private'
                 });
@@ -54,7 +54,7 @@ export default Ember.Route.extend({
                     });
                     controller.set('newName', null);
                     controller.set('newType', null);
-                    controller.set('newValue', null);
+//                    controller.set('newValue', null);
                     controller.set('newDescription', null);
                     controller.set('isDocCM', true);
 

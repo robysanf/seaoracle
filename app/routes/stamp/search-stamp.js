@@ -17,7 +17,7 @@ export default Ember.Route.extend({
         app_controller.set('searchResultList', []);
         controller.searchName = Ember.A();
         controller.searchType = Ember.A();
-        controller.searchValue = Ember.A();
+//        controller.searchValue = Ember.A();
     },
 
 
@@ -47,10 +47,10 @@ export default Ember.Route.extend({
                 queryExpression[searchPath] = controller.searchType.get('type');
             }
 
-            if( controller.searchValue !== "" && controller.searchValue !== null ){
-                searchPath = "value";
-                queryExpression[searchPath] = controller.searchValue.get('value');
-            }
+//            if( controller.searchValue !== "" && controller.searchValue !== null ){
+//                searchPath = "value";
+//                queryExpression[searchPath] = controller.searchValue.get('value');
+//            }
 
 
             this.store.findQuery('stamp', queryExpression).then(function(queryExpressResults){
@@ -107,7 +107,7 @@ export default Ember.Route.extend({
 
                 controller.set('searchName', []);
                 controller.set('searchType', []);
-                controller.set('searchValue', []);
+//                controller.set('searchValue', []);
                 controller.set('searchResultList', []);
 
                 app_controller.autocompleteStamp.forEach(function(item, index){

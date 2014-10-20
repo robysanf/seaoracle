@@ -98,7 +98,7 @@
                 <div class="col-lg-4"><h4>Dangerous goods</h4></div>
                 <div class="col-lg-8">
                     <div class="form-group">
-                        {{#if controller.charge_isEdit}}
+                        {{#if controller.isView}}
                             <label class="form-control" style="text-align: left">{{input type="checkbox" checked=dangerousGood_bool disabled=true}}</label>
                         {{else}}
                             <label class="form-control" style="text-align: left">{{input type="checkbox" checked=dangerousGood_bool}}</label>

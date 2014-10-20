@@ -50,6 +50,7 @@ export default DS.Model.extend({
     serviceContract: DS.attr('string'),
     refNo: DS.attr('string'),
     acknowledge: DS.attr('string'),  //NaN/accepted/rejected
+    acknowledgeDate: DS.attr('custom-date'),
     visibility: DS.attr('string'), //public, private, root
 
     clientAgencyAreEqual: function(){

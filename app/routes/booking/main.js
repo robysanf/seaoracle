@@ -3579,7 +3579,7 @@ export default Ember.Route.extend({
          @return file di tipo BL
          */
         generate_BL: function() {
-            var self = this, controller = self.controllerFor('booking.main'), shipper= null, consignee= null, notify= null;
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('booking.main'), shipper= null, consignee= null, notify= null;
             var shipperCheck = true, consigneeCheck = true, notifyCheck = true,
                 stringShipper=null, stringConsignee=null, stringNotify=null;
 
@@ -3645,12 +3645,14 @@ export default Ember.Route.extend({
                                         //se ho eseguito il controllo su tutti gli items
                                         if(bookingItems.get('length') == index+1) {
 
-                                            self.store.find('company', App.company).then(function(comp){
+                                            self.store.find('company', app_controller.company).then(function(comp){
 
                                                 //se esite il freight plan
                                                 if( controller.booking_record.get('freightPlans') ){
                                                     controller.booking_record.get('freightPlans').then(function(frPlans){
-                                                        if( frPlans.get('length') ){
+
+                                                        var there_is_frPlans = frPlans.get('length');
+                                                        if( there_is_frPlans ){
                                                             frPlans.filter(function(frPlan){
 
                                                                 frPlan.get('voyages').then(function(voy){
@@ -3743,8 +3745,13 @@ export default Ember.Route.extend({
                                                                                 bookItems.pushObjects(bookingItems);
                                                                                 newBL.save().then(function(){
                                                                                     controller.set('codeBL', null);
-                                                                                    //self.controllerFor('document.main').setDocs(controller.docType);
-                                                                                    self.transitionTo('document.main', newBL);
+                                                                                    new PNotify({
+                                                                                        title: 'Success',
+                                                                                        text: 'The Bill of Lading was successfully generate.',
+                                                                                        type: 'success',
+                                                                                        delay: 2000
+                                                                                    });
+                                                                                    self.transitionTo('document/main', newBL);
                                                                                 })
                                                                             });
                                                                         }
@@ -3839,8 +3846,15 @@ export default Ember.Route.extend({
                                                                 bookItems.pushObjects(bookingItems);
                                                                 newBL.save().then(function(){
                                                                     controller.set('codeBL', null);
-                                                                    //self.controllerFor('document.main').setDocs(controller.docType);
-                                                                    self.transitionTo('document.main', newBL);
+
+                                                                    new PNotify({
+                                                                        title: 'Success',
+                                                                        text: 'The Bill of Lading was successfully generate.',
+                                                                        type: 'success',
+                                                                        delay: 2000
+                                                                    });
+
+                                                                    self.transitionTo('document/main', newBL);
                                                                 })
                                                             });
                                                         } else {

@@ -7,6 +7,6 @@ export default Ember.Controller.extend({
     isDocCM: true,
     newName: null,
     newType: null,
-    newValue: null,
+//    newValue: null,
     newDescription: null
 });

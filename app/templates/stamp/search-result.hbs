@@ -7,7 +7,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Type</th>
-                    <th>Value</th>
+                    <!--<th>Value</th>-->
                     <th>Edit</th>
                     {{#if app_controller.user_record.stamp_remove}}
                         <th>Remove</th>
@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{stamp.name}}</td>
                         <td>{{stamp.type}}</td>
-                        <td>{{stamp.value}}</td>
+                        <!--<td>{{!{{stamp.value}}</td>-->
 
                         <td>{{#link-to 'stamp/main' stamp.id}}<span class="glyphicon glyphicon-list-alt"></span>{{/link-to}}</td>
                         {{#if stamp.canRemove}}

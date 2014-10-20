@@ -9,7 +9,12 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th >Download</th>
-                        <th >Remove</th>
+                        {{#if app_controller.user_record.file_remove}}
+                            <th>Remove</th>
+                        {{else}}
+                            <th></th>
+                        {{/if}}
+
                     </tr>
                     </thead>
                     <tbody>
@@ -26,7 +31,12 @@
                                 <!--<a href="api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true" class="fileToDownload"><span class="glyphicon glyphicon-download" ></span></a>-->
                                 <!--{{!{{/view}}-->
                             </td>
-                            <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                            {{#if file.canRemove}}
+                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+
                         </tr>
                     {{/each}}
                     </tbody>

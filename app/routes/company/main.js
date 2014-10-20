@@ -551,12 +551,11 @@ export default Ember.Route.extend({
             controller.fileRecord.save();
         },
 
-        update_filesList: function(val, mod, $btn){
+        update_filesList: function( val, mod, $btn ){
             this.store.find(mod, val).then(function(myval){
-                myval.reload().then(function(val){
-                    //setTimeout(function () {
+
+                myval.reload().then(function(){
                     $btn.button('reset');
-                    //}, 1000);
                 });
             });
         },

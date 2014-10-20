@@ -22,7 +22,7 @@
                             <div class="col-lg-5">
                                 <label>Type</label>
                                 {{#if controller.is_shipowner}}
-                                    {{view Ember.Select content=docLLFPType value=controller.docType class='form-control'}}
+                                    {{view Ember.Select content=docAllType value=controller.docType class='form-control'}}
                                 {{/if}}
                                 {{#if controller.is_agency}}
                                     {{view Ember.Select content=docBLCMType value=controller.docType class='form-control'}}

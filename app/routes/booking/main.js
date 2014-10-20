@@ -3566,6 +3566,9 @@ export default Ember.Route.extend({
          @return assegna all'attributo acknowledge (booking model) valore accepted/rejected.
          */
         acknowledge: function( book, value ) {
+            var today = new Date();
+
+            book.set('acknowledgeDate', moment(today).format("YYYY-MM-DD"));
             book.set('acknowledge', value).save().then(function(promise){
                 promise.reload();
             });

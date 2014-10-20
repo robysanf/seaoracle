@@ -9,28 +9,48 @@
                                 {{#if controller.is_agency}}
                                     {{#if isEditing}}
                                         {{#if isAccept}}
-                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
+                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted in date {{acknowledgeDate}}</h4></div>
                                         {{/if}}
                                         {{#if isReject}}
-                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
+                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected in date {{acknowledgeDate}}</h4></div>
                                         {{/if}}
                                     {{/if}}
                                 {{/if}}
                                 {{#if controller.is_shipowner}}
                                     {{#if isEditing}}
                                         {{#if isAccept}}
-                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted</h4></div>
+                                            <div class="alert alert-success btn-group-justified" style="padding-top: 25px" role="alert"><h4>Accepted in date {{acknowledgeDate}}</h4></div>
                                         {{/if}}
                                         {{#if isReject}}
-                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected</h4></div>
+                                            <div class="alert alert-danger btn-group-justified" style="padding-top: 25px" role="alert"><h4>Rejected in date {{acknowledgeDate}}</h4></div>
                                         {{/if}}
                                     {{/if}}
                                 {{/if}}
                             </div>
                         </div>
 
-                        <p class="lead"><h3>Booking {{#if isPending}}(Pending){{/if}}{{#if isRequest}}(Request){{/if}}{{#if isEditing}}(Editing){{/if}}{{#if isLocked}}(Lock){{/if}}{{#if isRegister}}(Register){{/if}}</h3>
-                        <p><h5>Ref: <b>{{code}}</b></h5>
+                        <p class="lead">
+                            {{#if isNaN_orReject}}
+                                <h3>
+                                    Provisional Booking
+                                    {{#if isPending}}(Pending){{/if}}
+                                    {{#if isRequest}}(Request){{/if}}
+                                    {{#if isEditing}}(Editing){{/if}}
+                                    {{#if isLocked}}(Lock){{/if}}
+                                    {{#if isRegister}}(Register){{/if}}
+                                </h3>
+                                <p><h5>Ref: <b>{{code}}</b>. Booking subject to the approval of the Shipping Line. </h5>
+                            {{else}}
+                                <h3>
+                                    Booking
+                                    {{#if isPending}}(Pending){{/if}}
+                                    {{#if isRequest}}(Request){{/if}}
+                                    {{#if isEditing}}(Editing){{/if}}
+                                    {{#if isLocked}}(Lock){{/if}}
+                                    {{#if isRegister}}(Register){{/if}}
+                                </h3>
+                                <p><h5>Ref: <b>{{code}}</b></h5>
+                            {{/if}}
                         <p><h5>Shared with: <b>{{#each sharedWith}}
                         {{this.name}}
                     {{/each}}</b></h5>

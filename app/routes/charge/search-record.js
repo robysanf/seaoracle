@@ -21,6 +21,9 @@ export default Ember.Route.extend({
         app_controller.set('searchResultList', []);
         controller.searchCompany = Ember.A();
         controller.searchCharge = null;
+
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
     },
 
     actions: {
@@ -36,6 +39,12 @@ export default Ember.Route.extend({
             app_controller.set('firstIndex', 0);
             app_controller.set('items', []);
 
+            controller.set('is_loading', true);
+
+            self.render('charge.result-search', {
+                into: 'application',
+                outlet: 'search-result'
+            });
             //find input values
             if( controller.searchCharge !== "" && controller.searchCharge !== null ){
                 searchPath = "name"; queryExpression[searchPath] = controller.searchCharge;//.get('name');
@@ -50,6 +59,9 @@ export default Ember.Route.extend({
                 /*     ***infinite scroll***     */
                 app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
                 app_controller.set("queryExpressResults", queryExpressResults);
+
+                controller.set('is_loading', false);
+                controller.set('before_search', false);
 
                 queryExpressResults.forEach(function(equ, index){
                     if(index+1 <= app_controller.perPage) {
@@ -69,10 +81,6 @@ export default Ember.Route.extend({
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
 
-                    self.render('charge.result-search', {
-                        into: 'application',
-                        outlet: 'search-result'
-                    });
                 }
             });
 

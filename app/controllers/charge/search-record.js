@@ -13,5 +13,8 @@ export default Ember.Controller.extend({
 
     charge_record: null,
     searchCompany: Ember.A(),
-    searchCharge: Ember.A()
+    searchCharge: Ember.A(),
+
+    before_search: false,
+    is_loading: false
 });

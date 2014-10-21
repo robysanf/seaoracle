@@ -7,5 +7,8 @@ export default Ember.Controller.extend({
     poiRecord: null,
     searchCountry: null,
     searchName: Ember.A(),
-    searchUnLocode: Ember.A()
+    searchUnLocode: Ember.A(),
+
+    before_search: false,
+    is_loading: false
 });

@@ -14,7 +14,7 @@ export default Ember.ObjectController.extend({
         return ( this.get('app_controller_companyType') === 'client' );
     }.property('app_controller_companyType'),
     is_agency : function(){
-        return ( this.get('app_controller_companyType') === 'agencies' );
+        return ( this.get('app_controller_companyType') === 'agency' );
     }.property('app_controller_companyType'),
     is_shipowner : function(){
         return ( this.get('app_controller_companyType') === 'shipowner' );

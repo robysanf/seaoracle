@@ -6,11 +6,93 @@ var get = Ember.get,
     addObserver = Ember.addObserver;
 
 export default Ember.Component.extend({
+    classNameBindings: [':autocomplete'],
+    minChars: 1,
+    searchPath: 'name',
+    query: null,
+    selectionIndex: -1,
+
+    KEY_DOWN: 40,
+    KEY_UP: 38,
+    TAB: 9,
+    ENTER: 13,
+    ESCAPE: 27,
+
     thereIsAVal : false,
 
-    displayResultView : Ember.View.extend({
-        value:[]
-    }),
+//    itemView : Ember.View.extend({
+//        layoutName: 'item',
+//        value: [],
+//
+//        keyPress: function( ev ) {
+//            var _this = this;
+//            if (ev.keyCode === 13) {
+//                _this.send("addSelection", _this.value);
+//            }
+//        }
+//    }),
+
+//    autocompleteResult : Ember.View.extend({
+//        value: [],
+//
+//        keyPress: function( ev ) {
+//            var _this = this;
+//            if (ev.keyCode === 13) {
+//                _this.send("addSelection", _this.value);
+//            }
+//        }
+//    }),
+
+    init: function(){
+        this._super.apply(this, arguments);
+        addObserver(this, 'query', this.queryDidChange);
+        set(this, 'displayResults', Ember.A());
+    },
+
+    keyPress: function( ev ) {
+        var _this = this;
+        if (ev.keyCode === 13) {
+            _this.send("addSelection", _this.value);
+        }
+    },
+
+    didInsertElement: function(){
+        var self = this, allowedKeyCodes = Ember.A([this.KEY_UP, this.KEY_DOWN, this.TAB, this.ENTER, this.ESCAPE]);
+
+        this.set('allowedKeyCodes', allowedKeyCodes);
+
+        Ember.assert('You must supply a source for the autocomplete component', get(this, 'source'));
+        //Ember.assert('You must supply a destination for the autocomplete component', get(this, 'destination'));
+
+        this.$('ul.suggestions-autocomplete').on('mouseover', 'li', this.mouseOver.bind(this));
+        this.$('ul.suggestions-autocomplete').on('mouseout', 'li', this.mouseOut.bind(this));
+        this.$('ul.suggestions-autocomplete').on('mouseleave', this.mouseLeave.bind(this));
+
+        $(document).keyup(function( e ){
+            var keyCode = e.keyCode;
+
+            if(!allowedKeyCodes.contains(keyCode)){
+                return;
+            }
+
+            switch(keyCode){
+                case self.KEY_UP:
+                    self.send('moveSelection', 'up');
+                    break;
+                case self.KEY_DOWN:
+                    self.send('moveSelection', 'down');
+                    break;
+                case self.ENTER:
+                    self.send('selectActive');
+                    break;
+                case self.ESCAPE:
+                    self.send('hideResults');
+                    break;
+//                default:
+//                    console.log(keyCode);
+            }
+        });
+    },
 
     actions: {
         addSelection: function(selection){
@@ -21,6 +103,7 @@ export default Ember.Component.extend({
 
             set(this, 'selectionIndex', -1);
         },
+
 
         hideResults: function(){
             var displayResults = get(this, 'displayResults');
@@ -48,7 +131,7 @@ export default Ember.Component.extend({
             });
         },
 
-        buttonManager: function(query) {
+        buttonManager: function( query ) {
             if(this.thereIsAVal) {
                 this.send('removeSelection', query);
             } else {
@@ -56,7 +139,7 @@ export default Ember.Component.extend({
             }
         },
 
-        moveSelection: function(direction){
+        moveSelection: function( direction ){
             var selectionIndex = get(this, 'selectionIndex'),
                 isUp = direction === 'up',
                 isDown = !isUp,
@@ -110,13 +193,14 @@ export default Ember.Component.extend({
 
 
         selectActive: function(){
+            var displayResults = get(this, 'displayResults');
             var displayResultsLength = get(this, 'displayResults.length');
 
             if(!displayResultsLength){
                 return;
             }
 
-            var active = get(this, 'displayResults').find(function(item){
+            var active = displayResults.find(function( item ){
                 return get(item, 'active');
             });
 
@@ -129,94 +213,7 @@ export default Ember.Component.extend({
         }
     },
 
-    classNameBindings: [':autocomplete'],
-    minChars: 1,
-    searchPath: 'name',
-    query: null,
-    selectionIndex: -1,
-
-    KEY_DOWN: 40,
-    KEY_UP: 38,
-    TAB: 9,
-    ENTER: 13,
-    ESCAPE: 27,
-
-    init: function(){
-        this._super.apply(this, arguments);
-        addObserver(this, 'query', this.queryDidChange);
-        set(this, 'displayResults', Ember.A());
-    },
-
-    didInsertElement: function(){
-        var self = this;
-        Ember.assert('You must supply a source for the autocomplete component', get(this, 'source'));
-        //Ember.assert('You must supply a destination for the autocomplete component', get(this, 'destination'));
-
-        this.$('ul.suggestions-autocomplete').on('mouseover', 'li', this.mouseOver.bind(this));
-        this.$('ul.suggestions-autocomplete').on('mouseout', 'li', this.mouseOut.bind(this));
-        this.$('ul.suggestions-autocomplete').on('mouseleave', this.mouseLeave.bind(this));
-
-
-
-        var allowedKeyCodes = Ember.A([this.KEY_UP, this.KEY_DOWN, this.TAB, this.ENTER, this.ESCAPE]);
-        this.set('allowedKeyCodes', allowedKeyCodes);
-
-        $(document).keyup(function(e){
-            var keyCode = e.keyCode;
-
-            if(!allowedKeyCodes.contains(keyCode)){
-                return;
-            }
-
-            switch(keyCode){
-                case self.KEY_UP:
-                    self.send('moveSelection', 'up');
-                    break;
-                case self.KEY_DOWN:
-                    self.send('moveSelection', 'down');
-                    break;
-                case self.ENTER:
-                    self.send('selectActive');
-                    break;
-                case self.ESCAPE:
-                    self.send('hideResults');
-                    break;
-                default:
-                    console.log(keyCode);
-            }
-        });
-
-//        $(document).keydown(function(e){
-//            if(!allowedKeyCodes.contains(e.keyCode)){
-//                return;
-//            }
-//            switch(e.keyCode){
-//                case self.ENTER:
-//                    self.send('selectActive');
-//                    break;
-//            }
-//        });
-//
-//        $(document).keyup(function(e){
-//            if(!allowedKeyCodes.contains(e.keyCode)){
-//                return;
-//            }
-//
-//            switch(e.keyCode){
-//                case self.KEY_UP:
-//                    self.send('moveSelection', 'up');
-//                    break;
-//                case self.KEY_DOWN:
-//                    self.send('moveSelection', 'down');
-//                    break;
-//                case self.ESCAPE:
-//                    self.send('hideResults');
-//                    break;
-//            }
-//        });
-    },
-
-    _queryPromise: function(query){
+    _queryPromise: function( query ){
         var source = get(this, 'source'),
             searchPath = get(this, 'searchPath'),
             store = get(this, 'store');
@@ -333,7 +330,6 @@ export default Ember.Component.extend({
         });
     },
 
-
     positionResults: function(){
         var results = this.$('.results');
 
@@ -353,54 +349,9 @@ export default Ember.Component.extend({
     },
 
     autocomplete: Ember.TextField.extend({
-//        KEY_DOWN: 40,
-//        KEY_UP: 38,
-//        COMMA: 188,
-//        TAB: 9,
-//        ENTER: 13,
-//        ESCAPE: 27,
-
         init: function(){
             this._super.apply(this, arguments);
-
-//            var allowedKeyCodes = Ember.A([this.ENTER, this.ESCAPE]);
-//            this.set('allowedKeyCodes', allowedKeyCodes);
-        }//,
-
-//        keyDown: function(e){
-//            console.log('19');
-//            var keyCode = e.keyCode;
-//            console.log('keyCode: '+keyCode);
-//            if(!this.get('allowedKeyCodes').contains(keyCode)){
-//                return;
-//            }
-//
-//           var controller = get(this, 'controller');
-//
-////            switch(keyCode){
-//////                case this.KEY_UP:
-//////                    this.sendAction('moveSelection', 'up');
-//////                    break;
-//////                case this.KEY_DOWN:
-//////                    this.sendAction('moveSelection', 'down');
-//////                    break;
-////                case this.ENTER:
-////                    this.sendAction('selectActive');
-////                    break;
-////                case this.ESCAPE:
-////                    this.sendAction('hideResults');
-////                    break;
-////                default:
-////                    console.log(keyCode);
-////            }
-//        }
-////        },
-////
-////        focusOut: function() {
-////            console.log('20');
-////            var self = this;
-////            setTimeout( function(){ self.sendAction('hideResults'); } , 200 );
-////        }
+        }
     }),
 
     _yield: function(context, options) {

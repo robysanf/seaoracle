@@ -448,7 +448,7 @@ fieldset[disabled] .btn-amazon.active {
     text-align: center;
 }
 #mondo .mondo-wrap-outer {
-    background-image: url('../mondo2000x800.jpg');
+    background-image: url('../img/mondo2000x800.jpg');
     /*background-image: url(http://zenointelligence.com/img/mondo2000x800.jpg);*/
     background-repeat: no-repeat;
     background-position: top center;

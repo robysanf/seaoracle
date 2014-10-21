@@ -15,13 +15,11 @@
     <ul class='suggestions-autocomplete'>
         <div class='content' data-spy='scroll'>
             {{#each displayResults}}
-                {{#view view.displayResultView value=this}}
-                    <li {{action addSelection this}} {{bind-attr class=':result active'}}>
-                       <span class='result-name'>
-                           {{display-helper controller.searchPath}}
-                       </span>
-                    </li>
-                {{/view}}
+                <li {{action 'addSelection' this}} {{bind-attr class=':result active'}}>
+                    <span class='result-name'>
+                        {{display-helper controller.searchPath}}
+                    </span>
+                </li>
             {{else}}
                 <li class='no-results'>No Results.</li>
             {{/each}}

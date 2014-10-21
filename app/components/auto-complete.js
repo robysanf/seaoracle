@@ -156,6 +156,8 @@ export default Ember.Component.extend({
         this.$('ul.suggestions-autocomplete').on('mouseout', 'li', this.mouseOut.bind(this));
         this.$('ul.suggestions-autocomplete').on('mouseleave', this.mouseLeave.bind(this));
 
+
+
         var allowedKeyCodes = Ember.A([this.KEY_UP, this.KEY_DOWN, this.TAB, this.ENTER, this.ESCAPE]);
         this.set('allowedKeyCodes', allowedKeyCodes);
 
@@ -297,7 +299,7 @@ export default Ember.Component.extend({
         return false;
     }).property('query'),
 
-    mouseOver: function(evt){
+    mouseOver: function( evt ){
         var el = this.$(evt.target);
 
         var active = get(this, 'displayResults').filter(function(item){
@@ -325,7 +327,10 @@ export default Ember.Component.extend({
     },
 
     mouseLeave: function(){
-        this.send('hideResults');
+        var _this = this;
+        $( "div.ember-view" ).click(function() {        //clickando fuori dal contesto si chiude il menù a tendina
+            _this.send('hideResults')
+        });
     },
 
 

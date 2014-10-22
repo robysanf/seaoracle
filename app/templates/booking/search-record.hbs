@@ -22,13 +22,13 @@
                             <div class="col-lg-5">
                                 <label>Port of Origin</label>
                                 <a id="autocomplete-portOriginName">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=2}}
+                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=0}}
                                 </a>
                             </div>
                             <div class="col-lg-5">
                                 <label>Port of Destination</label>
                                 <a id="autocomplete-portDestinationName">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=2}}
+                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=0}}
                                 </a>
                             </div>
                             <div class="col-lg-1"></div>
@@ -53,13 +53,13 @@
                             <div class="col-lg-5">
                                 <label>Shipper</label>
                                 <a id="autocomplete-shipperName">
-                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=0}}
                                 </a>
                             </div>
                             <div class="col-lg-5">
                                 <label>Consignee</label>
                                 <a id="autocomplete-consigneeName">
-                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=2}}
+                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=0}}
                                 </a>
                             </div>
                             <div class="col-lg-1"></div>
@@ -69,7 +69,7 @@
                             <div class="col-lg-5">
                                 <label>Voyage</label>
                                 <a id="autocomplete-voyName">
-                                    {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
+                                    {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=0}}
                                 </a>
                             </div>
                             <div class="col-lg-5">

@@ -202,21 +202,22 @@ export default Ember.Route.extend({
 
                         record.set('status', 'complete').save();
                         schedules.filter(function(leg){
+                            var date_eta = leg.get("eta"), date_etd = leg.get("etd"),
+                                date_ata = leg.get("ata"), date_atd = leg.get("atd");
+
 
                             //se le date di arrivo o partenza sono vuote vengono compilate con il valore inserito per l altro campo
-                            if(leg.get("eta") === null && leg.get("etd") !== null) {
-                                leg.set('eta', leg.get("etd"));
-                            } else if (leg.get("eta") !== null && leg.get("etd") === null) {
-                                leg.set('etd', leg.get("eta"));
+                            if( ( date_eta === null || date_eta === undefined ) && date_etd !== null ) {
+                                leg.set( 'eta', date_etd );
+                            } else if ( date_eta !== null && ( date_etd === null || date_etd === undefined ) ) {
+                                leg.set( 'etd', date_eta );
                             }
 
-
-                            if(leg.get("ata") === null && leg.get("atd") !== null) {
-                                leg.set('ata', leg.get("atd"));
-                            } else if (leg.get("ata") !== null && leg.get("atd") === null) {
-                                leg.set('atd', leg.get("ata"));
+                            if( ( date_ata === null || date_ata === undefined ) && date_atd !== null) {
+                                leg.set('ata', date_atd );
+                            } else if ( date_ata !== null && ( date_atd === null || date_atd === undefined ) ) {
+                                leg.set('atd', date_ata );
                             }
-
 
                             if( leg.get('isDirty') ){
                                 leg.save().then(function(){

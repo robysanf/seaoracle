@@ -109,6 +109,14 @@ export default Ember.Route.extend({
                         }
                     }
                 });
+
+                app_controller.items.forEach(function(item, index){
+                    if( item ) {
+                        if( item.get('id') === controller.vessel_record.get('id') ) {
+                            app_controller.items.removeAt(index);
+                        }
+                    }
+                });
             });
         },
 
@@ -116,7 +124,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
-            this.send('closeSearch');
+            //this.send('closeSearch');
         }
     }
 });

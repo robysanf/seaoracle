@@ -113,16 +113,20 @@ export default Ember.Route.extend({
 
                 controller.set('searchName', []);
                 controller.set('searchType', []);
-//                controller.set('searchValue', []);
                 controller.set('searchResultList', []);
 
-                app_controller.autocompleteStamp.forEach(function(item, index){
-
+                app_controller.autocompleteStamp.forEach(function( item, index ){
                     if( item ) {
-                        var item_id =  item.get('id');
-
-                        if( item_id === record_id ) {
+                        if( item.get('id') === record_id ) {
                             app_controller.autocompleteStamp.removeAt(index);
+                        }
+                    }
+                });
+
+                app_controller.items.forEach(function( item, index ){
+                    if( item ) {
+                        if( item.get('id') === record_id ) {
+                            app_controller.items.removeAt( index );
                         }
                     }
                 });
@@ -133,7 +137,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
-            this.send('closeSearch');
+            //(this.send('closeSearch');
         }
     }
 });

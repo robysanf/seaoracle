@@ -229,7 +229,9 @@ export default Ember.Route.extend({
                                                                     controller.set('newRinaFromDate', null);
                                                                     controller.set('newRinaToDate', null);
                                                                     self.set('newVisibility', null);
-                                                                    controller.set('currentStatusDateFrom', null);
+
+                                                                    controller.set('newCurrentStatus', null);
+                                                                    controller.set('newCurrentStatusDateFrom', null);
                                                                     _btn.stop();
                                                                     //SUCCESS
                                                                     new PNotify({
@@ -274,7 +276,9 @@ export default Ember.Route.extend({
                                                         controller.set('newVisibility', null);
                                                         controller.set('newRinaFromDate', null);
                                                         controller.set('newRinaToDate', null);
-                                                        controller.set('currentStatusDateFrom', null);
+
+                                                        controller.set('newCurrentStatus', null);
+                                                        controller.set('newCurrentStatusDateFrom', null);
 
                                                         _btn.stop();
                                                         //SUCCESS
@@ -403,7 +407,9 @@ export default Ember.Route.extend({
                                                             controller.set('newRinaFromDate', null);
                                                             controller.set('newRinaToDate', null);
                                                             self.set('newVisibility', null);
-                                                            controller.set('currentStatusDateFrom', null);
+
+                                                            controller.set('newCurrentStatus', null);
+                                                            controller.set('newCurrentStatusDateFrom', null);
 
                                                             _btn.stop();
                                                             //SUCCESS
@@ -448,8 +454,9 @@ export default Ember.Route.extend({
                                                 controller.set('newVisibility', null);
                                                 controller.set('newRinaFromDate', null);
                                                 controller.set('newRinaToDate', null);
-                                                controller.set('currentStatusDateFrom', null);
 
+                                                controller.set('newCurrentStatus', null);
+                                                controller.set('newCurrentStatusDateFrom', null);
                                                 _btn.stop();
                                                 //SUCCESS
                                                 new PNotify({

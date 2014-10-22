@@ -5,7 +5,7 @@ export default {
     initialize: function(container, application) {
         container.typeInjection('component', 'store', 'store:main');
         application.inject('component:auto-complete', 'store', 'store:main');
-        application.inject('component:auto-suggest', 'store', 'store:main');
+        //application.inject('component:auto-suggest', 'store', 'store:main');
     }
 };
 

@@ -11,7 +11,8 @@ export default Ember.Route.extend({
         },
 
         new_signUp: function() {
-            var data = this.controller.getProperties(
+
+            var _this = this, data = this.controller.getProperties(
                 'firstName',
                 'lastName',
                 'username',
@@ -52,6 +53,22 @@ export default Ember.Route.extend({
                             type: 'success'
                         });
                     }
+                    _this.get('controller').set('firstName', null);
+                    _this.get('controller').set('lastName', null);
+                    _this.get('controller').set('username', null);
+                    _this.get('controller').set('pwd', null);
+                    _this.get('controller').set('userEmail', null);
+                    _this.get('controller').set('name', null);
+                    _this.get('controller').set('vatNumber', null);
+                    _this.get('controller').set('street', null);
+                    _this.get('controller').set('city', null);
+                    _this.get('controller').set('zipCode', null);
+                    _this.get('controller').set('country', null);
+                    _this.get('controller').set('companyEmail', null);
+                    _this.get('controller').set('companyType', null);
+
+                    _this.get('controller').set('newLog', 0);
+
                 }, function(){
                     new PNotify({
                         title: 'Error',

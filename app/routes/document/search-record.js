@@ -112,8 +112,6 @@ export default Ember.Route.extend({
                 function renderResults() {
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
-
-
                 }
             });
         },
@@ -143,10 +141,17 @@ export default Ember.Route.extend({
                 controller.set('searchResultList', []);
 
                 app_controller.autocompleteDocument.forEach(function(item, index){
-
                     if( item ) {
                         if( item.get('id') === controller.doc_toRemove.get('id') ) {
                             app_controller.autocompleteDocument.removeAt(index);
+                        }
+                    }
+                });
+
+                app_controller.items.forEach(function(item, index){
+                    if( item ) {
+                        if( item.get('id') === controller.doc_toRemove.get('id') ) {
+                            app_controller.items.removeAt(index);
                         }
                     }
                 });
@@ -157,7 +162,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
-            this.send('closeSearch');
+            //this.send('closeSearch');
         },
 
         link_to: function( path, value ){

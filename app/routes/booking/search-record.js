@@ -5,11 +5,11 @@ export default Ember.Route.extend({
         var self = this, app_controller= self.controllerFor('application'), controller = self.controllerFor('booking.search-record');
 
         //filter on search port of origin and port of destination in the template
-//        if( !app_controller.autocompleteCompany.get('length') ) {
-//            self.store.findQuery("company").then(function(val){
-//                app_controller.set("autocompleteCompany", val);
-//            });
-//        }
+        if( !app_controller.autocompleteCompany.get('length') ) {
+            self.store.findQuery("company").then(function(val){
+                app_controller.set("autocompleteCompany", val);
+            });
+        }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             self.store.findQuery("poi", {tags: "Port"}).then(function(port){
@@ -177,6 +177,14 @@ export default Ember.Route.extend({
                         }
                     }
                 });
+
+                app_controller.items.forEach(function(item, index){
+                    if( item ) {
+                        if( item.get('id') === controller.booking_record.get('id') ) {
+                            app_controller.items.removeAt(index);
+                        }
+                    }
+                });
             });
         },
 
@@ -184,7 +192,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
-            this.send('closeSearch');
+            //this.send('closeSearch');
         },
 
         link_to: function( path, value ){

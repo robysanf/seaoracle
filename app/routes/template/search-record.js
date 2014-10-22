@@ -109,10 +109,17 @@ export default Ember.Route.extend({
                 controller.set('searchResultList', []);
 
                 app_controller.autocompleteTemplate.forEach(function(item, index){
-
                     if( item ) {
                         if( item.get('id') === controller.template_record.get('id') ) {
                             app_controller.autocompleteTemplate.removeAt(index);
+                        }
+                    }
+                });
+
+                app_controller.items.forEach(function(item, index){
+                    if( item ) {
+                        if( item.get('id') === controller.template_record.get('id') ) {
+                            app_controller.items.removeAt(index);
                         }
                     }
                 });
@@ -123,7 +130,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
-            this.send('closeSearch');
+            //this.send('closeSearch');
         }
     }
 });

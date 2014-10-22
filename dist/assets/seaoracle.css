@@ -231,10 +231,10 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffe9a2e', endColorstr='#fffeb361', GradientType=0);
     border-color: #feb361 #feb361 #fe8e15;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #feb361;
+    /*background-color: #feb361;
      Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);     */
 }
 
 /*colore arancione*/
@@ -254,10 +254,10 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffe642e', endColorstr='#fffe8a61', GradientType=0);
     border-color: #fe8a61 #fe8a61 #fe5115;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #fe8a61;
+    /*background-color: #fe8a61;
      Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);   */
 }
 
 /*viola*/
@@ -313,10 +313,10 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2bc987', endColorstr='#ff4ed99f', GradientType=0);
     border-color: #4ed99f #4ed99f #27b479;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #4ed99f;
+    /*background-color: #4ed99f;
      Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);  */
 }
 
 /*verde scuro*/
@@ -336,17 +336,40 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0b615e', endColorstr='#ff108f8a', GradientType=0);
     border-color: #108f8a #108f8a #084a48;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #108f8a;
-     Darken IE7 buttons by default so they stand out more given they won't have borders
+/*background-color: #108f8a;
+ Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); */
+}
+
+/*verde*/
+.btn-custom-color-green.active {
+    color: rgba(255, 255, 255, 0.75);
+}
+.btn-custom-color-green {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #099d98;
+    background-image: -moz-linear-gradient(top, #088a85, #0bbab3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#088a85), to(#0bbab3));
+    background-image: -webkit-linear-gradient(top, #088a85, #0bbab3);
+    background-image: -o-linear-gradient(top, #088a85, #0bbab3);
+    background-image: linear-gradient(to bottom, #088a85, #0bbab3);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff088a85', endColorstr='#ff0bbab3', GradientType=0);
+    border-color: #0bbab3 #0bbab3 #07726e;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    /*background-color: #0bbab3;
+    Darken IE7 buttons by default so they stand out more given they won't have borders*/
+
+    /*filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);    */
 }
 
 /*BLU CHIARO*/
-.btn-blue-medium.active {
+.btn-custom-blue-medium.active {
     color: rgba(255, 255, 255, 0.75);
 }
-.btn-blue-medium {
+.btn-custom-blue-medium {
     color: #ffffff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #09799a;
@@ -359,10 +382,10 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff086a87', endColorstr='#ff0b90b7', GradientType=0);
     border-color: #0b90b7 #0b90b7 #07576f;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #0b90b7;
-     Darken IE7 buttons by default so they stand out more given they won't have borders
+    /*background-color: #0b90b7;
+    /*Darken IE7 buttons by default so they stand out more given they won't have borders*/
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+/*filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);  */
 }
 
 
@@ -383,10 +406,10 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff01a9db', endColorstr='#ff11c8fe', GradientType=0);
     border-color: #11c8fe #11c8fe #0195c2;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #11c8fe;
-     Darken IE7 buttons by default so they stand out more given they won't have borders
+    /*background-color: #11c8fe;
+     Darken IE7 buttons by default so they stand out more given they won't have borders*/
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+/*filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);   */
 }
 
 /*azzurro scuro*/
@@ -406,34 +429,13 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0174df', endColorstr='#ff158efe', GradientType=0);
     border-color: #158efe #158efe #0167c6;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #158efe;
+    /*background-color: #158efe;
      Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);  */
 }
 
-/*verde*/
-.btn-custom-color-green.active {
-    color: rgba(255, 255, 255, 0.75);
-}
-.btn-custom-color-green {
-    color: #ffffff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #099d98;
-    background-image: -moz-linear-gradient(top, #088a85, #0bbab3);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#088a85), to(#0bbab3));
-    background-image: -webkit-linear-gradient(top, #088a85, #0bbab3);
-    background-image: -o-linear-gradient(top, #088a85, #0bbab3);
-    background-image: linear-gradient(to bottom, #088a85, #0bbab3);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff088a85', endColorstr='#ff0bbab3', GradientType=0);
-    border-color: #0bbab3 #0bbab3 #07726e;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #0bbab3;
-     Darken IE7 buttons by default so they stand out more given they won't have borders
 
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-}
 
 /**********************************************************************************************************************/
 

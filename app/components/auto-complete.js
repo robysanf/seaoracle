@@ -22,7 +22,7 @@ export default Ember.Component.extend({
     thereIsAVal : false,
 
     init: function(){
-        console.log('init');
+        //console.log('init');
         this._super.apply(this, arguments);
         Ember.addObserver(this, 'query', this.queryDidChange);
         set(this, 'displayResults', []);
@@ -43,7 +43,7 @@ export default Ember.Component.extend({
     }.on( 'keyUp' ),
 
     press: function( ev ) {
-        console.log('keyPress');
+        //console.log('keyPress');
         var _this = this;
 
         if ( ev.keyCode === this.ENTER ) {

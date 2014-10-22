@@ -200,6 +200,17 @@ export default Ember.Route.extend({
 
             controller.set('booking_record', value);
 
+            controller.set('searchPortOrigin', null);
+            controller.set('searchPortDestination', null);
+            controller.set('searchBookRef', null);
+            controller.set('searchCompany', null);
+            controller.set('searchShipper', null);
+            controller.set('searchConsignee', null);
+            controller.set('searchVoy', null);
+            controller.set('searchContainerNumber', null);
+            controller.set('searchChassis', null);
+            controller.set('acknowledge_selectedValue', null);
+
             controller.set('tabList_details', false);
             controller.set('tabList_freightPlan', false);
             controller.set('tabList_revenues', false);

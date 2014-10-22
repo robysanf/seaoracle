@@ -16,3 +16,6 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
+
+aws-keys-test.json
+aws-keys-production.json

@@ -7,18 +7,24 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePoiPort.get('length') ) {
             this.store.findQuery( "poi", {tags: "Port"} ).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteTemplate.get('length') ) {
             this.store.findQuery( "template" ).then(function(val){
                 app_controller.set("autocompleteTemplate", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 

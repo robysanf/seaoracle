@@ -214,7 +214,7 @@ export default Ember.Component.extend({
     },
 
     queryDidChange: function(){
-        //console.log('queryDidChange');
+        console.log('queryDidChange');
         var query = get(this, 'query'),
             displayResults = get(this, 'displayResults'),
             hasQuery = get(this, 'hasQuery'),

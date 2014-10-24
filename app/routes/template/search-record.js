@@ -7,11 +7,15 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCompany.get('length') ) {
             this.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
         if( !app_controller.autocompleteTemplate.get('length') ) {
             this.store.findQuery("template").then(function(val){
                 app_controller.set("autocompleteTemplate", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -82,6 +86,8 @@ export default Ember.Route.extend({
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

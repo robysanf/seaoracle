@@ -11,6 +11,22 @@ export default Ember.Route.extend({
             controller.set('itemListActive', false);
             controller.set('itemEditActive', false);
         }
+
+        if( !app_controller.autocompletePoiPort.get('length') ) {
+            self.store.findQuery("poi", {tags: "Port"}).then(function(val){
+                app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
+            });
+        }
+
+        if( !app_controller.autocompleteStamp.get('length') ) {
+            self.store.findQuery("stamp").then(function(val){
+                app_controller.set("autocompleteStamp", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
+            });
+        }
     },
 
     model: function( company ) {

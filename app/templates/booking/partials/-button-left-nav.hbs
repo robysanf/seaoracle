@@ -16,7 +16,8 @@
         <!--STATE: REQUEST-->
         {{#if isRequest}}
             {{partial 'booking/partials/button-left-nav/-button-state-request'}}
-        {{else}}
+        {{/if}}
+        {{#if isPending}}
             <!--STATE: PENDING-->
             {{partial 'booking/partials/button-left-nav/-button-state-pending'}}
         {{/if}}

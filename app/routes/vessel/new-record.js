@@ -7,6 +7,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteVessel.get('length') ) {
             self.store.findQuery("vessel").then(function(vessel){
                 app_controller.set("autocompleteVessel", vessel);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
     },

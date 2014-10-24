@@ -8,12 +8,16 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCharge.get('length') ) {
             self.store.findQuery("charge").then(function(model){
                 app_controller.set("autocompleteCharge", model);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(model){
                 app_controller.set("autocompleteCompany", model);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -82,6 +86,8 @@ export default Ember.Route.extend({
                     app_controller.set("searchResultList", app_controller.items);
 
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
 
         },

@@ -8,12 +8,16 @@ export default Ember.Route.extend({
         if( app_controller.autocompletePoiWarehouse.length === 0 ) {
             this.store.findQuery("poi", {tags: "Warehouse"}).then(function(val){
                 app_controller.set("autocompletePoiWarehouse", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( app_controller.autocompleteCompany.length === 0 ) {
             this.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -102,6 +106,8 @@ export default Ember.Route.extend({
 //                    into: 'application',
 //                    outlet: 'search-result'
 //                });
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
 
         },

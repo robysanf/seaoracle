@@ -10,6 +10,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteStamp.get('length') ){
             this.store.findQuery("stamp").then(function(val){
                 app_controller.set("autocompleteStamp", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -88,6 +90,8 @@ export default Ember.Route.extend({
 
 
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

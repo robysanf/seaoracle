@@ -8,24 +8,32 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteVessel.get('length') ) {
             self.store.findQuery("vessel").then(function(vessel){
                 app_controller.set("autocompleteVessel", vessel);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteVoyage.get('length') ) {
             self.store.findQuery("voyage").then(function(voi){
                 app_controller.set("autocompleteVoyage", voi);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             self.store.findQuery( "poi", {tags: "Port"} ).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteTemplate.get('length') ) {
             self.store.findQuery( "template" ).then(function(val){
                 app_controller.set("autocompleteTemplate", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
     },

@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         headers: {
           // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
           "Cache-Control": "max-age=630720000, public",
+		  "x-amz-meta-mode": "33188",
           "Expires": new Date(Date.now() + 63072000000).toUTCString()
         }
       },
@@ -27,6 +28,7 @@ module.exports = function(grunt) {
               headers: {
                 // 1 minute cache policy (1000 * 60)
                 "Cache-Control": "max-age=60000, public",
+				"x-amz-meta-mode": "33188",
                 "Expires": new Date(Date.now() + 60000).toUTCString()
               }
             }
@@ -45,13 +47,14 @@ module.exports = function(grunt) {
           }
         ]
       }
-    }, // end s3
+    } // end s3
 }); // end grunt.initConfig
 
   grunt.loadNpmTasks('grunt-s3');
 
   // Deploy task(s).
-  // grunt deploy --target=test
+  //ember build --environment production
+  //grunt deploy --target=test
   grunt.registerTask('deploy', ['s3']);
 
 };

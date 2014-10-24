@@ -7,11 +7,15 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteSegment.get('length') ) {
             self.store.findQuery("segment").then(function(val){
                 app_controller.set("autocompleteSegment", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
         if( !app_controller.autocompleteCharge.get('length') ) {
             self.store.findQuery("charge").then(function(region){
                 app_controller.set("autocompleteCharge", region);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 

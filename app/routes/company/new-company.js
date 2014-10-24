@@ -7,23 +7,29 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             self.store.findQuery("poi", {tags: "Port"}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteStamp.get('length') ) {
             self.store.findQuery("stamp").then(function(val){
                 app_controller.set("autocompleteStamp", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
-        controller.set('searchStamp', []);
-        controller.set('searchReferringPort', []);
+        controller.set('searchStamp', null);
+        controller.set('searchReferringPort', null);
 
     },
     actions: {
@@ -97,10 +103,10 @@ export default Ember.Route.extend({
                 });
 
 
-                if( controller.searchStamp.get('length') !== 0 ){
+                if( controller.searchStamp !== null ){
                     newCompany.set('stamp', controller.searchStamp);
                 }
-                if( controller.searchReferringPort.get('length') !== 0 ){
+                if( controller.searchReferringPort !== null ){
                     newCompany.set('referringPort', controller.searchReferringPort );
                 }
 
@@ -134,8 +140,8 @@ export default Ember.Route.extend({
                         controller.set('newFax', null);
 
 
-                        controller.set('searchStamp', []);
-                        controller.set('searchReferringPort', []);
+                        controller.set('searchStamp', null);
+                        controller.set('searchReferringPort', null);
 
                         //SUCCESS
                         new PNotify({

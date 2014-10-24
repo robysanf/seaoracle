@@ -8,12 +8,16 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteSegment.get('length') ) {
             this.store.findQuery("segment").then(function(val){
                 app_controller.set("autocompleteSegment", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             this.store.findQuery("poi", {tags: 'Port'}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -89,6 +93,8 @@ export default Ember.Route.extend({
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

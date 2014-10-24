@@ -17,28 +17,30 @@
                                 {{/view}}
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 25px;">
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-5">
-                                <label>Type</label>
-                                {{#if controller.is_shipowner}}
-                                    {{view Ember.Select content=docAllType value=controller.docType class='form-control'}}
-                                {{/if}}
-                                {{#if controller.is_agency}}
-                                    {{view Ember.Select content=docBLCMType value=controller.docType class='form-control'}}
-                                {{/if}}
-                                {{#if controller.is_admin}}
-                                    {{view Ember.Select content=docAllType value=controller.docType class='form-control'}}
-                                {{/if}}
+                        {{#unless controller.is_client}}
+                            <div class="row" style="margin-top: 25px;">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-5">
+                                    <label>Type</label>
+                                    {{#if controller.is_shipowner}}
+                                        {{view Ember.Select content=docAllType value=controller.docType class='form-control'}}
+                                    {{/if}}
+                                    {{#if controller.is_agency}}
+                                        {{view Ember.Select content=docBLCMType value=controller.docType class='form-control'}}
+                                    {{/if}}
+                                    {{#if controller.is_admin}}
+                                        {{view Ember.Select content=docAllType value=controller.docType class='form-control'}}
+                                    {{/if}}
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Voyage</label>
+                                    <a id="autocomplete-voyage">
+                                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
+                                    </a>
+                                </div>
+                                <div class="col-lg-1"></div>
                             </div>
-                            <div class="col-lg-5">
-                                <label>Voyage</label>
-                                <a id="autocomplete-voyage">
-                                    {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
-                                </a>
-                            </div>
-                            <div class="col-lg-1"></div>
-                        </div>
+                        {{/unless}}
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
@@ -79,13 +81,21 @@
                             </div>
                             <div class="col-lg-1"></div>
                         </div>
-                        <div class="row" style="margin-top: 15px;">
+                        <div class="row" style="margin-top: 15px; margin-bottom: 25px;">
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label>Booking ref.</label>
                                 {{input value=controller.searchBookRef class='form-control'}}
                             </div>
-                            <div class="col-lg-6"></div>
+                            <div class="col-lg-5">
+                                {{#if controller.is_client}}
+                                    <label>Voyage</label>
+                                    <a id="autocomplete-voyage">
+                                        {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoy searchPath="name" minChars=1}}
+                                    </a>
+                                {{/if}}
+                            </div>
+                            <div class="col-lg-1"></div>
                         </div>
                     </div>
                 </div>

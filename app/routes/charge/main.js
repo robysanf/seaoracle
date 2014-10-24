@@ -16,6 +16,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteSegment.get('length') ) {             //filter on search port of origin and port of destination in the template
             this.store.findQuery( "segment" ).then(function( model ){
                 app_controller.set( "autocompleteSegment", model );
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
     },

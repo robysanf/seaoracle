@@ -21,32 +21,53 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        error: function(reason) {
-//            switch (reason.status){
-//                case '401':
-//
-//                    break;
-//                case '403':
-//
-//                    break;
-//                case '404':
-//
-//                    break;
-//                default:
-//
-//                    break;
-//            }
+        error: function( reason ) {
+            //console.log('error1: ' + reason.responseText);
+            //console.log('error2: ' + reason.status);
+            //console.log('error3: ' + reason.message);
+            //var json = reason.responseText, response = JSON.parse(json);
 
-            if (reason.status === 400) {        //ANAUTHORIZED  - invalid authentication token
-                this.redirectToLogin();
-            } else {
-                new PNotify({
-                    title: 'Attention!',
-                    text: 'Something went wrong: ' + reason.message,
-                    type: 'error'
-                });
-                this.redirectToDashboard();
+            switch ( String(reason.status) ){
+                case '400':        //BAD REQUEST, problemi con il token
+                    this.logout();
+                    break;
+                case '401':
+//                    new PNotify({
+//                        title: 'Attention!',
+//                        text: reason.message,
+//                        type: 'error',
+//                        delay: 2000
+//                    });
+                    break;
+                case '403':    //FORBIDDEN, non deve generare errore
+                    break;
+                case '404':    //NOT FOUND
+                    new PNotify({
+                        title: 'Attention!',
+                        text: reason.message,
+                        type: 'error',
+                        delay: 2000
+                    });
+                    break;
+                case '500':  //INTERNAL SERVER ERROR, dato dal server
+                    new PNotify({
+                        title: 'Attention!',
+                        text: reason.message,
+                        type: 'error',
+                        delay: 2000
+                    });
+                    break;
+                default:
+                    new PNotify({
+                        title: 'Attention!',
+                        text: 'Something went wrong: ' + reason.responseText,
+                        type: 'error',
+                        delay: 2000
+                    });
+                    this.redirectToDashboard();
+                    break;
             }
+
         },
         closeSearch: function(){
             this.disconnectOutlet({

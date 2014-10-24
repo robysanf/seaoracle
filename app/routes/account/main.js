@@ -12,6 +12,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePaymentPlan.get('length') ) {
             this.store.findQuery("payment-plan").then(function(val){
                 app_controller.set("autocompletePaymentPlan", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
     },
@@ -60,9 +62,8 @@ export default Ember.Route.extend({
 
             this.store.find('user', app_controller.userId).then(function(user){
                 user.set('cardNumber', _this.controller.cardNumber4);
-                user.save().then(function(){
-                    user.reload();
-                })
+                user.save();
+                user.reload();
             });
 
             Stripe.card.createToken(data, stripeResponseHandler);
@@ -72,6 +73,10 @@ export default Ember.Route.extend({
                 _this.controller.set('cvc', null);
                 _this.controller.set('mm', null);
                 _this.controller.set('yyyy', null);
+                _this.controller.set('cardNumber1', null);
+                _this.controller.set('cardNumber2', null);
+                _this.controller.set('cardNumber3', null);
+                _this.controller.set('cardNumber4', null);
 
                 if (response.error) {
                     // Show the errors on the form

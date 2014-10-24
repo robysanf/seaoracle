@@ -7,6 +7,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteTemplate.get('length') ) {
             self.store.findQuery("template").then(function(val){
                 app_controller.set("autocompleteTemplate", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 

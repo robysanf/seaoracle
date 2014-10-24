@@ -10,11 +10,15 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePoi.get('length') ){
             this.store.findQuery("poi", {tags: 'Port'}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
         if( !app_controller.autocompleteVoyage.get('length') ){
             this.store.findQuery("voyage").then(function(val){
                 app_controller.set("autocompleteVoyage", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 

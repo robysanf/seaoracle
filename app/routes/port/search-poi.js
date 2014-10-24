@@ -7,6 +7,8 @@ export default Ember.Route.extend({
 //        if( app_controller.autocompletePoiPort.get('length') === 0 ){
             self.store.findQuery("poi", {tags: "Port"}).then(function(ware){
                 app_controller.set("autocompletePoiPort", ware);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
 //        }
 
@@ -86,6 +88,8 @@ export default Ember.Route.extend({
                     app_controller.set("searchResultList", app_controller.items);
 
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

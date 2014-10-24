@@ -7,6 +7,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteChassisNum.get('length') ){
             self.store.findQuery('bookingItem').then(function(val){
                 controller.set('autocompleteChassisNum', val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -66,25 +68,31 @@ export default Ember.Route.extend({
             if(controller.itemType) {
                 switch(controller.itemType) {
                     case 'RoRo':
-                        searchPath = "tu";
-                        queryExpression[searchPath] = 'roro';
+                        //searchPath = "tu";
+                        //queryExpression[searchPath] = 'roro';
+                        queryExpression = queryExpression+'tu="roro"';
                         break;
                     case 'Container':
-                        searchPath = "tu";
-                        queryExpression[searchPath] = 'container';
+                        //searchPath = "tu";
+                        //queryExpression[searchPath] = 'container';
+                        queryExpression = queryExpression+'tu="container"';
                         break;
                     case 'Break Bulks':
-                        searchPath = "tu";
-                        queryExpression[searchPath] = 'bb';
+                        //searchPath = "tu";
+                        //queryExpression[searchPath] = 'bb';
+                        queryExpression = queryExpression+'tu="bb"';
                         break;
                 }
             }
 
 
-            this.store.findQuery( 'bookingItem', queryExpression ).then(function(val){
+            this.store.findQuery( 'bookingItem', queryExpression ).then(function( val ){
                 controller.set("shipmentList", val);
                 controller.set('is_loading', false);
                 controller.set('before_search', false);
+
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 

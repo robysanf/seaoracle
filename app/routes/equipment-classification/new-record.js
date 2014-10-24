@@ -14,6 +14,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteEqClassification.get('length') ) {
             self.store.findQuery("equipmentClassification", queryExpression).then(function(val){
                 app_controller.set("autocompleteEqClassification", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
     },

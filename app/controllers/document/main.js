@@ -4,6 +4,20 @@ export default Ember.ObjectController.extend({
     needs: ['application'],
     app_controller: Ember.computed.alias('controllers.application'),
     app_controller_token: Ember.computed.alias('controllers.application.token'),
+    app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
+
+//    is_admin: function(){
+//        return ( this.get('app_controller_companyType') === 'admin' );
+//    }.property('app_controller_companyType'),
+    is_client : function(){
+        return ( this.get('app_controller_companyType') === 'client' );
+    }.property('app_controller_companyType'),
+//    is_agency : function(){
+//        return ( this.get('app_controller_companyType') === 'agency' );
+//    }.property('app_controller_companyType'),
+//    is_shipowner : function(){
+//        return ( this.get('app_controller_companyType') === 'shipowner' );
+//    }.property('app_controller_companyType'),
 
     document_record: null,
     /*********************

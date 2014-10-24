@@ -39,12 +39,16 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePoiPort.get('length')  ) {
             self.store.findQuery("poi", {tags: "Port"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(comp){
                 app_controller.set("autocompleteCompany", comp);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -55,6 +59,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePoiDepot.get('length') ) {
             self.store.findQuery("poi", {tags: "Depot"}).then(function(val){
                 app_controller.set("autocompletePoiDepot", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -67,6 +73,8 @@ export default Ember.Route.extend({
 
             self.store.findQuery("equipmentClassification", queryExpression).then(function(comp){
                 app_controller.set("autocompleteEqClassificationContainer", comp);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -74,6 +82,8 @@ export default Ember.Route.extend({
             if( !app_controller.autocompleteEquipment.get('length') ) {
                 self.store.findQuery("equipment").then(function(comp){
                     app_controller.set("autocompleteEquipment", comp);
+                }, function( reason ){
+                    app_controller.send( 'error', reason );
                 });
             }
         }
@@ -84,6 +94,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompletePoi.get('length') ) {
             self.store.findQuery("poi").then(function(allPoi){
                 app_controller.set("autocompletePoi", allPoi);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -91,13 +103,14 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteVoyage.get('length') ) {
             self.store.findQuery("voyage").then(function(val){
                 app_controller.set("autocompleteVoyage", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
         controller.set('searchVoy', []);
     },
     model: function( booking ) {
         var self = this, controller = self.controllerFor('booking.main');
-
        var book = this.store.find('booking', booking.booking_id);
 
         controller.set('booking_record', book);
@@ -2113,76 +2126,81 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
                 data = this.getProperties();
 
-            this.store.find('booking', booking_record_id).then(function( booking_record ){
-                //this.store.find('company', controller.booking_record.get("client")).then(function(client){
-                data.changeRate = self.get("controller").get("newCharge");
+            if( self.get("controller").get("newCharge") !== null ) {
+                this.store.find('booking', booking_record_id).then(function( booking_record ){
+                    //this.store.find('company', controller.booking_record.get("client")).then(function(client){
+                    data.changeRate = self.get("controller").get("newCharge");
 
-                var chItem = self.get('store').createRecord('chargeItem', {
-                    name: data.changeRate,
-                    booking: booking_record,
-                    billTo: booking_record.get("client"),
-                    num: 1
-                });
+                    var chItem = self.get('store').createRecord('chargeItem', {
+                        name: data.changeRate,
+                        booking: booking_record,
+                        billTo: booking_record.get("client"),
+                        num: 1
+                    });
 
-                if ( is_shipowner ) {
-                    chItem.set('chargeType', 'cost');
-                    chItem.set('cost', 0);
-                    chItem.set('costCurrency', booking_record.get("currency"));
-                } else {
-                    chItem.set('chargeType', 'revenue');
-                    chItem.set('originalRevenue', 0);
-                    chItem.set('originalRevenueCurrency', booking_record.get("currency"));
-                    chItem.set('revenue', 0);
-                    chItem.set('revenueCurrency', booking_record.get("currency"));
-                }
-
-                var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
-
-                //se l'entità è di tipo item passo l'id dell'item associato a questo charge
-                if(enType === 'item') {
-                    chItem.set('bookingItem', controller.item_record);
-                }
-
-                myChargeItem.every(function(item) {
-                    chItem.set('code', item.code);
-                    chItem.set('type', type);
-                    chItem.set('entityType', enType);
-
-                    if(type === 'container') {
-                        chItem.set('multiplier', 'QTY');
-                    } else if(type === 'roro') {
-                        chItem.set('multiplier', 'LNG');
-                    } else if(type === 'bb') {
-                        chItem.set('multiplier', 'VOL');
+                    if ( is_shipowner ) {
+                        chItem.set('chargeType', 'cost');
+                        chItem.set('cost', 0);
+                        chItem.set('costCurrency', booking_record.get("currency"));
                     } else {
-                        chItem.set('multiplier', 'NUM');
+                        chItem.set('chargeType', 'revenue');
+                        chItem.set('originalRevenue', 0);
+                        chItem.set('originalRevenueCurrency', booking_record.get("currency"));
+                        chItem.set('revenue', 0);
+                        chItem.set('revenueCurrency', booking_record.get("currency"));
                     }
 
-                    chItem.save().then(function(){
-                        _btn.stop();
-                        if(enType === 'item') {
-                            controller.item_record.reload();
-                        }
-                        booking_record.reload();
-                        if( is_shipowner ){
-                            controller.set('revenuesTable.revenues', false);
-                            controller.set('revenuesTable.costs', true);
-                        } else {
-                            controller.set('revenuesTable.revenues', true);
-                            controller.set('revenuesTable.costs', false);
-                        }
-                    }, function(){   //ERROR
-                        _btn.stop();
+                    var myChargeItem = self.get("controller").get('ChargesAll').filterBy('value', data.changeRate);
 
-                        new PNotify({
-                            title: 'Not saved',
-                            text: 'A problem has occurred.',
-                            type: 'error',
-                            delay: 2000
+                    //se l'entità è di tipo item passo l'id dell'item associato a questo charge
+                    if(enType === 'item') {
+                        chItem.set('bookingItem', controller.item_record);
+                    }
+
+                    myChargeItem.every(function(item) {
+                        chItem.set('code', item.code);
+                        chItem.set('type', type);
+                        chItem.set('entityType', enType);
+
+                        if(type === 'container') {
+                            chItem.set('multiplier', 'QTY');
+                        } else if(type === 'roro') {
+                            chItem.set('multiplier', 'LNG');
+                        } else if(type === 'bb') {
+                            chItem.set('multiplier', 'VOL');
+                        } else {
+                            chItem.set('multiplier', 'NUM');
+                        }
+
+                        chItem.save().then(function(){
+                            _btn.stop();
+                            if(enType === 'item') {
+                                controller.item_record.reload();
+                            }
+                            booking_record.reload();
+                            if( is_shipowner ){
+                                controller.set('revenuesTable.revenues', false);
+                                controller.set('revenuesTable.costs', true);
+                            } else {
+                                controller.set('revenuesTable.revenues', true);
+                                controller.set('revenuesTable.costs', false);
+                            }
+                        }, function(){   //ERROR
+                            _btn.stop();
+
+                            new PNotify({
+                                title: 'Not saved',
+                                text: 'A problem has occurred.',
+                                type: 'error',
+                                delay: 2000
+                            });
                         });
                     });
                 });
-            });
+            } else {
+                _btn.stop();
+            }
+
 
         },
 
@@ -3661,7 +3679,7 @@ export default Ember.Route.extend({
                                                                 frPlan.get('orderedVoyages').then(function(voy){
 //                                                                    voy.filter(function(myVoy, index){
 
-                                                                        if(index === 0) {
+                                                                        //if(index === 0) {
                                                                             var date = new Date();
                                                                             var newBL = self.store.createRecord('document',  {
                                                                                 name: controller.codeBL,
@@ -3746,7 +3764,7 @@ export default Ember.Route.extend({
 
                                                                             newBL.get('bookingItems').then(function(bookItems){
                                                                                 bookItems.pushObjects(bookingItems);
-                                                                                newBL.save().then(function(){
+                                                                                newBL.save().then(function(record_bl){
                                                                                     controller.set('codeBL', null);
                                                                                     new PNotify({
                                                                                         title: 'Success',
@@ -3754,10 +3772,10 @@ export default Ember.Route.extend({
                                                                                         type: 'success',
                                                                                         delay: 2000
                                                                                     });
-                                                                                    self.transitionTo('document/main', newBL);
+                                                                                    self.transitionTo('document/main', record_bl);
                                                                                 });
                                                                             });
-                                                                        }
+                                                                       // }
 
                                                                     });
 //                                                                })
@@ -3847,7 +3865,7 @@ export default Ember.Route.extend({
 
                                                             newBL.get('bookingItems').then(function(bookItems){
                                                                 bookItems.pushObjects(bookingItems);
-                                                                newBL.save().then(function(){
+                                                                newBL.save().then(function(record_bl){
                                                                     controller.set('codeBL', null);
 
                                                                     new PNotify({
@@ -3857,7 +3875,7 @@ export default Ember.Route.extend({
                                                                         delay: 2000
                                                                     });
 
-                                                                    self.transitionTo('document/main', newBL);
+                                                                    self.transitionTo('document/main', record_bl);
                                                                 });
                                                             });
                                                         } else {

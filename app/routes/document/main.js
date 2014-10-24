@@ -16,6 +16,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteStamp.get('length') ) {
             this.store.findQuery("stamp").then(function(val){
                 app_controller.set("autocompleteStamp", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -115,12 +117,13 @@ export default Ember.Route.extend({
         },
 
         resetBL: function( doc ) {
-            var data = this.getProperties(), self = this;
+            var self = this, app_controller = self.controllerFor("application"),
+                data = this.getProperties();
             data.idBL = doc.get('id');
 
-            $.post('api/custom/resetBL?token=' + App.token, data).then(function(response){
+            $.post('api/custom/resetBL?token=' + app_controller.token, data).then(function(response){
                 if (response.success) {
-                    doc.get('docItems').then(function(val){
+                    doc.get('docItems').then(function(){
                         doc.reload();
                         // success
                         new PNotify({
@@ -168,6 +171,11 @@ export default Ember.Route.extend({
 
         set_docState: function( val ){
             this.set('controller.isView', val);
+        },
+
+        change_docItemVisibility: function( item, bool ){
+            item.set('visible', !bool);
+            item.save();
         },
 
         updateDoc_other: function( docId, $btn ){

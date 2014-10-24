@@ -7,12 +7,16 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompletePoi.get('length') ) {
             self.store.findQuery("poi").then(function(val){
                 app_controller.set("autocompletePoi", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -23,6 +27,8 @@ export default Ember.Route.extend({
             queryExpression[searchPath] = true;
             self.store.findQuery("equipmentClassification", queryExpression).then(function(val){
                 app_controller.set("autocompleteEqClassification", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
         controller.searchPosition = Ember.A();
@@ -96,6 +102,8 @@ export default Ember.Route.extend({
                                             if(states.get("length") === count){
                                                 record.save().then(function(){
                                                     controller.set('isViewState', bool);
+                                                }, function( reason ){
+                                                    app_controller.send( 'error', reason );
                                                 });
                                             }
                                             count = count +1;
@@ -127,6 +135,8 @@ export default Ember.Route.extend({
                                                         }
                                                     });
                                                     controller.set('isView', bool);
+                                                }, function( reason ){
+                                                    app_controller.send( 'error', reason );
                                                 });
                                             }
                                             count = count +1;
@@ -136,6 +146,8 @@ export default Ember.Route.extend({
                             } else {
                                 record.save().then(function(){
                                     controller.set('isView', bool);
+                                }, function( reason ){
+                                    app_controller.send( 'error', reason );
                                 });
                             }
                         });

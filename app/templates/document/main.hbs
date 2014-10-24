@@ -63,14 +63,16 @@
                         <li {{bind-attr class="controller.tabList.doc:active"}}>
                             <a href="#"{{action setTabs "doc"}}><h4>Document</h4></a>
                         </li>
-                        {{#if isBL}}
-                            <li {{bind-attr class="controller.tabList.items:active"}}>
-                                <a href="#" {{action setTabs "items"}}><h4>Items</h4></a>
-                            </li>
-                            <li {{bind-attr class="controller.tabList.details:active"}}>
-                                <a href="#" {{action setTabs "details"}}><h4>Details</h4></a>
-                            </li>
-                        {{/if}}
+                        {{#unless controller.is_client}}
+                            {{#if isBL}}
+                                <li {{bind-attr class="controller.tabList.items:active"}}>
+                                    <a href="#" {{action setTabs "items"}}><h4>Items</h4></a>
+                                </li>
+                                <li {{bind-attr class="controller.tabList.details:active"}}>
+                                    <a href="#" {{action setTabs "details"}}><h4>Details</h4></a>
+                                </li>
+                            {{/if}}
+                        {{/unless}}
                         <li {{bind-attr class="controller.tabList.files:active"}}>
                             <a href="#" {{action setTabs "files"}}><h4>Files</h4></a>
                         </li>

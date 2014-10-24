@@ -8,18 +8,24 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             self.store.findQuery("poi", {tags: "Port"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteVoyage.get('length') ) {
             self.store.findQuery("voyage").then(function(port){
                 app_controller.set("autocompleteVoyage", port);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -134,6 +140,8 @@ export default Ember.Route.extend({
                     app_controller.set("searchResultList", app_controller.items);
 
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
         //********************************************

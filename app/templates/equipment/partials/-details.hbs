@@ -1,5 +1,6 @@
 <div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
     <div class="col-lg-12">
+    {{#view "check-unique-field" model_val='equipment' filter_val='code' val=code path='equipment.new-record'}}
         <div class="row" style="margin-bottom: 15px">
             <div class="col-lg-3"><h4>Code</h4></div>
             <div class="col-lg-9">
@@ -9,6 +10,7 @@
                 </div>
             </div>
         </div>
+    {{/view}}
         <div class="row" style="margin-bottom: 15px">
             <div class="col-lg-3"><h4>Classification</h4></div>
             <div class="col-lg-9">

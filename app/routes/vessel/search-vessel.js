@@ -8,6 +8,8 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteVessel.get('length') ) {
             self.store.findQuery("vessel").then(function(vessel){
                 app_controller.set("autocompleteVessel", vessel);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -75,6 +77,8 @@ export default Ember.Route.extend({
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

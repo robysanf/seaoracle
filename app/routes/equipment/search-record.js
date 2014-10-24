@@ -7,24 +7,24 @@ export default Ember.Route.extend({
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(val){
                 app_controller.set("autocompleteCompany", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
-
-//        if( !app_controller.autocompleteVoyage.get('length') ) {
-//            self.store.findQuery("voyage").then(function(val){
-//                app_controller.set("autocompleteVoyage", val);
-//            });
-//        }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
             self.store.findQuery("poi", {tags: "Port"}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
         if( !app_controller.autocompleteEquipment.get('length') ) {
             self.store.findQuery("equipment").then(function(val){
                 app_controller.set("autocompleteEquipment", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -35,6 +35,8 @@ export default Ember.Route.extend({
             queryExpression[searchPath] = true;
             self.store.findQuery("equipmentClassification", queryExpression).then(function(val){
                 app_controller.set("autocompleteEqClassification", val);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         }
 
@@ -130,6 +132,8 @@ export default Ember.Route.extend({
 
 
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

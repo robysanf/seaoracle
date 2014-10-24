@@ -204,7 +204,7 @@ export default Ember.View.extend({
             this.controller.send('createRecord_item', bookItem_type, tu_type, item, booking, val);
 
             this.$('.modal, .modal-backdrop').one("transitionend", function() {
-                view.controller.send('close');
+                view.controller.send('close_item');
             });
             this.$('.modal').removeClass('in');
         },

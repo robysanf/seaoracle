@@ -188,7 +188,7 @@
                     {{input value=referringPort.name type="text" class='form-control' disabled=controller.isView}}
                 {{else}}
                     <a id="autocomplete-referringPort">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" minChars=2}}
+                        {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" minChars=0}}
                     </a>
                 {{/if}}
             </div>
@@ -201,7 +201,7 @@
                     {{input value=stamp.name type="text" class='form-control' disabled=controller.isView}}
                 {{else}}
                     <a id="autocomplete-segment">
-                        {{auto-complete source=app_controller.autocompleteStamp destination=stamp searchPath="name" minChars=1}}
+                        {{auto-complete source=app_controller.autocompleteStamp destination=stamp searchPath="name" minChars=0}}
                     </a>
                 {{/if}}
             </div>

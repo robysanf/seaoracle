@@ -4,8 +4,8 @@ export default Ember.Controller.extend({
     needs: ['application'],
     app_controller: Ember.computed.alias('controllers.application'),
 
-    searchStamp: Ember.A([]),
-    searchReferringPort: Ember.A([]),
+    searchStamp: null,
+    searchReferringPort: null,
 
     unique: null,
     newCompany: null,

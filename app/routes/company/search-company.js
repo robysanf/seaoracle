@@ -11,6 +11,8 @@ export default Ember.Route.extend({
 
         this.store.findQuery("company").then(function(val){
             app_controller.set("autocompleteCompany", val);
+        }, function( reason ){
+            app_controller.send( 'error', reason );
         });
 
         controller.set('is_loading', false);
@@ -77,6 +79,8 @@ export default Ember.Route.extend({
                     app_controller.set('firstIndex', app_controller.perPage);
                     app_controller.set("searchResultList", app_controller.items);
                 }
+            }, function( reason ){
+                app_controller.send( 'error', reason );
             });
         },
 

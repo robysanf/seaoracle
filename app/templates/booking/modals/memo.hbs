@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <button type="button" class="close" {{action 'close' 'overview' 'application' target="view"}}>&times;</button>
     <h3>New Memo</h3>
 </div>
 <div class="modal-body">
@@ -15,6 +15,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn" {{action 'close' 'overview' 'application' target="view"}}>Close</a>
     <a href="#" class="btn btn-default" {{action "create_record" "memo" "roro" null false target="view"}}>Save</a>
 </div>

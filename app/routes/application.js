@@ -22,6 +22,7 @@ export default Ember.Route.extend({
 
     actions: {
         error: function( reason ) {
+            var app_controller = this.controllerFor('application');
             //console.log('error1: ' + reason.responseText);
             //console.log('error2: ' + reason.status);
             //console.log('error3: ' + reason.message);
@@ -29,7 +30,7 @@ export default Ember.Route.extend({
 
             switch ( String(reason.status) ){
                 case '400':        //BAD REQUEST, problemi con il token
-                    this.logout();
+                    app_controller.send('logout');
                     break;
                 case '401':
 //                    new PNotify({

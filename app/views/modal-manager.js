@@ -9,6 +9,18 @@ export default Ember.View.extend({
 
     layoutName: 'modal-layout',
     actions: {
+        send_email: function(){
+            var view = this;
+            this.controller.send('send_bookingConfirmationEmail');
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                view.controller.send('close_item');
+            });
+
+            this.$('.modal').removeClass('in');
+        },
+
+
         remove_booking: function(){
             var view = this;
             this.controller.send('remove_booking');

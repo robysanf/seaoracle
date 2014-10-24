@@ -228,6 +228,7 @@ export default Ember.ObjectController.extend({
     newCharge: null,
     searchChargeBillTo: Ember.A(),
 
+    send_email_type: null,
     currencyClassification: [
         '',
         'EUR',

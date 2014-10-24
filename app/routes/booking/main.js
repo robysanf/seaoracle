@@ -2315,12 +2315,31 @@ export default Ember.Route.extend({
          @param {number} - unique key
          @param {string} - tipo di documento che deve essere inviato per mail (confirmation/note)
          */
-        send_bookingConfirmationEmail: function(booking_record, type) {
+
+        send_email: function(booking_record, type, user_id, path) {
+            var self = this, controller = self.controllerFor('booking.main');
+
+            this.store.find('user', user_id).then(function(val){
+
+                controller.set('booking_record', booking_record);
+                controller.set('user_email', val.get('email'));
+                controller.set('send_email_type', type);
+
+                self.render(path, {
+                    into: 'application',
+                    outlet: 'overview',
+                    view: 'modal-manager'
+                });
+            });
+
+        },
+
+        send_bookingConfirmationEmail: function() {
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
                 data = this.getProperties();
 
-            data.bookingId = booking_record.get('id');
-            if(type === 'confirmation'){
+            data.bookingId = controller.booking_record.get('id');
+            if(send_email_type === 'confirmation'){
                 $.post('api/custom/bookingConfirmationEmail?token=' + app_controller.token, data).then(function(response){
                     if (response.success) {
                         new PNotify({
@@ -2340,7 +2359,7 @@ export default Ember.Route.extend({
                     });
                 });
 
-            } else if(type === 'note') {
+            } else if(send_email_type === 'note') {
                 $.post('api/custom/bookingNoteEmail?token=' + app_controller.token, data).then(function(response){
                     if (response.success) {
                         new PNotify({
@@ -2998,7 +3017,7 @@ export default Ember.Route.extend({
                                     nonblock_opacity: .8
                                 }
                             });
-                        })
+                        });
                     //}
                 //});
 

@@ -1867,42 +1867,6 @@ export default Ember.Route.extend({
             });
         },
 
-
-        /*  HAULAGE TAB
-         * ******************
-         invio della mail dopo aver effettuato la pick up request
-
-         @action send_haulagePickUpRequestEmail
-         @for Booking - haulage subTab
-         @param {number} - unique key
-         */
-        send_haulagePickUpRequestEmail: function(haulage) {
-            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
-                data = this.getProperties();
-
-            data.haulageId = haulage.get('id');
-
-            $.post('api/custom/haulagePickUpRequestEmail?token=' + app_controller.token, data).then(function(response){
-                if (response.success) {
-                    new PNotify({
-                        title: 'Success',
-                        text: 'The e-mail was successfully sent.',
-                        type: 'success',
-                        delay: 2000
-                    });
-                }
-            }, function(response){
-                var json = response.responseText, obj = JSON.parse(json);
-
-                new PNotify({
-                    title: 'Error',
-                    text: obj.error,
-                    type: 'error'
-                });
-            });
-
-        },
-
         /*  STATUS TAB
          * ******************
          cambio degli status di un booking item. per facilitare l'utente ad ogni cambio di stato vengono settate:
@@ -2316,7 +2280,7 @@ export default Ember.Route.extend({
          @param {string} - tipo di documento che deve essere inviato per mail (confirmation/note)
          */
 
-        send_email: function(booking_record, type, user_id, path) {
+        send_email: function( booking_record, type, user_id, path, haulage ) {
             var self = this, controller = self.controllerFor('booking.main');
 
             this.store.find('user', user_id).then(function(val){
@@ -2324,7 +2288,7 @@ export default Ember.Route.extend({
                 controller.set('booking_record', booking_record);
                 controller.set('user_email', val.get('email'));
                 controller.set('send_email_type', type);
-
+                controller.set('haulage_to_send', haulage);
                 self.render(path, {
                     into: 'application',
                     outlet: 'overview',
@@ -2338,46 +2302,84 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
                 data = this.getProperties();
 
-            data.bookingId = controller.booking_record.get('id');
-            if(send_email_type === 'confirmation'){
-                $.post('api/custom/bookingConfirmationEmail?token=' + app_controller.token, data).then(function(response){
-                    if (response.success) {
+            data.email = controller.user_email;
+
+            switch ( controller.send_email_type ){
+                case 'confirmation':
+                    data.bookingId = controller.booking_record.get('id');
+
+                    $.post('api/custom/bookingConfirmationEmail?token=' + app_controller.token, data).then(function(response){
+                        if (response.success) {
+                            new PNotify({
+                                title: 'Success',
+                                text: 'The e-mail was successfully sent.',
+                                type: 'success',
+                                delay: 2000
+                            });
+                        }
+                    }, function(response){
+                        var json = response.responseText, obj = JSON.parse(json);
+
                         new PNotify({
-                            title: 'Success',
-                            text: 'The e-mail was successfully sent.',
-                            type: 'success',
-                            delay: 2000
+                            title: 'Error',
+                            text: obj.error,
+                            type: 'error'
                         });
-                    }
-                }, function(response){
-                    var json = response.responseText, obj = JSON.parse(json);
-
-                    new PNotify({
-                        title: 'Error',
-                        text: obj.error,
-                        type: 'error'
                     });
-                });
 
-            } else if(send_email_type === 'note') {
-                $.post('api/custom/bookingNoteEmail?token=' + app_controller.token, data).then(function(response){
-                    if (response.success) {
+                    break;
+                case 'note':
+                    data.bookingId = controller.booking_record.get('id');
+
+                    $.post('api/custom/bookingNoteEmail?token=' + app_controller.token, data).then(function(response){
+                        if (response.success) {
+                            new PNotify({
+                                title: 'Success',
+                                text: 'The e-mail was successfully sent.',
+                                type: 'success',
+                                delay: 2000
+                            });
+                        }
+                    }, function(response){
+                        var json = response.responseText, obj = JSON.parse(json);
+
                         new PNotify({
-                            title: 'Success',
-                            text: 'The e-mail was successfully sent.',
-                            type: 'success',
-                            delay: 2000
+                            title: 'Error',
+                            text: obj.error,
+                            type: 'error'
                         });
-                    }
-                }, function(response){
-                    var json = response.responseText, obj = JSON.parse(json);
-
-                    new PNotify({
-                        title: 'Error',
-                        text: obj.error,
-                        type: 'error'
                     });
-                });
+                    break;
+                case 'pick-up-request':
+                    /*  HAULAGE TAB
+                     * ******************
+                     invio della mail dopo aver effettuato la pick up request
+
+                     @action send_haulagePickUpRequestEmail
+                     @for Booking - haulage subTab
+                     @param {number} - unique key
+                     */
+                    data.haulageId = controller.haulage_to_send.get('id');
+
+                    $.post('api/custom/haulagePickUpRequestEmail?token=' + app_controller.token, data).then(function(response){
+                        if (response.success) {
+                            new PNotify({
+                                title: 'Success',
+                                text: 'The e-mail was successfully sent.',
+                                type: 'success',
+                                delay: 2000
+                            });
+                        }
+                    }, function(response){
+                        var json = response.responseText, obj = JSON.parse(json);
+
+                        new PNotify({
+                            title: 'Error',
+                            text: obj.error,
+                            type: 'error'
+                        });
+                    });
+                    break;
             }
         },
 

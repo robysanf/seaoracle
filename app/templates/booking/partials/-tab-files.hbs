@@ -83,12 +83,12 @@
                             <td>{{file.type}}</td>
                             {{#if file.isConfirmation}}
                                 {{#unless isRegister}}
-                                    <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'confirmation' controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'confirmation'}}></span></a></td>
+                                    <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'confirmation' app_controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'confirmation'}}></span></a></td>
                                 {{/unless}}
                             {{else}}
                                 {{#if file.isNote}}
                                     {{#unless isRegister}}
-                                        <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'note' controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'note'}}></span></a></td>
+                                        <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'note' app_controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'note'}}></span></a></td>
                                     {{/unless}}
                                 {{else}}
                                     <td></td>

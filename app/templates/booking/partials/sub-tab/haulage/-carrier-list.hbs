@@ -91,7 +91,7 @@
                         {{#if controller.is_client}}
                         {{else}}
                             {{#unless isRegister}}
-                                <a href=# {{action "send_haulagePickUpRequestEmail" haulage}}><span class="glyphicon glyphlink glyphicon-send"></span></a>
+                                <a href=# {{action 'send_email' this 'pick-up-request' app_controller.userId 'booking/modals/send-mail' haulage}}{{!{{action "send_haulagePickUpRequestEmail" haulage}}><span class="glyphicon glyphlink glyphicon-send"></span></a>
                             {{/unless}}
                         {{/if}}
                     </td>

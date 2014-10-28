@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class= "well well-lg" style="background-color: #FAFDFD">
+                <p class="page-header"><h3>Notifications</h3>
+                <button class="btn btn-default btn-130 pull-right" {{action "post_notification" this}}>Edit grants</button>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width:5%"></th>
+                        <th style="width:15%">News</th>
+                        <th style="width:10%">Type</th>
+                        <th style="width:10%">From</th>
+                        <th style="width:25%">Description</th>
+                        <th style="width:5%">More</th>
+                        <th style="width:5%">Go to</th>
+                        <th style="width:5%">Hide</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each notifications}}
+                        <tr>
+                            <td><a href="#"><span class="glyphicon glyphicon-unchecked" style="text-align: center"></span></a></td>
+                            <td>{{date-picker date=date valueFormat='DD-MM-YYYY' class='form-control'}}</td>
+                            <td>{{name}}</td>
+                            <td>{{fromCompanyDetail}}</td>
+                            <td>{{description}}</td>
+                            <td><span class="glyphicon glyphicon-info-sign"></span></td>c
+                            <td><span class="glyphicon glyphicon-share"></span></td>
+                            <td><span class="glyphicon glyphicon-eye-close"></span></td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

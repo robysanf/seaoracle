@@ -2401,7 +2401,9 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application');
 
             if( controller.subTabLists.revenues ){
-                    booking_record.get("chargeItems").filter(function(charge){
+
+                booking_record.get("chargeItems").then(function(charges){
+                    charges.filter(function(charge){
 
                         charge.save().then(function(){
                             if(charge === booking_record.get("chargeItems").get("lastObject")) {
@@ -2432,6 +2434,7 @@ export default Ember.Route.extend({
                             });
                         });
                     });
+                });
 
             } else if ( controller.subTabLists.status ){
 
@@ -2522,39 +2525,50 @@ export default Ember.Route.extend({
                 switch ( controller.item_record.get('tu') ){
                     case 'container':
                         var eqClass = null;
-                            controller.item_record.get("freightEquipments").filter(function (frEquipment) {
-                                if (fun_status === 'E' || fun_status === 'L') {
-                                    if ( frEquipment.get('equipment') ) {
-                                        eqClass = frEquipment.get('equipment');
-                                        frEquipment.set("equipmentCode", eqClass.get('code'));
-                                    } else {
-                                        frEquipment.set("equipmentCode", null);
+                            controller.item_record.get("freightEquipments").then(function( freightEquipments ){
+                                freightEquipments.filter(function (frEquipment) {
+                                    if (fun_status === 'E' || fun_status === 'L') {
+                                        if ( frEquipment.get('equipment') ) {
+                                            eqClass = frEquipment.get('equipment');
+                                            frEquipment.set("equipmentCode", eqClass.get('code'));
+                                        } else {
+                                            frEquipment.set("equipmentCode", null);
+                                        }
+                                        if ( frEquipment.get('equipmentClassification') ) {
+                                            eqClass = frEquipment.get('equipmentClassification');
+                                            frEquipment.set("equipmentClassificationName", eqClass.get('name')).set("equipmentClassificationSizeCode", eqClass.get('sizeCode')).set("equipmentClassificationTypeCode", eqClass.get('typeCode')).set("equipmentClassificationIsoCode", eqClass.get('isoCode'));
+                                        } else {
+                                            frEquipment.set("equipmentClassificationName", null).set("equipmentClassificationSizeCode", null).set("equipmentClassificationTypeCode", null).set("equipmentClassificationIsoCode", null);
+                                        }
                                     }
-                                    if ( frEquipment.get('equipmentClassification') ) {
-                                        eqClass = frEquipment.get('equipmentClassification');
-                                        frEquipment.set("equipmentClassificationName", eqClass.get('name')).set("equipmentClassificationSizeCode", eqClass.get('sizeCode')).set("equipmentClassificationTypeCode", eqClass.get('typeCode')).set("equipmentClassificationIsoCode", eqClass.get('isoCode'));
-                                    } else {
-                                        frEquipment.set("equipmentClassificationName", null).set("equipmentClassificationSizeCode", null).set("equipmentClassificationTypeCode", null).set("equipmentClassificationIsoCode", null);
-                                    }
-                                }
 
-                                frEquipment.save().then(function () {
-                                    controller.item_record.save().then(function () {
-                                        // SUCCESS
-                                        new PNotify({
-                                            title: 'Saved',
-                                            text: 'You successfully saved new booking item.',
-                                            type: 'success',
-                                            delay: 1000
+                                    frEquipment.save().then(function () {
+                                        controller.item_record.save().then(function () {
+                                            // SUCCESS
+                                            new PNotify({
+                                                title: 'Saved',
+                                                text: 'You successfully saved new booking item.',
+                                                type: 'success',
+                                                delay: 1000
+                                            });
+
+                                            controller.set('subTabLists.details', true);
+                                            controller.set('subTabLists.haulage', false);
+                                            controller.set('subTabLists.customs', false);
+                                            controller.set('subTabLists.status', false);
+                                            controller.set('subTabLists.revenues', false);
+                                            controller.set('subTabLists.files', false);
+                                            controller.set('subTabLists.goods', false);
+
+                                        }, function () {
+                                            // NOT SAVED
+                                            new PNotify({
+                                                title: 'Not saved',
+                                                text: 'A problem has occurred.',
+                                                type: 'error',
+                                                delay: 2000
+                                            });
                                         });
-
-                                        controller.set('subTabLists.details', true);
-                                        controller.set('subTabLists.haulage', false);
-                                        controller.set('subTabLists.customs', false);
-                                        controller.set('subTabLists.status', false);
-                                        controller.set('subTabLists.revenues', false);
-                                        controller.set('subTabLists.files', false);
-                                        controller.set('subTabLists.goods', false);
 
                                     }, function () {
                                         // NOT SAVED
@@ -2564,15 +2578,6 @@ export default Ember.Route.extend({
                                             type: 'error',
                                             delay: 2000
                                         });
-                                    });
-
-                                }, function () {
-                                    // NOT SAVED
-                                    new PNotify({
-                                        title: 'Not saved',
-                                        text: 'A problem has occurred.',
-                                        type: 'error',
-                                        delay: 2000
                                     });
                                 });
                             });
@@ -2594,7 +2599,8 @@ export default Ember.Route.extend({
                                 }
                             }
 
-                            controller.item_record.get("freightEquipments").filter(function (frEquipment) {
+                            controller.item_record.get("freightEquipments").then(function( freightEquipments ){
+                                freightEquipments.filter(function (frEquipment) {
                                 if (fun_status === 'E' || fun_status === 'L') {
                                     if ( frEquipment.get('equipment') ) {
                                         eqClass = frEquipment.get('equipment');
@@ -2665,7 +2671,7 @@ export default Ember.Route.extend({
                                     });
                                 });
                             });
-
+                            });
                         } else {
                             $('div.alert.alert-danger').css('display', 'inline-block');
                         }
@@ -2681,12 +2687,48 @@ export default Ember.Route.extend({
                                 controller.item_record.set('volume', controller.item_record.get('is_volume'));
                             }
                         }
-                        controller.item_record.get("freightEquipments").filter(function(frEquipment){
-                            if(fun_status === 'E' && frEquipment.get('equipmentCode')) {
 
-                                var eqClass = frEquipment.get('equipment');
+                        controller.item_record.get("freightEquipments").then(function( freightEquipments ){
+                            freightEquipments.filter(function(frEquipment){
+                                if(fun_status === 'E' && frEquipment.get('equipmentCode')) {
 
-                                frEquipment.set("equipmentCode", eqClass.get('code')).save().then(function(){
+                                    var eqClass = frEquipment.get('equipment');
+
+                                    frEquipment.set("equipmentCode", eqClass.get('code')).save().then(function(){
+                                        controller.item_record.save().then(function(){
+                                            // SUCCESS
+                                            new PNotify({
+                                                title: 'Saved',
+                                                text: 'You successfully saved booking item.',
+                                                type: 'success',
+                                                delay: 1000
+                                            });
+                                            controller.set('subTabLists.details', true);
+                                            controller.set('subTabLists.haulage', false);
+                                            controller.set('subTabLists.customs', false);
+                                            controller.set('subTabLists.status', false);
+                                            controller.set('subTabLists.revenues', false);
+                                            controller.set('subTabLists.files', false);
+                                            controller.set('subTabLists.goods', false);
+                                        }, function(){
+                                            // NOT SAVED
+                                            new PNotify({
+                                                title: 'Not saved',
+                                                text: 'A problem has occurred.',
+                                                type: 'error',
+                                                delay: 2000
+                                            });
+                                        });
+                                    }, function(){
+                                        // NOT SAVED
+                                        new PNotify({
+                                            title: 'Not saved',
+                                            text: 'A problem has occurred.',
+                                            type: 'error',
+                                            delay: 2000
+                                        });
+                                    });
+                                } else {
                                     controller.item_record.save().then(function(){
                                         // SUCCESS
                                         new PNotify({
@@ -2711,43 +2753,8 @@ export default Ember.Route.extend({
                                             delay: 2000
                                         });
                                     });
-                                }, function(){
-                                    // NOT SAVED
-                                    new PNotify({
-                                        title: 'Not saved',
-                                        text: 'A problem has occurred.',
-                                        type: 'error',
-                                        delay: 2000
-                                    });
-                                });
-
-                            } else {
-                                controller.item_record.save().then(function(){
-                                    // SUCCESS
-                                    new PNotify({
-                                        title: 'Saved',
-                                        text: 'You successfully saved booking item.',
-                                        type: 'success',
-                                        delay: 1000
-                                    });
-                                    controller.set('subTabLists.details', true);
-                                    controller.set('subTabLists.haulage', false);
-                                    controller.set('subTabLists.customs', false);
-                                    controller.set('subTabLists.status', false);
-                                    controller.set('subTabLists.revenues', false);
-                                    controller.set('subTabLists.files', false);
-                                    controller.set('subTabLists.goods', false);
-                                }, function(){
-                                    // NOT SAVED
-                                    new PNotify({
-                                        title: 'Not saved',
-                                        text: 'A problem has occurred.',
-                                        type: 'error',
-                                        delay: 2000
-                                    });
-                                });
-                            }
-
+                                }
+                            });
                         });
 
                         break;

@@ -17,6 +17,10 @@ export default DS.Model.extend({
     emails : DS.attr('raw'),
     fax : DS.attr('string'),
     phone : DS.attr('string'),
+    notifications: DS.hasMany('notification', {
+        async: true,
+        inverse: 'company'
+    }),
     users : DS.hasMany('user',{
         async: true,
         inverse: 'company'

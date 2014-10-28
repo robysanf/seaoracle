@@ -5,7 +5,12 @@
                 <div class="col-lg-9">
                     <label><h4>Name</h4></label>
                     {{#if controller.revenuesTabList.bookingCharges}}
-                        {{view Ember.Select content= bookingCharges_list value= newCharge prompt = 'please select a booking charge' class='form-control'}}
+                        {{#if controller.is_shipowner}}
+                            {{view Ember.Select content= bookingCharges_list_shipowner value= newCharge prompt = 'please select a booking charge' class='form-control'}}
+                        {{else}}
+                            {{view Ember.Select content= bookingCharges_list value= newCharge prompt = 'please select a booking charge' class='form-control'}}
+                        {{/if}}
+
                     {{else}}
                         {{view Ember.Select content= allCharges_list value= newCharge prompt = 'please select an item charge' class='form-control'}}
                     {{/if}}

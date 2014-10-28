@@ -423,6 +423,32 @@ export default Ember.Route.extend({
             });
         },
 
+        link_to: function( path, value ){
+            var self = this, controller = self.controllerFor('booking.search-record');
+
+            controller.set('booking_record', value);
+
+            controller.set('tabList_details', false);
+            controller.set('tabList_freightPlan', false);
+            controller.set('tabList_revenues', false);
+            controller.set('tabList_container', false);
+            controller.set('tabList_roro', false);
+            controller.set('tabList_bb', false);
+            controller.set('tabList_itemStatus', false);
+            controller.set('tabList_files', false);
+
+            controller.set('subTabList_goods', false);
+            controller.set('subTabList_details', false);
+            controller.set('subTabList_haulage', false);
+            controller.set('subTabList_customs', false);
+            controller.set('subTabList_status', false);
+            controller.set('subTabList_revenues', false);
+            controller.set('subTabList_files', false);
+
+            this.transitionTo( path, value.id );
+        },
+
+
         save_docItems: function( val, docItems, doc_record ){
             var self = this, controller = self.controllerFor('document.main');
 

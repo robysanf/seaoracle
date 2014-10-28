@@ -40,7 +40,7 @@ app.import('vendor/pnotify/pnotify.custom.css');
 app.import('vendor/pnotify/pnotify.custom.js');
 
 // IMPORT MOMENT.JS
-app.import('vendor/moment/moment.js');
+//app.import('vendor/moment/moment.js');
 
 //// IMPORT EMBER-SPIN-BOX
 app.import('vendor/ember-spin-box/ember-spin-box.min.css');

@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-    name: DS.attr('string'),           //share/credit/general
+    name: DS.attr('string'),           //share/credit/general/link
     company: DS.belongsTo('company'),
     date: DS.attr('custom-date'),
     fromCompany: DS.belongsTo('company'),
@@ -13,7 +13,7 @@ export default DS.Model.extend({
     entityType: DS.attr('string'),    //booking, charge etc.
     entity: DS.attr('number'),        // id dell'entity
     status: DS.attr('string'),        //hide, show
-    referringNotification: DS.belongsTo('notification'),
+    //referringNotification: DS.belongsTo('notification'),
     type: DS.attr('string'),
     highlighted: DS.attr('boolean'),
     dueDate: DS.attr('custom-date'),

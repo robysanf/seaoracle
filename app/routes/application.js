@@ -4,6 +4,9 @@ export default Ember.Route.extend({
     beforeModel: function() {
         var app_controller = this.controllerFor('application');
 
+        this.store.find('company', app_controller.company).then(function( val ){
+           app_controller.set('company_record', val);
+        });
         /** se non è presente in memoria il token l'utente viene ri-direzionato alla pagina di login **/
         if ( !app_controller.token ){
             this.redirectToLogin();

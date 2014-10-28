@@ -21,6 +21,18 @@ export default DS.Model.extend({
         async: true,
         inverse: 'company'
     }),
+
+    firedNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('highlighted') === true ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.highlighted'),
+
     users : DS.hasMany('user',{
         async: true,
         inverse: 'company'

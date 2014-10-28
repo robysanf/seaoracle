@@ -9,7 +9,7 @@
                     <thead>
                     <tr>
                         <th style="width:5%"></th>
-                        <th style="width:15%">News</th>
+                        <th style="width:15%">Notification</th>
                         <th style="width:10%">Type</th>
                         <th style="width:10%">From</th>
                         <th style="width:25%">Description</th>
@@ -19,14 +19,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each notifications}}
-                        <tr>
-                            <td><a href="#"><span class="glyphicon glyphicon-unchecked" style="text-align: center"></span></a></td>
-                            <td>{{date-picker date=date valueFormat='DD-MM-YYYY' class='form-control'}}</td>
-                            <td>{{name}}</td>
-                            <td>{{fromCompanyDetail}}</td>
-                            <td>{{description}}</td>
-                            <td><span class="glyphicon glyphicon-info-sign"></span></td>c
+                    {{#each notification in notifications}}
+                        <tr {{bind-attr class = "notification.highlighted:warning"}}>
+                            <td align="center">
+                                {{#if notification.highlighted}}
+                                    <a href="#"><span class="glyphicon glyphicon-check" style="text-align: center" {{action "change_state" notification 'highlighted' false}}></span></a>
+                                {{else}}
+                                    <a href="#"><span class="glyphicon glyphicon-unchecked" style="text-align: center" {{action "change_state" notification 'highlighted' true}}></span></a>
+                                {{/if}}
+                            </td>
+                            <td>{{notification.date}}</td>
+                            <td>{{notification.name}}</td>
+                            <td>{{notification.fromCompanyDetail}}</td>
+                            <td>{{notification.description}}</td>
+                            <td><span class="glyphicon glyphicon-info-sign"></span></td>
                             <td><span class="glyphicon glyphicon-share"></span></td>
                             <td><span class="glyphicon glyphicon-eye-close"></span></td>
                         </tr>

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="navbar-header">
                 {{#link-to 'dashboard/main'}}
-                    <div class="navbar-brand"> Dashboard</div>
+                    <div class="navbar-brand">Dashboard</div>
                 {{/link-to}}
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
@@ -156,8 +156,12 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     {{#link-to 'notification/main' controller.company}}
+
                         <div class="navbar-brand">
-                            <span class="glyphicon glyphicon-comment"></span><span class="badge">3</span>
+                            <span class="glyphicon glyphicon-comment"></span>
+                            {{#if controller.company_record.firedNotifications}}
+                                <span class="badge">{{controller.company_record.firedNotifications}}</span>
+                            {{/if}}
                         </div>
                     {{/link-to}}
                 </ul>

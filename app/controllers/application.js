@@ -19,6 +19,7 @@ export default Ember.ArrayController.extend({
 
     /*     ***local storage***     */
     user_record: JSON.parse(localStorage["user_record"] ? localStorage["user_record"] : "[\" \"]"),
+    company_record: null,
 
     company: localStorage['company'],
     token: localStorage['token'],

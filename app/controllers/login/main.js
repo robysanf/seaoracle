@@ -47,6 +47,10 @@ export default Ember.Controller.extend({
                     self.get('controllers.application').set('username', data.username);
                     self.get('controllers.application').set('isAdmin', response.isAdmin);
 
+                    self.store.find('company', response.company_id).then(function( val ){
+                        self.get('controllers.application').set('company_record', val);
+                    });
+
                     self.store.find('user', response.user_id).then(function(val){
                         var json, queryExpression = {}, name = '';
 

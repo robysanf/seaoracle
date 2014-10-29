@@ -58,7 +58,7 @@ export default Ember.Route.extend({
 
             data.company = record_id;
 
-            $.post('api/custom/applyCharge?token=' + app_controller.token, data).then(function(response){
+            $.post('api/custom/linkCompanies?token=' + app_controller.token, data).then(function(response){
                 if (response.success) {
                     //NOT SAVED
                     new PNotify({

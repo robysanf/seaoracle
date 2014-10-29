@@ -50,7 +50,34 @@ export default Ember.Route.extend({
             controller.set('tabListFiles', false);
 
             this.transitionTo(path, value.id);
-        }
+        },
 
+        custom_linkCompanies: function( record_id ){
+            var self = this, app_controller = self.controllerFor('application'),
+            data = this.getProperties();
+
+            data.company = record_id;
+
+            $.post('api/custom/applyCharge?token=' + app_controller.token, data).then(function(response){
+                if (response.success) {
+                    //NOT SAVED
+                    new PNotify({
+                        title: 'Success',
+                        text: 'The request was sent.',
+                        type: 'success',
+                        delay: 2000
+                    });
+                }
+
+            }, function(){
+                //NOT SAVED
+                new PNotify({
+                    title: 'Not saved',
+                    text: 'A problem has occurred.',
+                    type: 'error',
+                    delay: 2000
+                });
+            });
+        }
     }
 });

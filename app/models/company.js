@@ -68,6 +68,10 @@ export default DS.Model.extend({
     inverseCompany: DS.belongsTo('company', {       //creato solo per dare un inverso a parent company
         inverse: 'parentCompany'
     }),
+
+    links: DS.hasMany('company', {
+        inverse: 'inverseLink'
+    }),
     files: DS.hasMany('file', {
         async:true,
         inverse: 'company'

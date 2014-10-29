@@ -71,8 +71,9 @@ Router.map(function() {
         this.route('document/new-record', {path: 'newDocument'});
 
         this.route('notification/main', {path: '/notification/:company_id'});
-    });
 
+        this.route('link/main', {path: '/link/:company_id'});
+    });
 });
 
 

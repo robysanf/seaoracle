@@ -22,6 +22,28 @@ export default DS.Model.extend({
         inverse: 'company'
     }),
 
+    showNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('status') === 'show' ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.status'),
+
+    hiddenNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('status') === 'hide' ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.status'),
+
     firedNotifications: function() {
         var notify = this.get("notifications"), fired = null;
 

@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>{{controller.notification_record.name}}</h3>
+</div>
+<div class="modal-body">
+    {{#if controller.notification_record.isRating}}
+        <div class="row">
+            <div class="col-lg-6">
+                <label>{{app_controller.translation.date}}</label>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{controller.selectedRecord.date}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>{{app_controller.translation.value}}</label>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{controller.selectedRecord.valueNum}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>{{app_controller.translation.company}}</label>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{controller.selectedRecord.fromCompanyDetails}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                {{#if controller.selectedRecord.fromUserDetails}}
+                    <label>{{app_controller.translation.user}}</label>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{controller.selectedRecord.fromUserDetails}}
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    {{/if}}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>{{app_controller.translation.description}}</strong></div>
+                <div class="panel-body">
+                    {{controller.notification_record.detail}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>{{app_controller.translation.close}}</a>
+</div>

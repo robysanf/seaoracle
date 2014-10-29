@@ -17,8 +17,8 @@ export default Ember.Route.extend({
                     date: moment(today).format("YYYY-MM-DD"),
                     fromCompanyDetail: 'Shipowner prova 1',
                     description: 'ha chiesto di connettersi alla tua rete',
-                    entityType: 'company',
-                    entity: book_record,
+                    entityType: 'booking',
+                    entity: '17592186075636',
                     status: 'show',
                     highlighted: false,
                     visibility: 'public'
@@ -37,7 +37,30 @@ export default Ember.Route.extend({
          @param {object} nuovo valore dell'attributo
          */
         change_state: function( record, attr, value ) {
-            record.set(attr, value);
+            if( attr === 'status' ){
+                record.set('highlighted', false)
+            }
+            record.set(attr, value).save();
+        },
+
+        //********************************************
+        //MODAL
+        open_modal: function( path, item ) {
+            var self = this, controller = self.controllerFor('notification.main');
+
+            controller.set("notification_record", item);
+            this.render(path, {
+                into: 'application',
+                outlet: 'overview',
+                view: 'modal-manager'
+            });
+        },
+
+        close_item: function(){
+            var self = this, app_controller = self.controllerFor('application');
+
+            app_controller.send('close_modal', 'overview', 'application');
         }
+
     }
 });

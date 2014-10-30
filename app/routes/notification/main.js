@@ -48,7 +48,7 @@ export default Ember.Route.extend({
 
             data.companyFrom = recordFrom;
             data.recordTo = recordTo;
-            $.post('api/action/actionToken=' + actionToken, data).then(function(response){
+            $.post('api/action?actionToken=' + actionToken, data).then(function(response){
                 if (response.success) {
                     //NOT SAVED
                     new PNotify({

@@ -10,7 +10,9 @@ export default DS.Model.extend({
     company : DS.belongsTo('company'),
     vesselName : DS.attr('string'),
     vessel : DS.belongsTo('vessel',{ async: true}),
-    schedules : DS.hasMany('leg',{ async: true}),
+    schedules : DS.hasMany('leg',{
+        async: true
+    }),
     status : DS.attr('string'),
     authorizedCompanies: DS.hasMany('company',{ async: true}),
     visibility: DS.attr('string'), //public, private, root

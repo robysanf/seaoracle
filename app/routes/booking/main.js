@@ -1267,10 +1267,12 @@ export default Ember.Route.extend({
             frPlan_record.save().then(function(){
                 //      *** FREIGHT PLAN
 
-            self.store.findQuery("voyage").then(function(val){
-                app_controller.set("autocompleteVoyage", val);
-                controller.set('searchVoy', []);
-            });
+                self.get("controller").set("freightPlanItemsList", []);
+
+                self.store.findQuery("voyage").then(function(val){
+                    app_controller.set("autocompleteVoyage", val);
+                    controller.set('searchVoy', []);
+                });
 
             book_record.reload();
 //            }, function(){

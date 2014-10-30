@@ -17,6 +17,44 @@ export default DS.Model.extend({
     emails : DS.attr('raw'),
     fax : DS.attr('string'),
     phone : DS.attr('string'),
+    notifications: DS.hasMany('notification', {
+        async: true,
+        inverse: 'company'
+    }),
+
+    showNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('status') === 'show' ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.status'),
+
+    hiddenNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('status') === 'hide' ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.status'),
+
+    firedNotifications: function() {
+        var notify = this.get("notifications"), fired = null;
+
+        notify.forEach(function(val){
+            if( val.get('highlighted') === true ) {
+                fired += 1;
+            }
+        });
+        return fired;
+    }.property('notifications.@each.highlighted'),
+
     users : DS.hasMany('user',{
         async: true,
         inverse: 'company'
@@ -30,6 +68,13 @@ export default DS.Model.extend({
     inverseCompany: DS.belongsTo('company', {       //creato solo per dare un inverso a parent company
         inverse: 'parentCompany'
     }),
+//    links: DS.hasMany('company', {
+//        async:true,
+//        inverse: 'inverseLink'
+//    }),
+//    inverseLink: DS.hasMany('company', {
+//        inverse: 'links'
+//    }),
     files: DS.hasMany('file', {
         async:true,
         inverse: 'company'

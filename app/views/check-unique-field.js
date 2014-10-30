@@ -7,7 +7,7 @@ export default Ember.View.extend({
     path:[],
 
     focusOut: function() {
-        var controller = this.get('controller');
+        var controller = this.get('controller'), permanotice = null;
         controller.send('checkUniqueField', this.model_val, this.filter_val, this.val, this.path);
 
         if( this.model_val === 'equipment' ) {
@@ -48,11 +48,24 @@ export default Ember.View.extend({
                         tot_fin = tot_init - (Math.floor(tot_init / 11) * 11);
 
                         if( numStr === null || numChar === false || tot_fin.toString() !== lastChar ) {
-                            new PNotify({
-                                title: 'Warning',
-                                text: 'The equipment code is not in the correct form.',
-                                type: 'info'
-                            });
+                            if (permanotice) {
+                                permanotice.open();
+                            } else {
+                                permanotice = new PNotify({
+                                    title: 'Warning',
+                                    text: 'The equipment code is not in the correct form.',
+                                    hide: false,
+                                    buttons: {
+                                        closer: true,
+                                        sticker: false
+                                    }
+                                });
+                            }
+//                            new PNotify({
+//                                title: 'Warning',
+//                                text: 'The equipment code is not in the correct form.',
+//                                type: 'info'
+//                            });
                         }
                     }
                 }

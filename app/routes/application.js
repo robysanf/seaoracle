@@ -4,6 +4,14 @@ export default Ember.Route.extend({
     beforeModel: function() {
         var app_controller = this.controllerFor('application');
 
+        if( app_controller.company ) {
+            this.store.find('company', app_controller.company).then(function( val ){
+                app_controller.set('company_record', val);
+            });
+        } else {
+            app_controller.send('logout');
+        }
+
         /** se non è presente in memoria il token l'utente viene ri-direzionato alla pagina di login **/
         if ( !app_controller.token ){
             this.redirectToLogin();
@@ -61,7 +69,7 @@ export default Ember.Route.extend({
                 default:
                     new PNotify({
                         title: 'Attention!',
-                        text: 'Something went wrong: ' + reason.responseText,
+                        text: 'Something went wrong: ' + reason.message,
                         type: 'error',
                         delay: 2000
                     });

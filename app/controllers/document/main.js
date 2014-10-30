@@ -6,6 +6,24 @@ export default Ember.ObjectController.extend({
     app_controller_token: Ember.computed.alias('controllers.application.token'),
     app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
 
+    tabList_details: Ember.computed.alias('controllers.booking/main.tabList.details'),
+    tabList_freightPlan: Ember.computed.alias('controllers.booking/main.tabList.freightPlan'),
+    tabList_revenues: Ember.computed.alias('controllers.booking/main.tabList.revenues'),
+    tabList_container: Ember.computed.alias('controllers.booking/main.tabList.container'),
+    tabList_roro: Ember.computed.alias('controllers.booking/main.tabList.roro'),
+    tabList_bb: Ember.computed.alias('controllers.booking/main.tabList.bb'),
+    tabList_itemStatus: Ember.computed.alias('controllers.booking/main.tabList.itemStatus'),
+    tabList_files: Ember.computed.alias('controllers.booking/main.tabList.files'),
+
+    subTabList_goods: Ember.computed.alias('controllers.booking/main.subTabLists.goods'),
+    subTabList_details: Ember.computed.alias('controllers.booking/main.subTabLists.details'),
+    subTabList_haulage: Ember.computed.alias('controllers.booking/main.subTabLists.haulage'),
+    subTabList_customs: Ember.computed.alias('controllers.booking/main.subTabLists.customs'),
+    subTabList_status: Ember.computed.alias('controllers.booking/main.subTabLists.status'),
+    subTabList_revenues: Ember.computed.alias('controllers.booking/main.subTabLists.revenues'),
+    subTabList_files: Ember.computed.alias('controllers.booking/main.subTabLists.files'),
+
+
 //    is_admin: function(){
 //        return ( this.get('app_controller_companyType') === 'admin' );
 //    }.property('app_controller_companyType'),

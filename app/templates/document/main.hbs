@@ -22,9 +22,10 @@
                                         </div>
                                         <div class="panel-body">
                                             {{#each booking in bookings}}
-                                                {{#link-to 'booking/main' booking}}
-                                                    {{booking.code}}
-                                                {{/link-to}}
+                                                <a href="#" {{action 'link_to' 'booking/main' booking}}>{{booking.code}}</a>
+                                                {{!{{#link-to 'booking/main' booking.id}}
+                                                {{!{{booking.code}}
+                                                {{!{{/link-to}}
                                                 <br>
                                             {{/each}}
                                         </div>

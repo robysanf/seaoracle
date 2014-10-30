@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class= "well well-lg" style="background-color: #FAFDFD">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h3 class="page-header">Notifications </h3>
+                    </div>
+                    <div class="col-lg-3" style="margin-top: 35px">
+                        <button class="btn btn-default pull-right" {{action "open_modal" 'notification.modals.hidden-record' null}}>Show Hidden Notifications</button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-lg-12">
+                        <!--<button class="btn btn-default btn-130 pull-right" {{!{{action "post_notification" this}}>Edit grants</button>-->
+                        {{#if showNotifications}}
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width:5%"></th>
+                                    <th style="width:10%">Notification</th>
+                                    <th style="width:10%">Date</th>
+                                    <th style="width:30%">From</th>
+                                    <th style="width:20%">Description</th>
+                                    <th style="width:10%">Value</th>
+                                    <!--<th style="width:5%">More</th>-->
+                                    <th style="width:5%">Accept</th>
+                                    <th style="width:5%">Go to</th>
+                                    <th style="width:5%">Hide</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each notification in notifications}}
+                                    {{#unless notification.hide_notification}}
+                                        <tr {{bind-attr class = "notification.highlighted:warning"}}>
+                                            <td align="center">
+                                                {{#if notification.highlighted}}
+                                                    <a href="#" {{action "change_state" notification 'highlighted' false}}><span class="glyphicon glyphicon-unchecked" style="text-align: center"></span></a>
+                                                {{else}}
+                                                    <a href="#" {{action "change_state" notification 'highlighted' true}}><span class="glyphicon glyphicon-check" style="text-align: center"></span></a>
+                                                {{/if}}
+                                            </td>
+                                            <td>{{notification.type}}</td>
+                                            <td>{{notification.date}}</td>
+                                            <td>{{notification.fromCompanyDetail}}</td>
+                                            <td>{{notification.description}}</td>
+                                            <td>{{notification.valueNum}}</td>
+                                            <!--<td><a href="#" {{!{{action "open_modal" 'notification.modals.view-record' notification}}><span class="glyphicon glyphicon-info-sign"></span></a></td>-->
+                                            <td><a href="#" {{action "custom_acceptedLink" notification.fromCompany.id this.id notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
+                                            <td>{{#link-to notification.path notification.entity}}<span class="glyphicon glyphicon-share"></span>{{/link-to}}</td>
+                                            <td> <a href="#" {{action "change_state" notification 'status' 'hide'}}><span class="glyphicon glyphicon-eye-close" style="text-align: center"></span></a></td>
+                                        </tr>
+                                    {{/unless}}
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        {{else}}
+                            <h4>There are no notifications.</h4>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

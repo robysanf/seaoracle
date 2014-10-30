@@ -69,6 +69,10 @@ Router.map(function() {
         this.route('document/search-record', {path: 'searchDocument'});
         this.route('document/main', {path: 'document/:document_id'});
         this.route('document/new-record', {path: 'newDocument'});
+
+        this.route('notification/main', {path: '/notification/:company_id'});
+
+        this.route('link/main', {path: '/link/:company_id'});
     });
 });
 

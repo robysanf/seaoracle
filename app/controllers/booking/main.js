@@ -300,6 +300,12 @@ export default Ember.ObjectController.extend({
         "Insurance"
     ],
 
+    bookingCharges_list_shipowner: [
+        "C.O.D.",
+        "B/L fees",
+        "Insurance"
+    ],
+
     codeBL: null,
 
     changeRate: 1,

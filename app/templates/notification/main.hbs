@@ -18,12 +18,13 @@
                                 <thead>
                                 <tr>
                                     <th style="width:5%"></th>
-                                    <th style="width:20%">Notification</th>
+                                    <th style="width:10%">Notification</th>
                                     <th style="width:10%">Date</th>
-                                    <th style="width:10%">From</th>
-                                    <th style="width:35%">Description</th>
+                                    <th style="width:30%">From</th>
+                                    <th style="width:20%">Description</th>
                                     <th style="width:10%">Value</th>
                                     <!--<th style="width:5%">More</th>-->
+                                    <th style="width:5%">Accept</th>
                                     <th style="width:5%">Go to</th>
                                     <th style="width:5%">Hide</th>
                                 </tr>
@@ -45,6 +46,7 @@
                                             <td>{{notification.description}}</td>
                                             <td>{{notification.valueNum}}</td>
                                             <!--<td><a href="#" {{!{{action "open_modal" 'notification.modals.view-record' notification}}><span class="glyphicon glyphicon-info-sign"></span></a></td>-->
+                                            <td><a href="#" {{action "custom_acceptedLink" notification.fromCompany.id this.id notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
                                             <td>{{#link-to notification.path notification.entity}}<span class="glyphicon glyphicon-share"></span>{{/link-to}}</td>
                                             <td> <a href="#" {{action "change_state" notification 'status' 'hide'}}><span class="glyphicon glyphicon-eye-close" style="text-align: center"></span></a></td>
                                         </tr>

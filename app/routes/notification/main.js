@@ -43,6 +43,31 @@ export default Ember.Route.extend({
             record.set(attr, value).save();
         },
 
+        custom_acceptedLink: function( recordFrom, recordTo, actionToken ){
+            var data = this.getProperties();
+
+            data.companyFrom = recordFrom;
+            data.recordTo = recordTo;
+            $.post('api/action/actionToken=' + actionToken, data).then(function(response){
+                if (response.success) {
+                    //NOT SAVED
+                    new PNotify({
+                        title: 'Success',
+                        text: 'The request was sent.',
+                        type: 'success',
+                        delay: 2000
+                    });
+                }
+            }, function(){
+                //NOT SAVED
+                new PNotify({
+                    title: 'Not saved',
+                    text: 'A problem has occurred.',
+                    type: 'error',
+                    delay: 2000
+                });
+            });
+        },
         //********************************************
         //MODAL
         open_modal: function( path, item ) {

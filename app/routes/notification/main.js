@@ -48,6 +48,7 @@ export default Ember.Route.extend({
 
             data.companyFrom = recordFrom;
             data.recordTo = recordTo;
+            data.actionFn = 'linkCompanies';
             $.post('api/action?actionToken=' + actionToken, data).then(function(response){
                 if (response.success) {
                     //NOT SAVED

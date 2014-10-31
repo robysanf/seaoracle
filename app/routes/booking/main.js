@@ -3985,6 +3985,8 @@ export default Ember.Route.extend({
                         controller.booking_record.get('sharedWith').then(function(valShar){
                             valShar.pushObject(controller.searchCompanyToShare).save();
                         });
+
+                        controller.set( 'searchCompanyToShare', null);
                     }
                 }, function(){
                     // NOT SAVED

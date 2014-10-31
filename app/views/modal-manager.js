@@ -52,6 +52,15 @@ export default Ember.View.extend({
             });
             this.$('.modal').removeClass('in');
         },
+        send_unshareResource: function() {
+            var view = this;
+            view.controller.send('send_unshareResource');
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                view.controller.send('close_item');
+            });
+            this.$('.modal').removeClass('in');
+        },
 
         send_shareResource: function() {
             var view = this;

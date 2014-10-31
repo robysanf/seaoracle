@@ -152,6 +152,17 @@ export default Ember.Route.extend({
                     delay: 2000
                 });
             });
+        },
+
+        /*per passare da un partial ad un altro tramite il cambio di una variabile*/
+        change_mode:function( variable, value ) {
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('link.main');
+
+            switch( variable ){
+                case 'addFeatureToGroup':
+                    controller.set(variable, value);
+                    break;
+            }
         }
     }
 });

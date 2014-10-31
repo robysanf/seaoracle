@@ -2,24 +2,7 @@
 <div class="row" style="margin-top: 45px">
     <div class="col-lg-1"></div>
     <div class="col-lg-10">
-        <div class= "well well-lg" style="background-color: #FAFDFD">
-            <div class="row" style="margin-top: 25px; margin-bottom: 20px">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-2"><h4><strong>Add company</strong></h4></div>
-                <div class="col-lg-4">
-                    <a id="autocomplete-company">
-                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=0}}
-                    </a>
-                </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-default btn-130" {{action "open_modal" 'link.modals.company-view' controller.searchCompany}}>View</button>
-                </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-primary btn-130 pull-right" {{action "custom_linkCompanies" controller.searchCompany.id}}>Connect</button>
-                </div>
-                <div class="col-lg-1"></div>
-            </div>
-        </div>
+
     </div>
     <div class="col-lg-1"></div>
 </div>

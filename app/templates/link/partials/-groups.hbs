@@ -32,17 +32,29 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-10">
         {{#each group in groups}}
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <strong>{{group.name}}</strong>
-                        <span class="pull-right">
-                            <strong>Type: </strong> {{group.type}}
-                        </span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#{{unbound 'indexes-each-helper' this.id _view.contentIndex}}">
+                            <div style="color: darkgray">
+                                <strong>Name: </strong> {{group.name}}
+                                <strong>Type: </strong> {{group.type}}
+                            </div>
+                        </a>
                     </h3>
                 </div>
-                <div class="panel-body">
-
+                <div class="panel-collapse collapse" id="{{unbound 'indexes-each-helper' this.id _view.contentIndex}}">
+                    <div class="panel-body">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" {{action 'change_mode' 'addFeatureToGroup' false}}><strong>Add feature</strong></button>
+                            <button type="button" class="btn btn-default" {{action 'change_mode' 'addFeatureToGroup' true}}><strong>Return</strong></button>
+                        </div>
+                        {{#if controller.addFeatureToGroup}}
+                            ciao ciao ciao
+                        {{else}}
+                            no no on
+                        {{/if}}
+                    </div>
                 </div>
             </div>
         {{/each}}

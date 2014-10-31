@@ -22,6 +22,7 @@ export default Ember.ObjectController.extend({
     tabList: Ember.A(
         {'links': false},
         {'groups': false}
-    )
+    ),
 
+    addFeatureToGroup: true
 });

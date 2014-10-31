@@ -43,7 +43,7 @@ export default Ember.Route.extend({
             record.set(attr, value).save();
         },
 
-        custom_acceptedLink: function( recordFrom, recordTo, actionToken ){
+        custom_acceptedLink: function( record, recordFrom, recordTo, actionToken ){
             var data = this.getProperties();
 
             data.companyFrom = recordFrom;
@@ -51,6 +51,7 @@ export default Ember.Route.extend({
             data.actionFn = 'linkCompanies';
             $.post('api/action?actionToken=' + actionToken, data).then(function(response){
                 if (response.success) {
+                    record.set('highlighted', false).save();
                     //NOT SAVED
                     new PNotify({
                         title: 'Success',

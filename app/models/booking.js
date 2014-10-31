@@ -3,55 +3,56 @@ import DS from 'ember-data';
 export default DS.Model.extend({
     canEdit: DS.attr('boolean'),
     canRemove: DS.attr('boolean'),
-    code: DS.attr('string'),
-    agency: DS.belongsTo('company'),
-    agencyDetail: DS.attr('string'),
-    client: DS.belongsTo('company'),
-    clientDetail: DS.attr('string'),
-    shipper: DS.belongsTo('company'),
-    shipperDetail: DS.attr('string'),
-    consignee: DS.belongsTo('company'),
-    consigneeDetail: DS.attr('string'),
-    notify: DS.belongsTo('company'),
-    notifyDetail: DS.attr('string'),
-    bookNote: DS.attr('string'),
-    customManifestHandler: DS.belongsTo('company'),
-    company : DS.belongsTo('company'),
-    origin: DS.belongsTo('poi'),
-    destination: DS.belongsTo('poi'),
+    allInclusive: DS.attr('boolean'),
+    noFreightPlan: DS.attr('boolean'), //di default false, se true è possibile fare il lock del booking senza un freight plan
+
+    acknowledgeDate: DS.attr('custom-date'),
     dta: DS.attr('custom-date'),
     dtd: DS.attr('custom-date'),
-    currency: DS.attr('string'),
-    chargeMode: DS.attr('string'),    //PP-COLL
-    allInclusive: DS.attr('boolean'),
+
     allInclusiveValue: DS.attr('number'),
+
+    code: DS.attr('string'),
     state: DS.attr('string'),
     finalDestination: DS.attr('string'),
-    noFreightPlan: DS.attr('boolean'), //di default false, se true è possibile fare il lock del booking senza un freight plan
-    chargeItems: DS.hasMany('charge-item', {
-        async: true
-    }),
-    freightPlans: DS.hasMany('freight-plan', {
-        async: true
-    }),
-    items: DS.hasMany('booking-item', {
-        async: true,
-        inverse: 'booking'
-    }),
-    files: DS.hasMany('file', {
-        async:true
-    }),
-    sharedWith: DS.hasMany('company', {
-        async:true
-    }),
-    documents: DS.hasMany('document', {
-        async:true
-    }),
+    agencyDetail: DS.attr('string'),
+    clientDetail: DS.attr('string'),
+    shipperDetail: DS.attr('string'),
+    consigneeDetail: DS.attr('string'),
+    notifyDetail: DS.attr('string'),
+    bookNote: DS.attr('string'),
+    currency: DS.attr('string'),
+    chargeMode: DS.attr('string'),    //PP-COLL
     serviceContract: DS.attr('string'),
     refNo: DS.attr('string'),
     acknowledge: DS.attr('string'),  //NaN/accepted/rejected
-    acknowledgeDate: DS.attr('custom-date'),
     visibility: DS.attr('string'), //public, private, root
+
+    origin: DS.belongsTo('poi'),
+    destination: DS.belongsTo('poi'),
+    company : DS.belongsTo('company'),
+    customManifestHandler: DS.belongsTo('company'),
+    notify: DS.belongsTo('company'),
+    client: DS.belongsTo('company'),
+    agency: DS.belongsTo('company'),
+    shipper: DS.belongsTo('company'),
+    consignee: DS.belongsTo('company'),
+
+    chargeItems: DS.hasMany('charge-item', {
+        async: true}),
+    freightPlans: DS.hasMany('freight-plan', {
+        async: true}),
+    items: DS.hasMany('booking-item', {
+        async: true,
+        inverse: 'booking'}),
+    files: DS.hasMany('file', {
+        async:true}),
+    sharedWith: DS.hasMany('company', {
+        async:true}),
+    documents: DS.hasMany('document', {
+        async:true}),
+    authorizedCompanies: DS.hasMany('company',{
+        async: true}),
 
     clientAgencyAreEqual: function(){
         return(this.get('agencyDetail') == this.get('clientDetail'));

@@ -1,12 +1,32 @@
 <div class="row" style="margin-top: 60px; margin-bottom: 25px; margin-left: 25px; margin-right: 25px;">
     <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-3"><h4>Name</h4></div>
-            <div class="col-lg-9">
-                {{input id='name' value=name class='form-control' disabled=true}}
+        {{#if controller.isView}}
+            <div class="row">
+                <div class="col-lg-3"><h4>Name</h4></div>
+                <div class="col-lg-9">
+                    {{input id='name' value=name class='form-control' disabled=true}}
+                </div>
             </div>
-        </div>
-
+        {{else}}
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Vessel</h4></div>
+                <div class="col-lg-9">
+                    <a id="autocomplete-vessel">
+                        {{auto-complete source=app_controller.autocompleteVessel destination=vessel searchPath="nickname" minChars=1}}
+                    </a>
+                </div>
+            </div>
+            {{#if vessel}}
+                {{#view "check-unique-voyage-number" model='voyage' filter_vessel='vessel' filter_number='number' vessel=controller.searchVessel number=newNumber}}
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-lg-3"><h4>Number</h4></div>
+                        <div class="col-lg-9">
+                            {{input value= number type=number class='form-control'}}
+                        </div>
+                    </div>
+                {{/view}}
+            {{/if}}
+        {{/if}}
         <div class="row" style="margin-top: 10px">
             <div class="col-lg-3"><h4>Previous voyage</h4></div>
             <div class="col-lg-9">

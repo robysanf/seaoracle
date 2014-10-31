@@ -4,6 +4,14 @@ export default Ember.Route.extend({
     beforeModel: function() {
         var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('voyage.main');
 
+        if( !app_controller.autocompleteVessel.get('length') ) {
+            self.store.findQuery("vessel").then(function(vessel){
+                app_controller.set("autocompleteVessel", vessel);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
+            });
+        }
+
         if( !app_controller.autocompletePoiPort.get('length') ) {
             this.store.findQuery( "poi", {tags: "Port"} ).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
@@ -82,11 +90,14 @@ export default Ember.Route.extend({
                         (unique ? $('span#1.input-group-addon').removeClass('alert-danger') : $('span#1.input-group-addon').addClass('alert-danger'));
 
                         //check the enter name
-                        if (unique) {
+                        if ( unique && record.get('vessel').get('content') && record.get('number') ) {
                             $('div.alert.alert-danger').css('display', 'none');
 
                             //set name, vessel and status
-                            record.set('vesselName', vessel.get('name')).set('status', "complete");     //dovrebbe essere incomplete, lo metto a complete per evitare possibili errori
+                            record.set('vesselName', vessel.get('name'));
+                            record.set('status', "complete");     //dovrebbe essere incomplete, lo metto a complete per evitare possibili errori
+                            record.set('name', '');
+                            record.set('name', record.get('vesselName') + record.get('number'));
 
                             self.store.find('company', app_controller.company).then(function(company){
 
@@ -171,7 +182,7 @@ export default Ember.Route.extend({
                             //WARNING
                             new PNotify({
                                 title: 'Attention',
-                                text: 'please check if vessel name has been entered.',
+                                text: 'please check if vessel name and voyage number has been entered.',
                                 type: 'error',
                                 delay: 2000
                             });

@@ -9,7 +9,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th >Download</th>
-                        {{#if app_controller.user_record.file_remove}}
+                        {{#if app_controller.user_record.document_remove}}
                             <th>Remove</th>
                         {{else}}
                             <th></th>
@@ -32,7 +32,7 @@
                                 <!--{{!{{/view}}-->
                             </td>
                             {{#if file.canRemove}}
-                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' this file}}></span></a></td>
                             {{else}}
                                 <td></td>
                             {{/if}}

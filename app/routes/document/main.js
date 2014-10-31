@@ -46,13 +46,13 @@ export default Ember.Route.extend({
             this.controller.set('tabList.' + tabToActive, true);
         },
 
-        open_modal: function( path, booking, item ) {
+        open_modal: function( path, record, item ) {
             var self = this, controller = self.controllerFor('document.main'), app_controller = self.controllerFor('application');
 
             switch ( path ){
                 case 'booking.modals.remove-file':
 
-                    controller.set("document_record", booking);
+                    controller.set("document_record", record);
                     controller.set("file_record", item);
 
                     this.render(path, {
@@ -62,6 +62,13 @@ export default Ember.Route.extend({
                     });
                     break;
             }
+        },
+
+        close_item: function(){
+            var self = this, app_controller = self.controllerFor('application');
+
+            app_controller.send('close_modal', 'overview', 'application');
+            this.send('closeSearch');
         },
 
         add_stamp: function( doc_record ) {

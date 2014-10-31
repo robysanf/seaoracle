@@ -99,7 +99,7 @@
                             <!--<td><a href= 'api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true'><span class="glyphicon glyphicon-download" ></span></a></td>-->
                             {{#if isRegister}}
                             {{else}}
-                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' file}}></span></a></td>
+                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' this file}}></span></a></td>
                             {{/if}}
                         </tr>
                     {{/each}}

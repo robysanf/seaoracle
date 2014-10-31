@@ -297,6 +297,15 @@ export default Ember.Route.extend({
                 queryExpression = {}, searchPath = "";
 
             switch ( path ){
+                case 'booking.modals.share-view':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
                 case 'booking.modals.share':
                     controller.set("booking_record", booking);
 

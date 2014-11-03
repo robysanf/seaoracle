@@ -4,9 +4,28 @@ export default Ember.Route.extend({
     beforeModel: function(){
         var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('link.main');
 
+        //filter on search port of origin and port of destination in the template
+        if( !app_controller.autocompleteLink.get('length')  ) {
+            self.store.find( "company", app_controller.company ).then(function(company){
+                company.get('links').then(function(links){
+                    app_controller.set("autocompleteLink", links);
+                });
+            }, function( reason ){
+                app_controller.send( 'error', reason );
+            });
+        }
+
         if( !app_controller.autocompleteCompany.get('length') ) {
             self.store.findQuery("company").then(function(comp){
                 app_controller.set("autocompleteCompany", comp);
+            }, function( reason ){
+                app_controller.send( 'error', reason );
+            });
+        }
+
+        if( !app_controller.autocompletePoiPort.get('length') ) {
+            self.store.findQuery("poi", {tags: "Port"}).then(function(val){
+                app_controller.set("autocompletePoiPort", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
             });
@@ -45,19 +64,60 @@ export default Ember.Route.extend({
          @param {record} company che vuole creare il gruppo
          @param {string} nome del gruppo da creare
          @param {string} attr type : agent/other
+         @param {array} attr type : agent/other
          */
-        create_group: function( record, name, type ){
+        create_group: function( record, name, type, list ){
             var self = this, controller = self.controllerFor('link.main'), app_controller = self.controllerFor('application');
 
-            this.store.createRecord('group', {
+            var group = this.store.createRecord('group', {
                 company: record,
                 name: name,
                 type: type
-            }).save().then(function(){
-                record.reload();
+            });
+
+            group.get('linkedCompanies').then(function( linkedCompanies ){
+                list.forEach(function( val, index ){
+                    linkedCompanies.pushObject(val);
+
+                    if( index +1 === list.get('length') ){
+                        group.save().then(function(){
+                            record.reload();
+
+                            new PNotify({
+                                title: 'Success',
+                                text: 'The request was sent.',
+                                type: 'success',
+                                delay: 2000
+                            });
+
+                        }, function( reason ){
+                            app_controller.send( 'error', reason );
+                        });
+                    }
+                });
+            });
+        },
+
+        create_feature: function( record_group, record_company, value, referring_id ){
+            var self = this, controller = self.controllerFor('link.main'), app_controller = self.controllerFor('application');
+
+            var feature = self.store.createRecord('feature', {
+                company: record_company,
+                type: record_group.get('type'),
+                group: record_group,
+                value: value
+            });
+
+            if( referring_id !== null ){
+                feature.set('linkedEntity', referring_id).set('linkedEntityType', 'poi');
+            }
+
+            feature.save().then(function(){
+                controller.set('mode_addFeature', true);
+                record_company.reload();
                 new PNotify({
                     title: 'Success',
-                    text: 'The request was sent.',
+                    text: 'The feature was create.',
                     type: 'success',
                     delay: 2000
                 });
@@ -65,6 +125,12 @@ export default Ember.Route.extend({
             }, function( reason ){
                 app_controller.send( 'error', reason );
             });
+
+        },
+
+        delete_record: function( entity_to_remove ) {
+            entity_to_remove.deleteRecord();
+            entity_to_remove.save();
         },
 
         //********************************************
@@ -155,14 +221,21 @@ export default Ember.Route.extend({
         },
 
         /*per passare da un partial ad un altro tramite il cambio di una variabile*/
-        change_mode:function( variable, value ) {
+        change_mode: function( variable, value, record ) {
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('link.main');
 
-            switch( variable ){
-                case 'addFeatureToGroup':
-                    controller.set(variable, value);
-                    break;
+            controller.set(variable, value);
+
+            if( record ) {
+                controller.set('group_to_set', record);
             }
+        },
+
+        set_group: function( record, variable, value ){
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('link.main');
+
+            record.save();
+            controller.set(variable, value);
         }
     }
 });

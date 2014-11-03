@@ -75,6 +75,7 @@ export default Ember.ArrayController.extend({
     autocompleteDocument: Ember.A(),
     autocompleteChassisNum: Ember.A(),
     autocompletePaymentPlan: Ember.A(),
+    autocompleteLink: Ember.A(),
     /*     ***infinite scroll***     */
     firstIndex: 0,
     perPage: 25,

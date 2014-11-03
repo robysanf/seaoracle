@@ -25,7 +25,7 @@ export default DS.Model.extend({
     chargeMode: DS.attr('string'),    //PP-COLL
     serviceContract: DS.attr('string'),
     refNo: DS.attr('string'),
-    acknowledge: DS.attr('string'),  //NaN/accepted/rejected
+    acknowledge: DS.attr('string'),  //NaN/requested/accepted/rejected
     visibility: DS.attr('string'), //public, private, root
 
     origin: DS.belongsTo('poi'),
@@ -106,9 +106,7 @@ export default DS.Model.extend({
     thereIsMemo: function(){
         return this.get('items').filterBy('bookingItemType', 'memo').get('length');
     }.property('items.@each.bookingItemType'),
-    isNaN_orReject: function(){
-        return (this.get('acknowledge') === 'rejected' || this.get('acknowledge') === 'NaN' );
-    }.property('acknowledge'),
+
     isNaN: function(){
         return (this.get('acknowledge') === 'NaN');
     }.property('acknowledge'),
@@ -117,5 +115,12 @@ export default DS.Model.extend({
     }.property('acknowledge'),
     isReject: function(){
         return (this.get('acknowledge') === 'rejected');
+    }.property('acknowledge'),
+
+    isNaN_orReject: function(){
+        return (this.get('acknowledge') === 'rejected' || this.get('acknowledge') === 'NaN' );
+    }.property('acknowledge'),
+    is_OR_nan_requested_reject: function(){
+        return (this.get('acknowledge') === 'rejected' || this.get('acknowledge') === 'NaN' || this.get('acknowledge') === 'requested');
     }.property('acknowledge')
 });

@@ -24,5 +24,10 @@ export default Ember.ObjectController.extend({
         {'groups': false}
     ),
 
-    addFeatureToGroup: true
+    show_list: true,
+    show_newForm: true,
+    mode_addFeature: true,
+    linkedCompanies_List: Ember.A(),
+    referringPort: Ember.A(),
+    group_to_set: null
 });

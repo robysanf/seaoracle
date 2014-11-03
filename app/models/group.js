@@ -6,9 +6,14 @@ export default DS.Model.extend({
     key: DS.attr('string'),
     name: DS.attr('string'),
     company: DS.belongsTo('company'),
-    type: DS.attr('string'),
+    type: DS.attr('string'),  //agent
+
     linkedCompanies: DS.hasMany('company',{
         async: true
     }),
-    visibility: DS.attr('string') //public, private, root
+    visibility: DS.attr('string'), //public, private, root
+
+    is_agent: function(){
+      return ( this.get('type') === 'agent' );
+    }.property('type')
 });

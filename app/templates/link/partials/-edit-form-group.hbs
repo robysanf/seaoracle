@@ -1,0 +1,28 @@
+<div class= "well well-lg" style="background-color: #FAFDFD; margin-top: 25px; margin-bottom: 25px">
+    <div class="row" style="margin-top: 25px;margin-bottom: 15px">
+        <div class="col-lg-12"><h4><strong>Edit {{controller.group_to_set.name}} group</strong></h4></div>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-lg-12">
+            <label>Name</label>
+            {{input type=text value= controller.group_to_set.name class='form-control'}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <label>Type</label>
+            {{input type=text value= controller.group_to_set.type class='form-control'}}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div class="col-lg-12">
+            <label>Companies</label>
+            {{auto-suggest source=app_controller.autocompleteLink destination=controller.group_to_set.linkedCompanies usecase='originalMode' searchPath="name" minChars=0}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-primary btn-group-justified pull-right" {{action "set_group" group_to_set 'show_newForm' true}}>Save</button>
+        </div>
+    </div>
+</div>

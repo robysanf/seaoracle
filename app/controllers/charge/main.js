@@ -99,5 +99,12 @@ export default Ember.ObjectController.extend({
         "C.O.D.",
         "B/L fees",
         "Insurance"
+    ],
+    per_list: [
+        'NUM',
+        'QTY',
+        'LNG',
+        'VOL',
+        'WGH'
     ]
 });

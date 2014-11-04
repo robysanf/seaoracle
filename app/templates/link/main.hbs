@@ -6,41 +6,41 @@
                     <div class= "well well-lg" style="background-color: #FAFDFD">
                         <p class="lead"><h3>Linked Companies</h3>
                     </div>
-                    {{#if controller.show_list}}
-                        {{partial "link/partials/-new-connected-company"}}
-                    {{else}}
-                        {{#if controller.show_newForm}}
-                            {{partial "link/partials/-new-form-group"}}
-                        {{else}}
-                            {{partial "link/partials/-edit-form-group"}}
-                        {{/if}}
-                    {{/if}}
+                    {{!{{#if controller.show_list}}
+                    {{partial "link/partials/-new-connected-company"}}
+                    {{!{{else}}
+                    {{!{{#if controller.show_newForm}}
+                    {{!{{partial "link/partials/-new-form-group"}}
+                    {{!{{else}}
+                    {{!{{partial "link/partials/-edit-form-group"}}
+                    {{!{{/if}}
+                    {{!{{/if}}
                 </div>
                 <div class="col-lg-9">
-                    {{#if controller.show_list}}
-                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                {{input type="radio" name="options"}} <span class="glyphicon glyphicon-list"></span> Show List
-                            </label>
-                            <label class="btn btn-primary" {{action 'change_mode' 'show_list' false}}>
-                                {{input type="radio" name="options"}} <span class="glyphicon glyphicon-th-large"></span> Show Group
-                            </label>
-                        </div>
-                    {{else}}
-                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                            <label class="btn btn-primary" {{action 'change_mode' 'show_list' true}}>
-                                {{input type="radio" name="options"}} <span class="glyphicon glyphicon-list"></span> Show List
-                            </label>
-                            <label class="btn btn-primary active">
-                                {{input type="radio" name="options"}} <span class="glyphicon glyphicon-th-large"></span> Show Group
-                            </label>
-                        </div>
-                    {{/if}}
-                    {{#if controller.show_list}}
-                        {{partial "link/partials/-connected-companies"}}
-                    {{else}}
-                        {{partial "link/partials/-groups"}}
-                    {{/if}}
+                    {{!{{#if controller.show_list}}
+                        <!--<div class="btn-group  btn-group-justified" data-toggle="buttons">-->
+                            <!--<label class="btn btn-primary active">-->
+                                <!--{{!{{input type="radio" name="options"}} <span class="glyphicon glyphicon-list"></span> Show List-->
+                            <!--</label>-->
+                            <!--<label class="btn btn-primary" {{!{{action 'change_mode' 'show_list' false}}>-->
+                                <!--{{!{{input type="radio" name="options"}} <span class="glyphicon glyphicon-th-large"></span> Show Group-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    {{!{{else}}
+                    <!--<div class="btn-group  btn-group-justified" data-toggle="buttons">-->
+                    <!--<label class="btn btn-primary" {{!{{action 'change_mode' 'show_list' true}}>-->
+                    <!--{{!{{input type="radio" name="options"}} <span class="glyphicon glyphicon-list"></span> Show List-->
+                    <!--</label>-->
+                    <!--<label class="btn btn-primary active">-->
+                    <!--{{!{{input type="radio" name="options"}} <span class="glyphicon glyphicon-th-large"></span> Show Group-->
+                    <!--</label>-->
+                    <!--</div>-->
+                    {{!{{/if}}
+                    {{!{{#if controller.show_list}}
+                    {{partial "link/partials/-connected-companies"}}
+                    {{!{{else}}
+                    {{!{{partial "link/partials/-groups"}}
+                    {{!{{/if}}
                 </div>
             </div>
         </div>

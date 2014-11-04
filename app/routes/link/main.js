@@ -98,13 +98,12 @@ export default Ember.Route.extend({
             });
         },
 
-        create_feature: function( record_group, record_company, value, referring_id ){
+        create_feature: function( record_company, value, referring_id ){
             var self = this, controller = self.controllerFor('link.main'), app_controller = self.controllerFor('application');
 
             var feature = self.store.createRecord('feature', {
                 company: record_company,
-                type: record_group.get('type'),
-                group: record_group,
+                type: 'agent',
                 value: value
             });
 
@@ -113,7 +112,7 @@ export default Ember.Route.extend({
             }
 
             feature.save().then(function(){
-                controller.set('mode_addFeature', true);
+                controller.set('searchCompany', []);
                 record_company.reload();
                 new PNotify({
                     title: 'Success',
@@ -172,50 +171,59 @@ export default Ember.Route.extend({
 
             data.company = controller.company_record.get('id');
 
-            $.post('api/custom/unbindLinkedCompanies?token=' + app_controller.token, data).then(function(response){
-                if (response.success) {
+            this.store.find('company', app_controller.company).then(function( record ){
+                $.post('api/custom/unbindLinkedCompanies?token=' + app_controller.token, data).then(function(response){
+                    if (response.success) {
+
+                        record.reload();
+                        //SUCCESS
+                        new PNotify({
+                            title: 'Success',
+                            text: 'The linked company was removed.',
+                            type: 'success',
+                            delay: 2000
+                        });
+                    }
+                }, function(){
                     //NOT SAVED
                     new PNotify({
-                        title: 'Success',
-                        text: 'The request was sent.',
-                        type: 'success',
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
                         delay: 2000
                     });
-                }
-            }, function(){
-                //NOT SAVED
-                new PNotify({
-                    title: 'Not saved',
-                    text: 'A problem has occurred.',
-                    type: 'error',
-                    delay: 2000
                 });
             });
+
         },
 
         custom_linkCompanies: function( record_id ){
-            var self = this, app_controller = self.controllerFor('application'),
+            var self = this, controller = self.controllerFor('link.main'), app_controller = self.controllerFor('application'),
             data = this.getProperties();
 
             data.company = record_id;
+            this.store.find('company', app_controller.company).then(function( record ){
 
-            $.post('api/custom/linkCompanies?token=' + app_controller.token, data).then(function(response){
-                if (response.success) {
+                $.post('api/custom/linkCompanies?token=' + app_controller.token, data).then(function(response){
+                    if (response.success) {
+                        controller.set('searchCompany', []);
+                        record.reload();
+                        //NOT SAVED
+                        new PNotify({
+                            title: 'Success',
+                            text: 'The request was sent.',
+                            type: 'success',
+                            delay: 2000
+                        });
+                    }
+                }, function(){
                     //NOT SAVED
                     new PNotify({
-                        title: 'Success',
-                        text: 'The request was sent.',
-                        type: 'success',
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
                         delay: 2000
                     });
-                }
-            }, function(){
-                //NOT SAVED
-                new PNotify({
-                    title: 'Not saved',
-                    text: 'A problem has occurred.',
-                    type: 'error',
-                    delay: 2000
                 });
             });
         },

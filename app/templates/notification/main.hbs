@@ -47,7 +47,7 @@
                                             <td>{{notification.valueNum}}</td>
                                             <!--<td><a href="#" {{!{{action "open_modal" 'notification.modals.view-record' notification}}><span class="glyphicon glyphicon-info-sign"></span></a></td>-->
                                             {{#if notification.actionToken}}
-                                                <td><a href="#" {{action "custom_acceptedLink" notification notification.fromCompany.id this.id notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
+                                                <td><a href="#" {{action "custom_acceptedLink" notification notification.fromCompany this notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
                                             {{else}}
                                                 <td></td>
                                             {{/if}}

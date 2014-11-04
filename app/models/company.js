@@ -58,7 +58,7 @@ export default DS.Model.extend({
     refills: DS.hasMany('refill',{
         async:true}),
     features: DS.hasMany('feature',{
-        async:true,
+        async: true,
         inverse: 'company'}),
 
     showNotifications: function() {

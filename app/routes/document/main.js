@@ -431,7 +431,7 @@ export default Ember.Route.extend({
         },
 
         link_to: function( path, value ){
-            var self = this, controller = self.controllerFor('booking.search-record');
+            var self = this, controller = self.controllerFor('booking.main');
 
             controller.set('booking_record', value);
 
@@ -571,6 +571,51 @@ export default Ember.Route.extend({
                                 break;
                         }
 
+                    });
+                });
+            });
+        },
+
+        create_DO: function( record_bl ){
+            var self = this, controller = self.controllerFor('booking.main');
+
+            var today = new Date();
+            var new_docDO = this.store.createRecord('document',{
+                code: 'DO' + record_bl.get('code').substring(2),
+                origin: record_bl.get('origin'),
+                destination: record_bl.get('destination'),
+                voyage: record_bl.get('voyage'),
+                date: moment(today).format("YYYY-MM-DD"),
+                type: 'docDO',
+                company: record_bl.get('company'),
+                parentCompany: record_bl.get('id')
+            });
+
+            record_bl.get('bookings').then(function(allBooks){
+                new_docDO.get('bookings').then(function(book){
+                    allBooks.forEach(function(val, index){
+                        book.pushObject(val);
+
+                        if( index +1 === allBooks.get('length') ){
+                            record_bl.get('bookingItems').then(function(allBookItems){
+                                new_docDO.get('bookingItems').then(function(bookIt){
+                                    allBookItems.forEach(function(val, index2){
+                                        bookIt.pushObject(val);
+
+                                        if( index2 +1 === allBookItems.get('length') ){
+                                            new_docDO.save().then(function(){
+                                                new PNotify({
+                                                    title: 'Success',
+                                                    text: 'The document was created.',
+                                                    type: 'success',
+                                                    delay: 2000
+                                                });
+                                            });
+                                        }
+                                    });
+                                });
+                            });
+                        }
                     });
                 });
             });

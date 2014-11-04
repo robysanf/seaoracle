@@ -1277,7 +1277,7 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('booking.main');
 
             //pulisco le legs in modo che gli attributi embark e disembark siano settati a false
-<<<<<<< HEAD
+
 //            frPlan_record.get('orderedVoyages').then(function(voy){
 //                voy.get('schedules').then(function(schedules){
 //                    schedules.forEach(function(leg){
@@ -1286,7 +1286,7 @@ export default Ember.Route.extend({
 //                    });
 //                });
 //            });
-=======
+
             frPlan_record.get('voyages').then(function(voy){
                 voy.get('schedules').then(function(schedules){
                     schedules.forEach(function(leg){
@@ -1295,7 +1295,7 @@ export default Ember.Route.extend({
                     });
                 });
             });
->>>>>>> develop
+
 
             frPlan_record.deleteRecord();
             frPlan_record.save().then(function(){

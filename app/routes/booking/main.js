@@ -3964,18 +3964,24 @@ export default Ember.Route.extend({
         },
 
         remove_booking: function() {
-            var self = this, controller = self.controllerFor('booking.main');
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('booking.main');
             controller.booking_record.deleteRecord();
-            controller.booking_record.save().then(function(){
+            controller.booking_record.save();
 
-                self.transitionTo('dashboardPage');
-                new PNotify({
-                    title: 'Success',
-                    text: 'The booking was successfully deleted.',
-                    type: 'success',
-                    delay: 2000
-                });
+            app_controller.autocompleteBooking.forEach(function(item, index){
+                if( item ) {
+                    if( item.get('id') === controller.booking_record.get('id') ) {
+                        app_controller.autocompleteBooking.removeAt( index );
+                    }
+                }
+            });
 
+            self.transitionTo('dashboard/main');
+            new PNotify({
+                title: 'Success',
+                text: 'The booking was successfully deleted.',
+                type: 'success',
+                delay: 2000
             });
         },
 
@@ -3996,6 +4002,7 @@ export default Ember.Route.extend({
 //                        });
 
                         controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
                     }
                 }, function(){
                     // NOT SAVED
@@ -4029,8 +4036,9 @@ export default Ember.Route.extend({
 //                        controller.booking_record.get('sharedWith').then(function(valShar){
 //                            valShar.pushObject(controller.searchCompanyToShare).save();
 //                        });
-
                         controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
+
                     }
                 }, function(){
                     // NOT SAVED
@@ -4066,6 +4074,7 @@ export default Ember.Route.extend({
 ////                            valShar.pushObject(controller.searchCompanyToShare).save();
 ////                        });
                         controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
                     }
                 }, function(){
                     // NOT SAVED

@@ -3,58 +3,49 @@ import DS from 'ember-data';
 export default DS.Model.extend({
     canEdit: DS.attr('boolean'),
     canRemove: DS.attr('boolean'),
+
+    date: DS.attr('custom-date'),
+
+    type: DS.attr('string'),
+    parentCompany: DS.attr('string'),
     key: DS.attr('string'),
     name: DS.attr('string'),
     code: DS.attr('string'),   //versione readonly a cui accede il server
+    shipper: DS.attr('string'),
+    consignee: DS.attr('string'),
+    notify: DS.attr('string'),
+    nrOriginal: DS.attr('string'),
+    itemsIn: DS.attr('string'), //BillOfLading/AttachedList
+    visibility: DS.attr('string'), //public, private, root
 
-    code_description_of_goods: function(){
-        return (this.get('code') === 'description_of_goods');
-    }.property('code'),
-    code_signed_for_the_master_by: function(){
-        return (this.get('code') === 'signed_for_the_master_by');
-    }.property('code'),
+    tags: DS.attr('raw'),  //    [bl_type|val_bl_type, dangerous_good|val_dangerous_good]
+
     origin: DS.belongsTo('poi'),
     destination: DS.belongsTo('poi'),
     originLeg: DS.belongsTo('leg'),
     destinationLeg: DS.belongsTo('leg'),
     company: DS.belongsTo('company'),
-    shipper: DS.attr('string'),
-    consignee: DS.attr('string'),
-    notify: DS.attr('string'),
-    bookings: DS.hasMany('booking', {
-        async: true
-    }),
-    bookingItems: DS.hasMany('booking-item', {
-        async: true
-    }),
     leg: DS.belongsTo('leg'),
     voyage: DS.belongsTo('voyage'),
+
+    bookings: DS.hasMany('booking', {
+        async: true}),
+    bookingItems: DS.hasMany('booking-item', {
+        async: true}),
     files: DS.hasMany('file', {
-        async: true
-    }),
+        async: true}),
     authorizedCompanies: DS.hasMany('company',{
-        async: true
-    }),
-    date: DS.attr('custom-date'),
-    type: DS.attr('string'),
-    tags: DS.attr('raw'),  //    [bl_type|val_bl_type, dangerous_good|val_dangerous_good]
+        async: true}),
     stamps: DS.hasMany('stamp', {
-        async: true
-    }),
-    nrOriginal: DS.attr('string'),
+        async: true}),
     docDetails: DS.hasMany('doc-detail', {
-        async: true
-    }),
+        async: true}),
     docItems: DS.hasMany('doc-item', {
-        async: true
-    }),
-    itemsIn: DS.attr('string'), //BillOfLading/AttachedList
+        async: true}),
 
     itemsIn_BillOfLading: function(){
         return ( this.get('itemsIn') === 'BillOfLading' );
     }.property('itemsIn'),
-
-    visibility: DS.attr('string'), //public, private, root
 
     type_extendedVersion: function(){
         if(this.get('type') == 'docBL'){
@@ -67,6 +58,12 @@ export default DS.Model.extend({
             return "Freight Manifest"
         }
     }.property('type'),
+    code_description_of_goods: function(){
+        return (this.get('code') === 'description_of_goods');
+    }.property('code'),
+    code_signed_for_the_master_by: function(){
+        return (this.get('code') === 'signed_for_the_master_by');
+    }.property('code'),
     type_codeVersion: function(){
         if(this.get('type') == 'docBL'){
             return "BL" + this.get('code').substring(this.get('code').length -4, this.get('code').length);

@@ -20,6 +20,7 @@ export default Ember.ObjectController.extend({
         return ( this.get('app_controller_companyType') === 'shipowner' );
     }.property('app_controller_companyType'),
 
+
     before_search: false,
     is_loading: false,
 

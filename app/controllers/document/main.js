@@ -5,6 +5,7 @@ export default Ember.ObjectController.extend({
     app_controller: Ember.computed.alias('controllers.application'),
     app_controller_token: Ember.computed.alias('controllers.application.token'),
     app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
+    app_controller_company: Ember.computed.alias('controllers.application.company'),
 
     tabList_details: Ember.computed.alias('controllers.booking/main.tabList.details'),
     tabList_freightPlan: Ember.computed.alias('controllers.booking/main.tabList.freightPlan'),
@@ -23,7 +24,11 @@ export default Ember.ObjectController.extend({
     subTabList_revenues: Ember.computed.alias('controllers.booking/main.subTabLists.revenues'),
     subTabList_files: Ember.computed.alias('controllers.booking/main.subTabLists.files'),
 
-
+    is_agency_notHaveCreateBL: function(){
+        var comp1 = this.get('company').id;    //preso dal record in oggetto
+        var comp2 = this.get('app_controller_company');
+        return ( this.get('app_controller_companyType') === 'admin' && comp1 !== comp2 );
+    }.property('company','app_controller_companyType', 'app_controller_company'),
 //    is_admin: function(){
 //        return ( this.get('app_controller_companyType') === 'admin' );
 //    }.property('app_controller_companyType'),

@@ -49,6 +49,8 @@ export default Ember.Controller.extend({
 
                     self.store.find('company', response.company_id).then(function( val ){
                         self.get('controllers.application').set('company_record', val);
+
+                        self.get('controllers.application').company_record.reload();
                     });
 
                     self.store.find('user', response.user_id).then(function(val){

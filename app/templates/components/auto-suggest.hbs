@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-3">
+                {{view view.autosuggest value=query moveSelection='moveSelection' selectActive='selectActive' hideResults='hideResults' class='autosuggest form-control'}}
+            </div>
+            <div class="col-lg-9">
+                {{#each destination}}
+                    <span style="display:block; float:left; margin:5px 0 0 2px;">
+                      <span class="label label-default" style="font-size: 12px;">
+                    <span>
+                        {{yield}}
+                        {{show-selections-helper controller.usecase controller.searchPath}}
+                    </span>
+                    <a {{action "removeSelection" this}}>
+                        <i class="remove glyphicon glyphicon-remove" style="color: lightgray; cursor: pointer"></i>
+                    </a>
+                    </span>
+                        &nbsp
+                    </span>
+
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<div {{bind-attr class=':results hasQuery::hdn'}}>
+    <ul class='suggestions'>
+        {{#each displayResults}}
+            <li {{action "addSelection" this}} {{bind-attr class=":result active"}}>
+                <span class="result-name">
+                    {{yield}}
+                    {{display-helper controller.searchPath}}
+                </span>
+            </li>
+        {{else}}
+            <li class='no-results'>No Results.</li>
+        {{/each}}
+    </ul>
+</div>

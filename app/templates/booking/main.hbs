@@ -30,7 +30,7 @@
                         </div>
 
                         <p class="lead">
-                            {{#if isNaN_orReject}}
+                            {{#if is_OR_nan_requested_reject}}
                                 <h3>
                                     Provisional Booking
                                     {{#if isPending}}(Pending){{/if}}
@@ -51,9 +51,14 @@
                                 </h3>
                                 <p><h5>Ref: <b>{{code}}</b></h5>
                             {{/if}}
-                        <p><h5>Shared with: <b>{{#each sharedWith}}
-                        {{this.name}}
-                    {{/each}}</b></h5>
+                        <p>
+                        <h5>Shared with:
+                            <b>
+                                {{#each authorizedCompanies}}
+                                    {{this.name}} <br>
+                                {{/each}}
+                            </b>
+                        </h5>
                         <div class="row">
                             <div class="col-lg-12">
                                 <h3 class="page-header"></h3>

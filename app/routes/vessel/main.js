@@ -8,6 +8,7 @@ export default Ember.Route.extend({
         if( controller.tabList.details !== true &&  controller.tabList.files !== true ) {
             controller.set('tabList.details', true);
         }
+
     },
 
     model: function( vessel ) {

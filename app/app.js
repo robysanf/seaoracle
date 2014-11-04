@@ -7,10 +7,12 @@ import config from './config/environment';
 import displayHelper from './helpers/display-helper';
 import displayResult from './helpers/display-result';
 import indexesEach from './helpers/indexes-each-helper';
+import showSelectionsHelper from './helpers/show-selections-helper';
 
 Ember.Handlebars.registerBoundHelper('display-helper', displayHelper);
 Ember.Handlebars.registerBoundHelper('display-result', displayResult);
 Ember.Handlebars.registerBoundHelper('indexes-each-helper', indexesEach);
+Ember.Handlebars.registerBoundHelper('show-selections-helper', showSelectionsHelper);
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 

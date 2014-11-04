@@ -10,15 +10,15 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th style="width:20%">Notification</th>
-                        <th style="width:10%">Date</th>
-                        <th style="width:10%">From</th>
-                        <th style="width:50%">Description</th>
+                        <th style="width:10%">Notification</th>
+                        <th style="width:15%">Date</th>
+                        <th style="width:30%">From</th>
+                        <th style="width:35%">Description</th>
                         <th style="width:10%">Resume</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each notification in notifications}}
+                    {{#each notification in sortedNotificationsItems}}
                         {{#if notification.hide_notification}}
                             <tr>
                                 <td>{{notification.type}}</td>

@@ -4,8 +4,9 @@
             <div class= "well well-lg" style="background-color: #FAFDFD">
                 <div class="row">
                     <div class="col-lg-9">
-                        <h3 class="page-header">Notifications </h3>
+                        <h3 class="page-header">Notifications</h3>
                     </div>
+
                     <div class="col-lg-3" style="margin-top: 35px">
                         <button class="btn btn-default pull-right" {{action "open_modal" 'notification.modals.hidden-record' null}}>Show Hidden Notifications</button>
                     </div>
@@ -30,7 +31,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{#each notification in notifications}}
+                                {{#each notification in sortedNotificationsItems}}
                                     {{#unless notification.hide_notification}}
                                         <tr {{bind-attr class = "notification.highlighted:warning"}}>
                                             <td align="center">
@@ -46,7 +47,11 @@
                                             <td>{{notification.description}}</td>
                                             <td>{{notification.valueNum}}</td>
                                             <!--<td><a href="#" {{!{{action "open_modal" 'notification.modals.view-record' notification}}><span class="glyphicon glyphicon-info-sign"></span></a></td>-->
-                                            <td><a href="#" {{action "custom_acceptedLink" notification.fromCompany.id this.id notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
+                                            {{#if notification.actionToken}}
+                                                <td><a href="#" {{action "custom_acceptedLink" notification notification.fromCompany this notification.actionToken}}><span class="glyphicon glyphicon-link" style="text-align: center"></span></a></td>
+                                            {{else}}
+                                                <td></td>
+                                            {{/if}}
                                             <td>{{#link-to notification.path notification.entity}}<span class="glyphicon glyphicon-share"></span>{{/link-to}}</td>
                                             <td> <a href="#" {{action "change_state" notification 'status' 'hide'}}><span class="glyphicon glyphicon-eye-close" style="text-align: center"></span></a></td>
                                         </tr>
@@ -63,3 +68,4 @@
         </div>
     </div>
 </div>
+

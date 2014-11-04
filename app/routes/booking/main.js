@@ -28,7 +28,8 @@ export default Ember.Route.extend({
             controller.set('subTabLists.goods', true);
         }
 
-
+        controller.set('is_loading', false);
+        controller.set('before_search', true);
 
         controller.set('isView', true);
         controller.set('itemListActive', false);
@@ -297,6 +298,24 @@ export default Ember.Route.extend({
                 queryExpression = {}, searchPath = "";
 
             switch ( path ){
+                case 'booking.modals.share-view':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
+                case 'booking.modals.unshare':
+                    controller.set("booking_record", booking);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
                 case 'booking.modals.share':
                     controller.set("booking_record", booking);
 
@@ -821,6 +840,8 @@ export default Ember.Route.extend({
                 var data = this.get("controller").getProperties('dtd', 'dtdRange', 'dta', 'dtaRange');
 
                 controller.set('freightPlanList', []);
+                controller.set('is_loading', true);
+
                 if ( data.dtd ) {
                     searchPath = "dtd"; queryExpression[searchPath] = data.dtd;
                 }
@@ -841,6 +862,8 @@ export default Ember.Route.extend({
 
                 self.store.findQuery('freightPlan', queryExpression ).then(function( results ){
                     controller.set('freightPlanList', results);
+                    controller.set('is_loading', false);
+                    controller.set('before_search', false);
                 });
             }
         },
@@ -3952,19 +3975,56 @@ export default Ember.Route.extend({
         },
 
         remove_booking: function() {
-            var self = this, controller = self.controllerFor('booking.main');
+            var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('booking.main');
             controller.booking_record.deleteRecord();
-            controller.booking_record.save().then(function(){
+            controller.booking_record.save();
 
-                self.transitionTo('dashboardPage');
-                new PNotify({
-                    title: 'Success',
-                    text: 'The booking was successfully deleted.',
-                    type: 'success',
-                    delay: 2000
-                });
-
+            app_controller.autocompleteBooking.forEach(function(item, index){
+                if( item ) {
+                    if( item.get('id') === controller.booking_record.get('id') ) {
+                        app_controller.autocompleteBooking.removeAt( index );
+                    }
+                }
             });
+
+            self.transitionTo('dashboard/main');
+            new PNotify({
+                title: 'Success',
+                text: 'The booking was successfully deleted.',
+                type: 'success',
+                delay: 2000
+            });
+        },
+
+        send_unshareResource: function(){
+            var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application'),
+                data = this.getProperties();
+
+            if(controller.searchCompanyToShare !== "" && controller.searchCompanyToShare !== null ){
+                data.resource_id = controller.booking_record.get("id");
+                data.model = "booking";       //modello della risorsa che condivido
+                data.companies = "["+controller.searchCompanyToShare.get("id")+"]";
+//
+
+                $.post('api/custom/unshareResource?token=' + app_controller.token, data).then(function(response){
+                    if (response.success) {
+//                        controller.booking_record.get('sharedWith').then(function(valShar){
+//                            valShar.pushObject(controller.searchCompanyToShare).save();
+//                        });
+
+                        controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
+                    }
+                }, function(){
+                    // NOT SAVED
+                    new PNotify({
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
+                        delay: 2000
+                    });
+                });
+            }
         },
         /**
          autorizzo a vedere il booking con i permessi di chi ha fatto lo share.
@@ -3984,9 +4044,12 @@ export default Ember.Route.extend({
 
                 $.post('api/custom/shareResource?token=' + app_controller.token, data).then(function(response){
                     if (response.success) {
-                        controller.booking_record.get('sharedWith').then(function(valShar){
-                            valShar.pushObject(controller.searchCompanyToShare).save();
-                        });
+//                        controller.booking_record.get('sharedWith').then(function(valShar){
+//                            valShar.pushObject(controller.searchCompanyToShare).save();
+//                        });
+                        controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
+
                     }
                 }, function(){
                     // NOT SAVED
@@ -4018,9 +4081,11 @@ export default Ember.Route.extend({
 
                 $.post('api/custom/authorizeResource?token=' + app_controller.token, data).then(function(response){
                     if (response.success) {
-                        controller.booking_record.get('sharedWith').then(function(valShar){
-                            valShar.pushObject(controller.searchCompanyToShare).save();
-                        });
+////                        controller.booking_record.get('sharedWith').then(function(valShar){
+////                            valShar.pushObject(controller.searchCompanyToShare).save();
+////                        });
+                        controller.set( 'searchCompanyToShare', null);
+                        controller.booking_record.reload();
                     }
                 }, function(){
                     // NOT SAVED

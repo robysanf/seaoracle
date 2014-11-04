@@ -11,5 +11,23 @@ export default Ember.ObjectController.extend({
     tabListFiles: Ember.computed.alias('controllers.company/main.tabList.files'),
 
     searchCompany: null,
-    company_record: null
+    company_record: null,
+    isView: true,
+    poiRecord: null,
+    depotRecord: null,
+
+    /*********************
+     * TAB MANAGER
+     **/
+    tabList: Ember.A(
+        {'links': false},
+        {'groups': false}
+    ),
+
+    show_list: true,
+    show_newForm: true,
+    mode_addFeature: true,
+    linkedCompanies_List: Ember.A(),
+    referringPort: Ember.A(),
+    group_to_set: null
 });

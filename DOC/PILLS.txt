@@ -42,12 +42,17 @@ nb: sul controller deve esserci il 'needs' per application
 
 ********************************** svuotare riferimento hasMany **********************************************
 
-                                book.get('sharedWith').then(function(valShar){
-                                    var temp_valShar = valShar;                           //memorizzo la lista di riferimenti
-                                    var temporaryList = temp_valShar.filter(function( i ) {      //scorro la lista di riferimenti eliminando quelo da togliere
-                                        return i !== companyToShare.get('id');
-                                        valShar.push();                                     //svuoto la vecchia lista di riferimenti un elemento alla volta
-                                    });
+book.get('sharedWith').then(function(valShar){
+    var temp_valShar = valShar;                           //memorizzo la lista di riferimenti
+    var temporaryList = temp_valShar.filter(function( i ) {      //scorro la lista di riferimenti eliminando quelo da togliere
+        return i !== companyToShare.get('id');
+        valShar.push();                                     //svuoto la vecchia lista di riferimenti un elemento alla volta
+    });
 
-                                    valShar.pushObjects(temporaryList);                //riassegno la nuova lista al riferimento hasMany
-                                });
+    valShar.pushObjects(temporaryList);                //riassegno la nuova lista al riferimento hasMany
+});
+
+******************************* SORT PROPERTY ****************************************************************
+    sortedNotificationsItems: function(){
+        return this.get('notifications').sortBy('date').reverse();  // reverse() per ordinare in ordine DECRESCENTE
+    }.property('notifications.@each.date'),

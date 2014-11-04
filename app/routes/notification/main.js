@@ -43,31 +43,40 @@ export default Ember.Route.extend({
             record.set(attr, value).save();
         },
 
-        custom_acceptedLink: function( recordFrom, recordTo, actionToken ){
-            var data = this.getProperties();
+        custom_acceptedLink: function( record, recordFrom, recordTo, actionToken ){
+            var self = this, app_controller = self.controllerFor('application'),
+            data = this.getProperties();
 
-            data.companyFrom = recordFrom;
-            data.recordTo = recordTo;
-            data.actionFn = 'linkCompanies';
-            $.post('api/action?actionToken=' + actionToken, data).then(function(response){
-                if (response.success) {
+
+                data.companyFrom = recordFrom.get('id');
+                data.recordTo = recordTo.get('id');
+                data.actionFn = 'linkCompanies';
+
+                $.post('api/action?actionToken=' + actionToken, data).then(function(response){
+                    if (response.success) {
+                        record.set('highlighted', false).save();
+                        recordFrom.reload();
+                        recordTo.reload();
+
+                        //NOT SAVED
+                        new PNotify({
+                            title: 'Success',
+                            text: 'The request was accepted.',
+                            type: 'success',
+                            delay: 2000
+                        });
+                    }
+                }, function(){
                     //NOT SAVED
                     new PNotify({
-                        title: 'Success',
-                        text: 'The request was sent.',
-                        type: 'success',
+                        title: 'Not saved',
+                        text: 'A problem has occurred.',
+                        type: 'error',
                         delay: 2000
                     });
-                }
-            }, function(){
-                //NOT SAVED
-                new PNotify({
-                    title: 'Not saved',
-                    text: 'A problem has occurred.',
-                    type: 'error',
-                    delay: 2000
                 });
-            });
+
+
         },
         //********************************************
         //MODAL

@@ -54,7 +54,7 @@
                             <td>{{file.type}}</td>
                             <td><a href="#" {{action "download_file" file.id}}><span class="glyphicon glyphicon-download"></span></a></td>
                             {{#unless isRegister}}
-                                <td><a href="#" {{action "open_modal" 'booking.modals.remove-file' file}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                                <td><a href="#" {{action "open_modal" 'booking.modals.remove-file' this file}}><span class="glyphicon glyphicon-remove"></span></a></td>
                             {{/unless}}
                         </tr>
                     {{/each}}

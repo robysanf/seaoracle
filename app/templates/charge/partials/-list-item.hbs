@@ -6,6 +6,11 @@
             <th>Code</th>
             <th>Default revenue</th>
             <th>Currency revenue</th>
+            {{#if is_chargeItems_book}}
+                <th>NUM</th>
+            {{else}}
+                <th>PER</th>
+            {{/if}}
             <th>Edit</th>
             {{#if app_controller.user_record.charge_remove}}
                 <th>Remove</th>
@@ -23,7 +28,7 @@
                         <td>{{chargeItem.code}}</td>
                         <td>{{chargeItem.originalRevenue}}</td>
                         <td>{{chargeItem.originalRevenueCurrency}}</td>
-
+                        <th>{{chargeItem.num}}</th>
                         <td><a href='#' {{action 'change_partial' 'itemEditActive' true chargeItem}}><span class="glyphicon glyphicon-pencil"></span></a></td>
                         {{#if chargeItem.canRemove}}
                             <td><a href="#" {{action "open_modal" 'charge.modals.remove-record' chargeItem 'chargeItem'}}><span class="glyphicon glyphicon-remove"></span></a></td>
@@ -40,6 +45,7 @@
                         <td>{{chargeItem.code}}</td>
                         <td>{{chargeItem.originalRevenue}}</td>
                         <td>{{chargeItem.originalRevenueCurrency}}</td>
+                        <th>{{chargeItem.multiplier}}</th>
                         <td><a href="#" {{action "change_partial" 'itemEditActive' true chargeItem}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
                         {{#if chargeItem.canRemove}}
                             <td><a href="#" {{action "open_modal" 'charge.modals.remove-record' chargeItem 'chargeItem'}}><span class="glyphicon glyphicon-remove"></span></a></td>
@@ -56,6 +62,7 @@
                         <td>{{chargeItem.code}}</td>
                         <td>{{chargeItem.originalRevenue}}</td>
                         <td>{{chargeItem.originalRevenueCurrency}}</td>
+                        <th>{{chargeItem.multiplier}}</th>
                         <td><a href="#" {{action "change_partial" 'itemEditActive' true chargeItem}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
                         {{#if chargeItem.canRemove}}
                             <td><a href="#" {{action "open_modal" 'charge.modals.remove-record' chargeItem 'chargeItem'}}><span class="glyphicon glyphicon-remove"></span></a></td>
@@ -72,6 +79,7 @@
                         <td>{{chargeItem.code}}</td>
                         <td>{{chargeItem.originalRevenue}}</td>
                         <td>{{chargeItem.originalRevenueCurrency}}</td>
+                        <th>{{chargeItem.multiplier}}</th>
                         <td><a href="#" {{action "change_partial" 'itemEditActive' true chargeItem}}><span class="glyphicon glyphicon-list-alt"></span></a></td>
                         {{#if chargeItem.canRemove}}
                             <td><a href="#" {{action "open_modal" 'charge.modals.remove-record' chargeItem 'chargeItem'}}><span class="glyphicon glyphicon-remove"></span></a></td>

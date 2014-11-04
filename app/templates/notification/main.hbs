@@ -4,8 +4,9 @@
             <div class= "well well-lg" style="background-color: #FAFDFD">
                 <div class="row">
                     <div class="col-lg-9">
-                        <h3 class="page-header">Notifications </h3>
+                        <h3 class="page-header">Notifications</h3>
                     </div>
+
                     <div class="col-lg-3" style="margin-top: 35px">
                         <button class="btn btn-default pull-right" {{action "open_modal" 'notification.modals.hidden-record' null}}>Show Hidden Notifications</button>
                     </div>
@@ -30,7 +31,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{#each notification in notifications}}
+                                {{#each notification in sortedNotificationsItems}}
                                     {{#unless notification.hide_notification}}
                                         <tr {{bind-attr class = "notification.highlighted:warning"}}>
                                             <td align="center">
@@ -67,3 +68,4 @@
         </div>
     </div>
 </div>
+

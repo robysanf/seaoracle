@@ -61,8 +61,11 @@ export default DS.Model.extend({
         async: true,
         inverse: 'company'}),
 
+    sortedNotificationsItems: function(){
+        return this.get('notifications').sortBy('date').reverse();
+    }.property('notifications.@each.date'),
     showNotifications: function() {
-        var notify = this.get("notifications"), fired = null;
+        var notify = this.get("notifications").sortBy('date').reverse(), fired = null;
 
         notify.forEach(function(val){
             if( val.get('status') === 'show' ) {
@@ -72,7 +75,7 @@ export default DS.Model.extend({
         return fired;
     }.property('notifications.@each.status'),
     hiddenNotifications: function() {
-        var notify = this.get("notifications"), fired = null;
+        var notify = this.get("notifications").sortBy('date').reverse(), fired = null;
 
         notify.forEach(function(val){
             if( val.get('status') === 'hide' ) {
@@ -82,7 +85,7 @@ export default DS.Model.extend({
         return fired;
     }.property('notifications.@each.status'),
     firedNotifications: function() {
-        var notify = this.get("notifications"), fired = null;
+        var notify = this.get("notifications").sortBy('date').reverse(), fired = null;
 
         notify.forEach(function(val){
             if( val.get('highlighted') === true ) {

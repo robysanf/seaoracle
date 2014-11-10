@@ -16,9 +16,9 @@
             <li {{bind-attr class="controller.revenuesTabList.bbCharges:active"}}>
                 <a href="#" {{action setRevenuesTabs "bbCharges" this}}> B.B. Charges</a>
             </li>
-            <li {{bind-attr class="controller.revenuesTabList.itemCharges:active"}}>
-                <a href="#" {{action setRevenuesTabs "itemCharges" this}}> Item Charges</a>
-            </li>
+            <!--<li {{!{{bind-attr class="controller.revenuesTabList.itemCharges:active"}}>-->
+                <!--<a href="#" {{!{{action setRevenuesTabs "itemCharges" this}}> Item Charges</a>-->
+            <!--</li>-->
         </ul>
         <div class= "well well-lg" style="background-color: #FAFDFD; margin-top: 15px">
             {{#if controller.revenuesTabList.general}}

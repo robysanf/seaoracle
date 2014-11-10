@@ -1,23 +1,22 @@
-<div id="mondo" class="mondo-tall mondo-fade">
-    <div class="mondo-wrap-outer" >
-        <div class="mondo-wrap-inner">
-            <div class="container">
-                <div class="row" style="margin-top: 40px">
-                    <div class="col-lg-12">
-                        {{#if controller.newLog}}
-                            {{partial "login/partials/-new"}}
-                        {{else}}
-                            {{partial "login/partials/-submit"}}
-                        {{/if}}
-                    </div>
+<div id="login-layuot-outer">
+    <div id="login-layuot-container">
+        <div id="hp-sw-hdr">
+            <div><h2 style="color: #f5f5f5; padding: 5px" ><strong>Sea Oracle</strong></h2></div>
+        </div>
+        <div id="login-layuot-inner">
+            <div class="row" style="margin-top: 80px">
+                <div class="col-lg-12">
+                    {{#if controller.newLog}}
+                        {{partial "login/partials/-new"}}
+                    {{else}}
+                        {{partial "login/partials/-submit"}}
+                    {{/if}}
                 </div>
             </div>
         </div>
+        <div id="layuot-container-foot">
+            <div><h5 style="color: #f5f5f5; padding: 5px" ><strong> privacy </strong></h5></div>
+        </div>
     </div>
 </div>
-
-
-
-
-
 

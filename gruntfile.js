@@ -53,6 +53,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-s3');
 
   // Deploy task(s).
+    //NON FARE GRUNT!!!!!!
     //ember build --environment production
   //grunt deploy --target=test
   grunt.registerTask('deploy', ['s3']);

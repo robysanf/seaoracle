@@ -15,7 +15,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                {{#if isBLorCM}}
+                                {{#if or_BL_CM_DO}}
                                     <div class="panel panel-primary" style="margin-top: 15px">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Booking ref.</h3>
@@ -23,13 +23,40 @@
                                         <div class="panel-body">
                                             {{#each booking in bookings}}
                                                 <a href="#" {{action 'link_to' 'booking/main' booking}}>{{booking.code}}</a>
-                                                {{!{{#link-to 'booking/main' booking.id}}
-                                                {{!{{booking.code}}
-                                                {{!{{/link-to}}
                                                 <br>
                                             {{/each}}
                                         </div>
                                     </div>
+                                {{/if}}
+
+                                {{#if isOD}}
+                                    <div class="panel panel-primary" style="margin-top: 15px">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Parent document</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            {{#link-to 'document/main' parentDocument.id}}
+                                                {{parentDocument.code}}
+                                            {{/link-to}}
+                                        </div>
+                                    </div>
+                                {{/if}}
+
+                                {{#if isBL}}
+                                    {{#if childDocuments}}
+                                        <div class="panel panel-primary" style="margin-top: 15px">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Child documents</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                               {{#each childDocument in childDocuments}}
+                                                   {{#link-to 'document/main' childDocument.id}}
+                                                        {{childDocument.code}} <br>
+                                                    {{/link-to}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    {{/if}}
                                 {{/if}}
                             </div>
                         </div>
@@ -39,6 +66,15 @@
                                 Go to search
                             </button>
                         {{/link-to}}
+                        {{#if isOD}}
+                            {{#if canEdit}}
+                                <div class="row" style="margin-top: 15px">
+                                    <div class="col-lg-12">
+                                        <button type="button" class="btn btn-default btn-group-justified" {{action 'resetOD' this}}>Reset</button>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/if}}
                         {{#if isBL}}
                             {{#if canEdit}}
                                 <div class="row" style="margin-top: 15px">
@@ -47,14 +83,15 @@
                                     </div>
                                 </div>
                                 <h3 class="page-header"></h3>
-                            {{#if is_agency_notHaveCreateBL}}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <button type="button" class="btn btn-default btn-group-justified" {{action 'create_DO' this}}>Create delivery order</button>
-                                    </div>
-                                </div>
-                            {{/if}}
-
+                                {{#if is_agency_notHaveCreateBL}}
+                                    {{#unless parentDocument}}
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <button type="button" class="btn btn-default btn-group-justified" {{action 'create_DO' this}}>Create delivery order</button>
+                                            </div>
+                                        </div>
+                                    {{/unless}}
+                                {{/if}}
                             {{/if}}
                         {{/if}}
                         {{#if isCM}}

@@ -1288,27 +1288,29 @@ export default Ember.Route.extend({
 //            });
 
             frPlan_record.get('voyages').then(function(voy){
-                voy.get('schedules').then(function(schedules){
-                    schedules.forEach(function(leg){
-                        leg.set('embarking', false);
-                        leg.set('disembarkation', false);
+                if(voy.get('schedules')){
+                    voy.get('schedules').then(function(schedules){
+                        schedules.forEach(function(leg){
+                            leg.set('embarking', false);
+                            leg.set('disembarkation', false);
+                        });
                     });
-                });
+                }
             });
 
-
+            self.store.deleteRecord(frPlan_record);
             frPlan_record.deleteRecord();
             frPlan_record.save().then(function(){
                 //      *** FREIGHT PLAN
 
                 self.get("controller").set("freightPlanItemsList", []);
 
-                self.store.findQuery("voyage").then(function(val){
+                self.store.find("voyage").then(function(val){
                     app_controller.set("autocompleteVoyage", val);
                     controller.set('searchVoy', []);
                 });
 
-            book_record.reload();
+//            book_record.reload();
 //            }, function(){
 //                //NOT SAVED
 //                new PNotify({
@@ -2436,44 +2438,44 @@ export default Ember.Route.extend({
         save_editItem: function( booking_record, fun_status ){
             var self = this, controller = self.controllerFor('booking.main'), app_controller = self.controllerFor('application');
 
-            if( controller.subTabLists.revenues ){
-
-                booking_record.get("chargeItems").then(function(charges){
-                    charges.filter(function(charge){
-
-                        charge.save().then(function(){
-                            if(charge === booking_record.get("chargeItems").get("lastObject")) {
-                                // SUCCESS
-                                new PNotify({
-                                    title: 'Saved',
-                                    text: 'You successfully saved new booking item.',
-                                    type: 'success',
-                                    delay: 1000
-                                });
-
-                                controller.set('subTabLists.details', false);
-                                controller.set('subTabLists.haulage', false);
-                                controller.set('subTabLists.customs', false);
-                                controller.set('subTabLists.status', false);
-                                controller.set('subTabLists.revenues', false);
-                                controller.set('subTabLists.files', false);
-                                controller.set('subTabLists.goods', true);
-
-                            }
-                        }, function(){
-                            // NOT SAVED
-                            new PNotify({
-                                title: 'Not saved',
-                                text: 'A problem has occurred.',
-                                type: 'error',
-                                delay: 2000
-                            });
-                        });
-                    });
-                });
-
-            } else if ( controller.subTabLists.status ){
-
+//            if( controller.subTabLists.revenues ){
+//
+//                booking_record.get("chargeItems").then(function(charges){
+//                    charges.filter(function(charge){
+//
+//                        charge.save().then(function(){
+//                            if(charge === booking_record.get("chargeItems").get("lastObject")) {
+//                                // SUCCESS
+//                                new PNotify({
+//                                    title: 'Saved',
+//                                    text: 'You successfully saved new booking item.',
+//                                    type: 'success',
+//                                    delay: 1000
+//                                });
+//
+//                                controller.set('subTabLists.details', false);
+//                                controller.set('subTabLists.haulage', false);
+//                                controller.set('subTabLists.customs', false);
+//                                controller.set('subTabLists.status', false);
+//                                controller.set('subTabLists.revenues', false);
+//                                controller.set('subTabLists.files', false);
+//                                controller.set('subTabLists.goods', true);
+//
+//                            }
+//                        }, function(){
+//                            // NOT SAVED
+//                            new PNotify({
+//                                title: 'Not saved',
+//                                text: 'A problem has occurred.',
+//                                type: 'error',
+//                                delay: 2000
+//                            });
+//                        });
+//                    });
+//                });
+//
+//            } else if ( controller.subTabLists.status ){
+            if ( controller.subTabLists.status ){
                 controller.item_record.get("freightEquipments").filter(function (frEquipment) {
 
                     frEquipment.get('orderedEquipmentStatuses').then(function(eqStatuses) {
@@ -2498,8 +2500,8 @@ export default Ember.Route.extend({
                                             controller.set('subTabLists.haulage', false);
                                             controller.set('subTabLists.customs', false);
                                             controller.set('subTabLists.status', false);
-                                            controller.set('subTabLists.revenues', true);
-                                            controller.set('subTabLists.files', false);
+                                            controller.set('subTabLists.revenues', false);
+                                            controller.set('subTabLists.files', true);
                                             controller.set('subTabLists.goods', false);
                                         });
                                     }
@@ -2521,8 +2523,8 @@ export default Ember.Route.extend({
                             controller.set('subTabLists.haulage', false);
                             controller.set('subTabLists.customs', false);
                             controller.set('subTabLists.status', false);
-                            controller.set('subTabLists.revenues', true);
-                            controller.set('subTabLists.files', false);
+                            controller.set('subTabLists.revenues', false);
+                            controller.set('subTabLists.files', true);
                             controller.set('subTabLists.goods', false);
                         }
                     });

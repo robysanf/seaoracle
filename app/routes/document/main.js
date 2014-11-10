@@ -576,19 +576,25 @@ export default Ember.Route.extend({
             });
         },
 
+        resetOD: function( record ) {
+            record.save().then(function(){
+                record.reload();
+            });
+        },
+
         create_DO: function( record_bl ){
             var self = this, controller = self.controllerFor('booking.main');
 
             var today = new Date();
             var new_docDO = this.store.createRecord('document',{
-                code: 'DO' + record_bl.get('code').substring(2),
+                name: 'DO' + record_bl.get('code').substring(2),
                 origin: record_bl.get('origin'),
                 destination: record_bl.get('destination'),
                 voyage: record_bl.get('voyage'),
                 date: moment(today).format("YYYY-MM-DD"),
                 type: 'docDO',
                 company: record_bl.get('company'),
-                parentCompany: record_bl.get('id')
+                parentDocument: record_bl
             });
 
             record_bl.get('bookings').then(function(allBooks){
@@ -603,7 +609,11 @@ export default Ember.Route.extend({
                                         bookIt.pushObject(val);
 
                                         if( index2 +1 === allBookItems.get('length') ){
-                                            new_docDO.save().then(function(){
+
+                                            new_docDO.save().then(function(new_doc){
+                                                self.controllerFor('document.main').set('isView', false);
+                                                self.transitionTo('document/main', new_doc);
+
                                                 new PNotify({
                                                     title: 'Success',
                                                     text: 'The document was created.',
@@ -611,6 +621,7 @@ export default Ember.Route.extend({
                                                     delay: 2000
                                                 });
                                             });
+
                                         }
                                     });
                                 });

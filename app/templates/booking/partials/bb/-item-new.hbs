@@ -28,9 +28,9 @@
                         <a href="#" data-tab="status" {{action selectSubTab "status"}}>Status</a>
                     </li>
                     {{!{{#unless controller.is_shipowner}}
-                        <li {{bind-attr class="controller.subTabLists.revenues:active"}}>
-                            <a href="#" data-tab="revenues" {{action selectSubTab "revenues"}}>Item revenues</a>
-                        </li>
+                        <!--<li {{bind-attr class="controller.subTabLists.revenues:active"}}>-->
+                            <!--<a href="#" data-tab="revenues" {{!{{action selectSubTab "revenues"}}>Item revenues</a>-->
+                        <!--</li>-->
                     {{!{{/unless}}
                     <li {{bind-attr class="controller.subTabLists.files:active"}}>
                         <a href="#" data-tab="files" {{action selectSubTab "files"}}>Files</a>
@@ -59,9 +59,9 @@
             {{#if controller.subTabLists.status}}
                 {{partial "booking/partials/sub-tab/-sub-tab-status"}}
             {{/if}}
-            {{#if controller.subTabLists.revenues}}
-                {{partial "booking/partials/sub-tab/-sub-tab-revenues"}}
-            {{/if}}
+            {{!{{#if controller.subTabLists.revenues}}
+            {{!{{partial "booking/partials/sub-tab/-sub-tab-revenues"}}
+            {{!{{/if}}
             {{#if controller.subTabLists.files}}
                 {{partial "booking/partials/sub-tab/-sub-tab-files"}}
             {{/if}}

@@ -18,7 +18,7 @@
             </div>
 
         </div>
-        {{#unless isLLorCM}}
+        {{#unless or_LL_CM_DO}}
             <div class="row">
                 <div class="col-lg-4"><h4>Number of Originals</h4></div>
                 <div class="col-lg-8">
@@ -37,7 +37,6 @@
                         {{input value= originLeg.poi.name class='form-control' disabled=true}}
                     </div>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-lg-4"><h4>Destination</h4></div>
@@ -46,7 +45,6 @@
                         {{input value= destinationLeg.poi.name class='form-control' disabled=true}}
                     </div>
                 </div>
-
             </div>
         {{else}}
             {{#if isNotFP}}
@@ -57,7 +55,6 @@
                             {{input value= origin.name class='form-control' disabled=true}}
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-lg-4"><h4>Destination</h4></div>
@@ -66,9 +63,8 @@
                             {{input value= destination.name class='form-control' disabled=true}}
                         </div>
                     </div>
-
                 </div>
-                {{#if isBL}}
+                {{#if is_BL_OD}}
                     <div class="row">
                         <div class="col-lg-4"><h4>Voyage</h4></div>
                         <div class="col-lg-8">
@@ -76,7 +72,6 @@
                                 {{input value= voyage.name class='form-control' disabled=true}}
                             </div>
                         </div>
-
                     </div>
                 {{/if}}
             {{/if}}
@@ -207,23 +202,25 @@
                     {{/if}}
                 </div>
                 <div class="col-lg-2">
-                    {{#if controller.isView}}
-                        <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
-                    {{else}}
-                        {{#if isBL}}
-                            {{#view 'loading-button' record=id action_name='update_doc_bl'}}
-                                <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
-                                    Save
-                                </button>
-                            {{/view}}
+                    {{#unless isOD}}
+                        {{#if controller.isView}}
+                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
                         {{else}}
-                            {{#view 'loading-button' record=id action_name='updateDoc_other'}}
-                                <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
-                                    Save
-                                </button>
-                            {{/view}}
+                            {{#if isBL}}
+                                {{#view 'loading-button' record=id action_name='update_doc_bl'}}
+                                    <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
+                                        Save
+                                    </button>
+                                {{/view}}
+                            {{else}}
+                                {{#view 'loading-button' record=id action_name='updateDoc_other'}}
+                                    <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
+                                        Save
+                                    </button>
+                                {{/view}}
+                            {{/if}}
                         {{/if}}
-                    {{/if}}
+                    {{/unless}}
                 </div>
             </div>
         {{/if}}

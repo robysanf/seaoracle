@@ -34,7 +34,8 @@ export default Ember.Controller.extend({
         {'value': "Bill of Lading", 'code': "docBL"},
         {'value': "Cargo Manifest", 'code': "docCM"},
         {'value': "Loading List", 'code': "docLL"},
-        {'value': "Freight Manifest", 'code': "docFP"}
+        {'value': "Freight Manifest", 'code': "docFP"},
+        {'value': "Delivery Order", 'code': "docDO"}
     ],
 
     docAllType:[
@@ -48,8 +49,8 @@ export default Ember.Controller.extend({
     docBLCMType:[
         '',
         'Bill of Lading',
-        'Cargo Manifest'
-
+        'Cargo Manifest',
+        "Delivery Order",
     ],
 
     docLLFPType:[

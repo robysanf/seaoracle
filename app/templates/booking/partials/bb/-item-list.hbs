@@ -16,6 +16,9 @@
         {{else}}
             {{#if isEditing}}<th></th>{{/if}}
             <th>Code</th>
+            {{#unless isReqOrPen}}
+                <th>Identifier</th>
+            {{/unless}}
             <th>Unit</th>
             <th>Estimated weight</th>
             <th>Actual weight</th>
@@ -112,6 +115,13 @@
                             <tr>
                                 <td>{{input type="checkbox" checked=isChecked}}</td>
                                 <td>{{item.code}}</td>
+                                {{#each freightEquipment in item.freightEquipments}}
+                                    {{#if freightEquipment.equipment.code}}
+                                        <td>{{freightEquipment.equipment.code}}</td>
+                                    {{else}}
+                                        <td></td>
+                                    {{/if}}
+                                {{/each}}
                                 <td>{{item.packNum}}</td>
                                 <td>{{item.eWeight}}</td>
                                 <td>{{item.weight}}</td>
@@ -137,6 +147,13 @@
                     {{#if item.tu_bb}}
                         <tr>
                             <td>{{item.code}}</td>
+                            {{#each freightEquipment in item.freightEquipments}}
+                                {{#if freightEquipment.equipment.code}}
+                                    <td>{{freightEquipment.equipment.code}}</td>
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            {{/each}}
                             <td>{{item.packNum}}</td>
                             <td>{{item.eWeight}}</td>
                             <td>{{item.weight}}</td>
@@ -161,6 +178,13 @@
                     {{#if item.tu_bb}}
                         <tr>
                             <td>{{item.code}}</td>
+                            {{#each freightEquipment in item.freightEquipments}}
+                                {{#if freightEquipment.equipment.code}}
+                                    <td>{{freightEquipment.equipment.code}}</td>
+                                {{else}}
+                                    <td></td>
+                                {{/if}}
+                            {{/each}}
                             <td>{{item.packNum}}</td>
                             <td>{{item.eWeight}}</td>
                             <td>{{item.weight}}</td>

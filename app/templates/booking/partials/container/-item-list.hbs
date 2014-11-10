@@ -15,14 +15,12 @@
         {{else}}
             {{#if isEditing}}<th></th>{{/if}}
             <th>Code</th>
-            {{#if isReqOrPen}}
-
-            {{else}}
+            {{#unless isReqOrPen}}
                 <th>Type</th>
                 <th>Length</th>
                 <th>Identifier</th>
                 <th>Seal</th>
-            {{/if}}
+            {{/unless}}
             <th>Estimated weight</th>
             <th>Actual weight</th>
             {{#if isRequest}}

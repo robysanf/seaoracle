@@ -1,27 +1,40 @@
-<section id="hero" class="hero-fixed hero-fade hero-medium">
-    <div id="login-layuot-outer">
-        <div id="login-layuot-container">
-            <div id="layuot-container-title">
-                <div><h2 style="color: #f5f5f5; padding-top: 15px; padding-left: 15px" ><strong>Sea Oracle</strong></h2></div>
+<div id="lay-outer"></div>
+<div class="lay-wrap">
+    {{#if controller.newLog}}
+        <div class="well well-lg" id="lay-new-inner">
+            <div class="well well-lg" id="lay-title">
+                <strong style="color: #f5f5f5; font-size: 27px;">Sea Oracle</strong>
             </div>
-            <div id="login-layuot-inner">
-                <div class="row" style="margin-top: 110px">
-                    <div class="col-lg-12">
-                        {{#if controller.newLog}}
-                            {{partial "login/partials/-new"}}
-                        {{else}}
-                            {{partial "login/partials/-submit"}}
-                        {{/if}}
-                    </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col-lg-12">
+                    {{partial "login/partials/-new"}}
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    {{else}}
+        <div class="well well-lg" id="lay-submit-inner">
+            <div class="well well-lg" id="lay-title">
+                <strong style="color: #f5f5f5; font-size: 27px;">Sea Oracle</strong>
+            </div>
+            <!--<div class="row" style="margin-top: 110px">-->
+                <!--<div class="col-lg-12">-->
+                    {{partial "login/partials/-submit"}}
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    {{/if}}
+</div>
+
+
+
+
+
+
 
 <div class="footer navbar-fixed-bottom" style="background-color: rgba(59,134,134,1); padding: 18px 0 0;height: 60px;">
     <div class="container">
-        <h5 style="color: #f5f5f5">chi siamo condizioni privacy</h5>
+        <a style="color: #f5f5f5; cursor:pointer" {{action "open_modal" 'login.modals.term-of-service'}}>Term of service</a> &nbsp <span style="color: #f5f5f5">|</span> &nbsp
+        <a style="color: #f5f5f5; cursor:pointer" {{action "open_modal" 'login.modals.privacy-policy'}}>Privacy policy</a>
         <!--<div class="d-block d-block-menu g-menu-global-footer">-->
         <!--<ul class="menu nav clearfix" role="menu"><li class="first leaf" role="menuitem"><a href="https://about.twitter.com/" target="_blank">Chi siamo</a></li>-->
         <!--<li class="leaf" role="menuitem"><a href="https://support.twitter.com/">Supporto</a></li>-->

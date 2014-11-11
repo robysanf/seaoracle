@@ -1,6 +1,7 @@
-/*html, body {*/
+html, body {
   /*margin: 20px;*/
-/*}*/
+   /*background-color: #05213C;*/
+}
 
 
 /*************************************/
@@ -58,6 +59,9 @@ input[readonly] {
 /*********************************/
     /*BUTTON STYLE*/
 /***/
+.btn-90 {
+    width: 90px !important;
+}
 
 .btn-130 {
     width: 130px !important;
@@ -480,81 +484,8 @@ fieldset[disabled] .btn-amazon.active {
 }
 
 
-
-/**********************************************************************************************************************/
-
-#login-layuot-outer {
-    vertical-align: middle;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-#login-layuot-container {
-    top: 50px;
-    min-width: 1115px;
-    max-width: 1366px;
-    width: 100%;
-    min-height: 830px;
-    max-height: 900px;
-    height: 100%;
-    position: relative;
-    margin: auto;
-}
-
-#hp-sw-hdr {
-    background-color: rgba(245, 245, 245, 0.4);
-    height: 50px;
-    z-index: 9;
-
-    position: relative;
-
-    padding: 0;
-    width: 100%;
-    margin: 0;
-}
-
-#layuot-container-foot {
-    margin-top: 700px;
-    height: 30px;
-    background-color: rgba(245, 245, 245, 0.4);
-    z-index: 9;
-    width: 100%;
-    position: relative;
-
-    padding: 0;
-
-}
-
-
-#login-layuot-inner {
-    /*min-height: 630px;*/
-    /*max-height: 760px;*/
-    /*width: 1366px;*/
-    /*top: -84.5px;*/
-    left: 0;
-    opacity: 1;
-    background-image: url('../img/mondo2000x800.jpg');
-    position: absolute;
-    top: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    /*background-color: #666;*/
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    background-size: cover;
-}
-
-
 /***************************************************************************************************
-        MONDO
+       MONDO
 */
 #mondo {
     text-align: center;
@@ -602,38 +533,94 @@ fieldset[disabled] .btn-amazon.active {
     overflow: visible;
 }
 
-/********************************************************************************************************/
-
-/*#page-outer {*/
-    /*height: 100%;*/
-/*}*/
-
-/*.AppContent {*/
-    /*padding: 56px 14px 15px;*/
-    /*position: relative;*/
-/*}*/
-
-/*.front-page .front-container {*/
-    /*display: block;*/
-/*}*/
-/*.front-container {*/
-    /*bottom: 0;*/
-    /*display: none;*/
-    /*left: 0;*/
-    /*max-height: 750px;*/
-    /*min-height: 545px;*/
-    /*position: absolute;*/
-    /*right: 0;*/
-    /*top: 0;*/
-/*}*/
-/*.front-bg {*/
-    /*position: fixed;*/
-    /*width: 200%;*/
-    /*height: 200%;*/
-    /*left: -50%;*/
-    /*background: #000;*/
-/*}*/
-/*.front-image {*/
+/**********************************************************************************************************************/
+#hero {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+#hero {
+    position: relative;
+    text-align: center;
+}
+section.hero-medium {
+    height: 470px;
+    /*background-color: ;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    background-color: rgba(11,72,107, 1);
     /*background-image: url('../img/mondo2000x800.jpg');*/
-    /*display: block;*/
-/*}*/
+}
+
+#login-layuot-outer {
+    vertical-align: middle;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+
+#login-layuot-container {
+    top: 50px;
+    min-width: 800px;
+    max-width: 850px;
+    min-height: 300px;
+    max-height: 350px;
+    /*min-width: 1115px;*/
+    /*max-width: 1366px;*/
+    width: 100%;
+    /*min-height: 830px;*/
+    /*max-height: 900px;*/
+    height: 100%;
+    position: relative;
+    margin: auto;
+}
+
+#login-layuot-inner {
+    /*min-height: 630px;*/
+    /*max-height: 760px;*/
+    /*width: 1366px;*/
+    /*top: -84.5px;*/
+    left: 0;
+    background-image: url('../img/mondo2000x800.jpg');
+    /*opacity: 0.85;*/
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background-color: #666;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    background-size: cover;
+}
+
+#layuot-container-title {
+    background-color: rgba(245, 245, 245, 0.4);
+    height: 50px;
+    z-index: 9;
+
+    position: relative;
+
+    padding: 0;
+    width: 100%;
+    margin: 0;
+}
+
+#layuot-container-foot {
+    margin-top: 700px;
+    height: 30px;
+    background-color: rgba(245, 245, 245, 0.4);
+    z-index: 9;
+    width: 100%;
+    position: relative;
+    padding: 0;
+}
+
+

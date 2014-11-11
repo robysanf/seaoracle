@@ -3,6 +3,13 @@ import Ember from 'ember';
 export default Ember.View.extend({
     didInsertElement: function(){
         $(window).on('scroll', $.proxy(this.didScroll, this));
+//
+//        this._super();
+//        this.$().parent().css({
+//            "background-color": "white"//,
+////            "background-image": "url('" + App.currentProgram.backgroundImage + "')"
+//        });
+
     },
 
     willDestroyElement: function(){

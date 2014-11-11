@@ -104,7 +104,8 @@ export default Ember.Route.extend({
             var feature = self.store.createRecord('feature', {
                 company: record_company,
                 type: 'agent',
-                value: value
+                value: value,
+                visibility: 'private'
             });
 
             if( referring_id !== null ){

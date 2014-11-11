@@ -1,46 +1,50 @@
 <div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6">
-        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
-            {{#if appController.authToken}}
+    <!--<div class="col-lg-3"></div>-->
+    <div class="col-lg-12">
+        {{#if appController.authToken}}
+        {{else}}
+            {{#if loggedIn}}
+                <p> You are already logged in! </p>
             {{else}}
-                {{#if loggedIn}}
-                    <p>You are already logged in!</p>
-                {{else}}
-                    <div class="row">Please sign in</div>
-                    <div class="row" style="margin-top: 30px; margin-bottom: 30px">
-                        <div class="col-lg-3"></div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    {{input id='username' valueBinding='username' type="text"  placeholder='Username' class='form-control'}}
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    {{input id='password' valueBinding='password' type="password"  placeholder='Password' class='form-control'}}
-                                </div>
-                                <div class="col-lg-4">
-                                    <button type="button" class="btn btn-primary pull-right" {{action 'login'}}>Login</button>
-                                </div>
+                <!--<div class="row">-->
+                <!--<h2 style="color: #f5f5f5; text-align: center" ><strong> Please sign in </strong> </h2>-->
+                <!--</div>-->
+                <div class="row" style="margin-top: 30px; margin-bottom: 30px">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{input id='username' valueBinding='username' type="text"  placeholder='Username' class='form-control'}}
                             </div>
                         </div>
-                        <div class="col-lg-3"></div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                {{input id='password' valueBinding='password' type="password"  placeholder='Password' class='form-control'}}
+                            </div>
+                            <div class="col-lg-4">
+                                <button type="button" class="btn btn-90 btn-primary pull-right" {{action 'login'}}>Login</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row" style="margin-bottom: 30px">
-                        <div class="col-lg-3"></div>
-                        <div class="col-lg-6">
-                            <button type="button" class="btn btn-default btn-160 pull-left" {{action 'change_newLog' 1}}>
-                                Sign up
-                            </button>
+                    <div class="col-lg-4"></div>
+                </div>
 
-                        </div>
-                        <div class="col-lg-3"></div>
-                    </div>
-                {{/if}}
             {{/if}}
+        {{/if}}
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px">
+            <div class="row" style="margin-bottom: 30px">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-default btn-160 pull-left" {{action 'change_newLog' 1}}>
+                        Sign up
+                    </button>
+
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+
         </div>
     </div>
-    <div class="col-lg-3"></div>
+    <!--<div class="col-lg-3"></div>-->
 </div>

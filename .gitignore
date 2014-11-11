@@ -5,6 +5,7 @@
 /tmp
 /.idea
 /vendor/stripe/stripe_key.js
+/dist
 
 # dependencies
 /node_modules

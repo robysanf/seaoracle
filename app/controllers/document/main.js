@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.ObjectController.extend({
     needs: ['application'],
     app_controller: Ember.computed.alias('controllers.application'),
+
     app_controller_token: Ember.computed.alias('controllers.application.token'),
     app_controller_companyType: Ember.computed.alias('controllers.application.companyType'),
     app_controller_company: Ember.computed.alias('controllers.application.company'),

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6">
-        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px; min-height: 500px">
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px; height: 520px">
             <div class="row" style="text-align: center">
                 <h2 style="color: white" ><strong>Company</strong></h2>
             </div>
@@ -8,7 +8,7 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-10">
                     {{#view 'verify-sing-up-fields' model_val='company' val=name}}
-                       {{input id='name' value=controller.name type="text"  placeholder='Name' class='form-control'}}
+                        {{input id='name' value=controller.name type="text"  placeholder='Name' class='form-control'}}
                     {{/view}}
                 </div>
                 <div class="col-lg-1"></div>
@@ -16,7 +16,7 @@
             <div class="row" style="margin-bottom: 10px">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-10">
-                {{input id='vatNumber' valueBinding='vatNumber' type="text"  placeholder='Vat number' class='form-control'}}
+                    {{input id='vatNumber' valueBinding='vatNumber' type="text"  placeholder='Vat number' class='form-control'}}
                 </div>
                 <div class="col-lg-1"></div>
             </div>
@@ -65,8 +65,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0px; min-height: 500px">
-
+        <div class= "well well-lg" style="background-color: rgba(245, 245, 245, 0.4); border: 0; height: 520px">
             <div class="row" style="text-align: center">
                 <h2 style="color: white" ><strong>User</strong></h2>
             </div>
@@ -111,48 +110,13 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
-            <div class="row" style="margin-left: 30px; margin-right: 30px">
-                <div class="col-lg-6">
-                    <button class="btn btn-default btn-160 pull-left" {{action "change_newLog" 0}}>Back to login</button>
-                </div>
-                <div class="col-lg-6">
-                    <button class="btn btn-primary btn-160 pull-right" {{action 'new_signUp'}}>Sign up</button>
-                </div>
-            </div>
+<div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0">
+    <div class="row" style="margin-left: 30px; margin-right: 30px">
+        <div class="col-lg-6">
+            <button class="btn btn-default btn-160 pull-left" {{action "change_newLog" 0}}>Back to login</button>
         </div>
-        <div class= "well well-lg" style="background-color:rgba(245, 245, 245, 0.4); border: 0px">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        <strong>By clicking 'Sign up', you agree to our terms of service and privacy policy. </strong>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <button class="btn btn-default btn-small custom130 pull-right" {{action "open_modal" 'login.modals.term-of-service'}}>Term of service</button>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <button class="btn btn-default btn-small custom130 pull-left" {{action "open_modal" 'login.modals.privacy-policy'}}>Privacy policy</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
+        <div class="col-lg-6">
+            <button class="btn btn-primary btn-160 pull-right" {{action 'new_signUp'}}>Sign up</button>
         </div>
     </div>
 </div>

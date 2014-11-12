@@ -15,9 +15,36 @@
                 </div>
             </div>
         </div>
-        <div id="layuot-container-foot">
-            <div><h5 style="color: #f5f5f5; padding: 5px" ><strong> privacy </strong></h5></div>
+    {{else}}
+        <div class="well well-lg" id="lay-submit-inner">
+            <div class="well well-lg" id="lay-title">
+                <strong style="color: #f5f5f5; font-size: 27px;">Sea Oracle</strong>
+            </div>
+            <!--<div class="row" style="margin-top: 110px">-->
+            <!--<div class="col-lg-12">-->
+            {{partial "login/partials/-submit"}}
+            <!--</div>-->
+            <!--</div>-->
         </div>
-    </div>
+    {{/if}}
 </div>
 
+
+
+
+
+
+
+<div class="footer navbar-fixed-bottom" style="background-color: rgba(59,134,134,1); padding: 18px 0 0;height: 60px;">
+    <div class="container">
+        <a style="color: #f5f5f5; cursor:pointer" {{action "open_modal" 'login.modals.term-of-service'}}>Term of service</a> &nbsp <span style="color: #f5f5f5">|</span> &nbsp
+        <a style="color: #f5f5f5; cursor:pointer" {{action "open_modal" 'login.modals.privacy-policy'}}>Privacy policy</a>
+        <!--<div class="d-block d-block-menu g-menu-global-footer">-->
+        <!--<ul class="menu nav clearfix" role="menu"><li class="first leaf" role="menuitem"><a href="https://about.twitter.com/" target="_blank">Chi siamo</a></li>-->
+        <!--<li class="leaf" role="menuitem"><a href="https://support.twitter.com/">Supporto</a></li>-->
+        <!--<li class="leaf" role="menuitem"><a href="https://twitter.com/tos">Condizioni</a></li>-->
+        <!--<li class="leaf" role="menuitem"><a href="https://twitter.com/privacy" target="_blank">Privacy</a></li>-->
+        <!--<li class="last leaf" role="menuitem"><a href="https://support.twitter.com/articles/20170514" target="_blank">Cookie</a></li>-->
+        <!--</ul></div>        <span class="copyright">© 2014 Twitter, Inc.</span>-->
+    </div>
+</div>

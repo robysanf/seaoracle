@@ -479,6 +479,146 @@ fieldset[disabled] .btn-amazon.active {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);  */
 }
 
+/****************************************************************************************************/
+       /*MONDO*/
+/**/
+/*#mondo {*/
+    /*text-align: center;*/
+/*}*/
+/*#mondo {*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
+/*#mondo .mondo-wrap-outer {*/
+    /*background-image: url('../img/mondo2000x800.jpg');*/
+    /*background-image: url(http://zenointelligence.com/img/mondo2000x800.jpg);*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: top center;*/
+/*}*/
+
+/*.mondo-fade {*/
+    /*background: #FFFFFF;*/
+/*}*/
+/*.mondo-fade .mondo-wrap-outer {*/
+    /*-moz-background-size: cover;*/
+    /*-webkit-background-size: cover;*/
+    /*position: relative;*/
+    /*background-size: cover;*/
+/*}*/
+
+/*.mondo-wrap-outer {*/
+    /*margin: 0 auto;*/
+/*}*/
+
+/*#mondo.mondo-tall .mondo-wrap-outer {*/
+    /*min-height: 2px;*/
+    /*background-position: center;*/
+/*}*/
+/*#mondo.mondo-tall .mondo-wrap-outer {*/
+    /*min-height: 979px;*/
+    /*background-size: cover;*/
+/*}*/
+/*INNER*/
+/*#mondo.mondo-tall .mondo-wrap-inner {*/
+    /*height: 200px;*/
+/*}*/
+
+/*#mondo.mondo-tall .mondo-wrap-inner {*/
+    /*height: 300px;*/
+    /*overflow: visible;*/
+/*}*/
+
+/**********************************************************************************************************************/
+/*#hero {*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+/*}*/
+/*#hero {*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
+/*section.hero-medium {*/
+    /*height: 470px;*/
+    /*background-color: ;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-color: rgba(11,72,107, 1);*/
+    /*background-image: url('../img/mondo2000x800.jpg');*/
+/*}*/
+
+/*#login-layuot-outer {*/
+    /*vertical-align: middle;*/
+    /*overflow: hidden;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*border-collapse: collapse;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*border: 0;*/
+/*}*/
+
+
+/*#login-layuot-container {*/
+    /*top: 50px;*/
+    /*min-width: 800px;*/
+    /*max-width: 850px;*/
+    /*min-height: 300px;*/
+    /*max-height: 350px;*/
+    /*min-width: 1115px;*/
+    /*max-width: 1366px;*/
+    /*width: 100%;*/
+    /*min-height: 830px;*/
+    /*max-height: 900px;*/
+    /*height: 100%;*/
+    /*position: relative;*/
+    /*margin: auto;*/
+/*}*/
+
+/*#login-layuot-inner {*/
+    /*min-height: 630px;*/
+    /*max-height: 760px;*/
+    /*width: 1366px;*/
+    /*top: -84.5px;*/
+    /*left: 0;*/
+    /*background-image: url('../img/mondo2000x800.jpg');*/
+    /*opacity: 0.85;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*overflow: hidden;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*background-repeat: no-repeat;*/
+    /*background-color: #666;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+/*}*/
+
+/*#layuot-container-title {*/
+    /*background-color: rgba(245, 245, 245, 0.4);*/
+    /*height: 50px;*/
+    /*z-index: 9;*/
+
+    /*position: relative;*/
+
+    /*padding: 0;*/
+    /*width: 100%;*/
+    /*margin: 0;*/
+/*}*/
+
+/*#layuot-container-foot {*/
+    /*margin-top: 700px;*/
+    /*height: 30px;*/
+    /*background-color: rgba(245, 245, 245, 0.4);*/
+    /*z-index: 9;*/
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*padding: 0;*/
+/*}*/
+
+
 /**************************************** LAYOUT 2 ******************************************************************/
 #lay-outer{
     width: 100%;
@@ -488,8 +628,67 @@ fieldset[disabled] .btn-amazon.active {
     left: 0;
     right: 0;
 
+    background-color: rgba(11,72,107, 1);
+    /*z-index:10;*/
+}
 
-/**********************************************************************************************************************/
+.lay-wrap{
+    zoom: 1;
+    position: relative;
+    min-width: 780px;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+#lay-submit-inner{
+    position: absolute;
+    /*top: 40px;*/
+    left: 0;
+    bottom: -300px;
+    min-width: 100%;
+    max-width: 100%;
+
+    border: 0;
+    padding: 0;
+    height: 512px;
+    /*padding-top: 80px;*/
+    /*margin-left: 4px;*/
+    background-image: url('../img/mondo2000x800.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#lay-new-inner{
+    position: absolute;
+    /*top: 40px;*/
+    left: 0;
+    bottom: -508px;
+    min-width: 100%;
+    max-width: 100%;
+
+    border: 0;
+    padding: 0;
+    height: 720px;
+    /*padding-top: 80px;*/
+    /*margin-left: 4px;*/
+    background-image: url('../img/mondo2000x800.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#lay-title{
+    background-color: rgba(245, 245, 245, 0.4);
+    height: 50px;
+    width: 100%;
+    z-index: 9;
+
+    position: relative;
+
+    margin: 0;
+    border: 0;
+    padding: 5px;
+    padding-left: 10px;
+}
 
 #lay-2-footer{
     background-color: rgba(245, 245, 245, 0.4);
@@ -502,147 +701,3 @@ fieldset[disabled] .btn-amazon.active {
     border: 0;
     margin-top: 130px;
 }
-
-#login-layuot-container {
-    top: 50px;
-    min-width: 1115px;
-    max-width: 1366px;
-    width: 100%;
-    min-height: 830px;
-    max-height: 900px;
-    height: 100%;
-    position: relative;
-    margin: auto;
-}
-
-#hp-sw-hdr {
-    background-color: rgba(245, 245, 245, 0.4);
-    height: 50px;
-    z-index: 9;
-
-    position: relative;
-
-    padding: 0;
-    width: 100%;
-    margin: 0;
-}
-
-#layuot-container-foot {
-    margin-top: 700px;
-    height: 30px;
-    background-color: rgba(245, 245, 245, 0.4);
-    z-index: 9;
-    width: 100%;
-    position: relative;
-
-    padding: 0;
-
-}
-
-
-#login-layuot-inner {
-    /*min-height: 630px;*/
-    /*max-height: 760px;*/
-    /*width: 1366px;*/
-    /*top: -84.5px;*/
-    left: 0;
-    opacity: 1;
-    background-image: url('../img/mondo2000x800.jpg');
-    position: absolute;
-    top: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    /*background-color: #666;*/
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    /*background-size: cover;*/
-/*}*/
-
-
-/***************************************************************************************************
-        MONDO
-*/
-#mondo {
-    text-align: center;
-}
-#mondo {
-    /*position: relative;*/
-    text-align: center;
-}
-#mondo .mondo-wrap-outer {
-    background-image: url('../img/mondo2000x800.jpg');
-    /*background-image: url(http://zenointelligence.com/img/mondo2000x800.jpg);*/
-    background-repeat: no-repeat;
-    background-position: top center;
-}
-
-.mondo-fade {
-    /*background: #FFFFFF;*/
-}
-.mondo-fade .mondo-wrap-outer {
-    /*-moz-background-size: cover;*/
-    /*-webkit-background-size: cover;*/
-    position: relative;
-    background-size: cover;
-}
-
-.mondo-wrap-outer {
-    margin: 0 auto;
-}
-
-#mondo.mondo-tall .mondo-wrap-outer {
-    min-height: 2px;
-    background-position: center;
-}
-#mondo.mondo-tall .mondo-wrap-outer {
-    min-height: 979px;
-    background-size: cover;
-}
-/*INNER*/
-#mondo.mondo-tall .mondo-wrap-inner {
-    height: 200px;
-}
-
-#mondo.mondo-tall .mondo-wrap-inner {
-    height: 300px;
-    overflow: visible;
-}
-
-/********************************************************************************************************/
-
-/*#page-outer {*/
-    /*height: 100%;*/
-/*}*/
-
-/*.AppContent {*/
-    /*padding: 56px 14px 15px;*/
-    /*position: relative;*/
-/*}*/
-
-/*.front-page .front-container {*/
-    /*display: block;*/
-/*}*/
-/*.front-container {*/
-    /*bottom: 0;*/
-    /*display: none;*/
-    /*left: 0;*/
-    /*max-height: 750px;*/
-    /*min-height: 545px;*/
-    /*position: absolute;*/
-    /*right: 0;*/
-    /*top: 0;*/
-/*}*/
-/*.front-bg {*/
-    /*position: fixed;*/
-    /*width: 200%;*/
-    /*height: 200%;*/
-    /*left: -50%;*/
-    /*background: #000;*/
-/*}*/
-/*.front-image {*/
-    /*background-image: url('../img/mondo2000x800.jpg');*/
-    /*display: block;*/
-/*}*/

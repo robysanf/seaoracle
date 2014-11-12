@@ -380,7 +380,7 @@ export default Ember.ObjectController.extend({
         return Ember.A([])
     }.property(),
 
-
+    firstVoyage_record: null,
     //toggles: function(){ return Ember.A([]) }.property(),
     myToggles: function(){ return Ember.A([]) }.property(),
 

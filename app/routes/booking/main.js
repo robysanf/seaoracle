@@ -328,12 +328,34 @@ export default Ember.Route.extend({
                 case 'booking.modals.new-bill-of-lading':
                     controller.set("booking_record", booking);
 
-                    this.render(path, {
-                        into: 'application',
-                        outlet: 'overview',
-                        view: 'modal-manager'
-                    });
+                    if( !booking.get('noFreightPlan') ) {
+                        booking.get('freightPlans').then(function(freightPlans){
+                            freightPlans.forEach(function( freightPlan, index ){
+                                if( index === 0 ){
+                                   freightPlan.get('orderedVoyages').then(function(voyages){
+                                       var first_voy = voyages.get('firstObject').get('id');
+                                       controller.set( "firstVoyage_record", first_voy );
+
+                                       self.render(path, {
+                                           into: 'application',
+                                           outlet: 'overview',
+                                           view: 'modal-manager'
+                                       });
+
+                                   });
+                                }
+                            });
+                        });
+                    } else {
+                        self.render(path, {
+                            into: 'application',
+                            outlet: 'overview',
+                            view: 'modal-manager'
+                        });
+                    }
                     break;
+
+
                 case 'booking.modals.remove-booking':
                     controller.set("booking_record", booking);
 

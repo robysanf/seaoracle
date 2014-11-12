@@ -75,8 +75,10 @@ export default Ember.View.extend({
         send_BL: function() {
             var view = this, data = view.getProperties();
 
+
             data.val = view.controller.codeBL;
             data.type = 'docBL';
+            data.voyage = view.controller.firstVoyage_record;
             $.post('api/custom/checkDocumentCode?token=' + view.get('controller.controllers.application').token, data).then(function(response){
                 if (response.success) {
                     view.controller.send('generate_BL');

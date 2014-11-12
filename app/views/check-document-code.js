@@ -4,7 +4,7 @@ export default Ember.View.extend({
     type:[],
     val:[],
     val1:[],
-
+    token: [],
     focusOut: function() {
         var self = this, data = self.getProperties(), controller = this.get('controller');
 
@@ -12,7 +12,7 @@ export default Ember.View.extend({
 
             data.val = this.val;
             data.type = this.type;
-            $.post('api/custom/checkDocumentCode?token=' + controller.app_controller_token, data).then(function(response){
+            $.post('api/custom/checkDocumentCode?token=' + this.token, data).then(function(response){
                 if (response.success) {
 
                 } else {

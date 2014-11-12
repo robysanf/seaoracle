@@ -332,7 +332,7 @@ export default Ember.ObjectController.extend({
         {'no_freight_plan': false}
     ),
 
-    weeksOut: null,
+    weeksOut: 3,
     listWeeksOut: [
         1,
         2,

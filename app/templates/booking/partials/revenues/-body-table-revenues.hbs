@@ -56,10 +56,13 @@
         {{/if}}
     {{/if}}
     <td>
+    {{#if canEdit}}
         {{#unless isLockedOrRegistered}}
             {{#unless controller.is_shipowner}}
-            <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
+                <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
             {{/unless}}
         {{/unless}}
+    {{/if}}
+
     </td>
 </tr>

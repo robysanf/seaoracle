@@ -5,51 +5,53 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
 
 -->
 
-{{#if controller.is_admin}}
-    <h5 class="page-header"></h5>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState" "lock" this}}>
-                Unregister
-            </button>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "open_modal" 'booking.modals.remove-booking' this}}>
-                <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
-            </button>
-        </div>
-    </div>
-    {{#unless isDocBL}}
+{{#if canEdit}}
+    {{#if controller.is_admin}}
         <h5 class="page-header"></h5>
         <div class="row">
             <div class="col-lg-12">
-                <button class="btn btn-primary btn-small btn-group-justified pull-right" {{action "open_modal" 'booking.modals.new-bill-of-lading' this}}>Bill of Lading</button>
+                <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState" "lock" this}}>
+                    Unregister
+                </button>
             </div>
         </div>
-    {{/unless}}
-{{/if}}
-
-<!-- SHIPOWNER -->
-{{#if controller.is_shipowner}}
-    <h5 class="page-header"></h5>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState" "lock" this}}>
-                <p>Unregister</p>
-            </button>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{action "open_modal" 'booking.modals.remove-booking' this}}>
+                    <span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete
+                </button>
+            </div>
         </div>
-    </div>
-    {{!{{#if app_controller.user_record.booking_remove}}
-    <!--<br>-->
-    <!--<div class="row">-->
+        {{#unless isDocBL}}
+            <h5 class="page-header"></h5>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn btn-primary btn-small btn-group-justified pull-right" {{action "open_modal" 'booking.modals.new-bill-of-lading' this}}>Bill of Lading</button>
+                </div>
+            </div>
+        {{/unless}}
+    {{/if}}
+
+    <!-- SHIPOWNER -->
+    {{#if controller.is_shipowner}}
+        <h5 class="page-header"></h5>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState" "lock" this}}>
+                    <p>Unregister</p>
+                </button>
+            </div>
+        </div>
+        {{!{{#if app_controller.user_record.booking_remove}}
+        <!--<br>-->
+        <!--<div class="row">-->
         <!--<div class="col-lg-12">-->
-            <!--<button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{!{{action "open_modal" 'booking.modals.remove-booking' this}}>-->
-                <!--<span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete-->
-            <!--</button>-->
+        <!--<button type="button" style="text-align: left" class="btn btn-danger btn-group-justified" {{!{{action "open_modal" 'booking.modals.remove-booking' this}}>-->
+        <!--<span class="glyphicon glyphlink glyphicon-remove"  style="color: aliceblue"></span> Delete-->
+        <!--</button>-->
         <!--</div>-->
-    <!--</div>-->
-{{!{{/if}}
+        <!--</div>-->
+    {{!{{/if}}
+    {{/if}}
 {{/if}}

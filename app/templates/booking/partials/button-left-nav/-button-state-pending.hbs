@@ -4,38 +4,40 @@ NOTA BENE:
         se l'agenzia dovesse prendere il booking in carico passando allo stato di edit il client non potrebbe più modificarlo.
         per la rimozione dovrebbe rivolgersi direttamente all'agenzia
 -->
-{{#if controller.is_admin}}
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState_and_share" this "request" agency 'pending'}}>  <!-- argomenti della funzione: booking id, stateTo, companyToShare, stateFrom-->
-                Back to Req.
-            </button>
+{{#if canEdit}}
+    {{#if controller.is_admin}}
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState_and_share" this "request" agency 'pending'}}>  <!-- argomenti della funzione: booking id, stateTo, companyToShare, stateFrom-->
+                    Back to Req.
+                </button>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState" "edit" this}}>
-                <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Edit
-            </button>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState" "edit" this}}>
+                    <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Edit
+                </button>
+            </div>
         </div>
-    </div>
-{{/if}}
-{{#if controller.is_client}}
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState_and_share" this "request" agency 'pending'}}>
-                Back to Req.
-            </button>
+    {{/if}}
+    {{#if controller.is_client}}
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-info btn-group-justified" {{action "changeState_and_share" this "request" agency 'pending'}}>
+                    Back to Req.
+                </button>
+            </div>
         </div>
-    </div>
-{{/if}}
-{{#if controller.is_agency}}
-    <div class="row">
-        <div class="col-lg-12">
-            <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState" "edit" this}}>
-                <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Edit
-            </button>
+    {{/if}}
+    {{#if controller.is_agency}}
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState" "edit" this}}>
+                    <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Edit
+                </button>
+            </div>
         </div>
-    </div>
+    {{/if}}
 {{/if}}

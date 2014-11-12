@@ -1,10 +1,12 @@
-{{#if controller.is_shipowner}}
-    {{#if isEditOrLock}}
-        {{partial 'booking/partials/revenues/-add-charge'}}
-    {{/if}}
-{{else}}
-    {{#if isEditing}}
-        {{partial 'booking/partials/revenues/-add-charge'}}
+{{#if canEdit}}
+    {{#if controller.is_shipowner}}
+        {{#if isEditOrLock}}
+            {{partial 'booking/partials/revenues/-add-charge'}}
+        {{/if}}
+    {{else}}
+        {{#if isEditing}}
+            {{partial 'booking/partials/revenues/-add-charge'}}
+        {{/if}}
     {{/if}}
 {{/if}}
 
@@ -37,51 +39,54 @@
     <div class="row">
         <h5 class="page-header"></h5>
         <div class="col-lg-12">
-            {{#if controller.is_shipowner}}
-                {{#if controller.revenuesTabList.bookingCharges}}
-                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'cost'}}>
-                        Confirm
-                    </button>
-                {{/if}}
-                {{#if controller.revenuesTabList.containerCharges}}
-                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'cost'}}>
-                        Confirm
-                    </button>
-                {{/if}}
-                {{#if controller.revenuesTabList.roroCharges}}
-                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'cost'}}>
-                        Confirm
-                    </button>
-                {{/if}}
-                {{#if controller.revenuesTabList.bbCharges}}
-                    <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'general' this 'bb' 'booking' 'cost'}}>
-                        Confirm
-                    </button>
-                {{/if}}
-            {{else}}
-                {{#if controller.is_agency}}
+            {{#if canEdit}}
+                {{#if controller.is_shipowner}}
                     {{#if controller.revenuesTabList.bookingCharges}}
-                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'revenue'}}>
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'cost'}}>
                             Confirm
                         </button>
                     {{/if}}
                     {{#if controller.revenuesTabList.containerCharges}}
-                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'revenue'}}>
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'cost'}}>
                             Confirm
                         </button>
                     {{/if}}
                     {{#if controller.revenuesTabList.roroCharges}}
-                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'revenue'}}>
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'cost'}}>
                             Confirm
                         </button>
                     {{/if}}
                     {{#if controller.revenuesTabList.bbCharges}}
-                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'general' this 'bb' 'booking' 'revenue'}}>
+                        <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'general' this 'bb' 'booking' 'cost'}}>
                             Confirm
                         </button>
                     {{/if}}
+                {{else}}
+                    {{#if controller.is_agency}}
+                        {{#if controller.revenuesTabList.bookingCharges}}
+                            <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'containerCharges' this 'none' 'booking' 'revenue'}}>
+                                Confirm
+                            </button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.containerCharges}}
+                            <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'roroCharges' this 'container' 'booking' 'revenue'}}>
+                                Confirm
+                            </button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.roroCharges}}
+                            <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'bbCharges' this 'roro' 'booking' 'revenue'}}>
+                                Confirm
+                            </button>
+                        {{/if}}
+                        {{#if controller.revenuesTabList.bbCharges}}
+                            <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_Charges' 'general' this 'bb' 'booking' 'revenue'}}>
+                                Confirm
+                            </button>
+                        {{/if}}
+                    {{/if}}
                 {{/if}}
             {{/if}}
+
         </div>
     </div>
 {{/unless}}

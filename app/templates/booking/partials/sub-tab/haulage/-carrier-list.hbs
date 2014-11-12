@@ -44,22 +44,31 @@
                     <td rowspan="4" style="border-left: 1px solid lightgray; border-bottom: 2px solid lightgray;">
                         {{#if controller.is_client}}
                             {{#if isRequest}}
+                                {{#if canEdit}}
                                 <a href=# {{action "carrierManager" "edit" "addCarrier" true haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-pencil"></span></a>
+                            {{/if}}
                             {{/if}}
                         {{else}}
                             {{#if isEditing}}
+                                {{#if canEdit}}
                                 <a href=# {{action "carrierManager" "edit" "addCarrier" true haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-pencil"></span></a>
+                            {{/if}}
                             {{/if}}
                         {{/if}}
                     </td>
                     <td rowspan="4" style="border-bottom: 2px solid lightgray;">
                         {{#if controller.is_client}}
                             {{#if isRequest}}
+                                {{#if canEdit}}
                                 <a href=# {{action "carrierManager" "remove" null null haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-remove"></span></a>
                             {{/if}}
+                            {{/if}}
                         {{else}}
+
                             {{#if isEditing}}
+                                {{#if canEdit}}
                                 <a href=# {{action "carrierManager" "remove" null null haulage.id haulage}}><span class="glyphicon glyphlink glyphicon-remove"></span></a>
+                            {{/if}}
                             {{/if}}
                         {{/if}}
                     </td>
@@ -76,14 +85,18 @@
                 <tr style="border-bottom: 2px solid lightgray;">
                     <td colspan="8"><label>Files:</label>
                         {{#each file in haulage.files}}
-                            <a href="#" {{action "download_file" file.id}}>{{file.name}}</a>
+                            {{#if canEdit}}
+                                <a href="#" {{action "download_file" file.id}}>{{file.name}}</a>
+                            {{/if}}
                         {{/each}}
                     </td>
                     <td style="border-left: 1px solid lightgray; border-bottom: 2px solid lightgray;">
                         {{#if controller.is_client}}
                         {{else}}
                             {{#unless isRegister}}
-                                <a href=# {{action "haulagePickUpRequest" item.id haulage}}><span class="glyphicon glyphlink glyphicon-list"></span></a>
+                                {{#if canEdit}}
+                                    <a href=# {{action "haulagePickUpRequest" item.id haulage}}><span class="glyphicon glyphlink glyphicon-list"></span></a>
+                                {{/if}}
                             {{/unless}}
                         {{/if}}
                     </td>
@@ -91,7 +104,9 @@
                         {{#if controller.is_client}}
                         {{else}}
                             {{#unless isRegister}}
-                                <a href=# {{action 'send_email' this 'pick-up-request' app_controller.userId 'booking/modals/send-mail' haulage}}{{!{{action "send_haulagePickUpRequestEmail" haulage}}><span class="glyphicon glyphlink glyphicon-send"></span></a>
+                                {{#if canEdit}}
+                                    <a href=# {{action 'send_email' this 'pick-up-request' app_controller.userId 'booking/modals/send-mail' haulage}}><span class="glyphicon glyphlink glyphicon-send"></span></a>
+                                {{/if}}
                             {{/unless}}
                         {{/if}}
                     </td>

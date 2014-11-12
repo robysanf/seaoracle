@@ -91,18 +91,21 @@
 </div>
 
 {{#if controller.searchResults}}
-    <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10">
-            <h5 class="page-header"></h5>
-            {{#view 'standby-button' action_name='save_freightPlan' arg1=id arg2=origin.name arg3=destination.name data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
-                <span class="ladda-label">Confirm</span>
-            {{/view}}
-            <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save_freightPlan" this this.origin.name this.destination.name}}>-->
+    {{#if canEdit}}
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <h5 class="page-header"></h5>
+                {{#view 'standby-button' action_name='save_freightPlan' arg1=id arg2=origin.name arg3=destination.name data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                    <span class="ladda-label">Confirm</span>
+                {{/view}}
+                <!--<button type="submit" class="btn btn-primary btn-130 pull-right" {{!{{action "save_freightPlan" this this.origin.name this.destination.name}}>-->
                 <!--<span class="glyphicon glyphicon-ok"></span> Confirm-->
-            <!--</button>-->
+                <!--</button>-->
+            </div>
+            <div class="col-lg-1"></div>
         </div>
-        <div class="col-lg-1"></div>
-    </div>
+    {{/if}}
+
 {{/if}}
 

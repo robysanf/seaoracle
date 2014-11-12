@@ -32,11 +32,11 @@
                             <th>Consignee</th>
                             <th>Status</th>
                             <th>Acknowledge</th>
-                            {{#if app_controller.user_record.booking_edit}}
-                                <th>Go to</th>
-                            {{else}}
-                                <th></th>
-                            {{/if}}
+                            {{!{{#if app_controller.user_record.booking_edit}}
+                            <th>Go to</th>
+                            {{!{{else}}
+                            <!--<th></th>-->
+                            {{!{{/if}}
                             {{#if app_controller.user_record.booking_remove}}
                                 <th>Remove</th>
                             {{else}}
@@ -67,9 +67,9 @@
                                 <td>{{booking.consignee.name}}</td>
                                 <td>{{booking.state}}</td>
                                 <td>{{booking.acknowledge}}</td>
-                                {{#if booking.canEdit}}
+                            {{!{{#if booking.canEdit}}
                                     <td><a href="#"><span class="glyphicon glyphicon-share" {{action 'link_to' 'booking/main' booking}}></span></a></td>
-                                {{/if}}
+                                {{!{{/if}}
                                 {{#if booking.canRemove}}
                                     {{#if controller.is_shipowner}}
                                         <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-record' booking}}></span></a></td>

@@ -81,10 +81,13 @@
             </div>
 
             {{#unless isLockedOrRegistered}}
-                <h5 class="page-header"></h5>
-                <button type="submit" class="btn btn-primary btn-small pull-right" {{action "change_freightPlans" freightPlan this}}>
-                    Change Freight Plan
-                </button>
+                {{#if canEdit}}
+                    <h5 class="page-header"></h5>
+                    <button type="submit" class="btn btn-primary btn-small pull-right" {{action "change_freightPlans" freightPlan this}}>
+                        Change Freight Plan
+                    </button>
+                {{/if}}
+
             {{/unless}}
         {{/each}}
     </div>

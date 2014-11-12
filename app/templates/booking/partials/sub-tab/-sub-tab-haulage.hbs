@@ -7,78 +7,82 @@
         <!-- **********************************************************************************
                 HEAD - SCELTA FRA MERCHANT OR CARRIER
         -->
+        {{#if canEdit}}
+            {{#if controller.is_client}}
+                {{#if isRequest}}
+                    {{#if controller.item_record.isHaulageC}}
+                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
+                                {{input type="radio" name="options"}} Merchant
+                            </label>
+                            <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
+                                {{input type="radio" name="options"}} Carrier
+                            </label>
+                        </div>
+                    {{else}}
+                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
+                                {{input type="radio" name="options"}} Merchant
+                            </label>
+                            <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
+                                {{input type="radio" name="options"}} Carrier
+                            </label>
+                        </div>
+                    {{/if}}
+                {{else}}
+                    {{#if controller.item_record.isHaulageC}}
+                        <label class="form-control"  style="text-align: center">Carrier</label>
+                    {{else}}
+                        <label class="form-control" style="text-align: center">Merchant</label>
+                    {{/if}}
+                {{/if}}
+            {{else}}
+                {{#if isEditing}}
+                    {{#if controller.item_record.isHaulageC}}
+                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
+                                {{input type="radio" name="options"}} Merchant
+                            </label>
+                            <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
+                                {{input type="radio" name="options"}} Carrier
+                            </label>
+                        </div>
+                    {{else}}
+                        <div class="btn-group  btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
+                                {{input type="radio" name="options"}} Merchant
+                            </label>
+                            <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
+                                {{input type="radio" name="options"}} Carrier
+                            </label>
+                        </div>
+                    {{/if}}
+                {{else}}
+                    {{#if controller.item_record.isHaulageC}}
+                        <label class="form-control"  style="text-align: center">Carrier</label>
+                    {{else}}
+                        <label class="form-control" style="text-align: center">Merchant</label>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        {{/if}}
 
-    {{#if controller.is_client}}
-        {{#if isRequest}}
-            {{#if controller.item_record.isHaulageC}}
-                <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
-                        {{input type="radio" name="options"}} Merchant
-                    </label>
-                    <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
-                        {{input type="radio" name="options"}} Carrier
-                    </label>
-                </div>
-            {{else}}
-                <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
-                        {{input type="radio" name="options"}} Merchant
-                    </label>
-                    <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
-                        {{input type="radio" name="options"}} Carrier
-                    </label>
-                </div>
-            {{/if}}
-        {{else}}
-            {{#if controller.item_record.isHaulageC}}
-                <label class="form-control"  style="text-align: center">Carrier</label>
-            {{else}}
-                <label class="form-control" style="text-align: center">Merchant</label>
-            {{/if}}
-        {{/if}}
-    {{else}}
-        {{#if isEditing}}
-            {{#if controller.item_record.isHaulageC}}
-                <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-default" {{action "haulageType" "Merchant"}}>
-                        {{input type="radio" name="options"}} Merchant
-                    </label>
-                    <label class="btn btn-default active" {{action "haulageType" "Carrier"}}>
-                        {{input type="radio" name="options"}} Carrier
-                    </label>
-                </div>
-            {{else}}
-                <div class="btn-group  btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-default active" {{action "haulageType" "Merchant"}}>
-                        {{input type="radio" name="options"}} Merchant
-                    </label>
-                    <label class="btn btn-default" {{action "haulageType" "Carrier"}}>
-                        {{input type="radio" name="options"}} Carrier
-                    </label>
-                </div>
-            {{/if}}
-        {{else}}
-            {{#if controller.item_record.isHaulageC}}
-                <label class="form-control"  style="text-align: center">Carrier</label>
-            {{else}}
-                <label class="form-control" style="text-align: center">Merchant</label>
-            {{/if}}
-        {{/if}}
-    {{/if}}
     </div>
 
     <div class="col-lg-1">
-        {{#if controller.is_client}}
-            {{#if isRequest}}
-                <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            {{/if}}
-        {{else}}
-            {{#if isEditing}}
-                <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
+        {{#if canEdit}}
+            {{#if controller.is_client}}
+                {{#if isRequest}}
+                    <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                {{/if}}
+            {{else}}
+                {{#if isEditing}}
+                    <button type="button" class="btn btn-primary btn-small pull-right" {{action "carrierManager" "new" "addCarrier" true null null}}>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                {{/if}}
             {{/if}}
         {{/if}}
     </div>
@@ -91,7 +95,6 @@
                BODY
        -->
         {{#if controller.addCarrier}}
-
             <!-- ***** NEW CARRIER ***** -->
             {{partial 'booking/partials/sub-tab/haulage/-carrier-new'}}
         {{else}}

@@ -39,20 +39,22 @@
                                 <td >{{item.classification}}</td>
                                 {{#if item.freightEquipments}}
                                     {{#each freightEquipment in item.freightEquipments}}
-                                        <td>
+                                        <td> {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_removeState" freightEquipment item}}>
                                                     <span class="glyphicon glyphicon-chevron-left pull-right"></span>
                                                 </a>
                                             {{/unless}}
+                                        {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
-                                        <td>
+                                        <td> {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_changeState" freightEquipment item}}>
                                                     <span class="glyphicon glyphicon-chevron-right pull-left"></span>
                                                 </a>
                                             {{/unless}}
+                                        {{/if}}
                                         </td>
                                     {{/each}}
                                 {{else}}
@@ -86,16 +88,18 @@
                                 <td >{{item.classification}}</td>
                                 {{#if item.freightEquipments}}
                                     {{#each freightEquipment in item.freightEquipments}}
-                                        <td>
+                                        <td>   {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
                                             {{/unless}}
+                                        {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
-                                        <td>
+                                        <td>  {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>
                                             {{/unless}}
+                                        {{/if}}
                                         </td>
                                     {{/each}}
                                 {{else}}
@@ -129,16 +133,16 @@
                                 <td >{{item.classification}}</td>
                                 {{#if item.freightEquipments}}
                                     {{#each freightEquipment in item.freightEquipments}}
-                                        <td>
+                                        <td> {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
-                                            {{/unless}}
+                                            {{/unless}}  {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
-                                        <td>
+                                        <td> {{#if canEdit}}
                                             {{#unless isRegister}}
                                                 <a href="#" {{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>
-                                            {{/unless}}
+                                            {{/unless}}    {{/if}}
                                         </td>
                                     {{/each}}
                                 {{else}}
@@ -155,14 +159,17 @@
                     </tbody>
                 </table>
                 {{#unless isRegister}}
-                    <div class="row">
-                        <h5 class="page-header"></h5>
-                        <div class="col-lg-12">
-                            <button type="button" style="text-align: left" class="btn btn-primary pull-right" {{action 'updateAll' this}}>
-                                <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Update customs
-                            </button>
+                    {{#if canEdit}}
+                        <div class="row">
+                            <h5 class="page-header"></h5>
+                            <div class="col-lg-12">
+                                <button type="button" style="text-align: left" class="btn btn-primary pull-right" {{action 'updateAll' this}}>
+                                    <span class="glyphicon glyphlink glyphicon-ok"  style="color: aliceblue"></span>Update customs
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    {{/if}}
+
                 {{/unless}}
             </div>
         </div>

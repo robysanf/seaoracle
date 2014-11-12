@@ -23,5 +23,5 @@
             <td></td>
         {{/if}}
     {{/if}}
-    <td>{{#unless isRegister}}<a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>{{/unless}}</td>
+    <td>{{#if canEdit}}{{#unless isRegister}}<a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>{{/unless}} {{/if}}</td>
 </tr>

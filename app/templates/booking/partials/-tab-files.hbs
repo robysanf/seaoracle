@@ -2,32 +2,34 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-11">
     {{#unless isRegister}}
-    <div class="row" style="margin-top: 25px; margin-bottom: 25px">
-        <div class="col-lg-10">
-            <div class= "well well-lg" style="background-color: #FAFDFD">
-                <div class="row">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-10">
-                    {{#view 'upload-file' value1='booking'}}
-                        <div class="input-group">
+        {{#if canEdit}}
+            <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+                <div class="col-lg-10">
+                    <div class= "well well-lg" style="background-color: #FAFDFD">
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-10">
+                                {{#view 'upload-file' value1='booking'}}
+                                    <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-primary btn-file">
                                     Browse file&hellip; <input type="file" multiple>
                                 </span>
                             </span>
-                            {{input id="selected_file" type="text" placeholder="max. 10 MB" class='form-control'}}
-                            <span class="input-group-btn">
+                                        {{input id="selected_file" type="text" placeholder="max. 10 MB" class='form-control'}}
+                                        <span class="input-group-btn">
                             <button id='button_upload' {{bind-attr value=id}} type="button" data-loading-text="Loading..." class="btn btn-primary btn-130 pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Upload</button>
                             </span>
+                                    </div>
+                                {{/view}}
+                            </div>
+                            <div class="col-lg-1"></div>
                         </div>
-                    {{/view}}
                     </div>
-                    <div class="col-lg-1"></div>
                 </div>
+                <div class="col-lg-2"></div>
             </div>
-        </div>
-        <div class="col-lg-2"></div>
-    </div>
+        {{/if}}
     {{/unless}}
 
 
@@ -40,21 +42,27 @@
                 <br>
                 <!--  ******* HEAD ********  -->
                 <div class="col-lg-6">
-                    {{#unless isRegister}}
-                        <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default custom120 pull-right" {{action "generate_bookFolder" this}}>
-                            <span class="glyphicon glyphbutton glyphicon-folder-open"></span> Generate
-                        </button>
-                    {{/unless}}
+                    {{#if canEdit}}
+                        {{#unless isRegister}}
+                            <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default custom120 pull-right" {{action "generate_bookFolder" this}}>
+                                <span class="glyphicon glyphbutton glyphicon-folder-open"></span> Generate
+                            </button>
+                        {{/unless}}
+                    {{/if}}
+
                 </div>
 
                 <div class="col-lg-6">
-                    {{#unless isRegister}}
-                        {{#if isAccept}}
-                            <button type="button" class="btn btn-default custom120 pull-right" {{action "generate_confirmation" this}}>
-                                Confirmation
-                            </button>
-                        {{/if}}
-                    {{/unless}}
+                    {{#if canEdit}}
+                        {{#unless isRegister}}
+                            {{#if isAccept}}
+                                <button type="button" class="btn btn-default custom120 pull-right" {{action "generate_confirmation" this}}>
+                                    Confirmation
+                                </button>
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
+
                 </div>
             </div>
             <div class="col-lg-2"></div>
@@ -83,12 +91,12 @@
                             <td>{{file.type}}</td>
                             {{#if file.isConfirmation}}
                                 {{#unless isRegister}}
-                                    <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'confirmation' app_controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'confirmation'}}></span></a></td>
+                                    <td>{{#if canEdit}}<a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'confirmation' app_controller.userId 'booking/modals/send-mail'}}></span></a>{{/if}}</td>
                                 {{/unless}}
                             {{else}}
                                 {{#if file.isNote}}
                                     {{#unless isRegister}}
-                                        <td><a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'note' app_controller.userId 'booking/modals/send-mail'}}{{!{{action "send_bookingConfirmationEmail" this 'note'}}></span></a></td>
+                                        <td>{{#if canEdit}}<a href="#"><span class="glyphicon glyphicon-send"{{action 'send_email' this 'note' app_controller.userId 'booking/modals/send-mail'}}></span></a>{{/if}}</td>
                                     {{/unless}}
                                 {{else}}
                                     <td></td>
@@ -99,7 +107,7 @@
                             <!--<td><a href= 'api/files/{{!{{unbound file.id}}?token={{!{{unbound App.token}}&download=true'><span class="glyphicon glyphicon-download" ></span></a></td>-->
                             {{#if isRegister}}
                             {{else}}
-                                <td><a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' this file}}></span></a></td>
+                                <td> {{#if canEdit}}<a href="#"><span class="glyphicon glyphicon-remove"{{action "open_modal" 'booking.modals.remove-file' this file}}></span></a>{{/if}}</td>
                             {{/if}}
                         </tr>
                     {{/each}}

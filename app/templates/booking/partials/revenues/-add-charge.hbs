@@ -17,6 +17,7 @@
                 </div>
                 <div class="col-lg-3">
                     <br style="line-height:42px">
+
                     {{!{{#unless controller.is_shipowner}}
                         {{#if controller.revenuesTabList.bookingCharges}}
                             {{#view 'standby-button' action_name='add_ChargeItem' arg1=id arg2='none' arg3='booking' arg4=controller.is_shipowner data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
@@ -43,6 +44,8 @@
                             <!--<button type="submit" class="btn btn-primary custom130 pull-right" {{!{{action "add_ChargeItem" this 'bb' 'booking' controller.is_shipowner}}>Add charge</button>-->
                         {{/if}}
                     {{!{{/unless}}
+
+
                 </div>
             </div>
         </div>

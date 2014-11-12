@@ -11,39 +11,43 @@
 
         {{#if is_client}}
             {{#if isRequest}}
-                <div class="row">
-                    <h5 class="page-header"></h5>
-                    <div class="col-lg-12">
-                        {{#if isReqOrEdit}}
-                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this true}}>
-                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                            </button>
-                        {{else}}
-                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this false}}>
-                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                            </button>
-                        {{/if}}
+                {{#if canEdit}}
+                    <div class="row">
+                        <h5 class="page-header"></h5>
+                        <div class="col-lg-12">
+                            {{#if isReqOrEdit}}
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this true}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
+                            {{else}}
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this false}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
+                            {{/if}}
+                        </div>
                     </div>
-                </div>
+                {{/if}}
+
             {{/if}}
         {{else}}
-            {{#if isRegistOrPend}}
-            {{else}}
-                <div class="row">
-                    <h5 class="page-header"></h5>
-                    <div class="col-lg-12">
-                        {{#if isReqOrEdit}}
-                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this true}}>
-                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                            </button>
-                        {{else}}
-                            <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this false}}>
-                                <span class="glyphicon glyphicon-ok"></span> Confirm
-                            </button>
-                        {{/if}}
+            {{#unless isRegistOrPend}}
+                {{#if canEdit}}
+                    <div class="row">
+                        <h5 class="page-header"></h5>
+                        <div class="col-lg-12">
+                            {{#if isReqOrEdit}}
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this true}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
+                            {{else}}
+                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "update_details" this false}}>
+                                    <span class="glyphicon glyphicon-ok"></span> Confirm
+                                </button>
+                            {{/if}}
+                        </div>
                     </div>
-                </div>
-            {{/if}}
+                {{/if}}
+            {{/unless}}
         {{/if}}
     </div>
 </div>

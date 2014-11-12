@@ -55,34 +55,36 @@
             {{#if controller.subTabLists.files}}
                 {{partial "booking/partials/sub-tab/-sub-tab-files"}}
             {{/if}}
-
-            {{#unless controller.subTabLists.files}}
-                <div class="row">
-                    <div class="col-lg-12">
-                        {{#if is_client}}
-                            {{#if isRequest}}
-                                <h5 class="page-header"></h5>
-                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'Req'}}>
-                                    <span class="glyphicon glyphicon-ok"></span> Confirm
-                                </button>
+            {{#if canEdit}}
+                {{#unless controller.subTabLists.files}}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{#if is_client}}
+                                {{#if isRequest}}
+                                    <h5 class="page-header"></h5>
+                                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'Req'}}>
+                                        <span class="glyphicon glyphicon-ok"></span> Confirm
+                                    </button>
+                                {{/if}}
+                            {{else}}
+                                {{#if isReqOrEdit}}
+                                    <h5 class="page-header"></h5>
+                                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'E'}}>
+                                        <span class="glyphicon glyphicon-ok"></span> Confirm
+                                    </button>
+                                {{/if}}
+                                {{#if isLocked}}
+                                    <h5 class="page-header"></h5>
+                                    <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'L'}}>
+                                        <span class="glyphicon glyphicon-ok"></span> Confirm
+                                    </button>
+                                {{/if}}
                             {{/if}}
-                        {{else}}
-                            {{#if isReqOrEdit}}
-                                <h5 class="page-header"></h5>
-                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'E'}}>
-                                    <span class="glyphicon glyphicon-ok"></span> Confirm
-                                </button>
-                            {{/if}}
-                            {{#if isLocked}}
-                                <h5 class="page-header"></h5>
-                                <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "save_editItem" this 'L'}}>
-                                    <span class="glyphicon glyphicon-ok"></span> Confirm
-                                </button>
-                            {{/if}}
-                        {{/if}}
+                        </div>
                     </div>
-                </div>
-            {{/unless}}
+                {{/unless}}
+            {{/if}}
+
         </div>
     </div>
 </div>

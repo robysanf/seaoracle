@@ -1,17 +1,13 @@
-<div id="mondo" class="mondo-tall mondo-fade">
-    <div class="mondo-wrap-outer" >
-        <div class="mondo-wrap-inner">
-            <div class="container">
-                <div class="row" style="margin-top: 40px">
-                    <div class="col-lg-12">
-                        {{#if controller.newLog}}
-                            {{partial "login/partials/-new"}}
-                        {{else}}
-                            {{partial "login/partials/-submit"}}
-
-
-                        {{/if}}
-                    </div>
+<div id="lay-outer"></div>
+<div class="lay-wrap">
+    {{#if controller.newLog}}
+        <div class="well well-lg" id="lay-new-inner">
+            <div class="well well-lg" id="lay-title">
+                <strong style="color: #f5f5f5; font-size: 27px;">Sea Oracle</strong>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col-lg-12">
+                    {{partial "login/partials/-new"}}
                 </div>
             </div>
         </div>

@@ -341,6 +341,16 @@ export default Ember.Route.extend({
                                 self.controllerFor('document.main').set('isView', false);
 
                                 self.transitionTo('document/main', val);
+                            }, function(response){
+                                $btn.button('reset');
+                                var num = response.responseText.indexOf(":");
+                                var string = response.responseText.slice(num+1);
+                                var error = JSON.parse(string);
+                                new PNotify({
+                                    title: 'Error',
+                                    text: error.error,
+                                    type: 'error'
+                                });
                             });
                         });
 

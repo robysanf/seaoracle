@@ -83,15 +83,15 @@
                                     </div>
                                 </div>
                                 <h3 class="page-header"></h3>
-                                {{#if is_agency_notHaveCreateBL}}
-                                    {{#unless parentDocument}}
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <button type="button" class="btn btn-default btn-group-justified" {{action 'create_DO' this}}>Create delivery order</button>
-                                            </div>
+                            {{/if}}
+                            {{#if is_agency_notHaveCreateBL}}
+                                {{#unless parentDocument}}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn btn-default btn-group-justified" {{action 'create_DO' this}}>Create delivery order</button>
                                         </div>
-                                    {{/unless}}
-                                {{/if}}
+                                    </div>
+                                {{/unless}}
                             {{/if}}
                         {{/if}}
                         {{#if isCM}}
@@ -112,12 +112,14 @@
                         </li>
                         {{#unless controller.is_client}}
                             {{#if isBL}}
-                                <li {{bind-attr class="controller.tabList.items:active"}}>
-                                    <a href="#" {{action setTabs "items"}}><h4>Items</h4></a>
-                                </li>
-                                <li {{bind-attr class="controller.tabList.details:active"}}>
-                                    <a href="#" {{action setTabs "details"}}><h4>Details</h4></a>
-                                </li>
+                                {{#if canEdit}}
+                                    <li {{bind-attr class="controller.tabList.items:active"}}>
+                                        <a href="#" {{action setTabs "items"}}><h4>Items</h4></a>
+                                    </li>
+                                    <li {{bind-attr class="controller.tabList.details:active"}}>
+                                        <a href="#" {{action setTabs "details"}}><h4>Details</h4></a>
+                                    </li>
+                                {{/if}}
                             {{/if}}
                         {{/unless}}
                         <li {{bind-attr class="controller.tabList.files:active"}}>

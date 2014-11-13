@@ -7,7 +7,8 @@
       "PNotify": true,
       "moment": true,
       "auto-complete": true,
-      "Stripe": true
+      "Stripe": true,
+      "JSON": true
 
   },
   "browser" : true,

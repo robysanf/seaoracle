@@ -98,11 +98,12 @@ export default Ember.Route.extend({
             });
         },
 
-        create_feature: function( record_company, value, referring_id ){
+        create_feature: function( value, referring_id ){
             var self = this, controller = self.controllerFor('link.main'), app_controller = self.controllerFor('application');
 
             var feature = self.store.createRecord('feature', {
-                company: record_company,
+                company: controller.company_record,
+                linkedCompany: controller.linked_company_record,
                 type: 'agent',
                 value: value
             });
@@ -112,8 +113,8 @@ export default Ember.Route.extend({
             }
 
             feature.save().then(function(){
-                controller.set('searchCompany', []);
-                record_company.reload();
+                controller.set('referringPort', null);
+                controller.linked_company_record.reload();
                 new PNotify({
                     title: 'Success',
                     text: 'The feature was create.',
@@ -134,17 +135,38 @@ export default Ember.Route.extend({
 
         //********************************************
         //MODAL
-        open_modal: function( path, item ) {
+        open_modal: function( path, record1, record2 ) {
             var self = this, controller = self.controllerFor('link.main');
 
-            if( item ){
-                controller.set("company_record", item);
-                this.render(path, {
-                    into: 'application',
-                    outlet: 'overview',
-                    view: 'modal-manager'
-                });
+            switch ( path ){
+                case 'link.modals.company-view':
+                    controller.set("company_record", record1);
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
+                case 'link.modals.add-feature':
+                    controller.set("linked_company_record", record1);
+                    controller.set("company_record", record2);
+
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break;
+                case 'link.modals.company-remove':
+                    controller.set("company_record", record1);
+                    this.render(path, {
+                        into: 'application',
+                        outlet: 'overview',
+                        view: 'modal-manager'
+                    });
+                    break
             }
+
 
         },
 

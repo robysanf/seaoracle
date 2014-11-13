@@ -3,9 +3,10 @@ import DS from 'ember-data';
 export default DS.Model.extend({
     canEdit: DS.attr('boolean'),
     canRemove: DS.attr('boolean'),
-    company: DS.belongsTo('company', {    //company a cui viene associata la feature
+    company: DS.belongsTo('company', {    //company proprietaria
         inverse: 'features'
     }),
+    linkedCompany: DS.belongsTo('company'),
     value: DS.attr('string'),
     type: DS.attr('string'),
     linkedEntityType: DS.attr('string'),

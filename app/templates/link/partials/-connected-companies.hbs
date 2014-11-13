@@ -4,10 +4,9 @@
             <table class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th width="20%">Company</th>
-                    <th width="30%">Add feature</th>
-                    <th width="5%"></th>
-                    <th width="50%">Features list</th>
+                    <th width="35%">Company</th>
+                    <th width="55%">Features list</th>
+                    <th width="5%">Add feature</th>
                     {{!{{#if app_controller.user_record.company_remove}}
                     <th width="5%">Remove</th>
                     {{!{{/if}}
@@ -17,16 +16,12 @@
                 {{#each link in links}}
                     <tr>
                         <td><a href="#" {{action "open_modal" 'link.modals.company-view' link}}>{{link.name}}</a></td>
-                        <td>
-                            <a id="autocomplete-referringPort">
-                                {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" size=20 minChars=0}}
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" type="button" {{action 'create_feature' link referringPort.name referringPort.id}}>
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </td>
+                        <!--<td>-->
+                            <!--<a id="autocomplete-referringPort">-->
+                                <!--{{!{{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" size=20 minChars=0}}-->
+                            <!--</a>-->
+                        <!--</td>-->
+
                         <td>
                         {{#each feature in link.features}}
                             <span style="display:block; float:left; margin:5px 0 0 2px;">
@@ -40,12 +35,8 @@
                             </span>
                         {{/each}}
                         </td>
-                        <!--<td><a href="#" {{!{{action "getId" 'company/main' link}}><span class="glyphicon glyphicon-share-alt" ></span></a></td>-->
-                        {{!{{#if link.canRemove}}
-                            <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'link.modals.company-remove' link}}></span></a></td>
-                        {{!{{else}}
-                            <!--<td></td>-->
-                        {{!{{/if}}
+                        <td><a href="#"><span class="glyphicon glyphicon-plus" {{action "open_modal" 'link.modals.add-feature' link this}}></span></a></td>
+                        <td><a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'link.modals.company-remove' link}}></span></a></td>
                     </tr>
                 {{/each}}
                 </tbody>

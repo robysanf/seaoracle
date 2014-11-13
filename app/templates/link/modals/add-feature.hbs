@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <button type="button" class="close" {{action close 'overview' 'application' target="view"}}>&times;</button>
+    <h3>Add feature</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <label>Port</label>
+            <a id="autocomplete-referringPort">
+                {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" size=20 minChars=0}}
+            </a>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" {{action close 'overview' 'application' target="view"}}>Close</a>
+    <a href="#" class="btn btn-primary" {{action create_feature referringPort.name referringPort.id target="view"}}>Add</a>
+</div>

@@ -12,6 +12,7 @@ export default Ember.ObjectController.extend({
 
     searchCompany: null,
     company_record: null,
+    linked_company_record: null,
     isView: true,
     poiRecord: null,
     depotRecord: null,
@@ -28,6 +29,7 @@ export default Ember.ObjectController.extend({
     show_newForm: true,
     mode_addFeature: true,
     linkedCompanies_List: Ember.A(),
-    referringPort: Ember.A(),
+    referringPort: null,
     group_to_set: null
+
 });

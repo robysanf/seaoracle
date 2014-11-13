@@ -31,6 +31,16 @@ export default Ember.View.extend({
             this.$('.modal').removeClass('in');
         },
 
+        create_feature: function( portName, portId ){
+            var view = this;
+            this.controller.send('create_feature', portName, portId);
+
+            this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                view.controller.send('close_item');
+            });
+
+            this.$('.modal').removeClass('in');
+        },
 
         remove_booking: function(){
             var view = this;

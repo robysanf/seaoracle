@@ -95,7 +95,7 @@ export default Ember.Route.extend({
                 searchPath = "destination"; queryExpression[searchPath] = controller.searchPortDestination.get("id");
             }
 
-            if(controller.searchVoy !== "" && controller.searchVoy !== null){
+            if(controller.searchVoy !== "" && controller.searchVoy !== null && controller.searchVoy !== " " && controller.searchVoy !== undefined){
                 array_voyage.push(controller.searchVoy.get("id"));
                 searchPath = "freightPlans"; queryExpression[searchPath] = '{"freightPlan/voyages":' + array_voyage +'}';
             }

@@ -43,33 +43,60 @@ export default Ember.View.extend({
             this.$('.modal').removeClass('in');
         },
 
-        send_authorizeResource: function() {
+        send_authorizeResource: function( ) {
             var view = this;
-            view.controller.send('send_authorizeResource');
+            if(view.controller.searchCompanyToShare !== null ){
+                view.controller.send('send_authorizeResource');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function() {
-                view.controller.send('close_item');
-            });
-            this.$('.modal').removeClass('in');
+                this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                    view.controller.send('close_item');
+                });
+                this.$('.modal').removeClass('in');
+            } else {
+                new PNotify({
+                    title: 'Attention',
+                    text: 'You have not define a company to share.',
+                    type: 'info'
+                });
+            }
+
         },
         send_unshareResource: function() {
             var view = this;
-            view.controller.send('send_unshareResource');
+            if(view.controller.searchCompanyToShare !== null ){
+                view.controller.send('send_unshareResource');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function() {
-                view.controller.send('close_item');
-            });
-            this.$('.modal').removeClass('in');
+                this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                    view.controller.send('close_item');
+                });
+                this.$('.modal').removeClass('in');
+            } else {
+                new PNotify({
+                    title: 'Attention',
+                    text: 'You have not define a company to share.',
+                    type: 'info'
+                });
+            }
+
         },
 
-        send_shareResource: function() {
+        send_shareResource: function( ) {
             var view = this;
-            view.controller.send('send_shareResource');
+            if(view.controller.searchCompanyToShare !== null ){
+                view.controller.send('send_shareResource');
 
-            this.$('.modal, .modal-backdrop').one("transitionend", function() {
-                view.controller.send('close_item');
-            });
-            this.$('.modal').removeClass('in');
+                this.$('.modal, .modal-backdrop').one("transitionend", function() {
+                    view.controller.send('close_item');
+                });
+                this.$('.modal').removeClass('in');
+            } else {
+                new PNotify({
+                    title: 'Attention',
+                    text: 'You have not define a company to share.',
+                    type: 'info'
+                });
+            }
+
         },
 
         send_BL: function() {

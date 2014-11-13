@@ -300,6 +300,7 @@ export default Ember.Route.extend({
             switch ( path ){
                 case 'booking.modals.share-view':
                     controller.set("booking_record", booking);
+                    controller.set( 'searchCompanyToShare', null);
 
                     this.render(path, {
                         into: 'application',
@@ -309,6 +310,7 @@ export default Ember.Route.extend({
                     break;
                 case 'booking.modals.unshare':
                     controller.set("booking_record", booking);
+                    controller.set( 'searchCompanyToShare', null);
 
                     this.render(path, {
                         into: 'application',
@@ -318,6 +320,7 @@ export default Ember.Route.extend({
                     break;
                 case 'booking.modals.share':
                     controller.set("booking_record", booking);
+                    controller.set( 'searchCompanyToShare', null);
 
                     this.render(path, {
                         into: 'application',

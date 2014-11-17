@@ -29,7 +29,7 @@ export default Ember.Route.extend({
             });
         }
 
-        controller.set('is_loading', false);
+//        controller.set('is_loading', false);
         controller.set('before_search', true);
 
         //reset search variables

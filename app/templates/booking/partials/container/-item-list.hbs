@@ -62,7 +62,7 @@
                         <td>{{item.code}}</td>
                         <td>{{item.eWeight}}</td>
                         <td><a href="#" {{action "goToView" item }}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        <td><a href="#"  {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        <td><a href="#"  {{action "open_modal" 'booking.modals.remove-item' item.booking item}}><span class="glyphicon glyphicon-remove"></span></a></td>
                     </tr>
                 {{/if}}
             {{/each}}
@@ -88,7 +88,7 @@
                         <td>{{item.eWeight}}</td>
                         <td>{{item.weight}}</td>
                         <td><a href="#" {{action "goToView" item }}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' item.booking item}}><span class="glyphicon glyphicon-remove"></span></a></td>
                     </tr>
                 {{/if}}
             {{/each}}
@@ -126,15 +126,15 @@
                         <td>{{item.eWeight}}</td>
                         <td>{{item.weight}}</td>
                         {{#if item.loadedOn}}
-                            <td><button type="button" class="close" aria-hidden="true" {{action "remove_loadedOn" this item}}>&times;</button> </td>
+                            <td><button type="button" class="close" aria-hidden="true" {{action "remove_loadedOn" item.booking item}}>&times;</button> </td>
                             <td>{{item.referringItemLoadedOn.chassisNum}} </td>
                         {{else}}
                             <td> </td>
                             <td> </td>
                         {{/if}}
-                        <td><a href="#" {{action "open_modal" 'booking.modals.replica' this item}}{{!{{action "open_replica" item.tu 'modalReplica' item.id item.booking}}><span class="glyphicon glyphicon-registration-mark"></span></a></td>
+                        <td><a href="#" {{action "open_modal" 'booking.modals.replica' item.booking item}}{{!{{action "open_replica" item.tu 'modalReplica' item.id item.booking}}><span class="glyphicon glyphicon-registration-mark"></span></a></td>
                         <td><a href="#" {{action "goToView" item }}><span class="glyphicon glyphicon-list-alt"></span></a></td>
-                        <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' this item}}><span class="glyphicon glyphicon-remove"></span></a></td>
+                        <td><a href="#" {{action "open_modal" 'booking.modals.remove-item' item.booking item}}><span class="glyphicon glyphicon-remove"></span></a></td>
                     </tr>
                 {{/if}}
         {{/each}}

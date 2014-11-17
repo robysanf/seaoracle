@@ -25,7 +25,7 @@ export default DS.Model.extend({
     visibility: DS.attr('string'), //public, private, root
 
     hiddenCardNumber: function() {
-        if(this.get('cardNumber')) {
+        if( this.get('cardNumber') ) {
             return '*************' + this.get('cardNumber');
         }
     }.property('cardNumber')

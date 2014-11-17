@@ -62,63 +62,69 @@ export default Ember.Route.extend({
 
             this.store.find('user', app_controller.userId).then(function(user){
                 user.set('cardNumber', _this.controller.cardNumber4);
-                user.save();
-                user.reload();
-            });
+//                    .save().then(function( user_saved ){
 
-            Stripe.card.createToken(data, stripeResponseHandler);
+                    Stripe.card.createToken(data, stripeResponseHandler);
 
-            function stripeResponseHandler(status, response) {
-                _this.controller.set('cardNumber', null);
-                _this.controller.set('cvc', null);
-                _this.controller.set('mm', null);
-                _this.controller.set('yyyy', null);
-                _this.controller.set('cardNumber1', null);
-                _this.controller.set('cardNumber2', null);
-                _this.controller.set('cardNumber3', null);
-                _this.controller.set('cardNumber4', null);
+                    function stripeResponseHandler(status, response) {
+//                        _this.controller.set('cardNumber', null);
+                        _this.controller.set('cvc', null);
+                        _this.controller.set('mm', null);
+                        _this.controller.set('yyyy', null);
+                        _this.controller.set('cardNumber1', null);
+                        _this.controller.set('cardNumber2', null);
+                        _this.controller.set('cardNumber3', null);
+                        _this.controller.set('cardNumber4', null);
 
-                if (response.error) {
-                    // Show the errors on the form
-                    new PNotify({
-                        title: 'Error',
-                        text: response.error.message,
-                        type: 'warning',
-                        delay: 2000
-                    });
-                } else {
-                    // response contains id and card, which contains additional card details
-                    customerData.token = response.id;
-                    customerData.user_id = app_controller.userId;
-                      //https://test.zenointelligence.com/seaforward/
-                    $.post('api/custom/customerCard?token=' + app_controller.token, customerData).then(function(response){
-                        if (response.success) {
+                        if (response.error) {
+                            // Show the errors on the form
                             new PNotify({
-                                title: 'Well done',
-                                text: 'You successfully save payment details',
-                                type: 'success',
+                                title: 'Error',
+                                text: response.error.message,
+                                type: 'warning',
                                 delay: 2000
                             });
+                        } else {
+                            // response contains id and card, which contains additional card details
+                            customerData.token = response.id;
+                            customerData.user_id = app_controller.userId;
+                            //https://test.zenointelligence.com/seaforward/
+                            $.post('api/custom/customerCard?token=' + app_controller.token, customerData).then(function(response){
+                                if (response.success) {
+                                    new PNotify({
+                                        title: 'Well done',
+                                        text: 'You successfully save payment details',
+                                        type: 'success',
+                                        delay: 2000
+                                    });
 
-                            _this.controller.set('curr_pwd', null);
-                            _this.controller.set('new_pwd', null);
-                            _this.controller.set('confirm_pwd', null);
-                            //_this.set('successMessage', 'Well done: You successfully changed password.');
+                                    user.save().then(function(){
+                                        _this.controller.set('curr_pwd', null);
+                                        _this.controller.set('new_pwd', null);
+                                        _this.controller.set('confirm_pwd', null);
+                                    });
+
+
+
+                                }
+                            }, function(){
+                                new PNotify({
+                                    title: 'Error',
+                                    text: 'A problem was occurred.',
+                                    type: 'error',
+                                    delay: 2000
+                                });
+                                _this.controller.set('curr_pwd', null);
+                                _this.controller.set('new_pwd', null);
+                                _this.controller.set('confirm_pwd', null);
+                                //_this.set('errorMessage', 'Warning: username or password incorrect, please check them.');
+                            });
                         }
-                    }, function(){
-                        new PNotify({
-                            title: 'Error',
-                            text: 'A problem was occurred.',
-                            type: 'error',
-                            delay: 2000
-                        });
-                        _this.controller.set('curr_pwd', null);
-                        _this.controller.set('new_pwd', null);
-                        _this.controller.set('confirm_pwd', null);
-                        //_this.set('errorMessage', 'Warning: username or password incorrect, please check them.');
-                    });
-                }
-            }
+                    }
+//                });
+            });
+
+
         },
 
         delete_plan: function( model, record ) {

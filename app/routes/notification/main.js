@@ -5,27 +5,6 @@ export default Ember.Route.extend({
         return this.store.find('company', company.company_id);
     },
     actions: {
-        post_notification: function( company ){
-            var self = this, controller = self.controllerFor('notification.main'), app_controller = self.controllerFor('application');
-
-            this.store.find('booking', 17592186075636).then(function(book_record){
-                var today = new Date();
-
-                self.store.createRecord('notification', {
-                    name: 'link',
-                    company: company,
-                    date: moment(today).format("YYYY-MM-DD"),
-                    fromCompanyDetail: 'Shipowner prova 1',
-                    description: 'ha chiesto di connettersi alla tua rete',
-                    entityType: 'booking',
-                    entity: '17592186075636',
-                    status: 'show',
-                    highlighted: false,
-                    visibility: 'public'
-                }).save();
-            });
-        },
-
         /**
          Riassegna un valore ad un attrobuto di un record. Nel caso specifico definisco quali notifiche devono essere
          evidenziate in giallo e quali no.
@@ -38,7 +17,7 @@ export default Ember.Route.extend({
          */
         change_state: function( record, attr, value ) {
             if( attr === 'status' ){
-                record.set('highlighted', false)
+                record.set('highlighted', false).save();
             }
             record.set(attr, value).save();
         },
@@ -47,13 +26,13 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application'),
             data = this.getProperties();
 
-
-                data.companyFrom = recordFrom.get('id');
-                data.recordTo = recordTo.get('id');
+//                data.companyFrom = recordFrom.get('id');
+//                data.companyTo = recordTo.get('id');
                 data.actionFn = 'linkCompanies';
 
                 $.post('api/action?actionToken=' + actionToken, data).then(function(response){
                     if (response.success) {
+                        record.set('actionToken', '');
                         record.set('highlighted', false).save();
                         recordFrom.reload();
                         recordTo.reload();
@@ -95,6 +74,11 @@ export default Ember.Route.extend({
             var self = this, app_controller = self.controllerFor('application');
 
             app_controller.send('close_modal', 'overview', 'application');
+        },
+
+        link_to: function( path, entity, record ){
+            record.set('highlighted', false).save();
+            this.transitionTo(path, entity);
         }
 
     }

@@ -62,8 +62,8 @@ export default DS.Model.extend({
         inverse: 'company'}),
 
     sortedNotificationsItems: function(){
-        return this.get('notifications').sortBy('date').reverse();
-    }.property('notifications.@each.date'),
+        return this.get('notifications').sortBy('id').reverse();
+    }.property('notifications.@each.id'),
     showNotifications: function() {
         var notify = this.get("notifications").sortBy('date').reverse(), fired = null;
 

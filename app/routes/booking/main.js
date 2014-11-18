@@ -3675,12 +3675,42 @@ export default Ember.Route.extend({
          @return assegna all'attributo acknowledge (booking model) valore accepted/rejected.
          */
         acknowledge: function( book, value ) {
-            var today = new Date();
+            var _this = this, data = this.getProperties(), app_controller= _this.controllerFor('application');
 
-            book.set('acknowledgeDate', moment(today).format("YYYY-MM-DD"));
-            book.set('acknowledge', value).save().then(function(promise){
-                promise.reload();
+//            var today = new Date();
+//            book.set('acknowledgeDate', moment(today).format("YYYY-MM-DD"));
+            data.bookingId = book.get('id');
+            data.acknowledge = value;
+
+            $.post('api/custom/acknowledgeBookingState?token=' + app_controller.token, data).then(function(response){
+                if (response.success) {
+
+                    new PNotify({
+                        title: 'Success',
+                        text: 'The acknowledge request was successfully sent.',
+                        type: 'success',
+                        delay: 2000
+                    });
+//                        controller.booking_record.get('sharedWith').then(function(valShar){
+//                            valShar.pushObject(controller.searchCompanyToShare).save();
+//                        });
+
+//                    controller.set( 'searchCompanyToShare', null);
+//                    controller.booking_record.reload();
+                }
+            }, function(){
+                // NOT SAVED
+                new PNotify({
+                    title: 'Not saved',
+                    text: 'A problem has occurred.',
+                    type: 'error',
+                    delay: 2000
+                });
             });
+
+//            book.set('acknowledge', value).save().then(function(promise){
+//                promise.reload();
+//            });
         },
 
         /**

@@ -185,7 +185,7 @@ export default Ember.Route.extend({
             item.save();
         },
 
-        updateDoc_other: function( docId, $btn ){
+        updateDoc_other: function( _btn, docId ){
             var self = this, controller = self.controllerFor('document.main');
 
             this.store.find("document", docId).then(function(doc_record){
@@ -195,11 +195,11 @@ export default Ember.Route.extend({
                     ){
                     doc_record.save().then(function(success){
                         success.reload().then(function(){
-                            $btn.button('reset');
+                            _btn.stop();
                             controller.set('isView', true);
                         });
                     }, function(){
-                        $btn.button('reset');
+                        _btn.stop();
                         controller.set('isView', true);
                         new PNotify({
                             title: 'Not saved',
@@ -209,7 +209,7 @@ export default Ember.Route.extend({
                         });
                     });
                 } else {
-                    $btn.button('reset');
+                    _btn.stop();
                     controller.set('isView', true);
                     new PNotify({
                         title: 'Attention',
@@ -220,7 +220,7 @@ export default Ember.Route.extend({
             });
         },
 
-        update_doc_bl: function( docId, $btn ){
+        update_doc_bl: function( _btn, docId ){
             var self = this, controller = self.controllerFor('document.main');
 
             this.store.find("document", docId).then(function(doc){
@@ -267,12 +267,12 @@ export default Ember.Route.extend({
                                                                                         doc.set('tags', arr);
                                                                                         setTimeout(function(){
                                                                                             doc.save().then(function(){
-                                                                                                $btn.button('reset');
+                                                                                                _btn.stop();
 
                                                                                                 controller.set('isView', true);
 
                                                                                             }, function(){
-                                                                                                $btn.button('reset');
+                                                                                                _btn.stop();
                                                                                                 controller.set('isView', true);
                                                                                                 new PNotify({
                                                                                                     title: 'Not saved',
@@ -299,11 +299,11 @@ export default Ember.Route.extend({
                                                                                     doc.set('tags', arr);
                                                                                     setTimeout(function(){
                                                                                         doc.save().then(function(){
-                                                                                            $btn.button('reset');
+                                                                                            _btn.stop();
                                                                                             controller.set('isView', true);
 
                                                                                         }, function(){
-                                                                                            $btn.button('reset');
+                                                                                            _btn.stop();
                                                                                             controller.set('isView', true);
                                                                                             new PNotify({
                                                                                                 title: 'Not saved',
@@ -351,11 +351,11 @@ export default Ember.Route.extend({
 
                                                                                     setTimeout(function(){
                                                                                         doc.save().then(function(){
-                                                                                            $btn.button('reset');
+                                                                                            _btn.stop();
                                                                                             controller.set('isView', true);
 
                                                                                         }, function(){
-                                                                                            $btn.button('reset');
+                                                                                            _btn.stop();
                                                                                             controller.set('isView', true);
                                                                                             new PNotify({
                                                                                                 title: 'Not saved',
@@ -384,11 +384,11 @@ export default Ember.Route.extend({
                                                                                 setTimeout(function(){
                                                                                     doc.save().then(function(){
 
-                                                                                        $btn.button('reset');
+                                                                                        _btn.stop();
 
                                                                                         controller.set('isView', true);
                                                                                     }, function(){
-                                                                                        $btn.button('reset');
+                                                                                        _btn.stop();
                                                                                         controller.set('isView', true);
                                                                                         new PNotify({
                                                                                             title: 'Not saved',
@@ -419,7 +419,7 @@ export default Ember.Route.extend({
                     });
 
                 } else {
-                    $btn.button('reset');
+                    _btn.stop();
                     controller.set('isView', true);
                     new PNotify({
                         title: 'Attention',
@@ -456,30 +456,54 @@ export default Ember.Route.extend({
         },
 
 
-        save_docItems: function( val, docItems, doc_record ){
+        save_docItems: function( _btn, val, record_id ){
             var self = this, controller = self.controllerFor('document.main');
 
-            docItems.filter(function(items, indexIt){
-                items.get('docElements').then(function(elems){
-                    elems.filter(function(elem, indexEl){
+            this.store.find('document', record_id).then(function( doc_record ){
+                doc_record.get('docItems').then(function( docItems ){
+                docItems.filter(function(items, indexIt){
+                    items.get('docElements').then(function(elems){
+                        elems.filter(function(elem, indexEl){
 
-                        switch(elem.get('isDirty')) {
-                            case true:
-                                elem.save().then(function(myVal){
-                                    if( (indexIt+1 === docItems.get('length')) && (indexEl+1 === elems.get('length')) ){
-                                        doc_record.get('bookings').then(function(){
-                                            doc_record.get('bookingItems').then(function(){
-                                                doc_record.get('stamps').then(function(){
-                                                    doc_record.get('docDetails').then(function(myDocDetails){
-                                                        myDocDetails.filter(function(val, index){
-                                                            switch(elem.get('isDirty')) {
-                                                                case true:
-                                                                    val.save().then(function(){
+                            switch(elem.get('isDirty')) {
+                                case true:
+                                    elem.save().then(function(myVal){
+                                        if( (indexIt+1 === docItems.get('length')) && (indexEl+1 === elems.get('length')) ){
+                                            doc_record.get('bookings').then(function(){
+                                                doc_record.get('bookingItems').then(function(){
+                                                    doc_record.get('stamps').then(function(){
+                                                        doc_record.get('docDetails').then(function(myDocDetails){
+                                                            myDocDetails.filter(function(val, index){
+                                                                switch(elem.get('isDirty')) {
+                                                                    case true:
+                                                                        val.save().then(function(){
+                                                                            if( myDocDetails.get('length') === index+1 ){
+                                                                                setTimeout(function(){
+                                                                                    doc_record.save().then(function(){
+                                                                                        _btn.stop();
+                                                                                        controller.set('isView', true);
+                                                                                    }, function(){
+                                                                                        _btn.stop();
+                                                                                        controller.set('isView', true);
+                                                                                        new PNotify({
+                                                                                            title: 'Not saved',
+                                                                                            text: 'An error was occurred.',
+                                                                                            type: 'error',
+                                                                                            delay: 2000
+                                                                                        });
+                                                                                    });
+                                                                                }, 5000);
+                                                                            }
+                                                                        });
+                                                                        break;
+                                                                    case false:
                                                                         if( myDocDetails.get('length') === index+1 ){
                                                                             setTimeout(function(){
                                                                                 doc_record.save().then(function(){
+                                                                                    _btn.stop();
                                                                                     controller.set('isView', true);
                                                                                 }, function(){
+                                                                                    _btn.stop();
                                                                                     controller.set('isView', true);
                                                                                     new PNotify({
                                                                                         title: 'Not saved',
@@ -490,39 +514,21 @@ export default Ember.Route.extend({
                                                                                 });
                                                                             }, 5000);
                                                                         }
-                                                                    });
-                                                                    break;
-                                                                case false:
-                                                                    if( myDocDetails.get('length') === index+1 ){
-                                                                        setTimeout(function(){
-                                                                            doc_record.save().then(function(){
-                                                                                controller.set('isView', true);
-                                                                            }, function(){
-                                                                                controller.set('isView', true);
-                                                                                new PNotify({
-                                                                                    title: 'Not saved',
-                                                                                    text: 'An error was occurred.',
-                                                                                    type: 'error',
-                                                                                    delay: 2000
-                                                                                });
-                                                                            });
-                                                                        }, 5000);
-                                                                    }
-                                                                    break;
-                                                            }
+                                                                        break;
+                                                                }
+                                                            });
                                                         });
                                                     });
                                                 });
                                             });
-                                        });
-                                    }
-                                });
+                                        }
+                                    });
 
-                                break;
-                            case false:
-                                if( (indexIt+1 === docItems.get('length')) && (indexEl+1 === elems.get('length')) ){
-                                    //self.store.find("document", docId).then(function(doc){
-                                    doc_record.get('docDetails').then(function(myDocDetails){
+                                    break;
+                                case false:
+                                    if( (indexIt+1 === docItems.get('length')) && (indexEl+1 === elems.get('length')) ){
+                                        //self.store.find("document", docId).then(function(doc){
+                                        doc_record.get('docDetails').then(function(myDocDetails){
                                             myDocDetails.filter(function(val, index){
                                                 switch(elem.get('isDirty')) {
                                                     case true:
@@ -530,8 +536,10 @@ export default Ember.Route.extend({
                                                             if(myDocDetails.get('length') === index+1){
                                                                 setTimeout(function(){
                                                                     doc_record.save().then(function(){
+                                                                        _btn.stop();
                                                                         controller.set('isView', true);
                                                                     }, function(){
+                                                                        _btn.stop();
                                                                         controller.set('isView', true);
                                                                         new PNotify({
                                                                             title: 'Not saved',
@@ -549,8 +557,10 @@ export default Ember.Route.extend({
                                                         if(myDocDetails.get('length') === index+1){
                                                             setTimeout(function(){
                                                                 doc_record.save().then(function(){
+                                                                    _btn.stop();
                                                                     controller.set('isView', true);
                                                                 }, function(){
+                                                                    _btn.stop();
                                                                     controller.set('isView', true);
                                                                     new PNotify({
                                                                         title: 'Not saved',
@@ -566,13 +576,15 @@ export default Ember.Route.extend({
 
                                             });
                                         });
-                                    //});
-                                }
-                                break;
-                        }
+                                        //});
+                                    }
+                                    break;
+                            }
 
+                        });
                     });
                 });
+            });
             });
         },
 

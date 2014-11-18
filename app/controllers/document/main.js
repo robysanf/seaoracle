@@ -28,7 +28,7 @@ export default Ember.ObjectController.extend({
     is_agency_notHaveCreateBL: function(){
         var comp1 = this.get('company').id;    //preso dal record in oggetto
         var comp2 = this.get('app_controller_company');
-        return ( this.get('app_controller_companyType') === 'admin' && comp1 !== comp2 );
+        return ( this.get('app_controller_companyType') === 'admin' || this.get('app_controller_companyType') === 'agency' && comp1 !== comp2 );
     }.property('company','app_controller_companyType', 'app_controller_company'),
 //    is_admin: function(){
 //        return ( this.get('app_controller_companyType') === 'admin' );

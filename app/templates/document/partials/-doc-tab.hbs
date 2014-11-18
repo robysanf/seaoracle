@@ -207,17 +207,23 @@
                             <button type="submit" class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
                         {{else}}
                             {{#if isBL}}
-                                {{#view 'loading-button' record=id action_name='update_doc_bl'}}
-                                    <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
-                                        Save
-                                    </button>
+                                {{#view 'standby-button' action_name='update_doc_bl' arg1=id data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Save</span>
                                 {{/view}}
+                                <!--{{!{{#view 'loading-button' record=id action_name='update_doc_bl'}}-->
+                                    <!--<button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">-->
+                                        <!--Save-->
+                                    <!--</button>-->
+                                <!--{{!{{/view}}-->
                             {{else}}
-                                {{#view 'loading-button' record=id action_name='updateDoc_other'}}
-                                    <button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">
-                                        Save
-                                    </button>
+                                {{#view 'standby-button' action_name='updateDoc_other' arg1=id data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                                    <span class="ladda-label">Save</span>
                                 {{/view}}
+                                {{!{{#view 'loading-button' record=id action_name='updateDoc_other'}}
+                                    <!--<button type="submit" id='button_save' data-loading-text="Saving..." class="btn btn-primary btn-130 pull-right">-->
+                                        <!--Save-->
+                                    <!--</button>-->
+                            {{!{{/view}}
                             {{/if}}
                         {{/if}}
                     {{/unless}}

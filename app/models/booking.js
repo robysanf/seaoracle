@@ -3,6 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
     canEdit: DS.attr('boolean'),
     canRemove: DS.attr('boolean'),
+
     allInclusive: DS.attr('boolean'),
     noFreightPlan: DS.attr('boolean'), //di default false, se true è possibile fare il lock del booking senza un freight plan
 
@@ -53,6 +54,40 @@ export default DS.Model.extend({
         async:true}),
     authorizedCompanies: DS.hasMany('company',{
         async: true}),
+
+    agencyName: function(){
+        if( this.get('agencyDetail') ){
+            var array = this.get('agencyDetail').split(",");
+            return array[0];
+        } else {
+            return '';
+        }
+    }.property('agencyDetail'),
+    clientName: function(){
+        if( this.get('clientDetail') ){
+            var array = this.get('clientDetail').split(",");
+            return array[0];
+        } else {
+            return '';
+        }
+    }.property('clientDetail'),
+    shipperName: function(){
+        if( this.get('shipperDetail') ){
+        var array = this.get('shipperDetail').split(",");
+        return array[0];
+        } else {
+            return '';
+        }
+
+    }.property('shipperDetail'),
+    consigneeName: function(){
+        if( this.get('consigneeDetail') ){
+        var array = this.get('consigneeDetail').split(",");
+        return array[0];
+        } else {
+            return '';
+        }
+    }.property('consigneeDetail'),
 
     clientAgencyAreEqual: function(){
         return(this.get('agencyDetail') == this.get('clientDetail'));

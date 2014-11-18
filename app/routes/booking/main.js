@@ -3684,13 +3684,15 @@ export default Ember.Route.extend({
 
             $.post('api/custom/acknowledgeBookingState?token=' + app_controller.token, data).then(function(response){
                 if (response.success) {
-
-                    new PNotify({
-                        title: 'Success',
-                        text: 'The acknowledge request was successfully sent.',
-                        type: 'success',
-                        delay: 2000
+                    book.reload().then(function(){
+                        new PNotify({
+                            title: 'Success',
+                            text: 'The acknowledge request was successfully sent.',
+                            type: 'success',
+                            delay: 2000
+                        });
                     });
+
 //                        controller.booking_record.get('sharedWith').then(function(valShar){
 //                            valShar.pushObject(controller.searchCompanyToShare).save();
 //                        });
@@ -3886,14 +3888,17 @@ export default Ember.Route.extend({
                                                                             newBL.get('bookingItems').then(function(bookItems){
                                                                                 bookItems.pushObjects(bookingItems);
                                                                                 newBL.save().then(function(record_bl){
-                                                                                    controller.set('codeBL', null);
-                                                                                    new PNotify({
-                                                                                        title: 'Success',
-                                                                                        text: 'The Bill of Lading was successfully generate.',
-                                                                                        type: 'success',
-                                                                                        delay: 2000
+                                                                                    controller.booking_record.reload().then(function(){
+                                                                                        controller.set('codeBL', null);
+                                                                                        new PNotify({
+                                                                                            title: 'Success',
+                                                                                            text: 'The Bill of Lading was successfully generate.',
+                                                                                            type: 'success',
+                                                                                            delay: 2000
+                                                                                        });
+                                                                                        self.transitionTo('document/main', record_bl);
                                                                                     });
-                                                                                    self.transitionTo('document/main', record_bl);
+
                                                                                 });
                                                                             });
                                                                        // }
@@ -3987,16 +3992,20 @@ export default Ember.Route.extend({
                                                             newBL.get('bookingItems').then(function(bookItems){
                                                                 bookItems.pushObjects(bookingItems);
                                                                 newBL.save().then(function(record_bl){
-                                                                    controller.set('codeBL', null);
 
-                                                                    new PNotify({
-                                                                        title: 'Success',
-                                                                        text: 'The Bill of Lading was successfully generate.',
-                                                                        type: 'success',
-                                                                        delay: 2000
+                                                                    controller.booking_record.reload().then(function(){
+                                                                        controller.set('codeBL', null);
+
+                                                                        new PNotify({
+                                                                            title: 'Success',
+                                                                            text: 'The Bill of Lading was successfully generate.',
+                                                                            type: 'success',
+                                                                            delay: 2000
+                                                                        });
+
+                                                                        self.transitionTo('document/main', record_bl);
                                                                     });
 
-                                                                    self.transitionTo('document/main', record_bl);
                                                                 });
                                                             });
                                                         } else {

@@ -356,7 +356,10 @@
             {{#if controller.isView}}
                 <button class="btn btn-primary btn-130 pull-right" {{action "set_docState" false}}>Edit</button>
             {{else}}
-                <button class="btn btn-primary btn-130 pull-right" {{action "save_docItems" true docItems this}}>Save</button>
+                {{#view 'standby-button' action_name='save_docItems' arg1=true arg2=this.id data-style="expand-left" id="form-submit" class="btn btn-primary ladda-button btn-130 pull-right"}}
+                    <span class="ladda-label">Save</span>
+                {{/view}}
+                <!--<button class="btn btn-primary btn-130 pull-right" {{!{{action "save_docItems" true docItems this}}>Save</button>-->
             {{/if}}
         </div>
     </div>

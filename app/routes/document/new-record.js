@@ -343,9 +343,8 @@ export default Ember.Route.extend({
                                 self.transitionTo('document/main', val);
                             }, function(response){
                                 $btn.button('reset');
-                                var num = response.responseText.indexOf(":");
-                                var string = response.responseText.slice(num+1);
-                                var error = JSON.parse(string);
+
+                                var error = JSON.parse(response.responseText);
                                 new PNotify({
                                     title: 'Error',
                                     text: error.error,

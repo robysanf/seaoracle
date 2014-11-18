@@ -6,7 +6,7 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
 -->
 
 
-{{#if canEdit}}
+
     <!--FIXME: ho dovuto separare i controlli sul tipo di companyType poiche' se vado a creare -->
     {{#if controller.is_admin}}
         <h5 class="page-header"></h5>
@@ -28,15 +28,18 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
             </div>
         {{/if}}
     {{/if}}
+
     {{#if controller.is_client}}
-        <div class="row">
-            <div class="col-lg-12">
-                <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified" {{action "changeState_and_share" this 'pending' agency 'request'}}>
-                    <span class="glyphicon glyphlink glyphicon-send"  style="color: aliceblue"></span> Send
-                </button>
+        {{#if canEdit}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified" {{action "changeState_and_share" this 'pending' agency 'request'}}>
+                        <span class="glyphicon glyphlink glyphicon-send"  style="color: aliceblue"></span> Send
+                    </button>
+                </div>
             </div>
-        </div>
-        {{#if app_controller.user_record.booking_remove}}
+        {{/if}}
+        {{#if canRemove}}
             <br>
             <div class="row">
                 <div class="col-lg-12">
@@ -47,4 +50,4 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
             </div>
         {{/if}}
     {{/if}}
-{{/if}}
+

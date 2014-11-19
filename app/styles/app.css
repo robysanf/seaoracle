@@ -1,7 +1,6 @@
-html, body {
+/*html, body {*/
   /*margin: 20px;*/
-   /*background-color: #05213C;*/
-}
+/*}*/
 
 
 /*************************************/
@@ -59,9 +58,6 @@ input[readonly] {
 /*********************************/
     /*BUTTON STYLE*/
 /***/
-.btn-90 {
-    width: 90px !important;
-}
 
 .btn-130 {
     width: 130px !important;

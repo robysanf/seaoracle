@@ -105,7 +105,8 @@ export default Ember.Route.extend({
                 company: controller.company_record,
                 linkedCompany: controller.linked_company_record,
                 type: 'agent',
-                value: value
+                value: value,
+                visibility: 'private'
             });
 
             if( referring_id !== null ){

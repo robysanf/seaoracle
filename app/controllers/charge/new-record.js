@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     app_controller: Ember.computed.alias('controllers.application'),
 
     newName: null,
-    searchSegment: Ember.A(),
+    searchSegment: null,
     newCurrency: null,
     newAvailable: true,
 

@@ -41,8 +41,10 @@ export default Ember.Route.extend({
                     visibility: 'private'
                 });
 
-                if( controller.searchSegment.get('length') ){
-                    newCharge.set('segment', controller.searchSegment );
+                if( controller.searchSegment !== null ){
+                    if( controller.searchSegment.length !== 0 ){
+                        newCharge.set('segment', controller.searchSegment );
+                    }
                 }
 
                 this.store.find('company', app_controller.company).then(function(company){

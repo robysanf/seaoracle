@@ -49,7 +49,7 @@ export default Ember.Route.extend({
                     if (response.success) {
                         new PNotify({
                             title: 'Success',
-                            text: 'We have sent to '+data.userEmail +' an email to verify your email address.',
+                            text: 'We have sent to '+ data.userEmail +' an email to verify your email address.',
                             type: 'success'
                         });
                     }

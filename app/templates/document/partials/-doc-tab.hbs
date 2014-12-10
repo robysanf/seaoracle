@@ -29,6 +29,24 @@
 
             </div>
         {{/unless}}
+        {{#if isBL}}
+            <div class="row">
+                <div class="col-lg-4"><h4>Basic template</h4></div>
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        {{view Ember.Select
+                        content=app_controller.files_jrxml
+                        value= jasperTemplate
+                        optionValuePath="content.name"
+                        optionLabelPath="content.name"
+                        prompt="Select a basic template"
+                        class='form-control'
+                        disabled=isView
+                        }}
+                    </div>
+                </div>
+            </div>
+        {{/if}}
         {{#if isLL}}
             <div class="row">
                 <div class="col-lg-4"><h4>Origin</h4></div>

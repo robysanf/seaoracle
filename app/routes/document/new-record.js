@@ -22,11 +22,6 @@ export default Ember.Route.extend({
             });
         }
 
-        this.store.find("file", {company: app_controller.company, type: 'JRXML'}).then(function(val){
-            app_controller.set("files_jrxml", val);
-        }, function( reason ){
-            app_controller.send( 'error', reason );
-        });
 
 //        //reset search variables
         controller.set('searchOrigin', []);

@@ -591,16 +591,6 @@ export default Ember.Route.extend({
                         delay: 4000
                     });
                 });
-        },
-
-        download_basicTemplate: function(){
-            var self = this, app_controller = self.controllerFor('application'),
-                path = 'files/BL_template.jrxml';
-
-            $.fileDownload(path)
-                .fail(function () {
-                    new PNotify({title: 'Error',text: 'Something went wrong.',type: 'error',delay: 4000});
-                });
         }
     }
 });

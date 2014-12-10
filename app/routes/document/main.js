@@ -21,6 +21,7 @@ export default Ember.Route.extend({
             });
         }
 
+
         controller.set('searchStamp', []);
 
     },

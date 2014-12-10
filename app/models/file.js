@@ -9,6 +9,7 @@ export default DS.Model.extend({
     company: DS.belongsTo('company',{
         inverse: 'files'
     }),
+    contentType: DS.attr('string'),
     path: DS.attr('string'),
     entity: DS.attr('string'),
     entityType: DS.attr('string'),

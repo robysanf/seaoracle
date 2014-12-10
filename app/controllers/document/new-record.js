@@ -65,6 +65,8 @@ export default Ember.Controller.extend({
     searchDestination: Ember.A(),
     searchVoyage: Ember.A(),
 
+    file_basicTemplate: Ember.A(),
+
     name: null,
     nOriginal: '01/ONE',
     nOriginal_bl: '03/THREE',

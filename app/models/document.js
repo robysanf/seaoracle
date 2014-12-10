@@ -13,7 +13,6 @@ export default DS.Model.extend({
     name: DS.attr('string'),
     notify: DS.attr('string'),
     nrOriginal: DS.attr('string'),
-
     shipper: DS.attr('string'),
     tags: DS.attr('raw'),  //    [bl_type|val_bl_type, dangerous_good|val_dangerous_good]
     type: DS.attr('string'),
@@ -28,6 +27,7 @@ export default DS.Model.extend({
     company: DS.belongsTo('company'),
     leg: DS.belongsTo('leg'),
     voyage: DS.belongsTo('voyage'),
+    jasperTemplate: DS.belongsTo('file'),
 
     bookings: DS.hasMany('booking', {
         async: true}),

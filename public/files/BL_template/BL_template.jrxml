@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BL copy not negotiable" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="33632e61-d56b-4d23-9f83-ce454717b7c8">
+	<property name="ireport.zoom" value="3.215383215000002"/>
+	<property name="ireport.x" value="699"/>
+	<property name="ireport.y" value="120"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BL Data"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="resizeFontSCN" fontSize="6">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{shipper_detail}.length() < 290 && $F{shipper_detail}.split("\r\n|\r|\n").length < 6)) ||
+                                           (!($F{consignee_detail}.length() < 290 && $F{consignee_detail}.split("\r\n|\r|\n").length < 6)) ||
+                                           (!($F{notify_party}.length() < 290 && $F{notify_party}.split("\r\n|\r|\n").length < 6))))]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{shipper_detail}.length() < 480 && $F{shipper_detail}.split("\r\n|\r|\n").length < 7)) ||
+                                           (!($F{consignee_detail}.length() < 480 && $F{consignee_detail}.split("\r\n|\r|\n").length < 7)) ||
+                                           (!($F{notify_party}.length() < 480 && $F{notify_party}.split("\r\n|\r|\n").length < 7))))]]></conditionExpression>
+			<style fontSize="7"/>
+		</conditionalStyle>
+	</style>
+	<style name="resizeFontDoG" fontSize="6">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{shipper_detail}.length() < 900 && $F{shipper_detail}.split("\r\n|\r|\n").length < 15)) ||
+                                           (!($F{consignee_detail}.length() < 900 && $F{consignee_detail}.split("\r\n|\r|\n").length < 15)) ||
+                                           (!($F{notify_party}.length() < 900 && $F{notify_party}.split("\r\n|\r|\n").length < 15))))]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{shipper_detail}.length() < 1250 && $F{shipper_detail}.split("\r\n|\r|\n").length < 18)) ||
+                                           (!($F{consignee_detail}.length() < 1250 && $F{consignee_detail}.split("\r\n|\r|\n").length < 18)) ||
+                                           (!($F{notify_party}.length() < 1250 && $F{notify_party}.split("\r\n|\r|\n").length < 18))))]]></conditionExpression>
+			<style fontSize="7"/>
+		</conditionalStyle>
+	</style>
+	<style name="resizeFontPOI" fontSize="6">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{Pcb}.length() < 32)) ||
+                                           (!($F{PoR}.length() < 32)) ||
+                                           (!($F{OV}.length() < 32)) ||
+                                           (!($F{OV_num}.length() < 32)) ||
+                                           (!($F{PoL}.length() < 32)) ||
+                                           (!($F{PoDis}.length() < 32)) ||
+                                           (!($F{PoDel}.length() < 32)) ||
+                                           (!($F{Fd}.length() < 32)) ||
+                                           (!($F{FPa}.length() < 32)) ||
+                                           (!($F{PoI}.length() < 32)) ||
+                                           (!($F{DoI}.length() < 32))))]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(!((!($F{Pcb}.length() < 40)) ||
+                                           (!($F{PoR}.length() < 40)) ||
+                                           (!($F{OV}.length() < 40)) ||
+                                           (!($F{OV_num}.length() < 40)) ||
+                                           (!($F{PoL}.length() < 40)) ||
+                                           (!($F{PoDis}.length() < 40)) ||
+                                           (!($F{PoDel}.length() < 40)) ||
+                                           (!($F{Fd}.length() < 40)) ||
+                                           (!($F{FPa}.length() < 40)) ||
+                                           (!($F{PoI}.length() < 40)) ||
+                                           (!($F{DoI}.length() < 40))))]]></conditionExpression>
+			<style fontSize="7"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="REPORTS_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bl_num" class="java.lang.String"/>
+	<field name="bl_type" class="java.lang.String"/>
+	<field name="booking" class="java.lang.String"/>
+	<field name="shipper_detail" class="java.lang.String"/>
+	<field name="consignee_detail" class="java.lang.String"/>
+	<field name="notify_party" class="java.lang.String"/>
+	<field name="identifier" class="java.lang.String"/>
+	<field name="seal_num" class="java.lang.String"/>
+	<field name="tare" class="java.lang.Double"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="weight" class="java.lang.Double"/>
+	<field name="measurement" class="java.lang.Double"/>
+	<field name="stamp_1" class="java.lang.String"/>
+	<field name="stamp_2" class="java.lang.String"/>
+	<field name="shipper_cp_name" class="java.lang.String"/>
+	<field name="shipper_cp_detail" class="java.lang.String"/>
+	<field name="logo_shipper" class="java.lang.String"/>
+	<field name="nrOriginal" class="java.lang.String"/>
+	<field name="stamp_3" class="java.lang.String"/>
+	<field name="Pcb" class="java.lang.String"/>
+	<field name="PoR" class="java.lang.String"/>
+	<field name="OV" class="java.lang.String"/>
+	<field name="OV_num" class="java.lang.String"/>
+	<field name="PoL" class="java.lang.String"/>
+	<field name="PoDis" class="java.lang.String"/>
+	<field name="PoDel" class="java.lang.String"/>
+	<field name="Fd" class="java.lang.String"/>
+	<field name="FPa" class="java.lang.String"/>
+	<field name="PoI" class="java.lang.String"/>
+	<field name="DoI" class="java.lang.String"/>
+	<field name="DoG" class="java.lang.String"/>
+	<field name="sAL" class="java.lang.Boolean"/>
+	<field name="loadedOn" class="java.lang.String"/>
+	<field name="SoFC" class="java.lang.String"/>
+	<field name="JLC" class="java.lang.String"/>
+	<field name="sign_stamp" class="java.lang.String"/>
+	<field name="tu" class="java.lang.String"/>
+	<field name="itemsIn" class="java.lang.String"/>
+	<field name="tare_lb" class="java.lang.String"/>
+	<field name="total_wt_lb" class="java.lang.String"/>
+	<variable name="CURRENT_PAGE" class="java.lang.Integer" resetType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="TOT_WEIGHT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{weight}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="CUR_PAGE" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{CUR_PAGE}++]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOT_VOL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{measurement}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="358" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="50" width="120" height="16" uuid="b7c6ce76-ecf8-4d38-ad4d-b74be10c4b20"/>
+				<textElement>
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bl_num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="24" width="100" height="42" uuid="a4b0ebcd-969c-4aa6-afc5-19e193bb4dcb"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Book.ref.\n"+$F{booking}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontSCN" x="42" y="65" width="203" height="60" uuid="30e2b23d-01e8-4019-b9f3-c258ca4335cb"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipper_detail}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement style="resizeFontSCN" x="42" y="135" width="203" height="60" uuid="0fde6684-cf8e-4187-aefc-cf3fe0a0bfc3"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consignee_detail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontSCN" x="42" y="205" width="203" height="57" uuid="f51ce64b-b719-45b8-a774-f562a569cf23"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notify_party}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="42" y="296" width="84" height="16" uuid="6172e865-d3c8-4211-a848-2eb51a2184db"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="179" y="296" width="126" height="16" uuid="65164259-7603-4274-b8c8-e7530276197d"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PoL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="42" y="320" width="131" height="16" uuid="db6a681a-3331-452d-a6ba-d88b7d86bf14"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PoDis}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Right" vAlign="Middle" evaluationTime="Auto">
+				<reportElement x="326" y="108" width="80" height="66" uuid="4580f7d0-8e33-43b1-ac54-031fa1ca9cc4"/>
+				<imageExpression><![CDATA[$F{logo_shipper}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="411" y="106" width="152" height="30" uuid="aa44afb5-b253-41bf-8712-e0d4ccc66c16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Courier New" size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipper_cp_name}.equals( null )?"":$F{shipper_cp_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="417" y="136" width="138" height="38" uuid="641790a1-e8ec-4d5c-bbc4-f450cb62c4c1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shipper_cp_detail}.equals( null )?"":$F{shipper_cp_detail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="42" y="273" width="131" height="16" uuid="88fd92ef-f895-4e53-90dd-f01ddeea4790"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Pcb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="179" y="273" width="126" height="16" uuid="75c56823-36ee-40c2-a475-7c71802200bb"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PoR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="179" y="320" width="126" height="16" uuid="d642f6c6-966c-45e9-85d5-3f474e015977"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PoDel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="435" y="324" width="119" height="12" uuid="100a2e9b-a1eb-4447-8d8d-73a4b13d5f8f"/>
+				<textElement>
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="37" width="100" height="16" uuid="9a9f3bd0-6a31-4205-900d-b4001e2995ca"/>
+				<textElement>
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bl_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="resizeFontPOI" x="126" y="296" width="47" height="16" uuid="a55fefee-221f-4aae-b23c-7b2e5a05bf8a"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OV_num}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Immediate">
+			<printWhenExpression><![CDATA[((!$F{tu}.equals( "TOTAL" )) && $F{itemsIn}.equals( "Document" ))]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="42" y="1" width="84" height="10" uuid="574c2385-04aa-42bd-bb85-aefc43f77934">
+					<printWhenExpression><![CDATA[(!$F{identifier}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identifier}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="42" y="12" width="137" height="1" isRemoveLineWhenBlank="true" uuid="4262dbfd-7359-4f6e-b2fa-81415d3b3d06">
+					<printWhenExpression><![CDATA[(!$F{tare}.equals( 0.0 )) && (!$F{tare}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tare_lb}+$F{tare}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="211" y="1" width="224" height="16" uuid="194be548-3fc2-4e7e-9d90-a36c7183039f">
+					<printWhenExpression><![CDATA[(!$F{description}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="false">
+				<reportElement x="444" y="1" width="70" height="16" uuid="f2bf99fc-d34e-4824-afdf-d43cfc221443">
+					<printWhenExpression><![CDATA[(!$F{weight}.equals( 0.0 )) && (!$F{weight}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{weight}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="1" width="53" height="10" uuid="b695daa4-4281-4d61-a563-5ac115cc0f49">
+					<printWhenExpression><![CDATA[(!$F{seal_num}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seal_num}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.000" isBlankWhenNull="false">
+				<reportElement x="520" y="1" width="43" height="16" uuid="eeb89788-ac7d-46bd-8f36-af4795f16e36">
+					<printWhenExpression><![CDATA[(!$F{measurement}.equals( 0.0 )) && (!$F{measurement}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Courier New" size="7" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{measurement}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="4" splitType="Immediate">
+			<printWhenExpression><![CDATA[$F{tu}.equals( "TOTAL" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="resizeFontDoG" x="211" y="2" width="224" height="1" forecolor="#000000" uuid="efe3671b-5264-4731-84be-62858dd179fd">
+					<printWhenExpression><![CDATA[(!$F{DoG}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DoG}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12" splitType="Immediate">
+			<printWhenExpression><![CDATA[(!$F{stamp_1}.equals( "null" )) && (!$F{stamp_1}.equals( null ))]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="false">
+				<reportElement x="56" y="1" width="155" height="10" forecolor="#666666" uuid="07dc7e33-32b5-4ec1-98bf-be2c1f26737d"/>
+				<textElement>
+					<font fontName="Courier New" size="6" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stamp_1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="225" y="1" width="155" height="10" forecolor="#666666" uuid="c47c81c3-5dab-4b13-8c5d-744da46e4313">
+					<printWhenExpression><![CDATA[(!$F{stamp_2}.equals( "null" )) && (!$F{stamp_2}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="6" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stamp_2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="394" y="1" width="155" height="10" forecolor="#666666" uuid="5801b46a-86e1-4b90-a778-91c12c8af8d9">
+					<printWhenExpression><![CDATA[(!$F{stamp_3}.equals( "null" )) && (!$F{stamp_3}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" size="6" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stamp_3}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="24" splitType="Immediate">
+			<printWhenExpression><![CDATA[($F{tu}.equals( "TOTAL" ) && (!$V{TOT_WEIGHT}.equals( null )))]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" pattern="#,##0.000">
+				<reportElement positionType="FixRelativeToBottom" x="443" y="3" width="70" height="16" uuid="868ccab4-8c82-4fb3-8f91-7b6a85cc758d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOT_WEIGHT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="362" y="3" width="80" height="16" forecolor="#000000" uuid="724cbf02-ab0d-4a52-840d-9d684f75e051">
+					<printWhenExpression><![CDATA[(!$F{total_wt_lb}.equals(null))]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="none">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_wt_lb}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.000">
+				<reportElement positionType="FixRelativeToBottom" x="519" y="3" width="44" height="16" uuid="7eb07ab8-ed0a-4c7f-a34a-5a6ec3ede9df"/>
+				<textElement textAlignment="Right">
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOT_VOL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="254" splitType="Stretch">
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="26" y="190" width="121" height="34" uuid="521747a2-592d-46bb-b7f8-4c7321b11d40"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Number of Originals\n"+$F{nrOriginal}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement style="resizeFontPOI" x="347" y="205" width="100" height="16" uuid="0404ae57-d3a6-4474-831b-ac992a78bfe3"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{CURRENT_PAGE}.equals($V{PAGE_NUMBER}) || $V{CURRENT_PAGE}.equals(null))?$F{PoI}:""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Auto">
+				<reportElement x="450" y="196" width="95" height="43" forecolor="#666666" uuid="3b3e2a0a-c3ce-4d88-a8d8-6d65476d3d6e">
+					<printWhenExpression><![CDATA[(!$F{sign_stamp}.equals( null ))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Courier New" size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{CURRENT_PAGE}.equals($V{PAGE_NUMBER}) || $V{CURRENT_PAGE}.equals(null))?$F{sign_stamp}:""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement style="resizeFontPOI" x="230" y="224" width="100" height="16" uuid="c4dbe2e7-6d65-4d71-b581-10d9acb29227">
+					<printWhenExpression><![CDATA[($V{CURRENT_PAGE} == $V{PAGE_NUMBER})]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{CURRENT_PAGE}.equals($V{PAGE_NUMBER}) || $V{CURRENT_PAGE}.equals(null))?$F{FPa}:""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement style="resizeFontPOI" x="347" y="224" width="100" height="16" uuid="c5d6fd1a-e931-4f0a-b571-b00c4d582ac8"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{CURRENT_PAGE}.equals($V{PAGE_NUMBER}) || $V{CURRENT_PAGE}.equals(null))?$F{DoI}:""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement style="resizeFontPOI" x="156" y="50" width="168" height="140" uuid="2ce29e31-0029-455f-9d12-64645c2427b2"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SoFC}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement style="resizeFontPOI" x="342" y="75" width="216" height="72" uuid="f89ab2b0-5a18-47b0-babb-0eb0d5094c59"/>
+				<textElement>
+					<font fontName="Courier New" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{JLC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

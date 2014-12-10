@@ -595,7 +595,7 @@ export default Ember.Route.extend({
 
         download_basicTemplate: function(){
             var self = this, app_controller = self.controllerFor('application'),
-                path = 'files/BL_template.jrxml';
+                path = 'files/BL_template/BL_template.jrxml';
 
             $.fileDownload(path)
                 .fail(function () {

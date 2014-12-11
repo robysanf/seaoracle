@@ -27,8 +27,8 @@ export default DS.Model.extend({
     company: DS.belongsTo('company'),
     leg: DS.belongsTo('leg'),
     voyage: DS.belongsTo('voyage'),
-    jasperTemplate: DS.belongsTo('file'),
-
+    jasperTemplates: DS.hasMany('file', {
+        async: true}),
     bookings: DS.hasMany('booking', {
         async: true}),
     bookingItems: DS.hasMany('booking-item', {

@@ -3,9 +3,7 @@ import DS from 'ember-data';
 
 var get = Ember.get,
     set = Ember.set,
-//setEach = Ember.setEach,
     addObserver = Ember.addObserver;
-//removeObserver = Ember.removeObserver;
 
 export default Ember.Component.extend({
     actions: {
@@ -164,7 +162,7 @@ export default Ember.Component.extend({
     didInsertElement: function(){
         this._super.apply(this, arguments);
         //Ember.assert('You must supply a source for the autosuggest component', get(this, 'source'));
-        Ember.assert('You must supply a destination for the autosuggest component', get(this, 'destination'));
+        //Ember.assert('You must supply a destination for the autosuggest component', get(this, 'destination'));
 
         this.$('ul.suggestions').on('mouseover', 'li', this.mouseOver.bind(this));
         this.$('ul.suggestions').on('mouseout', 'li', this.mouseOut.bind(this));
@@ -342,7 +340,7 @@ export default Ember.Component.extend({
                     this.sendAction('moveSelection', 'down');
                     break;
                 case this.ENTER:
-                    controller.sendAction('selectActive');
+                    this.sendAction('selectActive');
                     break;
                 case this.ESCAPE:
                     this.sendAction('hideResults');
@@ -378,3 +376,4 @@ export default Ember.Component.extend({
         }
     }
 });
+

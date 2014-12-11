@@ -80,5 +80,7 @@ export default Ember.ObjectController.extend({
     itemsInList: [
         'Document',
         'Attached List'
-    ]
+    ],
+
+    jasperTemplate: Ember.A()
 });

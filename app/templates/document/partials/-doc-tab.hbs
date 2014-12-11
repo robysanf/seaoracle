@@ -34,7 +34,14 @@
                 <div class="col-lg-4"><h4>Basic template</h4></div>
                 <div class="col-lg-8">
                     <div class="form-group">
-                        {{view Ember.Select
+                        {{#if isView}}
+                            {{input value= jasperTemplates.name class='form-control' disabled=isView}}
+                        {{else}}
+                            {{auto-suggest source=app_controller.files_jrxml destination=jasperTemplates usecase='originalMode' searchPath="name" minChars=0}}
+                        {{/if}}
+
+
+                        {{!{{view Ember.Select
                         content=app_controller.files_jrxml
                         value= jasperTemplate
                         optionValuePath="content.name"
@@ -201,6 +208,8 @@
                     <div class="col-lg-4"><h4>Stamps</h4></div>
                     <div class="col-lg-8">
                         <a id="autocomplete-stamp">
+                            {{!{{auto-suggest source=app_controller.files_jrxml destination=jasperTemplates usecase='originalMode' searchPath="name" minChars=0}}
+                            {{!{{auto-suggest source=app_controller.autocompleteStamp destination= stamps searchPath="name" usecase="customMode" minChars=0}}
                             {{auto-complete source=app_controller.autocompleteStamp destination=controller.searchStamp searchPath="name" minChars=0}}
                         </a>
                     </div>

@@ -9,5 +9,4 @@ export default function(usecase, searchPath) {
         case 'customModeWithoutSource':
             return this;
     }
-
 }

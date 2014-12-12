@@ -166,28 +166,29 @@
                 {{#if stamps}}
                     <div class="row">
                         <div class="col-lg-4"><h4>List of stamps</h4></div>
-                        {{#each stamp in stamps}}
+                      {{#each stamp in stamps}}
                             <div class="col-lg-4"><h4></h4></div>
                             <div class="col-lg-8">
                                 <div class="input-group">
-                                    {{input value= stamp.name placeholder='Enter name' class='form-control' disabled= true}}
+                                       {{input value= stamp.name placeholder='Enter name' class='form-control' disabled= true}}
                                     <span class="input-group-btn">
-                                        <button class="btn btn-danger " type="button" {{action 'remove_stamp' this stamp}}>
+                                        <button class="btn btn-danger " type="button"   {{action 'remove_stamp' this stamp}}>
                                             <span class="glyphicon glyphicon-remove" style="color: aliceblue"></span>
                                         </button>
                                     </span>
                                 </div>
                                 <p></p>
                             </div>
-                        {{/each}}
+                         {{/each}}
                     </div>
-                {{/if}}
+              {{/if}}
             {{/if}}
             {{#unless controller.isView}}
                 <div class="row">
                     <div class="col-lg-4"><h4>Stamps</h4></div>
                     <div class="col-lg-8">
                         <a id="autocomplete-stamp">
+                            {{!{{auto-suggest source=app_controller.autocompleteStamp destination=stamps usecase='originalMode' searchPath="name" minChars=0}}
                             {{auto-complete source=app_controller.autocompleteStamp destination=controller.searchStamp searchPath="name" minChars=0}}
                         </a>
                     </div>
@@ -202,7 +203,7 @@
                 <div class="col-lg-10">
                     {{#if isBL}}
                         {{#unless controller.isView}}
-                            <button type="submit" class="btn btn-default btn-130 pull-right" {{action "add_stamp" this }}>Add stamp</button>
+                            <button type="submit" class="btn btn-default btn-130 pull-right" {{action "add_stamp" this}}>Add stamp</button>
                         {{/unless}}
                     {{/if}}
                 </div>

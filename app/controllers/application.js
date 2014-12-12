@@ -2203,9 +2203,14 @@ export default Ember.ArrayController.extend({
             localStorage.removeItem('isAdmin');
 
             localStorage.clear();
-
             this.transitionToRoute('login/main');
-        }
+//            this.send('full_load_page');
+            location.reload();
+        }//,
+
+//        full_load_page : function(){
+//            location.reload();
+//        }
     }
 });
 

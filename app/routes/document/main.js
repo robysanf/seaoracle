@@ -234,7 +234,7 @@ export default Ember.Route.extend({
                         // le relazioni ad aggiornarsi prima di salvare l'entità padre
                         doc.get('bookings').then(function(){
                             doc.get('bookingItems').then(function(){
-                                doc.get('stamps').then(function(){
+//                                doc.get('stamps').then(function(){
 
 
                                     myDocDetails.filter(function(val, index){
@@ -412,7 +412,7 @@ export default Ember.Route.extend({
                                                 break;
                                         }
                                     });
-                                });
+//                                });
                             });
                         });
 

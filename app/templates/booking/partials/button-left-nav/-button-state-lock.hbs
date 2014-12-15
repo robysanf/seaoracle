@@ -59,6 +59,18 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
 
             {{/unless}}
         {{/if}}
+
+        {{#if noFreightPlan}}
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "changeState_and_share" this "edit" client 'lock'}}>
+                        <span class="glyphicon glyphlink glyphicon-fast-backward" ></span> Unlock
+                    </button>
+                </div>
+            </div>
+        {{/if}}
+
+
         {{#if canRemove}}
             <br>
             <div class="row">

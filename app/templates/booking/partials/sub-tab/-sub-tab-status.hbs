@@ -5,7 +5,8 @@
             <div class="row">
                 <div class="col-lg-1">
                     {{#unless isRegister}}
-                        <a href="#" {{action "progressBar_removeState" freightEquipment controller.item_record }}><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_removeState' arg1 = freightEquipment arg3 = controller.item_record}}<span class="glyphicon glyphicon-chevron-left"></span>{{/view}}
+                        <!--<a href="#" {{!{{action "progressBar_removeState" freightEquipment controller.item_record }}><span class="glyphicon glyphicon-chevron-left"></span></a>-->
                     {{/unless}}
                 </div>
                 <div class="col-lg-10">
@@ -54,7 +55,8 @@
                 </div>
                 <div class="col-lg-1">
                     {{#unless isRegister}}
-                        <a href="#" {{action "progressBar_changeState" freightEquipment controller.item_record}}><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_changeState' arg1 = freightEquipment arg3 = controller.item_record}}<span class="glyphicon glyphicon-chevron-right"></span>{{/view}}
+                        <!--<a href="#" {{!{{action "progressBar_changeState" freightEquipment controller.item_record}}><span class="glyphicon glyphicon-chevron-right"></span></a>-->
                     {{/unless}}
                 </div>
             </div>

@@ -5,16 +5,17 @@ export default Ember.View.extend({
     tagName: 'button',
     attributeBindings : ['disabled'],
 
-    plan: [],
-    company: [],
-    user: [],
+    action: [],
+    arg1: [],
+    arg2: [],
+    arg3: [],
 
 
     click: function () {
         var controller = this.get('controller'), $btn = $(this)[0];
         $btn.set('disabled', true);
 
-        controller.send('new_refill', this.plan, this.company, this.user, $btn);
+        controller.send(this.action, this.arg1, this.arg2, this.arg3, $btn);
     }
 
 });

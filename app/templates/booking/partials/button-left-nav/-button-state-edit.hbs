@@ -68,16 +68,16 @@ FROM: 'templates/bookings/pieces/_buttonLeftNav'
                 </div>
                 <br>
             {{/if}}
-            {{#if noFreightPlan}}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{action "changeState_and_share" this "lock" client 'edit'}}>
-                            <span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock
-                        </button>
-                    </div>
-                </div>
-                <br>
-            {{/if}}
+            {{!{{#if noFreightPlan}}
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-12">-->
+                        <!--<button type="button" style="text-align: left" class="btn btn-primary btn-group-justified " {{!{{action "changeState_and_share" this "lock" client 'edit'}}>-->
+                            <!--<span class="glyphicon glyphlink glyphicon-check"  style="color: aliceblue"></span> Lock-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+            {{!{{/if}}
             <div class="row">
                 <div class="col-lg-12">
                     <button type="button" style="text-align: left" class="btn btn-default btn-group-justified" {{action "open_modal" 'booking.modals.share' this}}>

@@ -41,18 +41,24 @@
                                     {{#each freightEquipment in item.freightEquipments}}
                                         <td> {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_removeState" freightEquipment item}}>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_removeState' arg1 = freightEquipment arg3 = item}}
                                                     <span class="glyphicon glyphicon-chevron-left pull-right"></span>
-                                                </a>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_removeState" freightEquipment item}}>-->
+                                                    <!--<span class="glyphicon glyphicon-chevron-left pull-right"></span>-->
+                                                <!--</a>-->
                                             {{/unless}}
                                         {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
                                         <td> {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_changeState" freightEquipment item}}>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_changeState' arg1 = freightEquipment arg3 = item}}
                                                     <span class="glyphicon glyphicon-chevron-right pull-left"></span>
-                                                </a>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_changeState" freightEquipment item}}>-->
+                                                    <!--<span class="glyphicon glyphicon-chevron-right pull-left"></span>-->
+                                                <!--</a>-->
                                             {{/unless}}
                                         {{/if}}
                                         </td>
@@ -90,14 +96,20 @@
                                     {{#each freightEquipment in item.freightEquipments}}
                                         <td>   {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_removeState' arg1 = freightEquipment arg3 = item}}
+                                                    <span class="glyphicon glyphicon-chevron-left pull-right"></span>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>-->
                                             {{/unless}}
                                         {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
                                         <td>  {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_changeState' arg1 = freightEquipment arg3 = item}}
+                                                    <span class="glyphicon glyphicon-chevron-right pull-left"></span>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>-->
                                             {{/unless}}
                                         {{/if}}
                                         </td>
@@ -135,13 +147,19 @@
                                     {{#each freightEquipment in item.freightEquipments}}
                                         <td> {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_removeState' arg1 = freightEquipment arg3 = item}}
+                                                    <span class="glyphicon glyphicon-chevron-left pull-right"></span>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_removeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-left pull-right"></span></a>-->
                                             {{/unless}}  {{/if}}
                                         </td>
                                         <td >{{freightEquipment.currentStatus}}</td>
                                         <td> {{#if canEdit}}
                                             {{#unless isRegister}}
-                                                <a href="#" {{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>
+                                                {{#view 'button-disabled-on-click' class="btn btn-sm btn-default" disabled=false action = 'progressBar_changeState' arg1 = freightEquipment arg3 = item}}
+                                                    <span class="glyphicon glyphicon-chevron-right pull-left"></span>
+                                                {{/view}}
+                                                <!--<a href="#" {{!{{action "progressBar_changeState" freightEquipment item}}><span class="glyphicon glyphicon-chevron-right pull-left"></span></a>-->
                                             {{/unless}}    {{/if}}
                                         </td>
                                     {{/each}}

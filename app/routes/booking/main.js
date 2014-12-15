@@ -1335,11 +1335,12 @@ export default Ember.Route.extend({
                 }
             });
 
-            self.store.deleteRecord(frPlan_record);
             frPlan_record.deleteRecord();
+            book_record.reload();
+
             frPlan_record.save().then(function(){
                 //      *** FREIGHT PLAN
-
+//                book_record.reload();
                 self.get("controller").set("freightPlanItemsList", []);
 
                 self.store.find("voyage").then(function(val){
@@ -1347,7 +1348,7 @@ export default Ember.Route.extend({
                     controller.set('searchVoy', []);
                 });
 
-//            book_record.reload();
+
 //            }, function(){
 //                //NOT SAVED
 //                new PNotify({
@@ -1953,7 +1954,7 @@ export default Ember.Route.extend({
          @param {Number} - unique key
          @param {String}
          */
-        progressBar_changeState: function( frEquipment_record, item){
+        progressBar_changeState: function( frEquipment_record, no_val, item, _btn){
             var self = this, controller = self.controllerFor('booking.main'),
                 myIndex = null, today = new Date();
 
@@ -1977,6 +1978,7 @@ export default Ember.Route.extend({
                         eqStatuses.pushObject(eqStatus);
                         frEquipment_record.save().then(function(){
                             item.reload();
+                            _btn.set('disabled', false);
                         });
                     });
 
@@ -2016,6 +2018,7 @@ export default Ember.Route.extend({
                 }
 
                 status.save().then(function(eqStatus){
+
                     frEquipment_record.get('orderedEquipmentStatuses').then(function(eqStatuses){
                         eqStatuses.pushObject(eqStatus);
 
@@ -2030,6 +2033,7 @@ export default Ember.Route.extend({
                         }
                         frEquipment_record.save().then(function(){
                             item.reload();
+                            _btn.set('disabled', false);
                         });
                     });
 
@@ -2046,7 +2050,7 @@ export default Ember.Route.extend({
          @param {Number} - unique key
          @param {String}
          */
-        progressBar_removeState: function( frEquipment_record, item ){
+        progressBar_removeState: function( frEquipment_record, null_val, item, _btn ){
             var self = this, controller = self.controllerFor('booking.main'), myIndex = null;
 
             frEquipment_record.get('orderedEquipmentStatuses').then(function(eqStatuses) {
@@ -2076,6 +2080,7 @@ export default Ember.Route.extend({
 
                 frEquipment_record.save().then(function(){
                     item.reload();
+                    _btn.set('disabled', false);
                 });
 
             });

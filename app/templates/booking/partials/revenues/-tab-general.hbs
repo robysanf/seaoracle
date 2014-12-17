@@ -66,9 +66,11 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
                         {{#unless controller.is_shipowner}}
-                            <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_applyCharge' this}}>
-                                Apply Charge
-                            </button>
+                            {{#if controller.searchApplyCharge}}
+                                <button type="button" style="text-align: left" class="btn btn-primary btn-130 pull-right" {{action 'update_applyCharge' this}}>
+                                    Apply Charge
+                                </button>
+                            {{/if}}
                         {{/unless}}
                     </div>
                     <div class="col-lg-1"></div>

@@ -1245,12 +1245,21 @@ export default Ember.Route.extend({
 
                 } else if ( controller.freightPlan_mode.search ) {
                     var freightPlan_tempId = self.get("controller").get("freightPlanItemsList").filterBy("isChecked").mapBy("id").join(",").split(",");
+                    var thereIs_fp = freightPlan_tempId[0];
 
                     if( freightPlan_tempId.length > 1 ){
                         _btn.stop();
                         new PNotify({
                             title: 'Attention',
                             text: 'You can select only one freight plan.',
+                            type: 'warning',
+                            delay: 2000
+                        });
+                    } else if ( thereIs_fp === "" ){
+                        _btn.stop();
+                        new PNotify({
+                            title: 'Attention',
+                            text: 'You must select one freight plan.',
                             type: 'warning',
                             delay: 2000
                         });

@@ -31,7 +31,11 @@
                                             <td >{{input type="checkbox" checked=isChecked}}</td>
                                             {{#if item.freightEquipments}}
                                                 {{#each freightEquipment in item.freightEquipments}}
-                                                    <td>{{freightEquipment.equipment.code}}</td>
+                                                    {{#if freightEquipment.equipment.code}}
+                                                        <td>{{freightEquipment.equipment.code}}</td>
+                                                    {{else}}
+                                                        <td>{{freightEquipment.equipmentClientCode}}</td>
+                                                    {{/if}}
                                                 {{/each}}
                                             {{else}}
                                                 <td></td>

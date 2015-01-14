@@ -3,17 +3,17 @@
     <div class="col-lg-11">
         <div class="row">
             <!-- itemController="docDetail"-->
-            {{#each docDetails}}
-                <div class="col-lg-4"><h4>{{name}}</h4></div>
+            {{#each docDetail in docDetails}}
+                <div class="col-lg-4"><h4>{{docDetail.name}}</h4></div>
                 <div class="col-lg-8">
                     <div class="form-group">
-                        {{#if code_description_of_goods}}
-                            {{textarea value= value cols="80" rows="8" class="form-control" disabled=controller.isView}}
+                        {{#if docDetail.code_description_of_goods}}
+                            {{textarea value= docDetail.value cols="80" rows="8" class="form-control" disabled=controller.isView}}
                         {{else}}
-                            {{#if code_signed_for_the_master_by}}
-                                {{textarea value= value cols="80" rows="8" class="form-control" disabled=controller.isView}}
+                            {{#if docDetail.code_signed_for_the_master_by}}
+                                {{textarea value= docDetail.value cols="80" rows="8" class="form-control" disabled=controller.isView}}
                             {{else}}
-                                {{input value= value class='form-control' disabled=controller.isView}}
+                                {{input value= docDetail.value class='form-control' disabled=controller.isView}}
                             {{/if}}
                         {{/if}}
                     </div>

@@ -50,12 +50,12 @@ export default DS.Model.extend({
     itemsIn_BillOfLading: function(){
         return ( this.get('itemsIn') === 'BillOfLading' );
     }.property('itemsIn'),
-    code_description_of_goods: function(){
-        return (this.get('code') === 'description_of_goods');
-    }.property('code'),
-    code_signed_for_the_master_by: function(){
-        return (this.get('code') === 'signed_for_the_master_by');
-    }.property('code'),
+//    code_description_of_goods: function(){
+//        return (this.get('code') === "description_of_goods");
+//    }.property('code'),
+//    code_signed_for_the_master_by: function(){
+//        return (this.get('code') === 'signed_for_the_master_by');
+//    }.property('code'),
     type_extendedVersion: function(){
         if(this.get('type') == 'docBL'){
             return "Bill of Lading"

@@ -698,7 +698,10 @@ export default Ember.Route.extend({
             if( controller.searchApplyCharge !== "" && controller.searchApplyCharge !== null ){
 
                 book_record.save().then(function(val){
-                    data.billTo = val.get("client").get("id");
+                    if( val.get("client") ){
+                        var client = val.get("client");
+                        data.billTo = client.get("id");
+                    }
                     data.booking = val.get("id");
                     data.currency = val.get("currency");
                     data.changeRate = self.get("controller").get("changeRate");
@@ -1244,12 +1247,21 @@ export default Ember.Route.extend({
 
                 } else if ( controller.freightPlan_mode.search ) {
                     var freightPlan_tempId = self.get("controller").get("freightPlanItemsList").filterBy("isChecked").mapBy("id").join(",").split(",");
+                    var thereIs_fp = freightPlan_tempId[0];
 
                     if( freightPlan_tempId.length > 1 ){
                         _btn.stop();
                         new PNotify({
                             title: 'Attention',
                             text: 'You can select only one freight plan.',
+                            type: 'warning',
+                            delay: 2000
+                        });
+                    } else if ( thereIs_fp === "" ){
+                        _btn.stop();
+                        new PNotify({
+                            title: 'Attention',
+                            text: 'You must select one freight plan.',
                             type: 'warning',
                             delay: 2000
                         });

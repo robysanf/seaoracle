@@ -11,5 +11,13 @@ export default DS.Model.extend({
     authorizedCompanies: DS.hasMany('company',{
         async: true
     }),
-    visibility: DS.attr('string') //public, private, root
+    visibility: DS.attr('string'), //public, private, root
+
+
+    code_description_of_goods: function(){
+        return (this.get('code') === 'description_of_goods');
+    }.property('code'),
+    code_signed_for_the_master_by: function(){
+        return (this.get('code') === 'signed_for_the_master_by');
+    }.property('code')
 });

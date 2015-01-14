@@ -6,13 +6,6 @@ export default DS.Model.extend({
     key: DS.attr('string'),
     name: DS.attr('string'),
     code: DS.attr('string'),   //versione readonly a cui accede il server
-
-    code_description_of_goods: function(){
-        return (this.get('code') === 'description_of_goods');
-    }.property('code'),
-    code_signed_for_the_master_by: function(){
-        return (this.get('code') === 'signed_for_the_master_by');
-    }.property('code'),
     origin: DS.belongsTo('poi'),
     destination: DS.belongsTo('poi'),
     originLeg: DS.belongsTo('leg'),

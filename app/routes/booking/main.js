@@ -1028,6 +1028,15 @@ export default Ember.Route.extend({
                                                                         transhipments.pushObjects( ordered_transhipments_poi );
 
                                                                         newFreightPlan.save().then(function(){
+                                                                            ordered_voyages.forEach( function( voyage, index ){ //scorro 1 ad 1 i voyages
+                                                                                voyage.get('schedules').then(function( schedules ){
+                                                                                    schedules.forEach( function( leg, index ){ //scorro 1 ad 1 le leg
+                                                                                        leg.set('embarking', false);
+                                                                                        leg.set('disembarkation', false);
+                                                                                        //leg.save();
+                                                                                    });
+                                                                                });
+                                                                            });
                                                                             booking_record.reload();
                                                                             controller.set('freightPlanList', []);
                                                                             controller.set('sorted_list', []);
@@ -1135,6 +1144,15 @@ export default Ember.Route.extend({
                                                                     transhipments.pushObjects( ordered_transhipments_poi );
 
                                                                     newFreightPlan.save().then(function(){
+                                                                        ordered_voyages.forEach( function( voyage, index ){ //scorro 1 ad 1 i voyages
+                                                                            voyage.get('schedules').then(function( schedules ){
+                                                                                schedules.forEach( function( leg, index ){ //scorro 1 ad 1 le leg
+                                                                                    leg.set('embarking', false);
+                                                                                    leg.set('disembarkation', false);
+                                                                                    //leg.save();
+                                                                                });
+                                                                            });
+                                                                        });
                                                                         booking_record.reload();
                                                                         controller.set('freightPlanList', []);
                                                                         controller.set('sorted_list', []);

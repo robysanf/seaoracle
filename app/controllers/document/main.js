@@ -30,18 +30,11 @@ export default Ember.ObjectController.extend({
         var comp2 = this.get('app_controller_company');
         return ( this.get('app_controller_companyType') === 'admin' || this.get('app_controller_companyType') === 'agency' && comp1 !== comp2 );
     }.property('company','app_controller_companyType', 'app_controller_company'),
-//    is_admin: function(){
-//        return ( this.get('app_controller_companyType') === 'admin' );
-//    }.property('app_controller_companyType'),
+
     is_client : function(){
         return ( this.get('app_controller_companyType') === 'client' );
     }.property('app_controller_companyType'),
-//    is_agency : function(){
-//        return ( this.get('app_controller_companyType') === 'agency' );
-//    }.property('app_controller_companyType'),
-//    is_shipowner : function(){
-//        return ( this.get('app_controller_companyType') === 'shipowner' );
-//    }.property('app_controller_companyType'),
+
 
     document_record: null,
     /*********************

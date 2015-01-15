@@ -43,7 +43,8 @@ export default Ember.Controller.extend({
         'Bill of Lading',
         'Cargo Manifest',
         'Loading List',
-        'Freight Manifest'
+        'Freight Manifest',
+        'Delivery Order'
     ],
 
     docBLCMType:[
@@ -56,7 +57,8 @@ export default Ember.Controller.extend({
     docLLFPType:[
         '',
         'Loading List',
-        'Freight Manifest'
+        'Freight Manifest',
+        'Delivery Order'
     ],
 
     searchVoy: Ember.A(),

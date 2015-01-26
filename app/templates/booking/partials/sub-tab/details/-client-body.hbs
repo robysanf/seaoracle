@@ -5,24 +5,52 @@
         <div class="row">
             <div class="col-lg-6">
                 <label>Shipper</label>
-                <a id="autocomplete-itemShipperName">
-                    {{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.shipper searchPath="name" minChars=0}}
-                </a>
+                <!--<a id="autocomplete-itemShipperName">-->
+                {{select-2
+                content= app_controller.autocompleteCompany
+                value= controller.item_record.shipper
+                optionLabelPath="name"
+                placeholder="Choose a shipper"
+                typeaheadNoMatchesText="No shipper found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true}}
+                    {{!{{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.shipper searchPath="name" minChars=0}}
+                <!--</a>-->
             </div>
             <div class="col-lg-6">
                 <label>Consignee</label>
-                <a id="autocomplete-itemConsigneeName">
-                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.consignee searchPath="name" minChars=0}}
-                </a>
+                <!--<a id="autocomplete-itemConsigneeName">-->
+                {{select-2
+                content= app_controller.autocompleteCompany
+                value= controller.item_record.consignee
+                optionLabelPath="name"
+                placeholder="Choose a shipper"
+                typeaheadNoMatchesText="No shipper found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true}}
+                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.consignee searchPath="name" minChars=0}}
+                <!--</a>-->
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-lg-6">
                 <label>Notify</label>
-                <a id="autocomplete-itemNotifyName">
-                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.notify searchPath="name" minChars=1}}
-                </a>
+                <!--<a id="autocomplete-itemNotifyName">-->
+
+                {{select-2
+                content= app_controller.autocompleteCompany
+                value= controller.item_record.notify
+                optionLabelPath="name"
+                placeholder="Choose a notify"
+                typeaheadNoMatchesText="No notify found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true}}
+                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.notify searchPath="name" minChars=1}}
+                <!--</a>-->
             </div>
             <div class="col-lg-6"></div>
         </div>

@@ -21,15 +21,33 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label>Origin</label>
-                                <a id="autocomplete-shOrigin">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchOrigin searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-shOrigin">-->
+                                {{select-2
+                                content= app_controller.autocompletePoiPort
+                                value= controller.searchOrigin
+                                optionLabelPath="name"
+                                placeholder="Choose a port"
+                                typeaheadNoMatchesText="No port found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchOrigin searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-5">
                                 <label>Destination</label>
-                                <a id="autocomplete-shDestination">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchDestination searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-shDestination">-->
+                                {{select-2
+                                content= app_controller.autocompletePoiPort
+                                value= controller.searchDestination
+                                optionLabelPath="name"
+                                placeholder="Choose a port"
+                                typeaheadNoMatchesText="No port found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchDestination searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>

@@ -30,9 +30,18 @@
                                                     {{#if controller.is_shipowner}}
                                                         {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                     {{else}}
-                                                        <a id="autocomplete-charge">
-                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
-                                                        </a>
+                                                        <!--<a id="autocomplete-charge">-->
+                                                        {{select-2
+                                                        content= app_controller.autocompleteCompany
+                                                        value= chargeItem.billTo
+                                                        optionLabelPath="name"
+                                                        placeholder="Choose a charge"
+                                                        typeaheadNoMatchesText="No charge found for '%@'"
+                                                        typeaheadErrorText="Loading failed: %@"
+                                                        enabled=true
+                                                        allowClear=true}}
+                                                            {{!{{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
+                                                        <!--</a>-->
                                                     {{/if}}
                                                 {{/if}}
                                             </td>
@@ -94,9 +103,18 @@
                                                     {{#if controller.is_shipowner}}
                                                         {{input value=chargeItem.billTo.name class='form-control' disabled= true}}
                                                     {{else}}
-                                                        <a id="autocomplete-charge">
-                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
-                                                        </a>
+                                                        <!--<a id="autocomplete-charge">-->
+                                                        {{select-2
+                                                        content= app_controller.autocompleteCompany
+                                                        value= chargeItem.billTo
+                                                        optionLabelPath="name"
+                                                        placeholder="Choose a charge"
+                                                        typeaheadNoMatchesText="No charge found for '%@'"
+                                                        typeaheadErrorText="Loading failed: %@"
+                                                        enabled=true
+                                                        allowClear=true}}
+                                                            {{!{{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
+                                                        <!--</a>-->
                                                     {{/if}}
                                                 {{/if}}
                                             </td>
@@ -158,9 +176,18 @@
                                                     {{#if controller.is_shipowner}}
                                                         {{input value= chargeItem.billTo.name class='form-control' disabled= true}}
                                                     {{else}}
-                                                        <a id="autocomplete-charge">
-                                                            {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo  searchPath="name" minChars=1}}
-                                                        </a>
+                                                        <!--<a id="autocomplete-charge">-->
+                                                        {{select-2
+                                                        content= app_controller.autocompleteCompany
+                                                        value= chargeItem.billTo
+                                                        optionLabelPath="name"
+                                                        placeholder="Choose a charge"
+                                                        typeaheadNoMatchesText="No charge found for '%@'"
+                                                        typeaheadErrorText="Loading failed: %@"
+                                                        enabled=true
+                                                        allowClear=true}}
+                                                            {{!{{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo searchPath="name" minChars=1}}
+                                                        <!--</a>-->
                                                     {{/if}}
                                                 {{/if}}
                                             </td>

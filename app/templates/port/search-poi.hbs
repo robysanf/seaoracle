@@ -25,9 +25,18 @@
                             </div>
                             <div class="col-lg-5">
                                 <label>UnLocode</label>
-                                <a id="autocomplete-portUnLocode">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchUnLocode searchPath="unLocode" minChars=0}}
-                                </a>
+                                <!--<a id="autocomplete-portUnLocode">-->
+                                {{select-2
+                                content= app_controller.autocompletePoiPort
+                                value= controller.searchUnLocode
+                                optionLabelPath="unLocode"
+                                placeholder="Choose a code"
+                                typeaheadNoMatchesText="No code found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchUnLocode searchPath="unLocode" minChars=0}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>

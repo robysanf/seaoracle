@@ -7,9 +7,18 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
             <label>Port</label>
-            <a id="autocomplete-port">
-                {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
-            </a>
+            <!--<a id="autocomplete-port">-->
+            {{select-2
+            content= app_controller.autocompletePoiPort
+            value= controller.searchPort
+            optionLabelPath="name"
+            placeholder="Choose a port"
+            typeaheadNoMatchesText="No port found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true}}
+                {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
+            <!--</a>-->
         </div>
         <div class="col-lg-2"></div>
     </div>

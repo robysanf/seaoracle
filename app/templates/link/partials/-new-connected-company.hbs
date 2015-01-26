@@ -4,9 +4,18 @@
     </div>
     <div class="row" style="margin-bottom: 25px">
         <div class="col-lg-12">
-            <a id="autocomplete-company">
-                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=0}}
-            </a>
+            <!--<a id="autocomplete-company">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.searchCompany
+            optionLabelPath="name"
+            placeholder="Choose a company"
+            typeaheadNoMatchesText="No company found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true}}
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=0}}
+            <!--</a>-->
         </div>
     </div>
     <div class="row" style="margin-bottom: 25px">

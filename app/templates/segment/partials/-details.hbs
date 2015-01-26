@@ -18,9 +18,18 @@
                 {{#if controller.isView}}
                     {{input value= origin.name class='form-control' disabled= controller.isView}}
                 {{else}}
-                    <a id="autocomplete-origin">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=origin searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-origin">-->
+                    {{select-2
+                    content= app_controller.autocompletePoiPort
+                    value= origin
+                    optionLabelPath="name"
+                    placeholder="Choose a port"
+                    typeaheadNoMatchesText="No port found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompletePoiPort destination=origin searchPath="name" minChars=2}}
+                    <!--</a>-->
                 {{/if}}
 
             </div>
@@ -32,9 +41,18 @@
                 {{#if controller.isView}}
                     {{input value= destination.name class='form-control' disabled= controller.isView}}
                 {{else}}
-                    <a id="autocomplete-destination">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=destination searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-destination">-->
+                    {{select-2
+                    content= app_controller.autocompletePoiPort
+                    value= destination
+                    optionLabelPath="name"
+                    placeholder="Choose a port"
+                    typeaheadNoMatchesText="No port found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompletePoiPort destination=destination searchPath="name" minChars=2}}
+                    <!--</a>-->
                 {{/if}}
             </div>
             <div class="col-lg-2"></div>

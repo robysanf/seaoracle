@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+//this.$('ul.suggestions li').removeClass('active');
+//this.$('ul.suggestions li:first-child').addClass('active');
+
 var get = Ember.get,
     set = Ember.set,
     addObserver = Ember.addObserver;
@@ -8,6 +11,7 @@ var get = Ember.get,
 export default Ember.Component.extend({
     actions: {
         addSelection: function(selection){
+            console.log('1');
             var usecase = get(this, 'usecase');
             set(this, 'query', '');
 
@@ -36,6 +40,7 @@ export default Ember.Component.extend({
         },
 
         moveSelection: function(direction){
+            console.log('2');
             var selectionIndex = get(this, 'selectionIndex'),
                 isUp = direction === 'up',
                 isDown = !isUp,
@@ -85,6 +90,7 @@ export default Ember.Component.extend({
         },
 
         hideResults: function(){
+            console.log('3');
             var displayResults = get(this, 'displayResults');
 
             set(this, 'selectionIndex', -1);
@@ -97,6 +103,7 @@ export default Ember.Component.extend({
         },
 
         selectActive: function(){
+            console.log('4');
             var usecase = get(this, 'usecase'),
                 query = get(this, 'query'),
                 displayResultsLength = get(this, 'displayResults.length');
@@ -127,6 +134,7 @@ export default Ember.Component.extend({
         },
 
         removeSelection: function(item){
+            console.log('5');
             var usecase = get(this, 'usecase');
 
             switch(usecase) {
@@ -154,12 +162,14 @@ export default Ember.Component.extend({
     selectionIndex: -1,
 
     init: function(){
+        console.log('6');
         this._super.apply(this, arguments);
         addObserver(this, 'query', this.queryDidChange);
         set(this, 'displayResults', Ember.A());
     },
 
     didInsertElement: function(){
+        console.log('7');
         this._super.apply(this, arguments);
         //Ember.assert('You must supply a source for the autosuggest component', get(this, 'source'));
         //Ember.assert('You must supply a destination for the autosuggest component', get(this, 'destination'));
@@ -169,6 +179,7 @@ export default Ember.Component.extend({
     },
 
     _queryPromise: function(query){
+        console.log('8');
         var source = get(this, 'source'),
             searchPath = get(this, 'searchPath'),
             store = get(this, 'store');
@@ -192,6 +203,7 @@ export default Ember.Component.extend({
     },
 
     queryDidChange: function(){
+        console.log('9');
         var query = get(this, 'query'),
             displayResults = get(this, 'displayResults'),
             hasQuery = get(this, 'hasQuery'),
@@ -219,6 +231,7 @@ export default Ember.Component.extend({
     },
 
     processResults: function(query, source){
+        console.log('10');
         var self = this,
             displayResults = get(this, 'displayResults');
 
@@ -241,9 +254,11 @@ export default Ember.Component.extend({
         displayResults.pushObjects(Ember.A(results.sort(function(a, b){
             return Ember.compare(get(a, searchPath), get(b, searchPath));
         })));
+        self.send('moveSelection', 'down'); // quando compare la lista dei risultati và in focus il suo primo elemento
     },
 
     hasQuery: Ember.computed(function(){
+        console.log('11');
         var query = get(this, 'query'), usecase = get(this, 'usecase');
 
         if( usecase !== 'customModeWithoutSource' ) {
@@ -259,6 +274,7 @@ export default Ember.Component.extend({
     }).property('query'),
 
     mouseOver: function(evt){
+        console.log('12');
         var el = this.$(evt.target);
 
         var active = get(this, 'displayResults').filter(function(item){
@@ -279,6 +295,7 @@ export default Ember.Component.extend({
     },
 
     mouseOut: function(evt){
+        console.log('13');
         var target = $(evt.target);
 
         if(target.parents('ul').hasClass('suggestions')){
@@ -289,6 +306,8 @@ export default Ember.Component.extend({
     },
 
     positionResults: function(){
+        console.log('14');
+
         var results = this.$('.results');
 
         var //input = this.$('input.autosuggest'),
@@ -317,6 +336,7 @@ export default Ember.Component.extend({
         ESCAPE: 27,
 
         init: function(){
+            console.log('15');
             this._super.apply(this, arguments);
 
             var allowedKeyCodes = Ember.A([this.KEY_UP, this.KEY_DOWN, this.COMMA, this.TAB, this.ENTER, this.ESCAPE]);
@@ -324,6 +344,7 @@ export default Ember.Component.extend({
         },
 
         keyDown: function(e){
+            console.log('16');
             var keyCode = e.keyCode;
 
             if(!this.get('allowedKeyCodes').contains(keyCode)){
@@ -351,6 +372,7 @@ export default Ember.Component.extend({
         },
 
         focusOut: function() {
+            console.log('17');
             var self = this;
             setTimeout( function(){ self.sendAction('hideResults'); } , 200 );
         }

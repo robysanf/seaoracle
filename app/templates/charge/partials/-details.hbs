@@ -29,9 +29,18 @@
                 {{#if controller.isView}}
                     {{input value= segment.name class='form-control' disabled= controller.isView}}
                 {{else}}
-                    <a id="autocomplete-mysegment">
-                        {{auto-complete source=app_controller.autocompleteSegment destination=segment searchPath="name" minChars=1}}
-                    </a>
+                    <!--<a id="autocomplete-mysegment">-->
+                    {{select-2
+                    content= app_controller.autocompleteSegment
+                    value= segment
+                    optionLabelPath="name"
+                    placeholder="Choose a route"
+                    typeaheadNoMatchesText="No route found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteSegment destination=segment searchPath="name" minChars=1}}
+                    <!--</a>-->
                 {{/if}}
             </div>
 

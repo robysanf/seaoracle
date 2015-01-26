@@ -357,15 +357,33 @@
                         <div class="form-group">
                             <label>Type</label>
                             {{#view 'filter-identifier' value=freightEquipment.equipmentClassification}}
-                                {{auto-complete source=app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0}}
+                                {{select-2
+                                content= app_controller.autocompleteEqClassificationContainer
+                                value= freightEquipment.equipmentClassification
+                                optionLabelPath="name"
+                                placeholder="Choose a type"
+                                typeaheadNoMatchesText="No type found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                {{!{{auto-complete source=app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0}}
                             {{/view}}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <label for="exampleInputEmail">Identifier</label>
-                        <a id="autocomplete-equipmentCode">
-                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
-                        </a>
+                        <!--<a id="autocomplete-equipmentCode">-->
+                        {{select-2
+                        content= app_controller.autocompleteEquipment
+                        value= freightEquipment.equipment
+                        optionLabelPath="code"
+                        placeholder="Choose an identifier"
+                        typeaheadNoMatchesText="No identifier found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                            {{!{{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
+                        <!--</a>-->
                     </div>
                 {{/if}}
             </div>

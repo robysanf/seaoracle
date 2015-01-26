@@ -7,6 +7,7 @@ var app = new EmberApp();
 
 // IMPORT BOOTSTRAP
 app.import('vendor/bootstrap/dist/css/bootstrap.css');
+app.import('vendor/bootstrap/dist/css/select2-bootstrap.css');
 app.import('vendor/bootstrap/dist/js/bootstrap.min.js');
 
 //// IMPORT GLYPHICONS

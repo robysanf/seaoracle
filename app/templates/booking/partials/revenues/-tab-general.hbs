@@ -42,10 +42,19 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-5">
                         <label>Charge: </label>
-                        <a id="autocomplete-charge">
+                        <!--<a id="autocomplete-charge">-->
                             <!--FIXME: autoCompleteCharge viene settato nella funzione "selectTab"-->
-                            {{auto-complete source=app_controller.autocompleteCharge destination= controller.searchApplyCharge searchPath="name" minChars=0}}
-                        </a>
+                        {{select-2
+                        content= app_controller.autocompleteCharge
+                        value= controller.searchApplyCharge
+                        optionLabelPath="name"
+                        placeholder="Choose a charge"
+                        typeaheadNoMatchesText="No charge found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                            {{!{{auto-complete source=app_controller.autocompleteCharge destination= controller.searchApplyCharge searchPath="name" minChars=0}}
+                        <!--</a>-->
                     </div>
                     <div class="col-lg-5">
                         <label>Change rate: </label>

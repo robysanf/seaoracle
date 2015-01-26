@@ -116,18 +116,36 @@
         <div class="row">
             <div class="col-lg-3"><h4>Referring port</h4></div>
             <div class="col-lg-7">
-                <a id="autocomplete-referringPort">
-                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchReferringPort searchPath="name" minChars=2}}
-                </a>
+                <!--<a id="autocomplete-referringPort">-->
+                {{select-2
+                content= app_controller.autocompletePoiPort
+                value= controller.searchReferringPort
+                optionLabelPath="name"
+                placeholder="Choose a port"
+                typeaheadNoMatchesText="No port found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true}}
+                    {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchReferringPort searchPath="name" minChars=2}}
+                <!--</a>-->
             </div>
             <div class="col-lg-2"></div>
         </div>
         <div class="row" style="margin-top: 15px">
             <div class="col-lg-3"><h4>Stamp</h4></div>
             <div class="col-lg-7">
-                <a id="autocomplete-segment">
-                    {{auto-complete source=app_controller.autocompleteStamp destination=controller.searchStamp searchPath="name" minChars=1}}
-                </a>
+                <!--<a id="autocomplete-segment">-->
+                {{select-2
+                content= app_controller.autocompleteStamp
+                value= controller.searchStamp
+                optionLabelPath="name"
+                placeholder="Choose a stamp"
+                typeaheadNoMatchesText="No stamp found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true}}
+                    {{!{{auto-complete source=app_controller.autocompleteStamp destination=controller.searchStamp searchPath="name" minChars=1}}
+                <!--</a>-->
             </div>
             <div class="col-lg-2"></div>
         </div>

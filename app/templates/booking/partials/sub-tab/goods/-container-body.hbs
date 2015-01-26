@@ -5,9 +5,18 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <label style="color: red">Type {{#if isEditing}}(*){{/if}}</label>
-                        <a id="autocomplete-equipmentType">
-                            {{auto-complete source= app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=controller.item_record.isRegister}}
-                        </a>
+                        <!--<a id="autocomplete-equipmentType">-->
+                        {{select-2
+                        content= app_controller.autocompleteEqClassificationContainer
+                        value= freightEquipment.equipmentClassification
+                        optionLabelPath="name"
+                        placeholder="Choose a type"
+                        typeaheadNoMatchesText="No type found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                            {{!{{auto-complete source= app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=controller.item_record.isRegister}}
+                        <!--</a>-->
                     </div>
                 </div>
             {{/view}}
@@ -88,9 +97,19 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label style="color: red">Type {{#if isEditing}}(*){{/if}}</label>
-                            <a id="autocomplete-equipmentType">
-                                {{auto-complete source=app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=isRegister}}
-                            </a>
+                            <!--<a id="autocomplete-equipmentType">-->
+                            {{select-2
+                            content= app_controller.autocompleteEqClassificationContainer
+                            value= freightEquipment.equipmentClassification
+                            optionLabelPath="name"
+                            placeholder="Choose a type"
+                            typeaheadNoMatchesText="No type found for '%@'"
+                            typeaheadErrorText="Loading failed: %@"
+                            enabled=true
+                            allowClear=true
+                            disabled=isRegister}}
+                                {{!{{auto-complete source=app_controller.autocompleteEqClassificationContainer destination= freightEquipment.equipmentClassification searchPath="name" minChars=0 disabled=isRegister}}
+                            <!--</a>-->
                         </div>
                     </div>
                 {{/view}}
@@ -143,15 +162,35 @@
             <div class="row">
                 <div class="col-lg-6">
                     <label>Empty withdrawal terminal</label>
-                    <a id="autocomplete-equipmentEmptyTerminal">
-                        {{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.emptyWithdrawalTerminal searchPath="key" minChars=1 disabled=isRegister}}
-                    </a>
+                    <!--<a id="autocomplete-equipmentEmptyTerminal">-->
+                    {{select-2
+                    content= app_controller.autocompletePoiDepot
+                    value= controller.item_record.emptyWithdrawalTerminal
+                    optionLabelPath="key"
+                    placeholder="Choose an empty withdrawal terminal"
+                    typeaheadNoMatchesText="No empty withdrawal terminal found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true
+                    disabled=isRegister}}
+                        {{!{{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.emptyWithdrawalTerminal searchPath="key" minChars=1 disabled=isRegister}}
+                    <!--</a>-->
                 </div>
                 <div class="col-lg-6">
                     <label>Laden return terminal</label>
-                    <a id="autocomplete-equipmentLadenTerminal">
-                        {{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.ladenReturnTerminal searchPath="key" minChars=1 disabled=isRegister}}
-                    </a>
+                    <!--<a id="autocomplete-equipmentLadenTerminal">-->
+                    {{select-2
+                    content= app_controller.autocompletePoiDepot
+                    value= controller.item_record.ladenReturnTerminal
+                    optionLabelPath="key"
+                    placeholder="Choose an laden return terminal"
+                    typeaheadNoMatchesText="No laden return terminal found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true
+                    disabled=isRegister}}
+                        {{!{{auto-complete source=app_controller.autocompletePoiDepot destination= controller.item_record.ladenReturnTerminal searchPath="key" minChars=1 disabled=isRegister}}
+                    <!--</a>-->
                 </div>
             </div>
         {{/if}}
@@ -514,9 +553,18 @@
                 {{else}}
                     <div class="col-lg-6">
                         <label for="exampleInputEmail">Identifier</label>
-                        <a id="autocomplete-equipmentCode">
-                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
-                        </a>
+                        <!--<a id="autocomplete-equipmentCode">-->
+                        {{select-2
+                        content= app_controller.autocompleteEquipment
+                        value= freightEquipment.equipment
+                        optionLabelPath="code"
+                        placeholder="Choose a identifier"
+                        typeaheadNoMatchesText="No identifier found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                            {{!{{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
+                        <!--</a>-->
                     </div>
                 {{/if}}
             </div>

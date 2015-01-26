@@ -5,9 +5,18 @@
         {{#if isLockedOrRegistered}}
             {{input value= controller.item_record.customManifestHandler.name type="text" class='form-control' disabled=true}}
         {{else}}
-            <a id="autocomplete-itemCustomManifestHandlerName">
-                {{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.customManifestHandler searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-itemCustomManifestHandlerName">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.item_record.customManifestHandler
+            optionLabelPath="name"
+            placeholder="Choose a custom manifest handler"
+            typeaheadNoMatchesText="No custom manifest handler found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true}}
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.customManifestHandler searchPath="name" minChars=1}}
+            <!--</a>-->
         {{/if}}
     </div>
 </div>
@@ -30,9 +39,18 @@
                 {{#if isLockedOrRegistered}}
                     {{input value= controller.item_record.customPoi.name type="text" class='form-control' disabled=isLockedOrRegistered}}
                 {{else}}
-                    <a id="autocomplete-customLocation">
-                        {{auto-complete source=app_controller.autocompletePoi destination= controller.item_record.customPoi searchPath="name" minChars=0}}
-                    </a>
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.item_record.customManifestHandler
+                    optionLabelPath="name"
+                    placeholder="Choose a custom manifest handler"
+                    typeaheadNoMatchesText="No custom manifest handler found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                    <!--<a id="autocomplete-customLocation">-->
+                        {{!{{auto-complete source=app_controller.autocompletePoi destination= controller.item_record.customPoi searchPath="name" minChars=0}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>
@@ -43,9 +61,18 @@
                 {{#if isLockedOrRegistered}}
                     {{input value= controller.item_record.customBroker.name type="text" class='form-control' disabled=isLockedOrRegistered}}
                 {{else}}
-                    <a id="autocomplete-customBroker">
-                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.customBroker searchPath="name" minChars=0}}
-                    </a>
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.item_record.customBroker
+                    optionLabelPath="name"
+                    placeholder="Choose a custom broker"
+                    typeaheadNoMatchesText="No custom broker found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                    <!--<a id="autocomplete-customBroker">-->
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.item_record.customBroker searchPath="name" minChars=0}}
+                    <!--</a>-->
                 {{/if}}
             </div>
             <div class="col-lg-6">
@@ -53,9 +80,18 @@
                 {{#if isLockedOrRegistered}}
                     {{input value= controller.item_record.freightForwardingAgent.name type="text" class='form-control' disabled=isLockedOrRegistered}}
                 {{else}}
-                    <a id="autocomplete-customAgent">
-                        {{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.freightForwardingAgent searchPath="name" minChars=0}}
-                    </a>
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.item_record.freightForwardingAgent
+                    optionLabelPath="name"
+                    placeholder="Choose a custom agent"
+                    typeaheadNoMatchesText="No custom agent found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                    <!--<a id="autocomplete-customAgent">-->
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination= controller.item_record.freightForwardingAgent searchPath="name" minChars=0}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>

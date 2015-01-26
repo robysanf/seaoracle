@@ -6,15 +6,33 @@
             <div class="row">
                 <div class="col-lg-6">
                     <label>Carrier</label>
-                    <a id="autocomplete-carrierName">
-                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.carrier searchPath="name" minChars=1}}
-                    </a>
+                    <!--<a id="autocomplete-carrierName">-->
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.haulage_record.carrier
+                    optionLabelPath="name"
+                    placeholder="Choose an carrier"
+                    typeaheadNoMatchesText="No carrier found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.carrier searchPath="name" minChars=1}}
+                    <!--</a>-->
                 </div>
                 <div class="col-lg-6">
                     <label>pick up company</label>
-                    <a id="autocomplete-pickUpCompany">
-                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.pickUpCompany searchPath="name" minChars=1}}
-                    </a>
+                    <!--<a id="autocomplete-pickUpCompany">-->
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.haulage_record.pickUpCompany
+                    optionLabelPath="name"
+                    placeholder="Choose a company"
+                    typeaheadNoMatchesText="No company found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.haulage_record.pickUpCompany searchPath="name" minChars=1}}
+                    <!--</a>-->
                 </div>
             </div>
             <br>

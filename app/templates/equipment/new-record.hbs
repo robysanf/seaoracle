@@ -36,9 +36,18 @@
                                         <div class="row" style="margin-bottom: 15px">
                                             <div class="col-lg-3"><h4>Classification</h4></div>
                                             <div class="col-lg-9">
-                                                <a id="autocomplete-classification">
-                                                    {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
-                                                </a>
+                                                <!--<a id="autocomplete-classification">-->
+                                                {{select-2
+                                                content= app_controller.autocompleteEqClassification
+                                                value= controller.searchClassification
+                                                optionLabelPath="name"
+                                                placeholder="Choose a classification"
+                                                typeaheadNoMatchesText="No classification found for '%@'"
+                                                typeaheadErrorText="Loading failed: %@"
+                                                enabled=true
+                                                allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
+                                                <!--</a>-->
                                             </div>
                                         </div>
                                         <div class="row">
@@ -55,9 +64,18 @@
                                         <div class="row" style="margin-bottom: 15px">
                                             <div class="col-lg-3"><h4>Position</h4></div>
                                             <div class="col-lg-9">
-                                                <a id="autocomplete-position">
-                                                    {{auto-complete source=app_controller.autocompletePoi destination=controller.searchPosition searchPath="name" minChars=2}}
-                                                </a>
+                                                <!--<a id="autocomplete-position">-->
+                                                {{select-2
+                                                content= app_controller.autocompletePoi
+                                                value= controller.searchPosition
+                                                optionLabelPath="name"
+                                                placeholder="Choose a position"
+                                                typeaheadNoMatchesText="No position found for '%@'"
+                                                typeaheadErrorText="Loading failed: %@"
+                                                enabled=true
+                                                allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompletePoi destination=controller.searchPosition searchPath="name" minChars=2}}
+                                                <!--</a>-->
                                             </div>
                                         </div>
                                         <div class="row">
@@ -87,18 +105,36 @@
                                         <div class="row" style="margin-bottom: 15px">
                                             <div class="col-lg-3"><h4>Supplier</h4></div>
                                             <div class="col-lg-9">
-                                                <a id="autocomplete-supplier">
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
-                                                </a>
+                                                <!--<a id="autocomplete-supplier">-->
+                                                {{select-2
+                                                content= app_controller.autocompleteCompany
+                                                value= controller.searchSupplier
+                                                optionLabelPath="name"
+                                                placeholder="Choose a supplier"
+                                                typeaheadNoMatchesText="No supplier found for '%@'"
+                                                typeaheadErrorText="Loading failed: %@"
+                                                enabled=true
+                                                allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
+                                                <!--</a>-->
                                             </div>
                                         </div>
 
                                         <div class="row" style="margin-bottom: 15px">
                                             <div class="col-lg-3"><h4>Holder</h4></div>
                                             <div class="col-lg-9">
-                                                <a id="autocomplete-holder">
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchHolder searchPath="name" minChars=2}}
-                                                </a>
+                                                <!--<a id="autocomplete-holder">-->
+                                                {{select-2
+                                                content= app_controller.autocompleteCompany
+                                                value= controller.searchHolder
+                                                optionLabelPath="name"
+                                                placeholder="Choose a holder"
+                                                typeaheadNoMatchesText="No holder found for '%@'"
+                                                typeaheadErrorText="Loading failed: %@"
+                                                enabled=true
+                                                allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchHolder searchPath="name" minChars=2}}
+                                                <!--</a>-->
                                             </div>
                                         </div>
 
@@ -106,19 +142,55 @@
                                             <div class="col-lg-3"><h4>Planners</h4></div>
                                             <div class="col-lg-9">
                                                 <a id="autocomplete-planner1" data-id="{{unbound this.id}}">    <!--view.contentIndex-->
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner1 searchPath="name" minChars=2}}
+                                                {{select-2
+                                                content= app_controller.autocompleteCompany
+                                                value= controller.searchPlanner1
+                                                optionLabelPath="name"
+                                                placeholder="Choose a planner"
+                                                typeaheadNoMatchesText="No planner found for '%@'"
+                                                typeaheadErrorText="Loading failed: %@"
+                                                enabled=true
+                                                allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner1 searchPath="name" minChars=2}}
                                                 </a>
                                                 <p></p>
                                                 <a id="autocomplete-planner2" data-id="{{unbound this.id}}">
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner2 searchPath="name" minChars=2}}
+                                                    {{select-2
+                                                    content= app_controller.autocompleteCompany
+                                                    value= controller.searchPlanner2
+                                                    optionLabelPath="name"
+                                                    placeholder="Choose a planner"
+                                                    typeaheadNoMatchesText="No planner found for '%@'"
+                                                    typeaheadErrorText="Loading failed: %@"
+                                                    enabled=true
+                                                    allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner2 searchPath="name" minChars=2}}
                                                 </a>
                                                 <p></p>
                                                 <a id="autocomplete-planner3" data-id="{{unbound this.id}}">
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner3 searchPath="name" minChars=2}}
+                                                    {{select-2
+                                                    content= app_controller.autocompleteCompany
+                                                    value= controller.searchPlanner3
+                                                    optionLabelPath="name"
+                                                    placeholder="Choose a planner"
+                                                    typeaheadNoMatchesText="No planner found for '%@'"
+                                                    typeaheadErrorText="Loading failed: %@"
+                                                    enabled=true
+                                                    allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner3 searchPath="name" minChars=2}}
                                                 </a>
                                                 <p></p>
                                                 <a id="autocomplete-planner4" data-id="{{unbound this.id}}">
-                                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner4 searchPath="name" minChars=2}}
+                                                    {{select-2
+                                                    content= app_controller.autocompleteCompany
+                                                    value= controller.searchPlanner4
+                                                    optionLabelPath="name"
+                                                    placeholder="Choose a planner"
+                                                    typeaheadNoMatchesText="No planner found for '%@'"
+                                                    typeaheadErrorText="Loading failed: %@"
+                                                    enabled=true
+                                                    allowClear=true}}
+                                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner4 searchPath="name" minChars=2}}
                                                 </a>
                                                 <p></p>
                                             </div>

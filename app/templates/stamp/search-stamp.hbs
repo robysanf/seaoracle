@@ -25,9 +25,18 @@
                             </div>
                             <div class="col-lg-5">
                                 <label>Type</label>
-                                <a id="autocomplete-type">
-                                    {{auto-complete source=app_controller.autocompleteStamp destination=controller.searchType searchPath="type" minChars=0}}
-                                </a>
+                                <!--<a id="autocomplete-type">-->
+                                {{select-2
+                                content= app_controller.autocompleteStamp
+                                value= controller.searchType
+                                optionLabelPath="type"
+                                placeholder="Choose a type"
+                                typeaheadNoMatchesText="No type found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompleteStamp destination=controller.searchType searchPath="type" minChars=0}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>

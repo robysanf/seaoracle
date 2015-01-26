@@ -503,9 +503,18 @@
                 {{else}}
                     <div class="col-lg-6">
                         <label for="exampleInputEmail">Identifier </label>
-                        <a id="autocomplete-equipmentCode">
-                            {{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
-                        </a>
+                        <!--<a id="autocomplete-equipmentCode">-->
+                        {{select-2
+                        content= app_controller.autocompleteEquipment
+                        value= freightEquipment.equipment
+                        optionLabelPath="code"
+                        placeholder="Choose a identifier"
+                        typeaheadNoMatchesText="No identifier found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                            {{!{{auto-complete source=app_controller.autocompleteEquipment destination= freightEquipment.equipment searchPath="code" minChars=0}}
+                        <!--</a>-->
                     </div>
                 {{/if}}
             {{/if}}

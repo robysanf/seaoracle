@@ -79,9 +79,20 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <label>Chassis number</label>
-                                            <a id="autocomplete-searchChassisNum">
-                                                {{auto-complete source=app_controller.autocompleteChassisNum destination=controller.searchChassisNum searchPath="chassisNum" minChars=2}}
-                                            </a>
+                                            <!--<a id="autocomplete-searchChassisNum">-->
+                                            {{select-2
+                                            content= app_controller.autocompleteChassisNum
+                                            value= controller.searchChassisNum
+                                            optionLabelPath="chassisNum"
+                                            placeholder="Choose a chassis number"
+                                            typeaheadNoMatchesText="No chassis number found for '%@'"
+                                            typeaheadErrorText="Loading failed: %@"
+                                            enabled=true
+                                            allowClear=true
+                                            }}
+
+                                                {{!{{auto-complete source=app_controller.autocompleteChassisNum destination=controller.searchChassisNum searchPath="chassisNum" minChars=2}}
+                                            <!--</a>-->
                                         </div>
                                     </div>
                                 {{/if}}

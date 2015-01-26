@@ -187,9 +187,18 @@
                 {{#if controller.isView}}
                     {{input value=referringPort.name type="text" class='form-control' disabled=controller.isView}}
                 {{else}}
-                    <a id="autocomplete-referringPort">
-                        {{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" minChars=0}}
-                    </a>
+                    <!--<a id="autocomplete-referringPort">-->
+                    {{select-2
+                    content= app_controller.autocompletePoiPort
+                    value= referringPort
+                    optionLabelPath="name"
+                    placeholder="Choose a port"
+                    typeaheadNoMatchesText="No port found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompletePoiPort destination=referringPort searchPath="name" minChars=0}}
+                    <!--</a>-->
                 {{/if}}
             </div>
             <div class="col-lg-2"></div>
@@ -200,9 +209,18 @@
                 {{#if controller.isView}}
                     {{input value=stamp.name type="text" class='form-control' disabled=controller.isView}}
                 {{else}}
-                    <a id="autocomplete-segment">
-                        {{auto-complete source=app_controller.autocompleteStamp destination=stamp searchPath="name" minChars=0}}
-                    </a>
+                    <!--<a id="autocomplete-segment">-->
+                    {{select-2
+                    content= app_controller.autocompleteStamp
+                    value= stamp
+                    optionLabelPath="name"
+                    placeholder="Choose a stamp"
+                    typeaheadNoMatchesText="No stamp found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteStamp destination=stamp searchPath="name" minChars=0}}
+                    <!--</a>-->
                 {{/if}}
             </div>
             <div class="col-lg-2"></div>

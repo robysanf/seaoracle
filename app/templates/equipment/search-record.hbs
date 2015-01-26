@@ -21,15 +21,33 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label>Classification</label>
-                                <a id="autocomplete-classification">
-                                    {{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-classification">-->
+                                {{select-2
+                                content= app_controller.autocompleteEqClassification
+                                value= controller.searchClassification
+                                optionLabelPath="name"
+                                placeholder="Choose a classification"
+                                typeaheadNoMatchesText="No classification found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompleteEqClassification destination=controller.searchClassification searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-5">
                                 <label>Supplier</label>
-                                <a id="autocomplete-supplier">
-                                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-supplier">-->
+                                {{select-2
+                                content= app_controller.autocompleteCompany
+                                value= controller.searchSupplier
+                                optionLabelPath="name"
+                                placeholder="Choose a supplier"
+                                typeaheadNoMatchesText="No supplier found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchSupplier searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>
@@ -41,9 +59,19 @@
                             </div>
                             <div class="col-lg-5">
                                 <label>Position</label>
-                                <a id="autocomplete-position">
-                                    {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPosition searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-position">-->
+
+                                {{select-2
+                                content= app_controller.autocompletePoiPort
+                                value= controller.searchPosition
+                                optionLabelPath="name"
+                                placeholder="Choose a position"
+                                typeaheadNoMatchesText="No position found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPosition searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>
@@ -55,9 +83,18 @@
                             </div>
                             <div class="col-lg-5">
                                 <label>Voyage</label>
-                                <a id="autocomplete-voy">
-                                    {{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoyage searchPath="name" minChars=2}}
-                                </a>
+                                <!--<a id="autocomplete-voy">-->
+                                {{select-2
+                                content= app_controller.autocompleteVoyage
+                                value= controller.searchVoyage
+                                optionLabelPath="name"
+                                placeholder="Choose a voyage"
+                                typeaheadNoMatchesText="No voyage found for '%@'"
+                                typeaheadErrorText="Loading failed: %@"
+                                enabled=true
+                                allowClear=true}}
+                                    {{!{{auto-complete source=app_controller.autocompleteVoyage destination=controller.searchVoyage searchPath="name" minChars=2}}
+                                <!--</a>-->
                             </div>
                             <div class="col-lg-1"></div>
                         </div>

@@ -18,9 +18,19 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             <label>Roro code</label>
-            <a id="autocomplete-bookingLoadedOn">
-                {{auto-complete source=app_controller.autocompleteRoRo destination= controller.searchRoRoCode searchPath="code" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-bookingLoadedOn">-->
+            {{select-2
+            content= app_controller.autocompleteRoRo
+            value= controller.searchRoRoCode
+            optionLabelPath="code"
+            placeholder="Choose a code"
+            typeaheadNoMatchesText="No code found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true
+            }}
+                {{!{{auto-complete source=app_controller.autocompleteRoRo destination= controller.searchRoRoCode searchPath="code" minChars=1}}
+            <!--</a>-->
         </div>
         <div class="col-lg-1"></div>
     </div>

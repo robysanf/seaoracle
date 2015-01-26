@@ -11,9 +11,18 @@
             <div class="row" style="margin-bottom: 15px">
                 <div class="col-lg-3"><h4>Vessel</h4></div>
                 <div class="col-lg-9">
-                    <a id="autocomplete-vessel">
-                        {{auto-complete source=app_controller.autocompleteVessel destination=vessel searchPath="nickname" minChars=1}}
-                    </a>
+                    <!--<a id="autocomplete-vessel">-->
+                    {{select-2
+                    content= app_controller.autocompleteVessel
+                    value= vessel
+                    optionLabelPath="nickname"
+                    placeholder="Choose a vessel"
+                    typeaheadNoMatchesText="No vessel found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteVessel destination=vessel searchPath="nickname" minChars=1}}
+                    <!--</a>-->
                 </div>
             </div>
             {{#if vessel}}
@@ -33,9 +42,18 @@
                 {{#if controller.isView}}
                     {{input value=parentVoyage.name class='form-control' disabled=true}}
                 {{else}}
-                    <a id="autocomplete-voyage">
-                        {{auto-complete source=app_controller.autocompleteVoyage destination= parentVoyage searchPath="name" minChars=1}}
-                    </a>
+                    <!--<a id="autocomplete-voyage">-->
+                    {{select-2
+                    content= app_controller.autocompleteVoyage
+                    value= parentVoyage
+                    optionLabelPath="name"
+                    placeholder="Choose a voyage"
+                    typeaheadNoMatchesText="No voyage found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteVoyage destination= parentVoyage searchPath="name" minChars=1}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>
@@ -58,15 +76,33 @@
                             <div class="row" style="margin-top: 25px; margin-bottom: 35px">
                                 <div class="col-lg-6">
                                     <label style="color: #000000">Port</label>
-                                    <a id="autocomplete-searchPort">
-                                        {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
-                                    </a>
+                                    <!--<a id="autocomplete-searchPort">-->
+                                    {{select-2
+                                    content= app_controller.autocompletePoiPort
+                                    value= controller.searchPort
+                                    optionLabelPath="name"
+                                    placeholder="Choose a port"
+                                    typeaheadNoMatchesText="No port found for '%@'"
+                                    typeaheadErrorText="Loading failed: %@"
+                                    enabled=true
+                                    allowClear=true}}
+                                        {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPort searchPath="name" minChars=0}}
+                                    <!--</a>-->
                                 </div>
                                 <div class="col-lg-6">
                                     <label style="color: #000000">Template</label>
-                                    <a id="autocomplete-searchTemplate">
-                                        {{auto-complete source=app_controller.autocompleteTemplate destination=controller.searchTemplate searchPath="name" minChars=0}}
-                                    </a>
+                                    <!--<a id="autocomplete-searchTemplate">-->
+                                    {{select-2
+                                    content= app_controller.autocompleteTemplate
+                                    value= controller.searchTemplate
+                                    optionLabelPath="name"
+                                    placeholder="Choose a template"
+                                    typeaheadNoMatchesText="No template found for '%@'"
+                                    typeaheadErrorText="Loading failed: %@"
+                                    enabled=true
+                                    allowClear=true}}
+                                        {{!{{auto-complete source=app_controller.autocompleteTemplate destination=controller.searchTemplate searchPath="name" minChars=0}}
+                                    <!--</a>-->
                                 </div>
                             </div>
                         </div>

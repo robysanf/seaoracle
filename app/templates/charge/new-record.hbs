@@ -36,9 +36,18 @@
                                     <div class="row" style="margin-bottom: 15px">
                                         <div class="col-lg-3"><h4>Route</h4></div>
                                         <div class="col-lg-9">
-                                            <a id="autocomplete-mysegment">
-                                                {{auto-complete source=app_controller.autocompleteSegment destination=searchSegment searchPath="name" minChars=1}}
-                                            </a>
+                                            <!--<a id="autocomplete-mysegment">-->
+                                            {{select-2
+                                            content= app_controller.autocompleteSegment
+                                            value= searchSegment
+                                            optionLabelPath="name"
+                                            placeholder="Choose a route"
+                                            typeaheadNoMatchesText="No route found for '%@'"
+                                            typeaheadErrorText="Loading failed: %@"
+                                            enabled=true
+                                            allowClear=true}}
+                                                {{!{{auto-complete source=app_controller.autocompleteSegment destination=searchSegment searchPath="name" minChars=1}}
+                                            <!--</a>-->
                                         </div>
                                     </div>
                                     <div class="row">

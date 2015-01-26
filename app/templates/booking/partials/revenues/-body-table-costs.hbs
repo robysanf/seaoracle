@@ -4,9 +4,18 @@
         {{#if isRegister}}
             {{input value=chargeItem.billTo.name class='form-control' disabled=isRegister}}
         {{else}}
-            <a id="autocomplete-charge">
-                {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-charge">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= chargeItem.billTo
+            optionLabelPath="name"
+            placeholder="Choose a charge"
+            typeaheadNoMatchesText="No charge found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true}}
+            {{!{{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
+            <!--</a>-->
         {{/if}}
     </td>
     <td>{{view Ember.Select content=currencyClassification value= chargeItem.costCurrency class='form-control' disabled=isRegister}}</td>

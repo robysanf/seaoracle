@@ -17,9 +17,18 @@
                 {{#if controller.isView}}
                     {{input id='classification' value= equipmentClassification.name placeholder='Enter name' class='form-control' disabled="disabled"}}
                 {{else}}
-                    <a id="autocomplete-classification">
-                        {{auto-complete source=app_controller.autocompleteEqClassification destination= equipmentClassification searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-classification">-->
+                    {{select-2
+                    content= app_controller.autocompleteEqClassification
+                    value= equipmentClassification
+                    optionLabelPath="name"
+                    placeholder="Choose a classification"
+                    typeaheadNoMatchesText="No classification found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteEqClassification destination= equipmentClassification searchPath="name" minChars=2}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>
@@ -50,7 +59,16 @@
                     {{#if controller.isView}}
                         {{input id='position' value= position.name class='form-control' disabled=true}}
                     {{else}}
-                        {{auto-complete source=app_controller.autocompletePoi destination= position searchPath="name" minChars=2}}
+                        {{select-2
+                        content= app_controller.autocompletePoi
+                        value= position
+                        optionLabelPath="name"
+                        placeholder="Choose a position"
+                        typeaheadNoMatchesText="No position found for '%@'"
+                        typeaheadErrorText="Loading failed: %@"
+                        enabled=true
+                        allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompletePoi destination= position searchPath="name" minChars=2}}
                     {{/if}}
                 </div>
             </div>
@@ -97,9 +115,18 @@
                 {{#if controller.isView}}
                     {{input id='supplier' value= supplier.name placeholder='Enter name' class='form-control' disabled="disabled"}}
                 {{else}}
-                    <a id="autocomplete-supplier">
-                        {{auto-complete source=app_controller.autocompleteCompany destination= supplier searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-supplier">-->
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= supplier
+                    optionLabelPath="name"
+                    placeholder="Choose a supplier"
+                    typeaheadNoMatchesText="No supplier found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination= supplier searchPath="name" minChars=2}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>
@@ -109,9 +136,18 @@
                 {{#if controller.isView}}
                     {{input id='holder' value= holder.name placeholder='Enter name' class='form-control' disabled="disabled"}}
                 {{else}}
-                    <a id="autocomplete-holder">
-                        {{auto-complete source=app_controller.autocompleteCompany destination= holder searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-holder">-->
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= holder
+                    optionLabelPath="name"
+                    placeholder="Choose a holder"
+                    typeaheadNoMatchesText="No holder found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination= holder searchPath="name" minChars=2}}
+                    <!--</a>-->
                 {{/if}}
             </div>
         </div>
@@ -145,9 +181,18 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-9">
-                    <a id="autocomplete-planner">
-                        {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner searchPath="name" minChars=2}}
-                    </a>
+                    <!--<a id="autocomplete-planner">-->
+                    {{select-2
+                    content= app_controller.autocompleteCompany
+                    value= controller.searchPlanner
+                    optionLabelPath="name"
+                    placeholder="Choose a planner"
+                    typeaheadNoMatchesText="No planner found for '%@'"
+                    typeaheadErrorText="Loading failed: %@"
+                    enabled=true
+                    allowClear=true}}
+                        {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchPlanner searchPath="name" minChars=2}}
+                    <!--</a>-->
                 </div>
             </div>
         {{/unless}}

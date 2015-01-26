@@ -14,15 +14,38 @@
 <div class="row" style="margin-top: 25px; margin-bottom: 15px">
     <div class="col-lg-6">
         <label style="color: red">Port of Origin (*)</label>
-        <a id="autocomplete-portOriginName">
-            {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=2}}
-        </a>
+        <!--<a id="autocomplete-portOriginName">-->
+        {{select-2
+        content= app_controller.autocompletePoiPort
+        value= controller.searchPortOrigin
+        optionLabelPath="name"
+        placeholder="Choose a port"
+        typeaheadNoMatchesText="No port found for '%@'"
+        typeaheadErrorText="Loading failed: %@"
+        enabled=true
+        allowClear=true
+        }}
+
+
+        {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortOrigin searchPath="name" minChars=2}}
+        <!--</a>-->
     </div>
     <div class="col-lg-6">
         <label style="color: red">Port of Destination (*)</label>
-        <a id="autocomplete-portDestinationName">
-            {{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=2}}
-        </a>
+        <!--<a id="autocomplete-portDestinationName">-->
+
+        {{select-2
+        content= app_controller.autocompletePoiPort
+        value= controller.searchPortDestination
+        optionLabelPath="name"
+        placeholder="Choose a port"
+        typeaheadNoMatchesText="No port found for '%@'"
+        typeaheadErrorText="Loading failed: %@"
+        enabled=true
+        allowClear=true
+        }}
+            {{!{{auto-complete source=app_controller.autocompletePoiPort destination=controller.searchPortDestination searchPath="name" minChars=2}}
+        <!--</a>-->
     </div>
 </div>
 <div class="row" style="margin-bottom: 15px">
@@ -46,9 +69,20 @@
     </div>
     <div class="col-lg-6">
         <label>Customs Agent</label>
-        <a id="autocomplete-customManifestHandlerName">
-            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCustomManifestHandler searchPath="name" minChars=1}}
-        </a>
+        <!--<a id="autocomplete-customManifestHandlerName">-->
+
+        {{select-2
+        content= app_controller.autocompletePoiPort
+        value= controller.searchCustomManifestHandler
+        optionLabelPath="name"
+        placeholder="Choose a final destination"
+        typeaheadNoMatchesText="No destination found for '%@'"
+        typeaheadErrorText="Loading failed: %@"
+        enabled=true
+        allowClear=true
+        }}
+            {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCustomManifestHandler searchPath="name" minChars=1}}
+        <!--</a>-->
     </div>
 </div>
 <div class="row" style="margin-bottom: 15px">
@@ -73,56 +107,133 @@
     {{#if controller.is_admin}}
         <div class="col-lg-3">
             <label style="color: red">Client</label>
-            <a id="autocomplete-clientName">
-                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany size=10 searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-clientName">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.searchCompany
+            optionLabelPath="name"
+            placeholder="Choose a client"
+            typeaheadNoMatchesText="No client found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true
+            }}
+
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany size=10 searchPath="name" minChars=1}}
+            <!--</a>-->
         </div>
         <div class="col-lg-3">
             <label style="color: red">Agency</label>
-            <a id="autocomplete-agencyName">
-                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency size=10 searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-agencyName">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.searchAgency
+            optionLabelPath="name"
+            placeholder="Choose a agency"
+            typeaheadNoMatchesText="No agency found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true
+            }}
+
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency size=10 searchPath="name" minChars=1}}
+            <!--</a>-->
         </div>
         <div class="col-lg-6">
             <label>Shipper</label>
-            <a id="autocomplete-shipperName">
-                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-shipperName">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.searchShipper
+            optionLabelPath="name"
+            placeholder="Choose a shipper"
+            typeaheadNoMatchesText="No shipper found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true
+            }}
+
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+            <!--</a>-->
         </div>
     {{else}}
         <div class="col-lg-6">
             {{#if controller.is_client}}
                 <label style="color: red">Agency</label>
-                <a id="autocomplete-agencyName">
-                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency searchPath="name" minChars=1}}
-                </a>
+                <!--<a id="autocomplete-agencyName">-->
+                {{select-2
+                content= app_controller.autocompleteCompany
+                value= controller.searchAgency
+                optionLabelPath="name"
+                placeholder="Choose a agency"
+                typeaheadNoMatchesText="No agency found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true
+                }}
+
+                   {{! {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchAgency searchPath="name" minChars=1}}
+                <!--</a>-->
             {{else}}
                 <label style="color: red">Client</label>
-                <a id="autocomplete-clientName">
-                    {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=1}}
-                </a>
+                <!--<a id="autocomplete-clientName">-->
+                {{select-2
+                content= app_controller.autocompleteCompany
+                value= controller.searchCompany
+                optionLabelPath="name"
+                placeholder="Choose a client"
+                typeaheadNoMatchesText="No client found for '%@'"
+                typeaheadErrorText="Loading failed: %@"
+                enabled=true
+                allowClear=true
+                }}
+
+                    {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchCompany searchPath="name" minChars=1}}
+                <!--</a>-->
             {{/if}}
         </div>
         <div class="col-lg-6">
             <label>Shipper</label>
-            <a id="autocomplete-shipperName">
-                {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
-            </a>
+            <!--<a id="autocomplete-shipperName">-->
+            {{select-2
+            content= app_controller.autocompleteCompany
+            value= controller.searchShipper
+            optionLabelPath="name"
+            placeholder="Choose a shipper"
+            typeaheadNoMatchesText="No shipper found for '%@'"
+            typeaheadErrorText="Loading failed: %@"
+            enabled=true
+            allowClear=true
+            }}
+
+                {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchShipper searchPath="name" minChars=1}}
+            <!--</a>-->
         </div>
     {{/if}}
 </div>
 <div class="row" style="margin-top: 15px; margin-bottom: 25px">
     <div class="col-lg-6">
         <label>Consignee</label>
-        <a id="autocomplete-consigneeName">
-            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=1}}
-        </a>
+        <!--<a id="autocomplete-consigneeName">-->
+            {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchConsignee searchPath="name" minChars=1}}
+        <!--</a>-->
     </div>
     <div class="col-lg-6">
         <label>Notify</label>
-        <a id="autocomplete-notifyName">
-            {{auto-complete source=app_controller.autocompleteCompany destination=controller.searchNotify searchPath="name" minChars=1}}
-        </a>
+        <!--<a id="autocomplete-notifyName">-->
+        {{select-2
+        content= app_controller.autocompleteCompany
+        value= controller.searchNotify
+        optionLabelPath="name"
+        placeholder="Choose a notify"
+        typeaheadNoMatchesText="No notify found for '%@'"
+        typeaheadErrorText="Loading failed: %@"
+        enabled=true
+        allowClear=true
+        }}
+
+        {{!{{auto-complete source=app_controller.autocompleteCompany destination=controller.searchNotify searchPath="name" minChars=1}}
+        <!--</a>-->
     </div>
 </div>
 

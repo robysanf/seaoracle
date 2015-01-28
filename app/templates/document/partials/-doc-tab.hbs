@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-4"><h4>Number</h4></div>
             <div class="col-lg-8">
-                {{#view 'check-document-code' type=type val=name val1=code voyage=voyage.id token=controller.app_controller_token}}
+                {{#view 'check-document-code' type=type val=name val1=code voyage=voyage.id documentId = id token=controller.app_controller_token}}
                     <div class="form-group">
                         {{input type=text value= name class='form-control' disabled=isView}}
                     </div>

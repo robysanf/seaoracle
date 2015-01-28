@@ -6,6 +6,7 @@ export default Ember.View.extend({
     val1:[],
     token: [],
     voyage: [],
+    documentId: [],
 
     focusOut: function() {
         var self = this, data = self.getProperties(), controller = this.get('controller');
@@ -15,7 +16,7 @@ export default Ember.View.extend({
             data.val = this.val;
             data.type = this.type;
             data.voyage = this.voyage;
-            $.put('api/custom/checkDocumentCode?token=' + this.token, data).then(function(response){
+            $.put('api/custom/checkDocumentCode/'+self.documentId+'?token=' + this.token, data).then(function(response){
                 if (response.success) {
 
                 } else {

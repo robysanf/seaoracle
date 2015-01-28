@@ -285,7 +285,6 @@ export default Ember.Route.extend({
                     new PNotify({
                         title: 'Attention',
                         text: 'A problem occurred.',
-
                         type: 'warning'
                     });
                 });

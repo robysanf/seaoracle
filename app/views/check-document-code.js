@@ -6,7 +6,7 @@ export default Ember.View.extend({
     val1:[],
     token: [],
     voyage: [],
-    id: [],
+    documentId: [],
 
     focusOut: function() {
         var self = this, data = self.getProperties(), controller = this.get('controller');
@@ -18,7 +18,7 @@ export default Ember.View.extend({
             data.voyage = this.voyage;
 
             $.ajax({
-                url: 'api/custom/checkDocumentCode/'+self.id+'?token=' + this.token,
+                url: 'api/custom/checkDocumentCode/'+self.documentId+'?token=' + this.token,
                 type: 'PUT',
                 data: data,
                 success: function(response) {},

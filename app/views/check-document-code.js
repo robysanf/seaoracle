@@ -21,23 +21,24 @@ export default Ember.View.extend({
                 url: 'api/custom/checkDocumentCode/'+self.documentId+'?token=' + this.token,
                 type: 'PUT',
                 data: data,
-                success: function(response) {},
-                error: function() {
-                    controller.set('name', null);
+                success: function(response) {
+                    if ( !response ){
+                        controller.set('name', null);
 
-                    if( self.val === '' || self.val === null ){
-                        new PNotify({
-                            title: 'Attention',
-                            text: 'You must compile the code field.',
-                            type: 'info'
-                        });
-                    }
-                    else {
-                        new PNotify({
-                            title: 'Attention',
-                            text: 'A document with this code already exists, please change it.',
-                            type: 'warning'
-                        });
+                        if( self.val === '' || self.val === null ){
+                            new PNotify({
+                                title: 'Attention',
+                                text: 'You must compile the code field.',
+                                type: 'info'
+                            });
+                        }
+                        else {
+                            new PNotify({
+                                title: 'Attention',
+                                text: 'A document with this code already exists, please change it.',
+                                type: 'warning'
+                            });
+                        }
                     }
                 }
             }, function(){

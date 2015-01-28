@@ -22,7 +22,7 @@ export default Ember.View.extend({
                 type: 'PUT',
                 data: data,
                 success: function(response) {
-                    if ( response === 'false' ){
+                    if ( response.success === 'false' ){
                         controller.set('name', null);
 
                         if( self.val === '' || self.val === null ){

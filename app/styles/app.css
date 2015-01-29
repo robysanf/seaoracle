@@ -2,6 +2,11 @@
   /*margin: 20px;*/
 /*}*/
 
+/**************************************/
+/** cssStyle per select-2 component*/
+.select-2-width {
+    width: 180px
+}
 
 /*************************************/
    /*BUTTON DOWNLOAD FILE*/

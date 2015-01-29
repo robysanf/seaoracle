@@ -76,7 +76,7 @@ export default Ember.Route.extend({
             }
 
             if(controller.searchCompany !== "" && controller.searchCompany !== null){
-                searchPath = "client"; queryExpression[searchPath] = controller.searchCompany;//.get("id");
+                searchPath = "clientDetail"; queryExpression[searchPath] = controller.searchCompany;//.get("id");
             }
 
             if(controller.searchShipper !== "" && controller.searchShipper !== null){

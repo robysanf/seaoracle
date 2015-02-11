@@ -162,6 +162,7 @@ export default Ember.Route.extend({
 //            this.controller.set('itemNewActive', false);
 //            this.controller.set('itemEditActive', false);
 
+            controller.set('freightPlanItemsList', []);
             controller.set('tabList.' + tabToActive, true);
 
             /**

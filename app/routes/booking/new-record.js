@@ -179,6 +179,7 @@ export default Ember.Route.extend({
                     state: state,
                     chargeMode: 'PP',
                     finalDestination: finalDest,
+                    term: controller.term,
                     currency: data.currency,
                     acknowledge: 'NaN',
                     visibility: 'private'
@@ -291,7 +292,7 @@ export default Ember.Route.extend({
                             controller.set('tabList_itemStatus', false);
                             controller.set('tabList_files', false);
                             controller.set('bookingMain_record', val);
-
+                            controller.set('term', '');
                             self.transitionTo('booking/main', promise);
                             self.get('controller').set('finalDestination', null);
                             self.get('controller').set('dtd', null);

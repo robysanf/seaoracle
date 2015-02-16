@@ -12,6 +12,7 @@ export default DS.Model.extend({
 
     allInclusiveValue: DS.attr('number'),
 
+    term: DS.attr('string'),
     code: DS.attr('string'),
     state: DS.attr('string'),
     finalDestination: DS.attr('string'),

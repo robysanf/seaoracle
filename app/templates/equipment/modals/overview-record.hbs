@@ -28,7 +28,7 @@
                 <div class="col-lg-3"><h4>Daily cost</h4></div>
                 <div class="col-lg-9">
                     <div class="input-group input-group">
-                        {{input id='daily' value= controller.equipment_record.dailyCost placeholder='Enter daily cost' class='form-control' disabled="disabled"}}
+                        {{input id='daily' value= controller.equipment_record.dailyCost class='form-control' disabled="disabled"}}
                         <span class="input-group-addon " id="1"><span class="glyphicon glyphicon-euro"></span></span>
                     </div>
                 </div>
@@ -36,7 +36,13 @@
             <div class="row" style="margin-bottom: 15px">
                 <div class="col-lg-3"><h4>Position</h4></div>
                 <div class="col-lg-9">
-                    {{input id='position' value= controller.equipment_record.position.name placeholder='Enter name' class='form-control' disabled="disabled"}}
+                    {{input id='position' value= controller.equipment_record.position.name class='form-control' disabled="disabled"}}
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-lg-3"><h4>Status</h4></div>
+                <div class="col-lg-9">
+                    {{input id='status' value= controller.equipment_record.currentStatus class='form-control' disabled="disabled"}}
                 </div>
             </div>
             <div class="row">

@@ -295,6 +295,13 @@ export default Ember.ObjectController.extend({
 
     charge_item_record: null,
 
+    booking_terms: [
+        "FREE IN/FREE OUT",
+        "FAS/FREE OUT",
+        "LINER IN/LINER OUT",
+        "FREE IN/LINER OUT"
+    ],
+
     bookingCharges_list: [
         "All Inclusive",
         "C.O.D.",

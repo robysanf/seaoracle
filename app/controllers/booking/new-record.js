@@ -48,6 +48,15 @@ export default Ember.Controller.extend({
     currencyClassification: [
         'EUR',
         'USD'
-    ]
+    ],
+
+    booking_terms: [
+        "FREE IN/FREE OUT",
+        "FAS/FREE OUT",
+        "LINER IN/LINER OUT",
+        "FREE IN/LINER OUT"
+    ],
+
+    term: ''
 
 });

@@ -122,7 +122,15 @@
         <label>Ref. no</label>
         {{input value= refNo type="text" class='form-control' disabled=isRegistOrPend}}
     </div>
-    <div class="col-lg-6"></div>
+    <div class="col-lg-6">
+        <label>Terms</label>
+        {{view Ember.Select
+        content=booking_terms
+        value=term
+        class='form-control'
+        prompt="Please select a term"
+        disabled=isRegistOrPend}}
+    </div>
 </div>
 <div class="page-header"></div>
 

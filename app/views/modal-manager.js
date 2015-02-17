@@ -288,7 +288,8 @@ export default Ember.View.extend({
                 description: view.controller.planDescription,
                 amount: view.controller.planAmount,
                 currency: view.controller.planCurrency,
-                credit: view.controller.planCredit
+                credit: view.controller.planCredit,
+                visibility: 'public'
             }).save().then(function(val){
 
                 view.$('.modal, .modal-backdrop').one("transitionend", function() {

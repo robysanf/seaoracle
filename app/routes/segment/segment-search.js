@@ -24,9 +24,9 @@ export default Ember.Route.extend({
         controller.set('is_loading', false);
         controller.set('before_search', true);
 
-        controller.searchName = Ember.A();
-        controller.searchOrigin = Ember.A();
-        controller.searchDestination = Ember.A();
+        controller.searchName = null;
+        controller.searchOrigin = null;
+        controller.searchDestination = null;
         controller.set('searchResultList', []);
     },
 

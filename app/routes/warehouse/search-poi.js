@@ -24,8 +24,8 @@ export default Ember.Route.extend({
         controller.set('is_loading', false);
         controller.set('before_search', true);
 
-        controller.searchName = Ember.A();
-        controller.searchCompany = Ember.A();
+        controller.searchName = null;
+        controller.searchCompany = null;
         app_controller.set('searchResultList', []);       //FIXME warehouseList
     },
 

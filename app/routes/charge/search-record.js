@@ -23,7 +23,7 @@ export default Ember.Route.extend({
 
         //reset search variables
         app_controller.set('searchResultList', []);
-        controller.searchCompany = Ember.A();
+        controller.searchCompany = null;
         controller.searchCharge = null;
 
         controller.set('is_loading', false);

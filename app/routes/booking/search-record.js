@@ -29,19 +29,24 @@ export default Ember.Route.extend({
             });
         }
 
-//        controller.set('is_loading', false);
+        app_controller.set('searchResultList', []);
+
+        controller.searchState = null;
+        controller.searchBookRef = null;
+        controller.searchCompany = null;
+        controller.searchShipper = null;
+        controller.searchConsignee = null;
+        controller.searchPortOrigin = null;
+        controller.searchPortDestination = null;
+        controller.searchVoy = null;
+        controller.searchChassis = null;
+        controller.searchContainerNumber = null;
+
+
+        controller.set('is_loading', false);
         controller.set('before_search', true);
 
-        //reset search variables
-//        controller.searchPortOrigin = null;
-//        controller.searchPortDestination = null;
-//        controller.searchBookRef = null;
-//        controller.searchCompany = null;
-//        controller.searchShipper = null;
-//        controller.searchConsignee = null;
-//        controller.searchVoy = null;
-//        controller.searchContainerNumber = null;
-//        controller.searchChassis = null;
+
     },
 
     actions: {
@@ -51,6 +56,7 @@ export default Ember.Route.extend({
 
             queryExpression[searchPath] = 'code';
             searchPath = "sortOrder"; queryExpression[searchPath] = 'descendent';
+
 
             /*     ***infinite scroll***     */
             app_controller.set('searchResultList', []);
@@ -65,6 +71,7 @@ export default Ember.Route.extend({
                 into: 'application',
                 outlet: 'search-result'
             });
+
 
             //find input values
             if(controller.searchState !== ""){

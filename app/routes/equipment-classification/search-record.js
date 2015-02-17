@@ -42,6 +42,7 @@ export default Ember.Route.extend({
             app_controller.set('items', []);
 
             controller.set('is_loading', true);
+
             self.render('equipment-classification.result-search-record', {
                 into: 'application',
                 outlet: 'search-result'

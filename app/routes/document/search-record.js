@@ -20,9 +20,9 @@ export default Ember.Route.extend({
             });
         }
 
-        controller.set('searchVoy', []);
-        controller.set('searchOrigin', []);
-        controller.set('searchDestination', []);
+        controller.set('searchVoy', null);
+        controller.set('searchOrigin', null);
+        controller.set('searchDestination', null);
 
         controller.set('is_loading', false);
         controller.set('before_search', true);

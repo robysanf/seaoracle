@@ -17,8 +17,8 @@ export default Ember.Route.extend({
 
         //reset search variables
         app_controller.set('searchResultList', []);
-        controller.searchName = Ember.A();
-        controller.searchType = Ember.A();
+        controller.searchName = null;
+        controller.searchType = null;
 
         controller.set('is_loading', false);
         controller.set('before_search', true);

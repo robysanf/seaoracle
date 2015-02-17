@@ -24,8 +24,8 @@ export default Ember.Route.extend({
 
         //reset search variables
         app_controller.set('searchResultList', Ember.A());
-        controller.searchName = Ember.A();
-        controller.searchCompany = Ember.A();
+        controller.searchName = null;
+        controller.searchCompany = null;
     },
 
     actions: {

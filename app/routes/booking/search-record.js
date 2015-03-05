@@ -123,8 +123,10 @@ export default Ember.Route.extend({
             /** inizializzo variabili che mi serviranno qunado farò lo scroll-down nell'infinte-scroll*/
             app_controller.set('queryExpression_withoutPagination', queryExpression);
             app_controller.set('pagination_k', 'code');
+            app_controller.set('queryRecord', 'booking');
+            app_controller.set('queryOrder', 'descendent');
 
-            searchPath='pagination'; queryExpression[searchPath] =app_controller.pagination_k+","+app_controller.firstIndex+","+app_controller.perPage+',descendent';
+            searchPath='pagination'; queryExpression[searchPath] =app_controller.pagination_k+","+app_controller.firstIndex+","+app_controller.perPage+','+app_controller.queryOrder;
 
             this.store.findQuery('booking', queryExpression).then(function(queryExpressResults){
 

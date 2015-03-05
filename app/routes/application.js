@@ -106,10 +106,11 @@ export default Ember.Route.extend({
             var lastIndex  = controller.firstIndex + controller.perPage,
                 searchPath='pagination';
 
-            controller.queryExpression_withoutPagination[searchPath] = controller.pagination_k + "," + controller.firstIndex + "," + controller.perPage+',descendent';
+            controller.queryExpression_withoutPagination[searchPath] = controller.pagination_k + "," + controller.firstIndex + "," + controller.perPage+','+controller.queryOrder;
 
-            this.store.findQuery('booking', controller.queryExpression_withoutPagination).then(function(queryExpressResults){
+            this.store.findQuery(controller.queryRecord, controller.queryExpression_withoutPagination).then(function(queryExpressResults){
 
+                if( queryExpressResults.get('length') ){
                     queryExpressResults.forEach(function(equ, index){
                         controller.items.pushObject(equ);
 
@@ -119,6 +120,9 @@ export default Ember.Route.extend({
                             controller.set("searchResultList", controller.items);
                         }
                     });
+                } else {
+                    controller.set('loadingMore', false);
+                }
 
                 //controller.items.pushObjects(queryExpressResults);
 

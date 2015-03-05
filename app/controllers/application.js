@@ -86,6 +86,8 @@ export default Ember.ArrayController.extend({
     items: null,
     queryExpression_withoutPagination: null,
     pagination_k: null,
+    queryRecord: null,
+    queryOrder: null,
 
     searchResultList: Ember.A(),
     searchResults: function() { return this.searchResultList; }.property('searchResultList'),

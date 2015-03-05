@@ -23,22 +23,10 @@
             {{/if}}
         {{/if}}
     </td>
+    <td> Original</td>
     <td>{{input value= chargeItem.originalRevenueCurrency class='form-control' disabled=true}}</td>
     <td>{{input value= chargeItem.originalRevenue type='number' class='form-control' disabled=true}}</td>
-    <td>
-    {{#if controller.is_shipowner}}
-        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=true}}
-    {{else}}
-        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isLockedOrRegistered}}
-    {{/if}}
-    </td>
-    <td>
-    {{#if controller.is_shipowner}}
-        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=true}}
-    {{else}}
-        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isLockedOrRegistered}}
-    {{/if}}
-    </td>
+
     {{#if controller.revenuesTabList.bookingCharges}}
         {{#if controller.is_shipowner}}
             <td> NUM </td>
@@ -75,4 +63,26 @@
     {{/if}}
 
     </td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td> Actual</td>
+    <td>
+        {{#if controller.is_shipowner}}
+            {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=true}}
+        {{else}}
+            {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isLockedOrRegistered}}
+        {{/if}}
+    </td>
+    <td>
+        {{#if controller.is_shipowner}}
+            {{input value= chargeItem.revenue  type='number' class='form-control' disabled=true}}
+        {{else}}
+            {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isLockedOrRegistered}}
+        {{/if}}
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
 </tr>

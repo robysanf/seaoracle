@@ -99,7 +99,8 @@ export default Ember.Route.extend({
                     countryIso3: iso3,
                     fax: data.newFax,
                     phone: data.newPhone,
-                    type: 'none'
+                    type: 'none',
+                    visibility: 'private'    //bug 215, tutte le nuove company devono avere visibilità privata
                 });
 
 
@@ -110,11 +111,11 @@ export default Ember.Route.extend({
                     newCompany.set('referringPort', controller.searchReferringPort );
                 }
 
-                if( app_controller.companyType === 'shipowner' ){
-                    newCompany.set('visibility', 'public');
-                } else {
-                    newCompany.set('visibility', 'private');
-                }
+//                if( app_controller.companyType === 'shipowner' ){
+//                    newCompany.set('visibility', 'public');
+//                } else {
+//                    newCompany.set('visibility', 'private');
+//                }
                 this.store.find('company', app_controller.company).then(function(company){
 
                     newCompany.set('parentCompany', company).save().then(function(val) {

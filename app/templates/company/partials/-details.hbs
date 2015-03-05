@@ -115,7 +115,7 @@
             <!--se sono ADMIN (property a livello di controller) e la company è di tipo shipowner (property a livello di model 'company')-->
             {{#if controller.is_dmin}}
                 {{#if controller.is_shipowner}}
-                    <div class="row" style="margin-bottom: 15px">
+                    <div class="row" >
                         <div class="col-lg-3"><h4>Agent commission</h4></div>
                         <div class="col-lg-7">
                             <div class="input-group input-group">
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-lg-2"></div>
                     </div>
-                    <div class="row" style="margin-bottom: 15px">
+                    <div class="row">
                         <div class="col-lg-3"><h4>Brokerage</h4></div>
                         <div class="col-lg-7">
                             <div class="input-group input-group">
@@ -139,7 +139,7 @@
                         </div>
                         <div class="col-lg-2"></div>
                     </div>
-                    <div class="row" style="margin-bottom: 15px">
+                    <div class="row">
                         <div class="col-lg-3"><h4>Handling Fee</h4></div>
                         <div class="col-lg-7">
                             <div class="input-group input-group">
@@ -157,21 +157,21 @@
                 <!--altrimenti se l'utente è sul suo profilo (property a livello di model 'company') ed è di tipo shipowner (property a livello di controller)-->
                 {{#if controller.is_myCompany}}
                     {{#if controller.is_shipowner}}
-                        <div class="row" style="margin-bottom: 15px">
+                        <div class="row" >
                             <div class="col-lg-3"><h4>Agent commission</h4></div>
                             <div class="col-lg-7">
                                 <div class="form-group">{{input type=number value=agentCommission class='form-control' disabled=controller.isView}}</div>
                             </div>
                             <div class="col-lg-2"></div>
                         </div>
-                        <div class="row" style="margin-bottom: 15px">
+                        <div class="row" >
                             <div class="col-lg-3"><h4>Brokerage</h4></div>
                             <div class="col-lg-7">
                                 <div class="form-group">{{input type=number value=brokerage class='form-control' disabled=controller.isView}}</div>
                             </div>
                             <div class="col-lg-2"></div>
                         </div>
-                        <div class="row" style="margin-bottom: 15px">
+                        <div class="row">
                             <div class="col-lg-3"><h4>Handling Fee</h4></div>
                             <div class="col-lg-7">
                                 <div class="form-group">{{input type=number value=handlingFee class='form-control' disabled=controller.isView}}</div>

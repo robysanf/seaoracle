@@ -32,9 +32,9 @@ export default Ember.Controller.extend({
         return (this.get('docType') === 'Freight Manifest' );
     }.property('docType'),
 
-    actualOrigin: Ember.A(),
-    actualDestination: Ember.A(),
-    actualVoyage: Ember.A(),
+    actualOrigin: null,
+    actualDestination: null,
+    actualVoyage: null,
 
     docAll: [
         {'value': "Bill of Lading", 'code': "docBL"},
@@ -61,9 +61,9 @@ export default Ember.Controller.extend({
         'Freight Manifest'
     ],
 
-    searchOrigin: Ember.A(),
-    searchDestination: Ember.A(),
-    searchVoyage: Ember.A(),
+    searchOrigin: null,
+    searchDestination: null,
+    searchVoyage: null,
 
     name: null,
     nOriginal: '01/ONE',

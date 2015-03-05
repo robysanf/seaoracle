@@ -95,39 +95,79 @@ export default Ember.Route.extend({
 
         /*     INFINITE SCROLL    */
         getMore: function(){
-            var self = this, controller = self.controllerFor('application'),
-                items = [];
+            var self = this, controller = self.controllerFor('application');
+           //     items = [];
 
             // simulate latency
-            Ember.run.later( function() {
-                items = self.send('fetchPage', controller.firstIndex + 1, controller.perPage);
-            }, 500);
-        },
+//            Ember.run.later( function() {
+//                items = self.send('fetchPage', controller.firstIndex + 1, controller.perPage);
+//            }, 500);
 
-        fetchPage: function(firstIndex, perPage){
-            var self = this, controller = self.controllerFor('application'),
-                items = Ember.A([]),
-                lastIndex  = firstIndex + perPage;
+            var lastIndex  = controller.firstIndex + controller.perPage,
+                searchPath='pagination';
 
-            if(firstIndex <= controller.queryExpressResults_length) {
-                controller.queryExpressResults.forEach(function(equ, index){
+            controller.queryExpression_withoutPagination[searchPath] = controller.pagination_k + "," + controller.firstIndex + "," + controller.perPage+',descendent';
 
-                    if( index+1 >= firstIndex && index+1 <= lastIndex ) {
+            this.store.findQuery('booking', controller.queryExpression_withoutPagination).then(function(queryExpressResults){
+
+                    queryExpressResults.forEach(function(equ, index){
                         controller.items.pushObject(equ);
-                        if(index+1 === controller.queryExpressResults_length){
-                            controller.firstIndex = controller.queryExpressResults_length;
+
+                        if( index +1 ===  queryExpressResults.get('length') ){
+                            controller.set('loadingMore', false);
+                            controller.set('firstIndex', lastIndex);
                             controller.set("searchResultList", controller.items);
-                            return false;
                         }
-                    } else if (index+1 > lastIndex){
-                        controller.firstIndex = lastIndex;
-                        controller.set("searchResultList", controller.items);
-                        return false;
-                    }
-                });
-            }
-            this.get('controller').send('gotMore', items, firstIndex);
+                    });
+
+                //controller.items.pushObjects(queryExpressResults);
+
+
+            });
+
+
         },
+
+//        fetchPage: function(firstIndex, perPage){
+//            var self = this, controller = self.controllerFor('application'),
+//                //items = Ember.A([]),
+//                lastIndex  = firstIndex + perPage;
+//
+//            var searchPath='pagination'; controller.queryExpression_withoutPagination[searchPath] =controller.pagination_k+","+firstIndex+","+lastIndex;
+//
+//            this.store.findQuery('booking', controller.queryExpression_withoutPagination).then(function(queryExpressResults){
+//
+//
+//                controller.set('items', queryExpressResults );
+//
+//                controller.set('firstIndex', lastIndex);
+//                controller.set("searchResultList", controller.items);
+//            });
+//
+//            controller.set('loadingMore', false);
+//
+//
+////            if(firstIndex <= controller.queryExpressResults_length) {
+////                controller.queryExpressResults.forEach(function(equ, index){
+////
+////                    if( index+1 >= firstIndex && index+1 <= lastIndex ) {
+////                        controller.items.pushObject(equ);
+////                        if(index+1 === controller.queryExpressResults_length){
+////                            controller.firstIndex = controller.queryExpressResults_length;
+////                            controller.set("searchResultList", controller.items);
+////                            return false;
+////                        }
+////                    } else if (index+1 > lastIndex){
+////                        controller.firstIndex = lastIndex;
+////                        controller.set("searchResultList", controller.items);
+////                        return false;
+////                    }
+////                });
+////            }
+//
+//            //this.get('controller').send('gotMore', firstIndex);
+////            this.get('controller').send('gotMore', items, firstIndex);
+//        },
 
         /**
          Alla creazione di un nuovo record vengono controllati i campi che devono avere un valore univoco; se esiste

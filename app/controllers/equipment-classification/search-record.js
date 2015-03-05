@@ -4,10 +4,10 @@ export default Ember.Controller.extend({
     needs: ['application'],
     app_controller: Ember.computed.alias('controllers.application'),
 
-    searchName : Ember.A(),
-    searchSizeCode : Ember.A(),
-    searchTypeCode : Ember.A(),
-    searchIsoCode : Ember.A(),
+    searchName : null,
+    searchSizeCode : null,
+    searchTypeCode : null,
+    searchIsoCode : null,
 
     eqClassification_record: null,
 

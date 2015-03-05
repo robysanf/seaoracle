@@ -24,5 +24,5 @@ export default Ember.ObjectController.extend({
     items_list: [],
 
     temporaryPath: null,  // lista completa ed ordinata dei porti scelti dall'utente
-    legs: function() { return this.temporaryPath; }.property('temporaryPath')   //usata a livello del template per generare {{each}} porti
+    legs: function() { return this.temporaryPath; }.observes('temporaryPath')   //usata a livello del template per generare {{each}} porti
 });

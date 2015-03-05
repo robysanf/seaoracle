@@ -34,35 +34,33 @@
 
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <h3 class="page-header">All Files</h3>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <br>
                 <br>
                 <!--  ******* HEAD ********  -->
                 <div class="col-lg-6">
                     {{#if canEdit}}
                         {{#unless isRegister}}
-                            <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default custom120 pull-right" {{action "generate_bookFolder" this}}>
-                                <span class="glyphicon glyphbutton glyphicon-folder-open"></span> Generate
+                            <button id='button_generate' type="button" data-generating-text="Generating..." class="btn btn-default pull-right" {{action "generate_bookFolder" this}}>
+                                Generate folder
                             </button>
                         {{/unless}}
                     {{/if}}
-
                 </div>
 
                 <div class="col-lg-6">
                     {{#if canEdit}}
                         {{#unless isRegister}}
                             {{#if isAccept}}
-                                <button type="button" class="btn btn-default custom120 pull-right" {{action "generate_confirmation" this}}>
-                                    Confirmation
+                                <button type="button" class="btn btn-default pull-right" {{action "generate_confirmation" this}}>
+                                    Generate confirmation
                                 </button>
                             {{/if}}
                         {{/unless}}
                     {{/if}}
-
                 </div>
             </div>
             <div class="col-lg-2"></div>
@@ -74,7 +72,7 @@
                 <table class="table table-condensed">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th >Name</th>
                         <th>Type</th>
                         <th>Email</th>
                         <th>Download</th>

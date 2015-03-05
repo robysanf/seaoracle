@@ -35,13 +35,13 @@ export default Ember.Controller.extend({
     newAvailable: true,
     newCurrentStatusDateFrom: null,
 
-    searchClassification: Ember.A(),
-    searchPosition: Ember.A(),
-    searchSupplier: Ember.A(),
-    searchHolder: Ember.A(),
-    searchPlanner1: Ember.A(),
-    searchPlanner2: Ember.A(),
-    searchPlanner3: Ember.A(),
-    searchPlanner4: Ember.A(),
+    searchClassification: null,
+    searchPosition: null,
+    searchSupplier: null,
+    searchHolder: null,
+    searchPlanner1: null,
+    searchPlanner2: null,
+    searchPlanner3: null,
+    searchPlanner4: null,
     plannersList: []
 });

@@ -5,6 +5,6 @@ export default Ember.Controller.extend({
     app_controller: Ember.computed.alias('controllers.application'),
 
     newName : null,
-    newOrigin : Ember.A(),
-    newDestination : Ember.A()
+    newOrigin : null,
+    newDestination : null
 });

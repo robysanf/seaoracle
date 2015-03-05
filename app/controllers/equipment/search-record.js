@@ -9,11 +9,11 @@ export default Ember.Controller.extend({
 
     equipment_record: null,
 
-    searchCode: Ember.A(),
-    searchClassification: Ember.A(),
-    searchSupplier: Ember.A(),
-    searchPosition: Ember.A(),
-    searchVoyage: Ember.A(),
+    searchCode: null,
+    searchClassification: null,
+    searchSupplier: null,
+    searchPosition: null,
+    searchVoyage: null,
     statusVal: '',
 
     statuses: [

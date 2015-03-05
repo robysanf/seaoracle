@@ -61,9 +61,9 @@ export default Ember.Route.extend({
             /*     ***infinite scroll***     */
             app_controller.set('searchResultList', []);
             app_controller.set('isAll', false);
-            app_controller.set('perPage', 25);
+            app_controller.set('perPage', 20);
             app_controller.set('firstIndex', 0);
-            app_controller.set('items', []);
+            app_controller.set('items', null);
 
             controller.set('is_loading', true);
 
@@ -119,37 +119,56 @@ export default Ember.Route.extend({
                 searchPath = "acknowledge"; queryExpression[searchPath] = controller.acknowledge_selectedValue;
             }
 
+
+            /** inizializzo variabili che mi serviranno qunado farò lo scroll-down nell'infinte-scroll*/
+            app_controller.set('queryExpression_withoutPagination', queryExpression);
+            app_controller.set('pagination_k', 'code');
+
+            searchPath='pagination'; queryExpression[searchPath] =app_controller.pagination_k+","+app_controller.firstIndex+","+app_controller.perPage+',descendent';
+
             this.store.findQuery('booking', queryExpression).then(function(queryExpressResults){
 
-                /*     ***infinite scroll***     */
-                app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
-                app_controller.set("queryExpressResults", queryExpressResults);
+                app_controller.set('items', queryExpressResults);
 
                 controller.set('is_loading', false);
                 controller.set('before_search', false);
 
-                queryExpressResults.forEach(function(equ, index){
-                    if(index+1 <= app_controller.perPage) {
-                        app_controller.items.pushObject(equ);
-
-                        if(index+1 === queryExpressResults.get('length')){
-                            renderResults();
-                            return false;
-                        }
-                    } else {
-                        renderResults();
-                        return false;
-                    }
-                });
-
-                function renderResults() {
-                    app_controller.set('firstIndex', app_controller.perPage);
-                    app_controller.set("searchResultList", app_controller.items);
-
-                }
-            }, function( reason ){
-                app_controller.send( 'error', reason );
+                app_controller.set('firstIndex', app_controller.perPage);
+                app_controller.set("searchResultList", app_controller.items);
             });
+
+
+//            this.store.findQuery('booking', queryExpression).then(function(queryExpressResults){
+//
+//                /*     ***infinite scroll***     */
+//                app_controller.set("queryExpressResults_length", queryExpressResults.get('length'));
+//                app_controller.set("queryExpressResults", queryExpressResults);
+//
+//                controller.set('is_loading', false);
+//                controller.set('before_search', false);
+//
+//                queryExpressResults.forEach(function(equ, index){
+//                    if(index+1 <= app_controller.perPage) {
+//                        app_controller.items.pushObject(equ);
+//
+//                        if(index+1 === queryExpressResults.get('length')){
+//                            renderResults();
+//                            return false;
+//                        }
+//                    } else {
+//                        renderResults();
+//                        return false;
+//                    }
+//                });
+//
+//                function renderResults() {
+//                    app_controller.set('firstIndex', app_controller.perPage);
+//                    app_controller.set("searchResultList", app_controller.items);
+//
+//                }
+//            }, function( reason ){
+//                app_controller.send( 'error', reason );
+//            });
         },
         //********************************************
         //MODAL

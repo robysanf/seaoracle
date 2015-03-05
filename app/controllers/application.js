@@ -76,13 +76,16 @@ export default Ember.ArrayController.extend({
     autocompleteChassisNum: Ember.A(),
     autocompletePaymentPlan: Ember.A(),
     autocompleteLink: Ember.A(),
+
     /*     ***infinite scroll***     */
     firstIndex: 0,
-    perPage: 25,
+    perPage: 20,
     queryExpressResults: null,
     queryExpressResults_length: null,
     isAll: false,
-    items: Ember.A(),
+    items: null,
+    queryExpression_withoutPagination: null,
+    pagination_k: null,
 
     searchResultList: Ember.A(),
     searchResults: function() { return this.searchResultList; }.property('searchResultList'),
@@ -2169,11 +2172,15 @@ export default Ember.ArrayController.extend({
             this.get('target').send('getMore'); // pass this action up the chain to the events hash on the route
         },
 
-        gotMore: function(items, page) {
-            this.set('loadingMore', false);
-            this.set('page', page);
-            //this.pushObjects(items);
-        },
+//        gotMore: function(  ){
+//            this.set('loadingMore', false);
+//        },
+
+//        gotMore: function(items, page) {
+//            this.set('loadingMore', false);
+//            this.set('page', page);
+//            //this.pushObjects(items);
+//        },
 
         /*     ***logout***     */
         logout: function(){

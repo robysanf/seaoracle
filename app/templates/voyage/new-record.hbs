@@ -99,9 +99,18 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <label style="color: #000000">Template</label>
-                                                        <a id="autocomplete-searchTemplate">
-                                                            {{auto-complete source=app_controller.autocompleteTemplate destination=controller.searchTemplate searchPath="name" minChars=0}}
-                                                        </a>
+                                                        {{select-2
+                                                        content= app_controller.autocompleteTemplate
+                                                        value= controller.searchTemplate
+                                                        optionLabelPath="name"
+                                                        placeholder="Choose a template"
+                                                        typeaheadNoMatchesText="No template found for '%@'"
+                                                        typeaheadErrorText="Loading failed: %@"
+                                                        enabled=true
+                                                        allowClear=true}}
+                                                        <!--<a id="autocomplete-searchTemplate">-->
+                                                            <!--{{!{{auto-complete source=app_controller.autocompleteTemplate destination=controller.searchTemplate searchPath="name" minChars=0}}-->
+                                                        <!--</a>-->
                                                     </div>
                                                 </div>
                                             </div>

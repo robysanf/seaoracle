@@ -69,7 +69,17 @@
 
 <!--   infinite scroll  -->
 {{#if app_controller.loadingMore}}
-    <div class="alert alert-info"><p style="text-align: center"><strong>Loading more...</strong></p></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well well-lg" style="background-color: #FAFDFD">
+                <h3 class="page-header">Loading...</h3>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {{/if}}
 
 

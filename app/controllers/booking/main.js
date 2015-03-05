@@ -88,9 +88,9 @@ export default Ember.ObjectController.extend({
 //  *** DETAILS tab
 
     //instantiated on the Template
-    searchPortOrigin: Ember.A(),
-    searchPortDestination: Ember.A(),
-    searchCompany: Ember.A(),
+    searchPortOrigin: null,
+    searchPortDestination: null,
+    searchCompany: null,
     searchCompanyToShare: null,
 
 //  ******************
@@ -101,8 +101,8 @@ export default Ember.ObjectController.extend({
 
     //instantiated on the Template
     newContainerItemActive: false,
-    searchTypeEquipment: Ember.A(),
-    searchEquipmentCode: Ember.A(),
+    searchTypeEquipment: null,
+    searchEquipmentCode: null,
 
     goodsClassification: [
         "Raw Materials, Chemicals, Paper, Fuel",
@@ -119,7 +119,7 @@ export default Ember.ObjectController.extend({
     //classification: "Raw Materials, Chemicals, Paper, Fuel",
 
 //  *** LOCKED - CONTAINER tab
-    searchBookingCode: Ember.A(),
+    searchBookingCode: null,
 
 //  *** HAULAGE tab
     addCarrier: false,
@@ -136,9 +136,9 @@ export default Ember.ObjectController.extend({
 
 //  *** CUSTOMS
 
-    searchCustomLocation: Ember.A(),
-    searchCustomBroker: Ember.A(),
-    searchCustomAgent: Ember.A(),
+    searchCustomLocation: null,
+    searchCustomBroker: null,
+    searchCustomAgent: null,
 
 
 //  *** STATUSES
@@ -209,7 +209,7 @@ export default Ember.ObjectController.extend({
         "Other"
     ],
 
-    searchRoRoCode: Ember.A(),
+    searchRoRoCode: null,
 
 //  *** BB
     replicaNumber: 1,
@@ -226,10 +226,10 @@ export default Ember.ObjectController.extend({
 
 //  *** REVENUES
     chargeItemId: null,
-    searchCharge: Ember.A(),
-    searchApplyCharge: Ember.A(),
+    searchCharge: null,
+    searchApplyCharge: null,
     newCharge: null,
-    searchChargeBillTo: Ember.A(),
+    searchChargeBillTo: null,
 
     haulage_to_send: null,
     user_email: null,
@@ -366,7 +366,7 @@ export default Ember.ObjectController.extend({
     //dtaRange: '15',
     transhipmentNum: 0,
 
-    searchOtherPort: Ember.A(),
+    searchOtherPort: null,
     searchVoy: [],
 
     research_is_active: false,

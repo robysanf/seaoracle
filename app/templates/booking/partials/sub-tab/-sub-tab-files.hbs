@@ -10,7 +10,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-10">
-                    {{#view 'upload-file' value1='booking'}}
+                    {{#view 'upload-file' value1='booking-item'}}
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-primary btn-file">
@@ -39,11 +39,11 @@
                 <table class="table table-condensed">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Download</th>
+                        <th width="35%">Name</th>
+                        <th width="35%">Type</th>
+                        <th width="15%">Download</th>
                         {{#unless isRegister}}
-                            <th>Remove</th>
+                            <th width="15%">Remove</th>
                         {{/unless}}
                     </tr>
                     </thead>

@@ -91,26 +91,24 @@ export default Ember.Route.extend({
                     record.get('rinas').then(function() {
                         record.get('commissionStates').then(function() {
                             record.get('planners').then(function() {
+                                    record.get('equipmentStates').then(function(states) {
 
-                                record.get('equipmentStates').then(function(states) {
+                                        states.filter(function(myState){
 
-                                    states.filter(function(myState){
+                                            myState.set('state', myState.get("state"));
+                                            myState.save().then(function(){
 
-                                        myState.set('state', myState.get("state"));
-                                        myState.save().then(function(){
-
-                                            if(states.get("length") === count){
-                                                record.save().then(function(){
-                                                    controller.set('isViewState', bool);
-                                                }, function( reason ){
-                                                    app_controller.send( 'error', reason );
-                                                });
-                                            }
-                                            count = count +1;
+                                                if(states.get("length") === count){
+                                                    record.save().then(function(){
+                                                        controller.set('isViewState', bool);
+                                                    }, function( reason ){
+                                                        app_controller.send( 'error', reason );
+                                                    });
+                                                }
+                                                count = count +1;
+                                            });
                                         });
                                     });
-                                });
-
                             });
                         });
                     });
@@ -176,18 +174,29 @@ export default Ember.Route.extend({
             var self = this, controller = self.controllerFor('equipment.main');
 
             if( controller.searchPlanner !== null && controller.searchPlanner !== '' ) {
-
-                record.get('planners').then(function(planners){
-                    planners.pushObject(controller.searchPlanner);
-                    controller.set('searchPlanner', null);
+                record.get('commissionStates').then(function() {
+                    record.get('rinas').then(function() {
+                        record.get("equipmentStates").then(function(){
+                            record.get('planners').then(function(planners){
+                                planners.pushObject(controller.searchPlanner);
+                                controller.set('searchPlanner', null);
+                            });
+                        });
+                    });
                 });
             }
         },
 
         remove_planner: function( record, planner ){
-            record.get('planners').then(function(planners){
-                planners.removeObject(planner);
-                record.save();
+            record.get('commissionStates').then(function() {
+                record.get('rinas').then(function() {
+                    record.get("equipmentStates").then(function(){
+                        record.get('planners').then(function(planners){
+                            planners.removeObject(planner);
+                            record.save();
+                        });
+                    });
+                });
             });
         },
 
@@ -195,9 +204,15 @@ export default Ember.Route.extend({
             var self = this;
 
             self.store.createRecord('rina').save().then(function(rina){
-                record.get("rinas").then(function(rinas){
-                    rinas.insertAt(0, rina);
-                    record.save();
+                record.get('commissionStates').then(function() {
+                    record.get('planners').then(function() {
+                        record.get("equipmentStates").then(function(){
+                            record.get("rinas").then(function(rinas){
+                                rinas.insertAt(0, rina);
+                                record.save();
+                            });
+                        });
+                    });
                 });
             });
         },
@@ -205,10 +220,18 @@ export default Ember.Route.extend({
         add_equipmentState: function( record ){
             var self = this;
 
+
             self.store.createRecord('equipmentState').save().then(function(state){
-                record.get("equipmentStates").then(function(states){
-                    states.insertAt(0, state);
-                    record.save();
+                record.get('rinas').then(function() {
+//                    controller.equipment_record.get('holder').then(function() {
+                    record.get('commissionStates').then(function() {
+                        record.get('planners').then(function() {
+                            record.get("equipmentStates").then(function(states){
+                                states.insertAt(0, state);
+                                record.save();
+                            });
+                        });
+                    });
                 });
             });
 
@@ -238,28 +261,42 @@ export default Ember.Route.extend({
         remove_item: function(){
             var self = this, controller = self.controllerFor('equipment.main');
 
+
             if( controller.type_to_remove === 'rina' ){
-                controller.equipment_record.get('rinas').then(function(rinaList){
+                controller.equipment_record.get('commissionStates').then(function() {
+                    controller.equipment_record.get('planners').then(function() {
+                        controller.equipment_record.get("equipmentStates").then(function(){
+                            controller.equipment_record.get('rinas').then(function(rinaList){
 
-                    var indexToRemove = rinaList.indexOf(controller.equipment_rina);
-                    rinaList.removeAt(indexToRemove, 1);
+                                var indexToRemove = rinaList.indexOf(controller.equipment_rina);
+                                rinaList.removeAt(indexToRemove, 1);
 
-                    controller.equipment_record.save().then(function(success){
-                        success.reload();
-                        controller.equipment_rina.deleteRecord();
-                        controller.equipment_rina.save();
+                                controller.equipment_record.save().then(function(success){
+                                    success.reload();
+                                    controller.equipment_rina.deleteRecord();
+                                    controller.equipment_rina.save();
+                                });
+                            });
+                        });
                     });
                 });
             } else if ( controller.type_to_remove === 'equipmentState' ){
-                controller.equipment_record.get('equipmentStates').then(function(stateList){
 
-                    var indexToRemove = stateList.indexOf(controller.equipment_equipmentState);
-                    stateList.removeAt(indexToRemove, 1);
+                controller.equipment_record.get('rinas').then(function() {
+                        controller.equipment_record.get('commissionStates').then(function() {
+                            controller.equipment_record.get('planners').then(function() {
+                                controller.equipment_record.get('equipmentStates').then(function(stateList){
 
-                    controller.equipment_record.save().then(function(success){
-                        success.reload();
-                        controller.equipment_equipmentState.deleteRecord();
-                        controller.equipment_equipmentState.save();
+                                    var indexToRemove = stateList.indexOf(controller.equipment_equipmentState);
+                                    stateList.removeAt(indexToRemove, 1);
+
+                                    controller.equipment_record.save().then(function(success){
+                                        success.reload();
+                                        controller.equipment_equipmentState.deleteRecord();
+                                        controller.equipment_equipmentState.save();
+                                    });
+                                });
+                            });
                     });
                 });
             }else {

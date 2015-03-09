@@ -98,8 +98,15 @@
                     {{#if controller.isView}}
                         {{input value= currentStatusDateFrom class='form-control' disabled='true'}}
                     {{else}}
-                        {{date-picker-custom controls='currStatusDate' value=currentStatusDateFrom placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
-                        {{date-picker-controls id='currStatusDate' maxYear="+50" minYear="-10"}}
+                        {{bootstrap-datepicker
+                        value=currentStatusDateFrom
+                        clearBtn=true
+                        autoclose=true
+                        placeholder="Click to select a date"
+                        class="form-control"}}
+
+                        {{!{{date-picker-custom controls='currStatusDate' value=currentStatusDateFrom placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                        {{!{{date-picker-controls id='currStatusDate' maxYear="+50" minYear="-10"}}
                     {{/if}}
                 </div>
             </div>
@@ -213,8 +220,14 @@
                                 {{#if controller.isView}}
                                     {{input value= rina.from class='form-control' disabled='true'}}
                                 {{else}}
-                                    {{date-picker-custom controls=rina.fromId value=rina.from placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
-                                    {{date-picker-controls id=rina.fromId maxYear="+50" minYear="-10"}}
+                                    {{bootstrap-datepicker
+                                    value=rina.from
+                                    clearBtn=true
+                                    autoclose=true
+                                    placeholder="Click to select a date"
+                                    class="form-control"}}
+                                    {{!{{date-picker-custom controls=rina.fromId value=rina.from placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                    {{!{{date-picker-controls id=rina.fromId maxYear="+50" minYear="-10"}}
                                 {{/if}}
 
                                 {{!{{input value= rina.from type='date' class='form-control'}}
@@ -225,8 +238,14 @@
                                 {{#if controller.isView}}
                                     {{input value= rina.to class='form-control' disabled='true'}}
                                 {{else}}
-                                    {{date-picker-custom controls=rina.toId value=rina.to placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
-                                    {{date-picker-controls id=rina.toId maxYear="+50" minYear="-10"}}
+                                    {{bootstrap-datepicker
+                                    value=rina.to
+                                    clearBtn=true
+                                    autoclose=true
+                                    placeholder="Click to select a date"
+                                    class="form-control"}}
+                                    {{!{{date-picker-custom controls=rina.toId value=rina.to placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                                    {{!{{date-picker-controls id=rina.toId maxYear="+50" minYear="-10"}}
                                 {{/if}}
 
                                 {{!{{input value= rina.to type='date' class='form-control'}}

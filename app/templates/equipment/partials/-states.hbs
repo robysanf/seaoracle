@@ -24,12 +24,24 @@
                     <tr>
                         <td>{{view Ember.Select content=controller.states value=equipmentState.state class='form-control'}}</td>
                         <td>
-                            {{date-picker-custom controls=equipmentState.fromId value=equipmentState.from placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
-                            {{date-picker-controls id=equipmentState.fromId maxYear="+50" minYear="-10"}}
+                            {{bootstrap-datepicker
+                            value=equipmentState.from
+                            clearBtn=true
+                            autoclose=true
+                            placeholder="Click to select a date"
+                            class="form-control"}}
+                            {{!{{date-picker-custom controls=equipmentState.fromId value=equipmentState.from placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                            {{!{{date-picker-controls id=equipmentState.fromId maxYear="+50" minYear="-10"}}
                         </td>
                         <td>
-                            {{date-picker-custom controls=equipmentState.toId value=equipmentState.to placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
-                            {{date-picker-controls id=equipmentState.toId maxYear="+50" minYear="-10"}}
+                            {{bootstrap-datepicker
+                            value=equipmentState.to
+                            clearBtn=true
+                            autoclose=true
+                            placeholder="Click to select a date"
+                            class="form-control"}}
+                            {{!{{date-picker-custom controls=equipmentState.toId value=equipmentState.to placeholder='YYYY-MM-DD' dateFormat="YYYY-MM-DD"}}
+                            {{!{{date-picker-controls id=equipmentState.toId maxYear="+50" minYear="-10"}}
                         </td>
                         <td>
                             <button class="btn btn-danger pull-right" type="button" {{action "open_modal" 'equipment.modals.remove-record' 'equipmentState' this equipmentState}}>

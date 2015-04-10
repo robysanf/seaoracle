@@ -67,8 +67,8 @@ export default Ember.Route.extend({
 
         //to create new container Item
         if( !app_controller.autocompleteEqClassificationContainer.get('length') ) {
-            var queryExpression = {}, searchPath = "equipmentType";
-            queryExpression[searchPath] = 'container';
+            var queryExpression = {},//searchPath = "equipmentType";
+            //queryExpression[searchPath] = 'container';
             searchPath = "available";
             queryExpression[searchPath] = true;
 

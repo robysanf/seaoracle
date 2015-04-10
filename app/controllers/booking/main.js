@@ -220,7 +220,8 @@ export default Ember.ObjectController.extend({
         "Crate",
         "Drum",
         "Loose",
-        "Project cargo"
+        "Project cargo",
+        "Bundles"
     ],
 
 //  *** REVENUES

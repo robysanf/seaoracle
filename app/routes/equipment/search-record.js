@@ -29,9 +29,9 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompleteEqClassification.get('length') ) {
-            var queryExpression = {}, searchPath = "equipmentType";
-            queryExpression[searchPath] = 'container';
-            searchPath = "available";
+            var queryExpression = {}, //searchPath = "equipmentType";
+            //queryExpression[searchPath] = 'container';
+                searchPath = "available";
             queryExpression[searchPath] = true;
             self.store.findQuery("equipmentClassification", queryExpression).then(function(val){
                 app_controller.set("autocompleteEqClassification", val);

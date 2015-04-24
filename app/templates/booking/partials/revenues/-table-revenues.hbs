@@ -4,11 +4,10 @@
             <thead>
             <tr>
                 <th style="width: 9%">Service</th>
-                <th style="width: 20%">Bill to</th>
-                <th style="width: 10%">Original</th>
+                <th style="width: 22%">Bill to</th>
                 <th style="width: 10%"></th>
-                <th style="width: 12%">Actual</th>
-                <th style="width: 10%"></th>
+                <th style="width: 15%"></th>   <!-- Original  Actual -->
+                <th style="width: 15%"></th>
                 <th style="width: 12%">{{#if controller.revenuesTabList.bookingCharges}} Quantity {{else}} PER {{/if}}</th>
                 <th style="width: 10%"></th>
                 <th style="width: 2%">{{#unless isRegister}} Remove {{/unless}}</th>
@@ -17,34 +16,34 @@
             <tbody>
             {{#each chargeItem in chargeItems }}
                 {{#if controller.revenuesTabList.bookingCharges}}  <!--se sono nei booking charge-->
-                    {{#unless chargeItem.is_chargeType_cost}}
-                        {{#if chargeItem.isTypeNone}}
-                            {{partial "booking/partials/revenues/-body-table-revenues"}}
-                        {{/if}}
-                    {{/unless}}
+                {{#unless chargeItem.is_chargeType_cost}}
+                    {{#if chargeItem.isTypeNone}}
+                        {{partial "booking/partials/revenues/-body-table-revenues"}}
+                    {{/if}}
+                {{/unless}}
                 {{else}}
                     {{#unless chargeItem.is_entityType_item}}      <!--se l'itemCharge è di tipo booking-->
-                        {{#if controller.revenuesTabList.containerCharges}}
-                            {{#unless chargeItem.is_chargeType_cost}}
-                                {{#if chargeItem.isTypeContainer}}
-                                    {{partial "booking/partials/revenues/-body-table-revenues"}}
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
-                        {{#if controller.revenuesTabList.roroCharges}}
-                            {{#unless chargeItem.is_chargeType_cost}}
-                                {{#if chargeItem.isTypeRoRo}}
-                                    {{partial "booking/partials/revenues/-body-table-revenues"}}
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
-                        {{#if controller.revenuesTabList.bbCharges}}
-                            {{#unless chargeItem.is_chargeType_cost}}
-                                {{#if chargeItem.isTypeBB}}
-                                    {{partial "booking/partials/revenues/-body-table-revenues"}}
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
+                    {{#if controller.revenuesTabList.containerCharges}}
+                        {{#unless chargeItem.is_chargeType_cost}}
+                            {{#if chargeItem.isTypeContainer}}
+                                {{partial "booking/partials/revenues/-body-table-revenues"}}
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
+                    {{#if controller.revenuesTabList.roroCharges}}
+                        {{#unless chargeItem.is_chargeType_cost}}
+                            {{#if chargeItem.isTypeRoRo}}
+                                {{partial "booking/partials/revenues/-body-table-revenues"}}
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
+                    {{#if controller.revenuesTabList.bbCharges}}
+                        {{#unless chargeItem.is_chargeType_cost}}
+                            {{#if chargeItem.isTypeBB}}
+                                {{partial "booking/partials/revenues/-body-table-revenues"}}
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
                     {{/unless}}
                 {{/if}}
             {{/each}}

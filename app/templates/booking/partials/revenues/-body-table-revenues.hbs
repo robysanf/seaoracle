@@ -8,27 +8,16 @@
                 {{input value=chargeItem.billTo.name class='form-control' disabled=true}}
             {{else}}
                 <a id="autocomplete-charge">
-                    {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
+
+                {{auto-complete source=app_controller.autocompleteCompany destination=chargeItem.billTo size=15 searchPath="name" minChars=1}}
                 </a>
             {{/if}}
         {{/if}}
     </td>
+    <td> Original</td>
     <td>{{input value= chargeItem.originalRevenueCurrency class='form-control' disabled=true}}</td>
     <td>{{input value= chargeItem.originalRevenue type='number' class='form-control' disabled=true}}</td>
-    <td>
-    {{#if controller.is_shipowner}}
-        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=true}}
-    {{else}}
-        {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isLockedOrRegistered}}
-    {{/if}}
-    </td>
-    <td>
-    {{#if controller.is_shipowner}}
-        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=true}}
-    {{else}}
-        {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isLockedOrRegistered}}
-    {{/if}}
-    </td>
+
     {{#if controller.revenuesTabList.bookingCharges}}
         {{#if controller.is_shipowner}}
             <td> NUM </td>
@@ -56,10 +45,35 @@
         {{/if}}
     {{/if}}
     <td>
-        {{#unless isLockedOrRegistered}}
-            {{#unless controller.is_shipowner}}
-            <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
+        {{#if canEdit}}
+            {{#unless isLockedOrRegistered}}
+                {{#unless controller.is_shipowner}}
+                    <a href="#"><span class="glyphicon glyphicon-remove" {{action "open_modal" 'booking.modals.remove-charge-item' this chargeItem }}></span></a>
+                {{/unless}}
             {{/unless}}
-        {{/unless}}
+        {{/if}}
+
     </td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td> Actual</td>
+    <td>
+        {{#if controller.is_shipowner}}
+            {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=true}}
+        {{else}}
+            {{view Ember.Select content=currencyClassification value= chargeItem.revenueCurrency class='form-control' disabled=isLockedOrRegistered}}
+        {{/if}}
+    </td>
+    <td>
+        {{#if controller.is_shipowner}}
+            {{input value= chargeItem.revenue  type='number' class='form-control' disabled=true}}
+        {{else}}
+            {{input value= chargeItem.revenue  type='number' class='form-control' disabled=isLockedOrRegistered}}
+        {{/if}}
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
 </tr>

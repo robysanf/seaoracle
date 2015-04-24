@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label>Goods</label>
-                    {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' }}
+                    {{view Ember.Select content=goodsClassification value= controller.item_record.classification prompt="Please select a value" class='form-control' }}
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
         <div class="col-lg-12">
             <div class="form-group">
                 <label>Goods</label>
-                {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=true}}
+                {{view Ember.Select content=goodsClassification value= controller.item_record.classification prompt="Please select a value" class='form-control' disabled=true}}
             </div>
         </div>
     </div>
@@ -325,7 +325,7 @@
     <div class="col-lg-12">
         <div class="form-group">
             <label>Goods</label>
-            {{view Ember.Select content=goodsClassification value= controller.item_record.classification class='form-control' disabled=isLockOrRegistOrPend}}
+            {{view Ember.Select content=goodsClassification value= controller.item_record.classification prompt="Please select a value" class='form-control' disabled=isLockOrRegistOrPend}}
         </div>
     </div>
 </div>

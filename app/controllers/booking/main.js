@@ -113,7 +113,8 @@ export default Ember.ObjectController.extend({
         "Business, Communication & Technology Equipment & Supplies",
         "Defense, Security & Safety Equipment & Supplies",
         "Personal, Domestic & Consumer Equipment & Supplies",
-        "Services"
+        "Services",
+        "Empty"
     ],
     //classification: "Raw Materials, Chemicals, Paper, Fuel",
 

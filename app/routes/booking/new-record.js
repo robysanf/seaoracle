@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
         //filter on search port of origin and port of destination in the template
         if( !app_controller.autocompletePoiPort.get('length') ) {
-            this.store.findQuery("poi", {tags: "Port"}).then(function(port){
+            this.store.findQuery("poi", {tags: "Port", sortOrder:"name"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );

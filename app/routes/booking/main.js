@@ -38,7 +38,7 @@ export default Ember.Route.extend({
 //      *** BOOKING NEW
         //filter on search port of origin and port of destination in the template
         if( !app_controller.autocompletePoiPort.get('length')  ) {
-            self.store.findQuery("poi", {tags: "Port"}).then(function(port){
+            self.store.findQuery("poi", {tags: "Port", sortOrder:"name"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -58,7 +58,7 @@ export default Ember.Route.extend({
 
         //GOODS
         if( !app_controller.autocompletePoiDepot.get('length') ) {
-            self.store.findQuery("poi", {tags: "Depot"}).then(function(val){
+            self.store.findQuery("poi", {tags: "Depot", sortOrder:"name"}).then(function(val){
                 app_controller.set("autocompletePoiDepot", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

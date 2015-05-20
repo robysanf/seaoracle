@@ -14,7 +14,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
-            self.store.findQuery("poi", {tags: "Port"}).then(function(port){
+            self.store.findQuery("poi", {tags: "Port", sortOrder:"name"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );

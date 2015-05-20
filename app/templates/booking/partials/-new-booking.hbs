@@ -65,7 +65,7 @@
 <div class="row" style="margin-bottom: 15px">
     <div class="col-lg-6">
         <label>Final Destination</label>
-        {{input value=finalDestination class='form-control'}}
+        {{input value=finalDestination class='form-control' placeholder='Choose a final destination'}}
     </div>
     <div class="col-lg-6">
         <label>Customs Agent</label>
@@ -75,8 +75,8 @@
         content= app_controller.autocompletePoiPort
         value= controller.searchCustomManifestHandler
         optionLabelPath="name"
-        placeholder="Choose a final destination"
-        typeaheadNoMatchesText="No destination found for '%@'"
+        placeholder="Choose an agent"
+        typeaheadNoMatchesText="No agent found for '%@'"
         typeaheadErrorText="Loading failed: %@"
         enabled=true
         allowClear=true

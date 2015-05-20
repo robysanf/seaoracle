@@ -14,7 +14,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
-            self.store.findQuery("poi", {tags: "Port", sortOrder:"name"}).then(function(port){
+            self.store.findQuery("poi", {tags: "Port", sortBy:"name"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompleteVoyage.get('length') ) {
-            self.store.findQuery("voyage").then(function(port){
+            self.store.findQuery("voyage", {sortBy:"name"}).then(function(port){
                 app_controller.set("autocompleteVoyage", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );

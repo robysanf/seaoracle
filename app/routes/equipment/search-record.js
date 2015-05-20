@@ -5,7 +5,7 @@ export default Ember.Route.extend({
         var self = this,  controller = self.controllerFor('equipment.search-record'), app_controller = self.controllerFor('application');
 
         if( !app_controller.autocompleteCompany.get('length') ) {
-            self.store.findQuery("company").then(function(val){
+            self.store.findQuery("company", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteCompany", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -13,7 +13,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompletePoiPort.get('length') ) {
-            self.store.findQuery("poi", {tags: "Port"}).then(function(val){
+            self.store.findQuery("poi", {tags: "Port", sortBy:"name"}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

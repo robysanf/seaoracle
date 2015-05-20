@@ -5,14 +5,14 @@ export default Ember.Route.extend({
         var self = this, app_controller = self.controllerFor('application'), controller = self.controllerFor('voyage.search-record');
 
         if( !app_controller.autocompleteCompany.get('length') ) {
-            this.store.findQuery("company").then(function(val){
+            this.store.findQuery("company", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteCompany", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
             });
         }
         if( !app_controller.autocompleteVoyage.get('length') ) {
-            this.store.findQuery("voyage").then(function(val){
+            this.store.findQuery("voyage", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteVoyage", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

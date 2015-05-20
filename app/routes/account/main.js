@@ -10,7 +10,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompletePaymentPlan.get('length') ) {
-            this.store.findQuery("payment-plan").then(function(val){
+            this.store.findQuery("payment-plan", {sortBy: 'name'}).then(function(val){
                 app_controller.set("autocompletePaymentPlan", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

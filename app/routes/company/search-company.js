@@ -9,7 +9,7 @@ export default Ember.Route.extend({
 //            app_controller.set("autocompleteUser", val);
 //        });
 
-        this.store.findQuery("company").then(function(val){
+        this.store.findQuery("company", {sortBy:"name"}).then(function(val){
             app_controller.set("autocompleteCompany", val);
         }, function( reason ){
             app_controller.send( 'error', reason );

@@ -11,7 +11,7 @@ export default Ember.Route.extend({
 
         //reset del campo di ricerca in caso di reload della pagina
         if( !app_controller.autocompleteCompany.get('length') ) {
-            self.store.findQuery("company").then(function(val){
+            self.store.findQuery("company", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteCompany", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -19,7 +19,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompletePoi.get('length') ){
-            self.store.findQuery("poi").then(function(ware){
+            self.store.findQuery("poi", {sortBy:"name"}).then(function(ware){
                 app_controller.set("autocompletePoi", ware);
             }, function( reason ){
                 app_controller.send( 'error', reason );

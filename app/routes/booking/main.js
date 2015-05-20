@@ -38,7 +38,7 @@ export default Ember.Route.extend({
 //      *** BOOKING NEW
         //filter on search port of origin and port of destination in the template
         if( !app_controller.autocompletePoiPort.get('length')  ) {
-            self.store.findQuery("poi", {tags: "Port", sortOrder:"name"}).then(function(port){
+            self.store.findQuery("poi", {tags: "Port", sortBy:"name"}).then(function(port){
                 app_controller.set("autocompletePoiPort", port);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -46,7 +46,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompleteCompany.get('length') ) {
-            self.store.findQuery("company").then(function(comp){
+            self.store.findQuery("company", {sortBy:"name"}).then(function(comp){
                 app_controller.set("autocompleteCompany", comp);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -58,7 +58,7 @@ export default Ember.Route.extend({
 
         //GOODS
         if( !app_controller.autocompletePoiDepot.get('length') ) {
-            self.store.findQuery("poi", {tags: "Depot", sortOrder:"name"}).then(function(val){
+            self.store.findQuery("poi", {tags: "Depot", sortBy:"name"}).then(function(val){
                 app_controller.set("autocompletePoiDepot", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -93,7 +93,7 @@ export default Ember.Route.extend({
 
 //      *** CUSTOMS
         if( !app_controller.autocompletePoi.get('length') ) {
-            self.store.findQuery("poi").then(function(allPoi){
+            self.store.findQuery("poi", {sortBy:"name"}).then(function(allPoi){
                 app_controller.set("autocompletePoi", allPoi);
             }, function( reason ){
                 app_controller.send( 'error', reason );
@@ -102,7 +102,7 @@ export default Ember.Route.extend({
 
 //      *** FREIGHT PLAN
         if( !app_controller.autocompleteVoyage.get('length') ) {
-            self.store.findQuery("voyage").then(function(val){
+            self.store.findQuery("voyage", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteVoyage", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

@@ -8,14 +8,14 @@ export default Ember.Route.extend({
 ////      INIT.
 //        //filter on search port of origin and port of destination in the template
         if( !app_controller.autocompletePoi.get('length') ){
-            this.store.findQuery("poi", {tags: 'Port'}).then(function(val){
+            this.store.findQuery("poi", {tags: 'Port', sortBy:"name"}).then(function(val){
                 app_controller.set("autocompletePoiPort", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );
             });
         }
         if( !app_controller.autocompleteVoyage.get('length') ){
-            this.store.findQuery("voyage").then(function(val){
+            this.store.findQuery("voyage", {sortBy:"name"}).then(function(val){
                 app_controller.set("autocompleteVoyage", val);
             }, function( reason ){
                 app_controller.send( 'error', reason );

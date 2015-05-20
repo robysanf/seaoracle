@@ -14,7 +14,7 @@ export default Ember.Route.extend({
         }
 
         if( !app_controller.autocompleteCompany.get('length') ) {
-            self.store.findQuery("company").then(function(model){
+            self.store.findQuery("company", {sortBy:"name"}).then(function(model){
                 app_controller.set("autocompleteCompany", model);
             }, function( reason ){
                 app_controller.send( 'error', reason );
